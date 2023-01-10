@@ -1,4 +1,4 @@
-library likeminds_groupchat_sdk;
+library likeminds_groupchat;
 
 import 'package:likeminds_groupchat/src/models/sdk/init_extra_model.dart';
 
