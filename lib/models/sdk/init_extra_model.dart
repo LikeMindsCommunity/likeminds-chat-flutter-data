@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_groupchat_sdk/models/branding/fonts_model.dart';
-import 'package:likeminds_groupchat_sdk/models/sdk/likeminds_callback_model.dart';
+import 'package:likeminds_groupchat/models/branding/fonts_model.dart';
+import 'package:likeminds_groupchat/models/sdk/likeminds_callback_model.dart';
 
 part 'init_extra_model.g.dart';
 
