@@ -1,11 +1,12 @@
 library likeminds_groupchat;
 
-import 'package:likeminds_groupchat/src/models/sdk/init_extra_model.dart';
+import 'package:likeminds_groupchat/src/methods/sdk.dart';
 
 /// The starting class of the SDK
 class LikeMindsGroupChat {
-  void initiateLikeMinds(InitiateLikeMindsChatExtra extras) {
-    //Implement initiate call
+  SdkApplication initiateLikeMinds() {
+    SdkApplication sdkApplication = SdkApplication().initialize();
+    return sdkApplication;
   }
 
   void logout() {}
@@ -14,8 +15,3 @@ class LikeMindsGroupChat {
 
   void parseDeepLink() {}
 }
-
-final InitiateLikeMindsChatExtra extras = InitiateLikeMindsChatExtra(
-  application: "application",
-  apiKey: "apiKey",
-);
