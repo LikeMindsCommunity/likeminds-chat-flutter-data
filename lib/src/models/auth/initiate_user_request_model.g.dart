@@ -12,6 +12,7 @@ InitiateUserRequest _$InitiateUserRequestFromJson(Map<String, dynamic> json) =>
       userId: json['user_unique_id'] as String?,
       isGuest: json['is_guest'] as bool?,
       imageUrl: json['image_url'] as String?,
+      apiKey: json['x-api-key'] as String?,
     );
 
 Map<String, dynamic> _$InitiateUserRequestToJson(
@@ -21,4 +22,5 @@ Map<String, dynamic> _$InitiateUserRequestToJson(
       'user_unique_id': instance.userId,
       'is_guest': instance.isGuest,
       'image_url': instance.imageUrl,
+      'x-api-key': instance.apiKey,
     };

@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:hive_flutter/hive_flutter.dart';
 
 //Abstract local db service
 abstract class _LocalDBService {
-  Future<void> init();
+  Future<void> _init();
   dynamic get(String key);
   void put(String key, dynamic value);
   void close();
@@ -19,10 +17,14 @@ abstract class _LocalDBService {
 class LocalDBService extends _LocalDBService {
   late final Box _box;
 
+  LocalDBService() {
+    _init();
+  }
+
   /// Initialize local database
   /// Initializes hive and opens the local box
   @override
-  Future<void> init() async {
+  Future<void> _init() async {
     await Hive.initFlutter();
     _box = await Hive.openBox('likemindsBox');
   }

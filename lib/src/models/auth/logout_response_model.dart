@@ -5,6 +5,8 @@ part 'logout_response_model.g.dart';
 @JsonSerializable()
 class LogoutResponse {
   final bool success;
+
+  @JsonKey(name: 'error_message')
   final String? errorMessage;
 
   LogoutResponse({

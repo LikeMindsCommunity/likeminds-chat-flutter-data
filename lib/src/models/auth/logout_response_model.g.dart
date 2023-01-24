@@ -9,11 +9,11 @@ part of 'logout_response_model.dart';
 LogoutResponse _$LogoutResponseFromJson(Map<String, dynamic> json) =>
     LogoutResponse(
       success: json['success'] as bool,
-      errorMessage: json['errorMessage'] as String?,
+      errorMessage: json['error_message'] as String?,
     );
 
 Map<String, dynamic> _$LogoutResponseToJson(LogoutResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
-      'errorMessage': instance.errorMessage,
+      'error_message': instance.errorMessage,
     };

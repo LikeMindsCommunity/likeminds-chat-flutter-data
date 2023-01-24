@@ -2,9 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:likeminds_groupchat/likeminds_groupchat.dart';
 import 'package:likeminds_groupchat/src/methods/auth.dart';
-import 'package:likeminds_groupchat/src/methods/sdk.dart';
-import 'package:likeminds_groupchat/src/models/auth/initiate_user_request_model.dart';
-import 'package:likeminds_groupchat/src/models/auth/initiate_user_response_model.dart';
 
 void main() {
   test('test for checking user initialization success', () async {

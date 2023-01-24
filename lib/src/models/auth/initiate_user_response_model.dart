@@ -1,14 +1,19 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:likeminds_groupchat/src/models/auth/initiate_user_model.dart';
 
 part 'initiate_user_response_model.g.dart';
 
 @JsonSerializable()
 class InitiateUserResponse {
-  final bool success;
-  final Map<String, dynamic>? data;
+  bool success;
+  Map<String, dynamic>? data;
 
   @JsonKey(name: 'error_message')
-  final String? errorMessage;
+  String? errorMessage;
+
+  bool? appAccess;
+  InitiateUser? initiateUser;
+  dynamic logoutResponse;
 
   InitiateUserResponse({
     required this.success,
