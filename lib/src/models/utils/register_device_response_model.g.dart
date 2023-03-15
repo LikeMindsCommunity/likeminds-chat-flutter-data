@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'logout_response_model.dart';
+part of 'register_device_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LogoutResponseEntity _$LogoutResponseEntityFromJson(
+RegisterDeviceResponseEntity _$RegisterDeviceResponseEntityFromJson(
         Map<String, dynamic> json) =>
-    LogoutResponseEntity(
+    RegisterDeviceResponseEntity(
+      errorMessage: json['error_message'] as String?,
       success: json['success'] as bool,
-      errorMessage: json['errorMessage'] as String?,
     );
 
-Map<String, dynamic> _$LogoutResponseEntityToJson(
-        LogoutResponseEntity instance) =>
+Map<String, dynamic> _$RegisterDeviceResponseEntityToJson(
+        RegisterDeviceResponseEntity instance) =>
     <String, dynamic>{
+      'error_message': instance.errorMessage,
       'success': instance.success,
-      'errorMessage': instance.errorMessage,
     };
