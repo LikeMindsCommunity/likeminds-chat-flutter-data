@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import 'package:likeminds_chat_fl/src/models/sdk/sdk_client_info_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -148,4 +146,3 @@ class UserEntity {
 
   Map<String, dynamic> toJson() => _$UserEntityToJson(this);
 }
->>>>>>> Stashed changes
