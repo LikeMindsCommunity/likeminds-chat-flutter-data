@@ -1,25 +1,60 @@
-import 'package:flutter_test/flutter_test.dart';
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+@Timeout(Duration(seconds: 600))
 
-import 'package:likeminds_chat_fl/src/methods/auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
-import 'package:likeminds_chat_fl/src/methods/callback.dart';
+
+import 'test_callback.dart';
+
+final TestCallback TESTING_CALLBACK = TestCallback();
+const String TESTING_API_KEY = "bad53fff-c85a-4098-b011-ac36703cc98b";
+const String TESTING_BOT_ID = "22b6a64f-66bf-4bca-800e-b40ca66f924d";
+const String TESTING_USER_ID = "fa9dd395-873b-4493-9e81-12dfdced9345";
 
 void main() {
-  // test('test for checking user initialization success', () async {
-  //   final LikeMindsGroupChat likeMindsGroupChat = LikeMindsGroupChat();
-  //   SdkApplication sdkApplication = likeMindsGroupChat.initiateLikeMinds(
-  //     apiKey: "bad53fff-c85a-4098-b011-ac36703cc98b",
-  //     isProduction: false,
-  //   );
-  //   AuthApi authApi = sdkApplication.getAuthApi();
+  debugPrint("Starting the tests now...");
 
-  //   final InitiateUserRequest initiateUserRequest = InitiateUserRequest(
-  //     userId: "divyansh-test-sdk-1",
-  //     userName: "Divyansh Gandhi SDK",
-  //     isGuest: false,
-  //   );
-  //   InitiateUserResponse initiateUserResponse =
-  //       await authApi.initiateUser(initiateUserRequest);
-  //   expect(initiateUserResponse.success, true);
+  // Initiate the SDK
+  LMChatClient lmClient = LMChatClient.initiateLikeMinds(
+    apiKey: TESTING_API_KEY,
+    sdkCallback: TESTING_CALLBACK,
+  );
+
+  /// Test the login method
+  /// This test will fail if the user can not log in
+  test('Initiating the chat SDK, and login the user', () async {
+    debugPrint("Initiating login test...");
+    InitiateUserRequest request = InitiateUserRequest(userId: TESTING_BOT_ID);
+    LMResponse<InitiateUserResponse> response =
+        await lmClient.initiateUser(request);
+    debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
+    // TESTING_CALLBACK.eventFiredCallback();
+    expect(response.success, true);
+  });
+
+  /// Test the get home feed method
+  /// This test will fail if the user can not get the home feed
+  test('Getting the home feed', () async {
+    debugPrint("Initiating home feed test...");
+    GetHomeFeedRequest request = GetHomeFeedRequest(
+      page: 1,
+      pageSize: 10,
+    );
+    LMResponse<GetHomeFeedResponse> response =
+        await lmClient.getHomeFeed(request);
+    debugPrint("Got ${response.data?.myChatRooms?.length} chatrooms");
+    expect(response.success, true);
+  });
+
+  /// Test the logout method
+  /// This test will fail if the user can not log out
+  // test('Logging out the user', () async {
+  //   LogoutRequest request = LogoutRequest(refreshToken: TESTING_USER_ID);
+  //   LogoutResponse response = await lmClient.logout(request);
+  //   if (response.success) {
+  //     debugPrint("Successfully logged out");
+  //   }
+  //   expect(response.success, true);
   // });
 }
