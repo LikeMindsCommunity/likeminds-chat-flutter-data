@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:likeminds_chat_fl/src/endpoints.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/branding/branding_request_model.dart';
 import 'package:likeminds_chat_fl/src/models/branding/branding_response_model.dart';
@@ -19,7 +18,6 @@ class UtilService {
         options: Options(
           headers: {
             'x-member-id': '${request.memberId}',
-            'x-api-key': '${apiManager.tokenManager.apiKey}',
           },
         ),
         queryParameters: {

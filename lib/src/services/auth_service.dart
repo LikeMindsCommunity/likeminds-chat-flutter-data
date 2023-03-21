@@ -23,17 +23,11 @@ class AuthService extends IAuthService {
   @override
   Future<InitiateUserResponseEntity> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
-    final String apiKey = apiManager.tokenManager.apiKey!;
     try {
-      final response = await apiManager.post(
-        apiManager.endPoints.authEndpoint,
-        data: initiateUserRequest.toJson(),
-        options: Options(
-          headers: {
-            'x-api-key': apiKey,
-          },
-        ),
-      );
+      final response = await apiManager.client().post(
+            apiManager.endPoints.authEndpoint,
+            data: initiateUserRequest.toJson(),
+          );
       InitiateUserResponseEntity initiateUserResponse =
           InitiateUserResponseEntity.fromJson(response.data);
 
@@ -76,6 +70,7 @@ class AuthService extends IAuthService {
   /// Returns [RefreshResponseEntity] if success
   /// Takes [RefreshRequest] as input
   /// Throws [DioError] if error
+  @override
   Future<RefreshResponseEntity> refresh(RefreshRequest request) async {
     Dio dio = Dio();
     try {
@@ -103,6 +98,7 @@ class AuthService extends IAuthService {
   /// Returns [LogoutResponseEntity] if success
   /// Takes [LogoutRequest] as input
   /// Throws [DioError] if error
+  @override
   Future<LogoutResponseEntity> logout(LogoutRequest? request) async {
     try {
       final response = await apiManager.post(

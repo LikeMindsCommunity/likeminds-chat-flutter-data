@@ -1,5 +1,4 @@
-import 'package:likeminds_chat_fl/src/models/auth/initiate_user_request_model.dart';
-import 'package:likeminds_chat_fl/src/models/auth/initiate_user_response_model.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 
 class AuthApi {
@@ -9,8 +8,23 @@ class AuthApi {
     required this.authRepository,
   });
 
-  Future<InitiateUserResponse> initiateUser(
+  Future<LMResponse<InitiateUserResponse>> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
-    return await authRepository.initiateUser(initiateUserRequest);
+    InitiateUserResponse response =
+        await authRepository.initiateUser(initiateUserRequest);
+    return LMResponse<InitiateUserResponse>(
+      data: response,
+      success: response.success,
+      errorMessage: response.errorMessage,
+    );
+  }
+
+  Future<LMResponse<LogoutResponse>> logout(LogoutRequest logoutRequest) async {
+    LogoutResponse response = await authRepository.logout(logoutRequest);
+    return LMResponse<LogoutResponse>(
+      data: response,
+      success: response.success,
+      errorMessage: response.errorMessage,
+    );
   }
 }

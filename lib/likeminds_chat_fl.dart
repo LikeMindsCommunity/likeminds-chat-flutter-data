@@ -1,28 +1,62 @@
 library likeminds_chat_fl;
 
-export 'package:likeminds_chat_fl/src/methods/sdk.dart';
 export 'package:likeminds_chat_fl/src/models/models.dart';
+export 'package:likeminds_chat_fl/src/methods/callback.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
-/// The starting class of the SDK
-class LikeMindsChatClient {
-  SdkApplication initiateLikeMinds({
+/// ONLY FOR INTERNAL TESTING
+const bool _prodFlag = false;
+
+/// The starting point class of the SDK
+class LMChatClient {
+  late final SdkApplication _sdkApplication;
+
+  final String _apiKey;
+  final LMSdkCallback _sdkCallback;
+
+  LMChatClient._({
     required String apiKey,
-    required bool isProduction,
     required LMSdkCallback sdkCallback,
-  }) {
-    DIService.instance.init(apiKey, isProduction, sdkCallback);
-    SdkApplication sdkApplication = SdkApplication().initialize();
-    return sdkApplication;
+  })  : _apiKey = apiKey,
+        _sdkCallback = sdkCallback {
+    debugPrint("LMChatClient initialized");
+    DIService.instance.init(_apiKey, _prodFlag, _sdkCallback);
+    _sdkApplication = SdkApplication().initialize();
   }
 
-  void logout() {}
+  /// The static method to initiate the SDK
+  /// [apiKey] is the API key provided by LikeMinds
+  /// [sdkCallback] is the callback to handle the events
+  /// Returns a new instance of the SDK [LMChatClient]
+  static LMChatClient initiateLikeMinds({
+    required String apiKey,
+    required LMSdkCallback sdkCallback,
+  }) {
+    return LMChatClient._(
+      apiKey: apiKey,
+      sdkCallback: sdkCallback,
+    );
+  }
 
-  void initiateGroupChat() {}
+  /// The method to login the user
+  Future<LMResponse<InitiateUserResponse>> initiateUser(
+      InitiateUserRequest request) {
+    return _sdkApplication.getAuthApi().initiateUser(request);
+  }
 
-  void parseDeepLink() {}
+  /// The method to logout the user
+  Future<LMResponse<LogoutResponse>> logout(LogoutRequest request) {
+    return _sdkApplication.getAuthApi().logout(request);
+  }
+
+  /// The method to get chat home feed
+  Future<LMResponse<GetHomeFeedResponse>> getHomeFeed(
+      GetHomeFeedRequest request) {
+    return _sdkApplication.getHomeApi().getHomeFeed(request);
+  }
 }

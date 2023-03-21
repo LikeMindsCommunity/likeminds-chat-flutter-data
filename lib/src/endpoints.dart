@@ -1,9 +1,9 @@
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:likeminds_chat_fl/src/environment/env.dart';
 
-/// This file contains all the endpoints used in the package
-
-// ignore_for_file: constant_identifier_names
-
+/// This class contains all the endpoints used in the SDK
 class EndPoints {
   static EndPoints? _instance;
   static EndPoints instance(bool? isProd) =>
@@ -28,4 +28,6 @@ class EndPoints {
   String getBrandingEndPoint(String communityId) {
     return "$CARAVAN_HOST/community/$communityId/branding";
   }
+
+  String get homeFeedEndpoint => "$KETTLE_HOST/chatroom/mine";
 }
