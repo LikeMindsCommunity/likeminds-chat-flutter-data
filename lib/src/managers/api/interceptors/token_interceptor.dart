@@ -16,7 +16,7 @@ class TokenInterceptor extends Interceptor {
       await refreshToken();
       return super.onResponse(response, handler);
     } else {
-      debugPrint("Authenticated request completed pew pew");
+      debugPrint("Authenticated request completed");
       return super.onResponse(response, handler);
     }
   }
@@ -26,18 +26,18 @@ class TokenInterceptor extends Interceptor {
     Dio dio = Dio();
     if (err.response?.statusCode == 401 &&
         err.response?.data["error_message"] == "Invalid LTM!") {
-      print("Authenticated request failed in onError");
+      debugPrint("Authenticated request failed in onError");
       await refreshToken();
       final newRes = await _retry(dio, err.requestOptions);
       handler.resolve(newRes);
     } else {
-      print("Authenticated request failed except LTM");
+      debugPrint("Authenticated request failed except LTM");
       return super.onError(err, handler);
     }
   }
 
   Future<void> refreshToken() async {
-    print("Refreshing token");
+    debugPrint("Refreshing token");
     final refreshToken = apiManager.tokenManager.refreshToken;
     final response = await AuthService(apiManager: apiManager).refresh(
       RefreshRequest(

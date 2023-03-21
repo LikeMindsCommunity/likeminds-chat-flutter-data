@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
-import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
+import 'package:likeminds_chat_fl/src/managers/token_manager.dart';
 
 class CommonHeaderInterceptor extends Interceptor {
-  final ApiManager apiManager;
-  CommonHeaderInterceptor({required this.apiManager});
+  final TokenManager tokenManager;
+  CommonHeaderInterceptor({required this.tokenManager});
 
   @override
   Future onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    if (apiManager.tokenManager.accessToken == null) {
-      return options;
+    if (tokenManager.accessToken == null) {
+      return super.onRequest(options, handler);
     } else {
       options.headers.addAll({
         'Content-Type': 'application/json',
-        'Authorization': apiManager.tokenManager.accessToken,
+        'Authorization': tokenManager.accessToken,
       });
-      return options;
+      return super.onRequest(options, handler);
     }
   }
 }
