@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_chat_fl/src/models/community/community_settings_rights_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 part 'community_model.g.dart';
