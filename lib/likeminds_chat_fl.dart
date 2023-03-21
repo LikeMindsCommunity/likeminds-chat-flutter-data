@@ -59,4 +59,11 @@ class LMChatClient {
       GetHomeFeedRequest request) {
     return _sdkApplication.getHomeApi().getHomeFeed(request);
   }
+
+  /// The method to get a single chatroom
+  Future<LMResponse<GetChatroomResponse>> getChatroom(
+    GetChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().getChatroom(request);
+  }
 }

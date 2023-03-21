@@ -30,4 +30,12 @@ class EndPoints {
   }
 
   String get homeFeedEndpoint => "$KETTLE_HOST/chatroom/mine";
+
+  String get chatroomEndpoint => "$KETTLE_HOST/chatroom";
+  String get chatroomFollowEndpoint => "$KETTLE_HOST/chatroom/follow";
+  String get chatroomMuteEndpoint => "$KETTLE_HOST/chatroom/mute";
+  String get chatroomMarkReadEndpoint => "$KETTLE_HOST/chatroom/mark_read";
+  String get chatroomShareEndpoint => "$KETTLE_HOST/chatroom/share";
+
+  String get chatroomSetTopicEndpoint => "$KETTLE_HOST/conversation/topic";
 }

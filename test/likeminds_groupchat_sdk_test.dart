@@ -35,7 +35,7 @@ void main() {
 
   /// Test the get home feed method
   /// This test will fail if the user can not get the home feed
-  test('Getting the home feed', () async {
+  test('Getting the home feed test', () async {
     debugPrint("Initiating home feed test...");
     GetHomeFeedRequest request = GetHomeFeedRequest(
       page: 1,
@@ -44,6 +44,17 @@ void main() {
     LMResponse<GetHomeFeedResponse> response =
         await lmClient.getHomeFeed(request);
     debugPrint("Got ${response.data?.myChatRooms?.length} chatrooms");
+    expect(response.success, true);
+  });
+
+  /// Test the get chatroom method
+  /// This test will fail if the user can not get the chatroom
+  test('Getting the chatroom test', () async {
+    debugPrint("Initiating chatroom test...");
+    GetChatroomRequest request = GetChatroomRequest(chatroomId: 70989);
+    LMResponse<GetChatroomResponse> response =
+        await lmClient.getChatroom(request);
+    debugPrint("Got ${response.data?.chatroom?.header} chatroom");
     expect(response.success, true);
   });
 
