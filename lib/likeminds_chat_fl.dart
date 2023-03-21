@@ -66,4 +66,11 @@ class LMChatClient {
   ) {
     return _sdkApplication.getChatroomApi().getChatroom(request);
   }
+
+  /// The method to follow the chatroom
+  Future<LMResponse<FollowChatroomResponse>> followChatroom(
+    FollowChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().followChatroom(request);
+  }
 }

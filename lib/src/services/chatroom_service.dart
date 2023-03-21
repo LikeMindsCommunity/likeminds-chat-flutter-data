@@ -77,7 +77,7 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IChatroomService {
   Future<GetChatroomResponseEntity> getChatroom(GetChatroomRequest request);
-  // Future<FollowChatroomResponse> followChatroom(FollowChatroomRequest request);
+  Future<FollowChatroomResponse> followChatroom(FollowChatroomRequest request);
   // Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request);
   // Future<MarkReadChatroomResponse> markReadChatroom(MarkReadChatroomRequest request);
   // Future<ShareChatroomUrlResponse> shareChatroomUrl(ShareChatroomUrlRequest request);
@@ -101,6 +101,23 @@ class ChatroomService extends IChatroomService {
     } on DioError catch (e) {
       debugPrint(e.message);
       return GetChatroomResponseEntity(success: false, errorMessage: e.message);
+    }
+  }
+
+  @override
+  Future<FollowChatroomResponse> followChatroom(
+      FollowChatroomRequest request) async {
+    try {
+      final response = await apiManager.put(
+        apiManager.endPoints.chatroomFollowEndpoint,
+        queryParameters: request.toJson(),
+      );
+      return FollowChatroomResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      return FollowChatroomResponse(
+        success: false,
+        errorMessage: e.message,
+      );
     }
   }
 }

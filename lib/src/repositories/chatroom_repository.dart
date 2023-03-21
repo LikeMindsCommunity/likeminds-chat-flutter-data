@@ -11,4 +11,11 @@ class ChatroomRepository {
         await chatroomService.getChatroom(request);
     return GetChatroomResponse.fromEntity(responseEntity);
   }
+
+  Future<FollowChatroomResponse> followChatroom(
+      FollowChatroomRequest request) async {
+    FollowChatroomResponse response =
+        await chatroomService.followChatroom(request);
+    return response;
+  }
 }

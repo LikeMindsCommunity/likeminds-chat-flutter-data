@@ -58,6 +58,20 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test the follow chatroom method
+  /// This test will fail if the user can not follow the chatroom
+  test('Following the chatroom test', () async {
+    debugPrint("Initiating follow chatroom test...");
+    FollowChatroomRequest request = FollowChatroomRequest(
+      chatroomId: 70989,
+      value: true,
+    );
+    LMResponse<FollowChatroomResponse> response =
+        await lmClient.followChatroom(request);
+    debugPrint("Followed chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
   /// Test the logout method
   /// This test will fail if the user can not log out
   // test('Logging out the user', () async {

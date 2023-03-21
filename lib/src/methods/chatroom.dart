@@ -17,4 +17,16 @@ class ChatroomApi {
       errorMessage: response.errorMessage,
     );
   }
+
+  Future<LMResponse<FollowChatroomResponse>> followChatroom(
+    FollowChatroomRequest request,
+  ) async {
+    FollowChatroomResponse response =
+        await chatroomRepository.followChatroom(request);
+    return LMResponse<FollowChatroomResponse>(
+      success: response.success,
+      data: response,
+      errorMessage: response.errorMessage,
+    );
+  }
 }
