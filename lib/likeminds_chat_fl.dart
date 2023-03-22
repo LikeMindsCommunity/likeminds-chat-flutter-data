@@ -73,4 +73,18 @@ class LMChatClient {
   ) {
     return _sdkApplication.getChatroomApi().followChatroom(request);
   }
+
+  /// The method to mute the chatroom
+  Future<LMResponse<MuteChatroomResponse>> muteChatroom(
+    MuteChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().muteChatroom(request);
+  }
+
+  /// The method to mark read the chatroom
+  Future<LMResponse<MarkReadChatroomResponse>> markReadChatroom(
+    MarkReadChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().markReadChatroom(request);
+  }
 }

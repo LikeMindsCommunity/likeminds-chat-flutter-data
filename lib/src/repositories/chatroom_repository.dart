@@ -18,4 +18,16 @@ class ChatroomRepository {
         await chatroomService.followChatroom(request);
     return response;
   }
+
+  Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request) async {
+    MuteChatroomResponse response = await chatroomService.muteChatroom(request);
+    return response;
+  }
+
+  Future<MarkReadChatroomResponse> markReadChatroom(
+      MarkReadChatroomRequest request) async {
+    MarkReadChatroomResponse response =
+        await chatroomService.markReadChatroom(request);
+    return response;
+  }
 }

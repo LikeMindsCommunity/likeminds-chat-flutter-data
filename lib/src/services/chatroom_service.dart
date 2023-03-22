@@ -78,8 +78,9 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 abstract class IChatroomService {
   Future<GetChatroomResponseEntity> getChatroom(GetChatroomRequest request);
   Future<FollowChatroomResponse> followChatroom(FollowChatroomRequest request);
-  // Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request);
-  // Future<MarkReadChatroomResponse> markReadChatroom(MarkReadChatroomRequest request);
+  Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request);
+  Future<MarkReadChatroomResponse> markReadChatroom(
+      MarkReadChatroomRequest request);
   // Future<ShareChatroomUrlResponse> shareChatroomUrl(ShareChatroomUrlRequest request);
   // Future<SetChatroomTopicResponse> setChatroomTopic(SetChatroomTopicRequest request);
 }
@@ -114,7 +115,43 @@ class ChatroomService extends IChatroomService {
       );
       return FollowChatroomResponse.fromJson(response.data);
     } on DioError catch (e) {
+      debugPrint(e.message);
       return FollowChatroomResponse(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
+
+  @override
+  Future<MarkReadChatroomResponse> markReadChatroom(
+      MarkReadChatroomRequest request) async {
+    try {
+      final response = await apiManager.post(
+        apiManager.endPoints.chatroomMarkReadEndpoint,
+        data: request.toJson(),
+      );
+      return MarkReadChatroomResponse.fromJson(response.data);
+    } catch (e) {
+      debugPrint(e.toString());
+      return MarkReadChatroomResponse(
+        success: false,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
+  @override
+  Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request) async {
+    try {
+      final response = await apiManager.put(
+        apiManager.endPoints.chatroomMuteEndpoint,
+        data: request.toJson(),
+      );
+      return MuteChatroomResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint(e.message);
+      return MuteChatroomResponse(
         success: false,
         errorMessage: e.message,
       );

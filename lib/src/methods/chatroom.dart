@@ -29,4 +29,28 @@ class ChatroomApi {
       errorMessage: response.errorMessage,
     );
   }
+
+  Future<LMResponse<MuteChatroomResponse>> muteChatroom(
+    MuteChatroomRequest request,
+  ) async {
+    MuteChatroomResponse response =
+        await chatroomRepository.muteChatroom(request);
+    return LMResponse<MuteChatroomResponse>(
+      success: response.success,
+      data: response,
+      errorMessage: response.errorMessage,
+    );
+  }
+
+  Future<LMResponse<MarkReadChatroomResponse>> markReadChatroom(
+    MarkReadChatroomRequest request,
+  ) async {
+    MarkReadChatroomResponse response =
+        await chatroomRepository.markReadChatroom(request);
+    return LMResponse<MarkReadChatroomResponse>(
+      success: response.success,
+      data: response,
+      errorMessage: response.errorMessage,
+    );
+  }
 }

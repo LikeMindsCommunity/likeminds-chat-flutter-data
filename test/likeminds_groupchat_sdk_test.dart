@@ -72,6 +72,33 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test the mute chatroom method
+  /// This test will fail if the user can not mute the chatroom
+  test('Muting the chatroom test', () async {
+    debugPrint("Initiating mute chatroom test...");
+    MuteChatroomRequest request = MuteChatroomRequest(
+      chatroomId: 70989,
+      value: true,
+    );
+    LMResponse<MuteChatroomResponse> response =
+        await lmClient.muteChatroom(request);
+    debugPrint("Muted chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  /// Test the mark read chatroom method
+  /// This test will fail if the user can not mark read the chatroom
+  test('Marking read the chatroom test', () async {
+    debugPrint("Initiating mark read chatroom test...");
+    MarkReadChatroomRequest request = MarkReadChatroomRequest(
+      chatroomId: 70989,
+    );
+    LMResponse<MarkReadChatroomResponse> response =
+        await lmClient.markReadChatroom(request);
+    debugPrint("Marked read chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
   /// Test the logout method
   /// This test will fail if the user can not log out
   // test('Logging out the user', () async {
