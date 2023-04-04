@@ -5,7 +5,7 @@ class MarkReadChatroomRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['chatroom_id'] = chatroomId;
+    data['chatroom_id'] = chatroomId.toString();
     return data;
   }
 }

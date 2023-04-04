@@ -64,6 +64,7 @@ void main() {
     debugPrint("Initiating follow chatroom test...");
     FollowChatroomRequest request = FollowChatroomRequest(
       chatroomId: 70989,
+      memberId: 87103,
       value: true,
     );
     LMResponse<FollowChatroomResponse> response =

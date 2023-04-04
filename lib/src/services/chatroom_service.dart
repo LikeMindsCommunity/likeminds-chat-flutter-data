@@ -97,6 +97,12 @@ class ChatroomService extends IChatroomService {
       final ressponse = await apiManager.get(
         apiManager.endPoints.chatroomEndpoint,
         queryParameters: request.toJson(),
+        options: Options(
+          headers: {
+            'api_type': '1',
+            'x-version-code': 'v2',
+          },
+        ),
       );
       return GetChatroomResponseEntity.fromJson(ressponse.data);
     } on DioError catch (e) {
