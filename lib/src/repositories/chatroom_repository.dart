@@ -30,4 +30,18 @@ class ChatroomRepository {
         await chatroomService.markReadChatroom(request);
     return response;
   }
+
+  Future<ShareChatroomResponse> shareChatroomUrl(
+      ShareChatroomRequest request) async {
+    ShareChatroomResponse response =
+        await chatroomService.shareChatroomUrl(request);
+    return response;
+  }
+
+  Future<SetChatroomTopicResponse> setChatroomTopic(
+      SetChatroomTopicRequest request) async {
+    SetChatroomTopicResponse response =
+        await chatroomService.setChatroomTopic(request);
+    return response;
+  }
 }

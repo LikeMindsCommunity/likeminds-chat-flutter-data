@@ -100,14 +100,42 @@ void main() {
     expect(response.success, true);
   });
 
-  /// Test the logout method
-  /// This test will fail if the user can not log out
-  // test('Logging out the user', () async {
-  //   LogoutRequest request = LogoutRequest(refreshToken: TESTING_USER_ID);
-  //   LogoutResponse response = await lmClient.logout(request);
-  //   if (response.success) {
-  //     debugPrint("Successfully logged out");
-  //   }
-  //   expect(response.success, true);
-  // });
+  /// Test the share chatroom method
+  /// This test will fail if the user can not share the chatroom
+  test('Sharing the chatroom test', () async {
+    debugPrint("Initiating share chatroom test...");
+    ShareChatroomRequest request = (ShareChatroomRequestBuilder()
+          ..chatroomId(70989)
+          ..domain("https://www.likeminds.ai"))
+        .build();
+    LMResponse<ShareChatroomResponse> response =
+        await lmClient.shareChatroomUrl(request);
+    debugPrint("Shared chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  /// Test the set chatroom topic method
+  /// This test will fail if the user can not set the chatroom topic
+  test('Setting the chatroom topic test', () async {
+    debugPrint("Initiating set chatroom topic test...");
+    SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
+          ..chatroomId(70989)
+          ..conversationId(273099))
+        .build();
+    LMResponse<SetChatroomTopicResponse> response =
+        await lmClient.setChatroomTopic(request);
+    debugPrint("Set chatroom topic with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  // / Test the logout method
+  // / This test will fail if the user can not log out
+  test('Logging out the user', () async {
+    LogoutRequest request = LogoutRequest();
+    LMResponse<LogoutResponse> response = await lmClient.logout(request);
+    if (response.success!) {
+      debugPrint("Successfully logged out after all tests");
+    }
+    expect(response.success, true);
+  });
 }

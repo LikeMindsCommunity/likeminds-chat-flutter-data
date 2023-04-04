@@ -53,4 +53,28 @@ class ChatroomApi {
       errorMessage: response.errorMessage,
     );
   }
+
+  Future<LMResponse<ShareChatroomResponse>> shareChatroomUrl(
+    ShareChatroomRequest request,
+  ) async {
+    ShareChatroomResponse response =
+        await chatroomRepository.shareChatroomUrl(request);
+    return LMResponse<ShareChatroomResponse>(
+      success: response.success,
+      data: response,
+      errorMessage: response.errorMessage,
+    );
+  }
+
+  Future<LMResponse<SetChatroomTopicResponse>> setChatroomTopic(
+    SetChatroomTopicRequest request,
+  ) async {
+    SetChatroomTopicResponse response =
+        await chatroomRepository.setChatroomTopic(request);
+    return LMResponse<SetChatroomTopicResponse>(
+      success: response.success,
+      data: response,
+      errorMessage: response.errorMessage,
+    );
+  }
 }

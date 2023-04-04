@@ -81,8 +81,9 @@ abstract class IChatroomService {
   Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request);
   Future<MarkReadChatroomResponse> markReadChatroom(
       MarkReadChatroomRequest request);
-  // Future<ShareChatroomUrlResponse> shareChatroomUrl(ShareChatroomUrlRequest request);
-  // Future<SetChatroomTopicResponse> setChatroomTopic(SetChatroomTopicRequest request);
+  Future<ShareChatroomResponse> shareChatroomUrl(ShareChatroomRequest request);
+  Future<SetChatroomTopicResponse> setChatroomTopic(
+      SetChatroomTopicRequest request);
 }
 
 class ChatroomService extends IChatroomService {
@@ -158,6 +159,42 @@ class ChatroomService extends IChatroomService {
     } on DioError catch (e) {
       debugPrint(e.message);
       return MuteChatroomResponse(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
+
+  @override
+  Future<ShareChatroomResponse> shareChatroomUrl(
+      ShareChatroomRequest request) async {
+    try {
+      final response = await apiManager.get(
+        apiManager.endPoints.chatroomShareEndpoint,
+        queryParameters: request.toJson(),
+      );
+      return ShareChatroomResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint(e.message);
+      return ShareChatroomResponse(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
+
+  @override
+  Future<SetChatroomTopicResponse> setChatroomTopic(
+      SetChatroomTopicRequest request) async {
+    try {
+      final response = await apiManager.put(
+        apiManager.endPoints.chatroomSetTopicEndpoint,
+        data: request.toJson(),
+      );
+      return SetChatroomTopicResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint(e.message);
+      return SetChatroomTopicResponse(
         success: false,
         errorMessage: e.message,
       );

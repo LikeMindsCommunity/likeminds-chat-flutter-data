@@ -87,4 +87,18 @@ class LMChatClient {
   ) {
     return _sdkApplication.getChatroomApi().markReadChatroom(request);
   }
+
+  /// The method to share the chatroom
+  Future<LMResponse<ShareChatroomResponse>> shareChatroomUrl(
+    ShareChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().shareChatroomUrl(request);
+  }
+
+  /// The method to set the chatroom topic
+  Future<LMResponse<SetChatroomTopicResponse>> setChatroomTopic(
+    SetChatroomTopicRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().setChatroomTopic(request);
+  }
 }
