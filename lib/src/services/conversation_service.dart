@@ -77,8 +77,8 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 abstract class IConversationService {
   Future<GetConversationResponseEntity> getConversation(
       GetConversationRequest request);
-  // Future<PostConversationResponse> postConversation(
-  //     PostConversationRequest request);
+  Future<PostConversationResponseEntity> postConversation(
+      PostConversationRequest request);
 
   // Future<EditConversationResponse?> editConversation(
   //     EditConversationRequest request);
@@ -111,20 +111,23 @@ class ConversationService extends IConversationService {
     }
   }
 
-  // @override
-  // Future<PostConversationResponse?> postConversation(
-  //     PostConversationRequest request) async {
-  //   final response = await _apiManager.post(
-  //     '/conversation',
-  //     data: request.toJson(),
-  //   );
+  @override
+  Future<PostConversationResponseEntity> postConversation(
+      PostConversationRequest request) async {
+    try {
+      final response = await _apiManager.post(
+        _apiManager.endPoints.conversationEndpoint,
+        data: request.toJson(),
+      );
 
-  //   if (response.statusCode == 200) {
-  //     return PostConversationResponse.fromJson(response.data);
-  //   } else {
-  //     return null;
-  //   }
-  // }
+      return PostConversationResponseEntity.fromJson(response.data);
+    } on DioError catch (e) {
+      return PostConversationResponseEntity(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
 
   // @override
   // Future<EditConversationResponse?> editConversation(

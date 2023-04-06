@@ -108,4 +108,11 @@ class LMChatClient {
   ) {
     return _sdkApplication.getConversationApi().getConversation(request);
   }
+
+  /// The method to post the chatroom conversation
+  Future<LMResponse<PostConversationResponse>> postConversation(
+    PostConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().postConversation(request);
+  }
 }

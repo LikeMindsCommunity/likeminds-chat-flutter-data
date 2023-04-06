@@ -10,6 +10,19 @@ class ConversationApi {
       GetConversationRequest request) async {
     GetConversationResponse response =
         await conversationRepository.getConversation(request);
-    return LMResponse<GetConversationResponse>(success: true, data: response);
+    return LMResponse<GetConversationResponse>(
+      success: true,
+      data: response,
+    );
+  }
+
+  Future<LMResponse<PostConversationResponse>> postConversation(
+      PostConversationRequest request) async {
+    PostConversationResponse response =
+        await conversationRepository.postConversation(request);
+    return LMResponse<PostConversationResponse>(
+      success: true,
+      data: response,
+    );
   }
 }

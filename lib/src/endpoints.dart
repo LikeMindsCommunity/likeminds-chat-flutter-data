@@ -38,5 +38,6 @@ class EndPoints {
   String get chatroomShareEndpoint => "$KETTLE_HOST/chatroom/share";
   String get chatroomSetTopicEndpoint => "$KETTLE_HOST/conversation/topic";
 
+  String get conversationEndpoint => "$KETTLE_HOST/conversation";
   String get conversationSyncEndpoint => "$KETTLE_HOST/conversation/sync";
 }

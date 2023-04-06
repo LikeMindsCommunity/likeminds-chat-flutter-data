@@ -12,4 +12,11 @@ class ConversationRepository {
         await conversationService.getConversation(request);
     return GetConversationResponse.fromEntity(responseEntity);
   }
+
+  Future<PostConversationResponse> postConversation(
+      PostConversationRequest request) async {
+    PostConversationResponseEntity responseEntity =
+        await conversationService.postConversation(request);
+    return PostConversationResponse.fromEntity(responseEntity);
+  }
 }

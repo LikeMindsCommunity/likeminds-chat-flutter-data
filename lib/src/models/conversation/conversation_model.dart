@@ -31,7 +31,7 @@ class Conversation {
   final int? multipleSelectNo;
   final int? multipleSelectState;
   final dynamic ogTags;
-  final int onlineLinkEnableBefore;
+  final int? onlineLinkEnableBefore;
   final String pollAnswerText;
   final int? pollType;
   final int? replyChatroomId;
@@ -39,7 +39,8 @@ class Conversation {
   final int? startTime;
   final int? state;
   final String? temporaryId;
-  final int userId;
+  final int? userId;
+  final int? memberId;
   final bool? toShowResults;
   final String? pollTypeText;
   final String? submitTypeText;
@@ -73,7 +74,7 @@ class Conversation {
     this.multipleSelectNo,
     this.multipleSelectState,
     this.ogTags,
-    required this.onlineLinkEnableBefore,
+    this.onlineLinkEnableBefore,
     required this.pollAnswerText,
     this.pollType,
     this.replyChatroomId,
@@ -81,7 +82,8 @@ class Conversation {
     this.startTime,
     this.state,
     this.temporaryId,
-    required this.userId,
+    this.userId,
+    this.memberId,
     this.toShowResults,
     this.pollTypeText,
     this.submitTypeText,
@@ -232,7 +234,7 @@ class ConversationEntity {
   @JsonKey(name: 'og_tags')
   final dynamic ogTags;
   @JsonKey(name: 'online_link_enable_before')
-  final int onlineLinkEnableBefore;
+  final int? onlineLinkEnableBefore;
   @JsonKey(name: 'poll_answer_text')
   final String pollAnswerText;
   @JsonKey(name: 'poll_type')
@@ -247,7 +249,9 @@ class ConversationEntity {
   @JsonKey(name: 'temporary_id')
   final String? temporaryId;
   @JsonKey(name: 'user_id')
-  final int userId;
+  final int? userId;
+  @JsonKey(name: 'member_id')
+  final int? memberId;
   @JsonKey(name: 'to_show_results')
   final bool? toShowResults;
   @JsonKey(name: 'poll_type_text')
@@ -284,7 +288,7 @@ class ConversationEntity {
     this.multipleSelectNo,
     this.multipleSelectState,
     this.ogTags,
-    required this.onlineLinkEnableBefore,
+    this.onlineLinkEnableBefore,
     required this.pollAnswerText,
     this.pollType,
     this.replyChatroomId,
@@ -292,7 +296,8 @@ class ConversationEntity {
     this.startTime,
     this.state,
     this.temporaryId,
-    required this.userId,
+    this.userId,
+    this.memberId,
     this.toShowResults,
     this.pollTypeText,
     this.submitTypeText,

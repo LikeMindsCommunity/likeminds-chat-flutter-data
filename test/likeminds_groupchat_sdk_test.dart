@@ -146,6 +146,23 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test the post conversation method
+  /// This test will fail if the user can not post the conversation
+  test('Posting the conversation test', () async {
+    debugPrint("Initiating post conversation test...");
+    PostConversationRequest request = (PostConversationRequestBuilder()
+          ..chatroomId(70989)
+          ..text("This is a test message from the SDK")
+          ..expiryTime(0))
+        .build();
+    LMResponse<PostConversationResponse> response =
+        await lmClient.postConversation(request);
+    debugPrint(
+      "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
+    );
+    expect(response.success, true);
+  });
+
   // / Test the logout method
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {
