@@ -3,8 +3,10 @@ import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/managers/token_manager.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/services/auth_service.dart';
+import 'package:likeminds_chat_fl/src/services/chatroom_service.dart';
 import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
 
 /// Dependency Injection Service
@@ -40,6 +42,10 @@ class DIService {
     HomeFeedRepository homeFeedRepository =
         HomeFeedRepository(homeFeedService: homeFeedService);
 
+    ChatroomService chatroomService = ChatroomService(apiManager: apiManager);
+    ChatroomRepository chatroomRepository =
+        ChatroomRepository(chatroomService: chatroomService);
+
     /// Register all the services in the getIt instance
     getIt.registerLazySingleton(
       () => sdkCallback,
@@ -51,10 +57,13 @@ class DIService {
       () => authRepository,
       instanceName: kInstanceAuthRepository,
     );
-
     getIt.registerFactory<HomeFeedRepository>(
       () => homeFeedRepository,
       instanceName: kInstanceHomeFeedRepository,
+    );
+    getIt.registerFactory<ChatroomRepository>(
+      () => chatroomRepository,
+      instanceName: kInstanceChatroomRepository,
     );
   }
 
@@ -66,6 +75,7 @@ class DIService {
   // static const String kInstanceAccessRepository = 'access_repository';
   static const String kInstanceHomeFeedRepository = 'home_repository';
   static const String kInstanceAuthRepository = 'auth_repository';
+  static const String kInstanceChatroomRepository = 'chatroom_repository';
   // static const String kInstancePostRepository = 'post_repository';
   static const String kInstanceMediaRepository = 'media_repository';
   static const String kInstanceBrandingRepository = 'branding_repository';

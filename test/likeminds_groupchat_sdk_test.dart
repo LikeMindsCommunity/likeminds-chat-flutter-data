@@ -35,7 +35,7 @@ void main() {
 
   /// Test the get home feed method
   /// This test will fail if the user can not get the home feed
-  test('Getting the home feed', () async {
+  test('Getting the home feed test', () async {
     debugPrint("Initiating home feed test...");
     GetHomeFeedRequest request = GetHomeFeedRequest(
       page: 1,
@@ -47,14 +47,95 @@ void main() {
     expect(response.success, true);
   });
 
-  /// Test the logout method
-  /// This test will fail if the user can not log out
-  // test('Logging out the user', () async {
-  //   LogoutRequest request = LogoutRequest(refreshToken: TESTING_USER_ID);
-  //   LogoutResponse response = await lmClient.logout(request);
-  //   if (response.success) {
-  //     debugPrint("Successfully logged out");
-  //   }
-  //   expect(response.success, true);
-  // });
+  /// Test the get chatroom method
+  /// This test will fail if the user can not get the chatroom
+  test('Getting the chatroom test', () async {
+    debugPrint("Initiating chatroom test...");
+    GetChatroomRequest request = GetChatroomRequest(chatroomId: 70989);
+    LMResponse<GetChatroomResponse> response =
+        await lmClient.getChatroom(request);
+    debugPrint("Got ${response.data?.chatroom?.header} chatroom");
+    expect(response.success, true);
+  });
+
+  /// Test the follow chatroom method
+  /// This test will fail if the user can not follow the chatroom
+  test('Following the chatroom test', () async {
+    debugPrint("Initiating follow chatroom test...");
+    FollowChatroomRequest request = FollowChatroomRequest(
+      chatroomId: 70989,
+      memberId: 87103,
+      value: true,
+    );
+    LMResponse<FollowChatroomResponse> response =
+        await lmClient.followChatroom(request);
+    debugPrint("Followed chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  /// Test the mute chatroom method
+  /// This test will fail if the user can not mute the chatroom
+  test('Muting the chatroom test', () async {
+    debugPrint("Initiating mute chatroom test...");
+    MuteChatroomRequest request = MuteChatroomRequest(
+      chatroomId: 70989,
+      value: true,
+    );
+    LMResponse<MuteChatroomResponse> response =
+        await lmClient.muteChatroom(request);
+    debugPrint("Muted chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  /// Test the mark read chatroom method
+  /// This test will fail if the user can not mark read the chatroom
+  test('Marking read the chatroom test', () async {
+    debugPrint("Initiating mark read chatroom test...");
+    MarkReadChatroomRequest request = MarkReadChatroomRequest(
+      chatroomId: 70989,
+    );
+    LMResponse<MarkReadChatroomResponse> response =
+        await lmClient.markReadChatroom(request);
+    debugPrint("Marked read chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  /// Test the share chatroom method
+  /// This test will fail if the user can not share the chatroom
+  test('Sharing the chatroom test', () async {
+    debugPrint("Initiating share chatroom test...");
+    ShareChatroomRequest request = (ShareChatroomRequestBuilder()
+          ..chatroomId(70989)
+          ..domain("https://www.likeminds.ai"))
+        .build();
+    LMResponse<ShareChatroomResponse> response =
+        await lmClient.shareChatroomUrl(request);
+    debugPrint("Shared chatroom with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  /// Test the set chatroom topic method
+  /// This test will fail if the user can not set the chatroom topic
+  test('Setting the chatroom topic test', () async {
+    debugPrint("Initiating set chatroom topic test...");
+    SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
+          ..chatroomId(70989)
+          ..conversationId(273099))
+        .build();
+    LMResponse<SetChatroomTopicResponse> response =
+        await lmClient.setChatroomTopic(request);
+    debugPrint("Set chatroom topic with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  // / Test the logout method
+  // / This test will fail if the user can not log out
+  test('Logging out the user', () async {
+    LogoutRequest request = LogoutRequest();
+    LMResponse<LogoutResponse> response = await lmClient.logout(request);
+    if (response.success!) {
+      debugPrint("Successfully logged out after all tests");
+    }
+    expect(response.success, true);
+  });
 }

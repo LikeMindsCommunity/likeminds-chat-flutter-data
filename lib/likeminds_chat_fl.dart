@@ -59,4 +59,46 @@ class LMChatClient {
       GetHomeFeedRequest request) {
     return _sdkApplication.getHomeApi().getHomeFeed(request);
   }
+
+  /// The method to get a single chatroom
+  Future<LMResponse<GetChatroomResponse>> getChatroom(
+    GetChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().getChatroom(request);
+  }
+
+  /// The method to follow the chatroom
+  Future<LMResponse<FollowChatroomResponse>> followChatroom(
+    FollowChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().followChatroom(request);
+  }
+
+  /// The method to mute the chatroom
+  Future<LMResponse<MuteChatroomResponse>> muteChatroom(
+    MuteChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().muteChatroom(request);
+  }
+
+  /// The method to mark read the chatroom
+  Future<LMResponse<MarkReadChatroomResponse>> markReadChatroom(
+    MarkReadChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().markReadChatroom(request);
+  }
+
+  /// The method to share the chatroom
+  Future<LMResponse<ShareChatroomResponse>> shareChatroomUrl(
+    ShareChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().shareChatroomUrl(request);
+  }
+
+  /// The method to set the chatroom topic
+  Future<LMResponse<SetChatroomTopicResponse>> setChatroomTopic(
+    SetChatroomTopicRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().setChatroomTopic(request);
+  }
 }
