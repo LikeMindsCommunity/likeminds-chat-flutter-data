@@ -22,7 +22,7 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       cardCreationTime: json['card_creation_time'] as String?,
       communityId: json['community_id'] as int?,
       communityName: json['community_name'] as String?,
-      createdAt: json['created_at'] as String?,
+      createdAt: json['created_at'] as dynamic,
       date: json['date'] as String?,
       dateEpoch: json['date_epoch'] as int?,
       dateTime: json['date_time'] as int?,

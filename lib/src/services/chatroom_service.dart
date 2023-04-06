@@ -95,17 +95,17 @@ class ChatroomService extends IChatroomService {
   Future<GetChatroomResponseEntity> getChatroom(
       GetChatroomRequest request) async {
     try {
-      final ressponse = await apiManager.get(
+      final response = await apiManager.get(
         apiManager.endPoints.chatroomEndpoint,
         queryParameters: request.toJson(),
-        options: Options(
-          headers: {
-            'api_type': '1',
-            'x-version-code': 'v2',
-          },
-        ),
+        // options: Options(
+        //   headers: {
+        //     // 'api_type': '1',
+        //     // 'x-version-code': 'v2',
+        //   },
+        // ),
       );
-      return GetChatroomResponseEntity.fromJson(ressponse.data);
+      return GetChatroomResponseEntity.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint(e.message);
       return GetChatroomResponseEntity(success: false, errorMessage: e.message);

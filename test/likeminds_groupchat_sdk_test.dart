@@ -128,6 +128,24 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test the get conversation method
+  /// This test will fail if the user can not get the conversation
+  test('Getting the conversation test', () async {
+    debugPrint("Initiating get conversation test...");
+    GetConversationRequest request = (GetConversationRequestBuilder()
+          ..chatroomId(70989)
+          ..page(1)
+          ..pageSize(10)
+          ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
+          ..minTimestamp(0))
+        .build();
+    LMResponse<GetConversationResponse> response =
+        await lmClient.getConversation(request);
+    debugPrint(
+        "Got conversations in the quantity of ${response.data!.conversationData!.length}");
+    expect(response.success, true);
+  });
+
   // / Test the logout method
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {

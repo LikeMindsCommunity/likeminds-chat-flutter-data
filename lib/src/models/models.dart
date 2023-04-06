@@ -28,6 +28,17 @@ export 'package:likeminds_chat_fl/src/models/chatroom/set_chatroom_topic_respons
 export 'package:likeminds_chat_fl/src/models/chatroom/share_chatroom_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/chatroom/share_chatroom_response_model.dart';
 
+export 'package:likeminds_chat_fl/src/models/conversation/get_conversation_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/get_conversation_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/post_conversation_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/post_conversation_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/delete_conversation_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/delete_conversation_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/edit_conversation_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/edit_conversation_response_model.dart';
+
+export 'package:likeminds_chat_fl/src/models/conversation/conversation_model.dart';
+
 export 'package:likeminds_chat_fl/src/models/branding/branding_model.dart';
 export 'package:likeminds_chat_fl/src/models/branding/branding_basic_model.dart';
 export 'package:likeminds_chat_fl/src/models/branding/branding_advanced_model.dart';

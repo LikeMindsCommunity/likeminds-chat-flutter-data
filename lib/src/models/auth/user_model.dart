@@ -6,8 +6,8 @@ part 'user_model.g.dart';
 class User {
   final int id;
   final String name;
-  final String imageUrl;
-  final bool isGuest;
+  final String? imageUrl;
+  final bool? isGuest;
   final String userUniqueId;
   final String? organisationName;
   final SDKClientInfo? sdkClientInfo;
@@ -85,10 +85,10 @@ class UserEntity {
   final String name;
 
   @JsonKey(name: 'image_url')
-  final String imageUrl;
+  final String? imageUrl;
 
   @JsonKey(name: 'is_guest')
-  final bool isGuest;
+  final bool? isGuest;
 
   @JsonKey(name: 'user_unique_id')
   final String userUniqueId;

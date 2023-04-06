@@ -36,6 +36,7 @@ class EndPoints {
   String get chatroomMuteEndpoint => "$KETTLE_HOST/chatroom/mute";
   String get chatroomMarkReadEndpoint => "$KETTLE_HOST/chatroom/mark_read";
   String get chatroomShareEndpoint => "$KETTLE_HOST/chatroom/share";
-
   String get chatroomSetTopicEndpoint => "$KETTLE_HOST/conversation/topic";
+
+  String get conversationSyncEndpoint => "$KETTLE_HOST/conversation/sync";
 }
