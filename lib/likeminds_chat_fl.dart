@@ -101,4 +101,32 @@ class LMChatClient {
   ) {
     return _sdkApplication.getChatroomApi().setChatroomTopic(request);
   }
+
+  /// The method to get the chatroom conversation
+  Future<LMResponse<GetConversationResponse>> getConversation(
+    GetConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().getConversation(request);
+  }
+
+  /// The method to post the chatroom conversation
+  Future<LMResponse<PostConversationResponse>> postConversation(
+    PostConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().postConversation(request);
+  }
+
+  /// The method to edit the chatroom conversation
+  Future<LMResponse<EditConversationResponse>> editConversation(
+    EditConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().editConversation(request);
+  }
+
+  /// The method to delete the chatroom conversation
+  Future<LMResponse<DeleteConversationResponse>> deleteConversation(
+    DeleteConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().deleteConversation(request);
+  }
 }

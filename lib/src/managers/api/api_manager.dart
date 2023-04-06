@@ -94,11 +94,13 @@ class ApiManager {
     String path, {
     Options? options,
     Map<String, dynamic>? queryParameters,
+    dynamic data,
   }) async {
     return await _dio.delete(
       path,
       options: options,
       queryParameters: queryParameters,
+      data: data,
     );
   }
 }

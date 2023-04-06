@@ -18,7 +18,7 @@ class ChatRoom {
   final String? cardCreationTime;
   final int? communityId;
   final String? communityName;
-  final String? createdAt;
+  final dynamic? createdAt;
   final String? date;
   final int? dateEpoch;
   final int? dateTime;
@@ -142,7 +142,9 @@ class ChatRoom {
       isPrivateMember: entity.isPrivateMember,
       isSecret: entity.isSecret,
       isTagged: entity.isTagged,
-      member: ChatRoomMember.fromEntity(entity.member!),
+      member: entity.member != null
+          ? ChatRoomMember.fromEntity(entity.member!)
+          : null,
       muteStatus: entity.muteStatus,
       onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
       onlineLinkType: entity.onlineLinkType,
@@ -243,7 +245,7 @@ class ChatRoomEntity {
   @JsonKey(name: 'community_name')
   final String? communityName;
   @JsonKey(name: 'created_at')
-  final String? createdAt;
+  final dynamic createdAt;
   final String? date;
   @JsonKey(name: 'date_epoch')
   final int? dateEpoch;

@@ -14,6 +14,7 @@ const String TESTING_USER_ID = "fa9dd395-873b-4493-9e81-12dfdced9345";
 
 void main() {
   debugPrint("Starting the tests now...");
+  int? conversationId;
 
   // Initiate the SDK
   LMChatClient lmClient = LMChatClient.initiateLikeMinds(
@@ -125,6 +126,74 @@ void main() {
     LMResponse<SetChatroomTopicResponse> response =
         await lmClient.setChatroomTopic(request);
     debugPrint("Set chatroom topic with ID ${request.chatroomId}");
+    expect(response.success, true);
+  });
+
+  /// Test the get conversation method
+  /// This test will fail if the user can not get the conversation
+  test('Getting the conversation test', () async {
+    debugPrint("Initiating get conversation test...");
+    GetConversationRequest request = (GetConversationRequestBuilder()
+          ..chatroomId(70989)
+          ..page(1)
+          ..pageSize(10)
+          ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
+          ..minTimestamp(0))
+        .build();
+    LMResponse<GetConversationResponse> response =
+        await lmClient.getConversation(request);
+    debugPrint(
+        "Got conversations in the quantity of ${response.data!.conversationData!.length}");
+    expect(response.success, true);
+  });
+
+  /// Test the post conversation method
+  /// This test will fail if the user can not post the conversation
+  test('Posting the conversation test', () async {
+    debugPrint("Initiating post conversation test...");
+    PostConversationRequest request = (PostConversationRequestBuilder()
+          ..chatroomId(70989)
+          ..text("This is a test message from the SDK")
+          ..expiryTime(0))
+        .build();
+    LMResponse<PostConversationResponse> response =
+        await lmClient.postConversation(request);
+    //Save the conversation ID for the next test
+    conversationId = response.data!.id;
+    debugPrint(
+      "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
+    );
+    expect(response.success, true);
+  });
+
+  /// Test the edit conversation method
+  /// This test will fail if the user can not edit the conversation
+  test('Editing the conversation test', () async {
+    debugPrint("Initiating edit conversation test...");
+    EditConversationRequest request = (EditConversationRequestBuilder()
+          ..conversationId(conversationId ?? 0)
+          ..text("This is an edited test message from the SDK"))
+        .build();
+    LMResponse<EditConversationResponse> response =
+        await lmClient.editConversation(request);
+    debugPrint(
+      "Edited conversation with ID ${response.data!.conversation?.id} and text is now \"${response.data!.conversation?.answer}\"",
+    );
+    expect(response.success, true);
+  });
+
+  /// Test the delete conversation method
+  /// This test will fail if the user can not delete the conversation
+  test('Deleting the conversation test', () async {
+    debugPrint("Initiating delete conversation test...");
+    DeleteConversationRequest request = (DeleteConversationRequestBuilder()
+          ..conversationIds([conversationId ?? 0])
+          ..reason("Because testing demands you to"))
+        .build();
+    LMResponse<DeleteConversationResponse> response =
+        await lmClient.deleteConversation(request);
+    debugPrint(
+        "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
     expect(response.success, true);
   });
 
