@@ -25,4 +25,14 @@ class ConversationApi {
       data: response,
     );
   }
+
+  Future<LMResponse<EditConversationResponse>> editConversation(
+      EditConversationRequest request) async {
+    EditConversationResponse response =
+        await conversationRepository.editConversation(request);
+    return LMResponse<EditConversationResponse>(
+      success: true,
+      data: response,
+    );
+  }
 }

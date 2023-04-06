@@ -14,6 +14,7 @@ const String TESTING_USER_ID = "fa9dd395-873b-4493-9e81-12dfdced9345";
 
 void main() {
   debugPrint("Starting the tests now...");
+  int? conversationId;
 
   // Initiate the SDK
   LMChatClient lmClient = LMChatClient.initiateLikeMinds(
@@ -157,8 +158,26 @@ void main() {
         .build();
     LMResponse<PostConversationResponse> response =
         await lmClient.postConversation(request);
+    //Save the conversation ID for the next test
+    conversationId = response.data!.id;
     debugPrint(
       "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
+    );
+    expect(response.success, true);
+  });
+
+  /// Test the edit conversation method
+  /// This test will fail if the user can not edit the conversation
+  test('Editing the conversation test', () async {
+    debugPrint("Initiating edit conversation test...");
+    EditConversationRequest request = (EditConversationRequestBuilder()
+          ..conversationId(conversationId ?? 0)
+          ..text("This is an edited test message from the SDK"))
+        .build();
+    LMResponse<EditConversationResponse> response =
+        await lmClient.editConversation(request);
+    debugPrint(
+      "Edited conversation with ID ${response.data!.conversation?.id} and text is now \"${response.data!.conversation?.answer}\"",
     );
     expect(response.success, true);
   });

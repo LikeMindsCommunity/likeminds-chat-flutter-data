@@ -19,4 +19,11 @@ class ConversationRepository {
         await conversationService.postConversation(request);
     return PostConversationResponse.fromEntity(responseEntity);
   }
+
+  Future<EditConversationResponse> editConversation(
+      EditConversationRequest request) async {
+    EditConversationResponseEntity responseEntity =
+        await conversationService.editConversation(request);
+    return EditConversationResponse.fromEntity(responseEntity);
+  }
 }

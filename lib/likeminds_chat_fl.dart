@@ -115,4 +115,11 @@ class LMChatClient {
   ) {
     return _sdkApplication.getConversationApi().postConversation(request);
   }
+
+  /// The method to edit the chatroom conversation
+  Future<LMResponse<EditConversationResponse>> editConversation(
+    EditConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().editConversation(request);
+  }
 }

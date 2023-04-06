@@ -79,11 +79,9 @@ abstract class IConversationService {
       GetConversationRequest request);
   Future<PostConversationResponseEntity> postConversation(
       PostConversationRequest request);
-
-  // Future<EditConversationResponse?> editConversation(
-  //     EditConversationRequest request);
-
-  // Future<DeleteConversationResponse?> deleteConversation(
+  Future<EditConversationResponseEntity> editConversation(
+      EditConversationRequest request);
+  // Future<DeleteConversationResponseEntity> deleteConversation(
   //     DeleteConversationRequest request);
 }
 
@@ -129,20 +127,23 @@ class ConversationService extends IConversationService {
     }
   }
 
-  // @override
-  // Future<EditConversationResponse?> editConversation(
-  //     EditConversationRequest request) async {
-  //   final response = await _apiManager.put(
-  //     '/conversation',
-  //     data: request.toJson(),
-  //   );
+  @override
+  Future<EditConversationResponseEntity> editConversation(
+      EditConversationRequest request) async {
+    try {
+      final response = await _apiManager.put(
+        _apiManager.endPoints.conversationEndpoint,
+        data: request.toJson(),
+      );
 
-  //   if (response.statusCode == 200) {
-  //     return EditConversationResponse.fromJson(response.data);
-  //   } else {
-  //     return null;
-  //   }
-  // }
+      return EditConversationResponseEntity.fromJson(response.data);
+    } on DioError catch (e) {
+      return EditConversationResponseEntity(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
 
   // @override
   // Future<DeleteConversationResponse?> deleteConversation(
