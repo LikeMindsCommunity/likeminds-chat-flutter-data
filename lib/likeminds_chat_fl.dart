@@ -122,4 +122,11 @@ class LMChatClient {
   ) {
     return _sdkApplication.getConversationApi().editConversation(request);
   }
+
+  /// The method to delete the chatroom conversation
+  Future<LMResponse<DeleteConversationResponse>> deleteConversation(
+    DeleteConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().deleteConversation(request);
+  }
 }

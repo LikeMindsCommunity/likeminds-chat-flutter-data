@@ -35,4 +35,14 @@ class ConversationApi {
       data: response,
     );
   }
+
+  Future<LMResponse<DeleteConversationResponse>> deleteConversation(
+      DeleteConversationRequest request) async {
+    DeleteConversationResponse response =
+        await conversationRepository.deleteConversation(request);
+    return LMResponse<DeleteConversationResponse>(
+      success: true,
+      data: response,
+    );
+  }
 }

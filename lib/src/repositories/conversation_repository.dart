@@ -26,4 +26,11 @@ class ConversationRepository {
         await conversationService.editConversation(request);
     return EditConversationResponse.fromEntity(responseEntity);
   }
+
+  Future<DeleteConversationResponse> deleteConversation(
+      DeleteConversationRequest request) async {
+    DeleteConversationResponseEntity responseEntity =
+        await conversationService.deleteConversation(request);
+    return DeleteConversationResponse.fromEntity(responseEntity);
+  }
 }

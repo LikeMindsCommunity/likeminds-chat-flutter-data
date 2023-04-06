@@ -182,6 +182,21 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test the delete conversation method
+  /// This test will fail if the user can not delete the conversation
+  test('Deleting the conversation test', () async {
+    debugPrint("Initiating delete conversation test...");
+    DeleteConversationRequest request = (DeleteConversationRequestBuilder()
+          ..conversationIds([conversationId ?? 0])
+          ..reason("Because testing demands you to"))
+        .build();
+    LMResponse<DeleteConversationResponse> response =
+        await lmClient.deleteConversation(request);
+    debugPrint(
+        "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
+    expect(response.success, true);
+  });
+
   // / Test the logout method
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {

@@ -81,8 +81,8 @@ abstract class IConversationService {
       PostConversationRequest request);
   Future<EditConversationResponseEntity> editConversation(
       EditConversationRequest request);
-  // Future<DeleteConversationResponseEntity> deleteConversation(
-  //     DeleteConversationRequest request);
+  Future<DeleteConversationResponseEntity> deleteConversation(
+      DeleteConversationRequest request);
 }
 
 class ConversationService extends IConversationService {
@@ -145,18 +145,21 @@ class ConversationService extends IConversationService {
     }
   }
 
-  // @override
-  // Future<DeleteConversationResponse?> deleteConversation(
-  //     DeleteConversationRequest request) async {
-  //   final response = await _apiManager.delete(
-  //     '/conversation',
-  //     data: request.toJson(),
-  //   );
+  @override
+  Future<DeleteConversationResponseEntity> deleteConversation(
+      DeleteConversationRequest request) async {
+    try {
+      final response = await _apiManager.delete(
+        _apiManager.endPoints.conversationEndpoint,
+        data: request.toJson(),
+      );
 
-  //   if (response.statusCode == 200) {
-  //     return DeleteConversationResponse.fromJson(response.data);
-  //   } else {
-  //     return null;
-  //   }
-  // }
+      return DeleteConversationResponseEntity.fromJson(response.data);
+    } on DioError catch (e) {
+      return DeleteConversationResponseEntity(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
 }
