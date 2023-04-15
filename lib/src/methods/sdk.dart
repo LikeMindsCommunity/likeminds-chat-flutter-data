@@ -3,10 +3,14 @@ import 'package:likeminds_chat_fl/src/methods/auth.dart';
 import 'package:likeminds_chat_fl/src/methods/chatroom.dart';
 import 'package:likeminds_chat_fl/src/methods/conversation.dart';
 import 'package:likeminds_chat_fl/src/methods/home.dart';
+import 'package:likeminds_chat_fl/src/methods/media.dart';
+import 'package:likeminds_chat_fl/src/methods/participants.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 class SdkApplication {
@@ -42,6 +46,22 @@ class SdkApplication {
     return ConversationApi(
       conversationRepository: GetIt.instance.get<ConversationRepository>(
         instanceName: DIService.kInstanceConversationRepository,
+      ),
+    );
+  }
+
+  MediaApi getMediaApi() {
+    return MediaApi(
+      mediaRepository: GetIt.instance.get<MediaRepository>(
+        instanceName: DIService.kInstanceMediaRepository,
+      ),
+    );
+  }
+
+  ParticipantsApi getParticipantsApi() {
+    return ParticipantsApi(
+      participantsRepository: GetIt.instance.get<ParticipantsRepository>(
+        instanceName: DIService.kInstanceParticipantsRepository,
       ),
     );
   }

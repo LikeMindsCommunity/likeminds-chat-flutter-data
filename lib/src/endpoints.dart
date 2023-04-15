@@ -23,7 +23,7 @@ class EndPoints {
   String get authRefreshEndpoint => "$KETTLE_HOST/user/refresh";
   String get authLogoutEndpoint => "$KETTLE_HOST/user/logout";
 
-  String get registerDeviceEndpoint => "$CARAVAN_HOST/push";
+  String get registerDeviceEndpoint => "$KETTLE_HOST/user/device/push";
 
   String getBrandingEndPoint(String communityId) {
     return "$CARAVAN_HOST/community/$communityId/branding";
@@ -36,8 +36,12 @@ class EndPoints {
   String get chatroomMuteEndpoint => "$KETTLE_HOST/chatroom/mute";
   String get chatroomMarkReadEndpoint => "$KETTLE_HOST/chatroom/mark_read";
   String get chatroomShareEndpoint => "$KETTLE_HOST/chatroom/share";
+  String get chatroomParticipantsEndpoint =>
+      "$KETTLE_HOST/chatroom/participants";
   String get chatroomSetTopicEndpoint => "$KETTLE_HOST/conversation/topic";
 
   String get conversationEndpoint => "$KETTLE_HOST/conversation";
   String get conversationSyncEndpoint => "$KETTLE_HOST/conversation/sync";
+
+  String get mediaUploadEndpoint => "$KETTLE_HOST/helper/media/upload";
 }

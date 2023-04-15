@@ -5,6 +5,7 @@ export 'package:likeminds_chat_fl/src/methods/callback.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
+import 'package:likeminds_chat_fl/src/methods/notification.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
@@ -128,5 +129,22 @@ class LMChatClient {
     DeleteConversationRequest request,
   ) {
     return _sdkApplication.getConversationApi().deleteConversation(request);
+  }
+
+  /// The method to put multimedia in a chat item
+  Future<LMResponse<PutMediaResponse>> putMultimedia(PutMediaRequest request) {
+    return _sdkApplication.getMediaApi().putMultimedia(request);
+  }
+
+  /// The method to register device for notifications
+  Future<LMResponse<RegisterDeviceResponse>> registerDevice(
+      RegisterDeviceRequest request) {
+    return LMNotifications.registerDevice(request);
+  }
+
+  ///The method to get chatroom's participants
+  Future<LMResponse<GetParticipantsResponse>> getParticipants(
+      GetParticipantsRequest request) {
+    return _sdkApplication.getParticipantsApi().getParticipants(request);
   }
 }
