@@ -29,7 +29,7 @@ class EndPoints {
     return "$CARAVAN_HOST/community/$communityId/branding";
   }
 
-  String get homeFeedEndpoint => "$KETTLE_HOST/chatroom/mine";
+  String get homeFeedEndpoint => "$KETTLE_HOST/chatroom/sync";
 
   String get chatroomEndpoint => "$KETTLE_HOST/chatroom";
   String get chatroomFollowEndpoint => "$KETTLE_HOST/chatroom/follow";

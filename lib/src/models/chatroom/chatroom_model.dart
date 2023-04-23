@@ -19,7 +19,10 @@ class ChatRoom {
   final int? communityId;
   final String? communityName;
   final dynamic? createdAt;
+  final int? lastConversationId;
   final String? date;
+  final String? chatroomImageUrl;
+  final int? unseenCount;
   final int? dateEpoch;
   final int? dateTime;
   final int? duration;
@@ -74,8 +77,11 @@ class ChatRoom {
     this.dateEpoch,
     this.dateTime,
     this.duration,
+    this.lastConversationId,
     this.followStatus,
     this.hasEventRecording,
+    this.unseenCount,
+    this.chatroomImageUrl,
     required this.header,
     required this.id,
     this.imageCount,
@@ -118,6 +124,7 @@ class ChatRoom {
       attendingStatus: entity.attendingStatus,
       audioCount: entity.audioCount,
       audios: entity.audios,
+      chatroomImageUrl: entity.chatroomImageUrl,
       autoFollowDone: entity.autoFollowDone,
       cardCreationTime: entity.cardCreationTime,
       communityId: entity.communityId,
@@ -127,8 +134,10 @@ class ChatRoom {
       dateEpoch: entity.dateEpoch,
       dateTime: entity.dateTime,
       duration: entity.duration,
+      lastConversationId: entity.lastConversationId,
       followStatus: entity.followStatus,
       hasEventRecording: entity.hasEventRecording,
+      unseenCount: entity.unseenCount,
       header: entity.header,
       id: entity.id,
       imageCount: entity.imageCount,
@@ -172,11 +181,13 @@ class ChatRoom {
       attachmentsUploaded: attachmentsUploaded,
       attendingCount: attendingCount,
       attendingStatus: attendingStatus,
+      lastConversationId: lastConversationId,
       audioCount: audioCount,
       audios: audios,
       autoFollowDone: autoFollowDone,
       cardCreationTime: cardCreationTime,
       communityId: communityId,
+      unseenCount: unseenCount,
       communityName: communityName,
       createdAt: createdAt,
       date: date,
@@ -184,6 +195,7 @@ class ChatRoom {
       dateTime: dateTime,
       duration: duration,
       followStatus: followStatus,
+      chatroomImageUrl: chatroomImageUrl,
       hasEventRecording: hasEventRecording,
       header: header,
       id: id,
@@ -240,6 +252,12 @@ class ChatRoomEntity {
   final bool? autoFollowDone;
   @JsonKey(name: 'card_creation_time')
   final String? cardCreationTime;
+  @JsonKey(name: 'chatroom_image_url')
+  final String? chatroomImageUrl;
+  @JsonKey(name: 'last_conversation_id')
+  final int? lastConversationId;
+  @JsonKey(name: 'unseen_count')
+  final int? unseenCount;
   @JsonKey(name: 'community_id')
   final int? communityId;
   @JsonKey(name: 'community_name')
@@ -321,7 +339,10 @@ class ChatRoomEntity {
     this.createdAt,
     this.date,
     this.dateEpoch,
+    this.chatroomImageUrl,
+    this.lastConversationId,
     this.dateTime,
+    this.unseenCount,
     this.duration,
     this.followStatus,
     this.hasEventRecording,

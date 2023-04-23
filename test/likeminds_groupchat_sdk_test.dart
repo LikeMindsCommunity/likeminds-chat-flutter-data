@@ -44,7 +44,7 @@ void main() {
     );
     LMResponse<GetHomeFeedResponse> response =
         await lmClient.getHomeFeed(request);
-    debugPrint("Got ${response.data?.myChatRooms?.length} chatrooms");
+    debugPrint("Got ${response.data?.chatroomsData?.length} chatrooms");
     expect(response.success, true);
   });
 
