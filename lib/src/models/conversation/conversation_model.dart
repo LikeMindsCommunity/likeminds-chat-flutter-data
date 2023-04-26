@@ -32,7 +32,7 @@ class Conversation {
   final int? multipleSelectState;
   final dynamic ogTags;
   final int? onlineLinkEnableBefore;
-  final String pollAnswerText;
+  final String? pollAnswerText;
   final int? pollType;
   final int? replyChatroomId;
   final int? replyId;
@@ -44,6 +44,7 @@ class Conversation {
   final bool? toShowResults;
   final String? pollTypeText;
   final String? submitTypeText;
+  final bool? isTimeStamp;
 
   Conversation({
     this.allowAddOption,
@@ -75,7 +76,7 @@ class Conversation {
     this.multipleSelectState,
     this.ogTags,
     this.onlineLinkEnableBefore,
-    required this.pollAnswerText,
+    this.pollAnswerText,
     this.pollType,
     this.replyChatroomId,
     this.replyId,
@@ -87,6 +88,7 @@ class Conversation {
     this.toShowResults,
     this.pollTypeText,
     this.submitTypeText,
+    this.isTimeStamp,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
@@ -236,7 +238,7 @@ class ConversationEntity {
   @JsonKey(name: 'online_link_enable_before')
   final int? onlineLinkEnableBefore;
   @JsonKey(name: 'poll_answer_text')
-  final String pollAnswerText;
+  final String? pollAnswerText;
   @JsonKey(name: 'poll_type')
   final int? pollType;
   @JsonKey(name: 'reply_chatroom_id')
@@ -289,7 +291,7 @@ class ConversationEntity {
     this.multipleSelectState,
     this.ogTags,
     this.onlineLinkEnableBefore,
-    required this.pollAnswerText,
+    this.pollAnswerText,
     this.pollType,
     this.replyChatroomId,
     this.replyId,

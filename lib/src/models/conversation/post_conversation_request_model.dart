@@ -1,13 +1,15 @@
 class PostConversationRequest {
   final String text;
   final int chatroomId;
-  final int expiryTime;
+  final int? expiryTime;
   final String? replyId;
+  final String temporaryId;
 
   PostConversationRequest._({
     required this.text,
     required this.chatroomId,
-    required this.expiryTime,
+    required this.temporaryId,
+    this.expiryTime,
     this.replyId,
   });
 
@@ -17,6 +19,7 @@ class PostConversationRequest {
       'chatroom_id': chatroomId,
       'expiry_time': expiryTime,
       'reply_id': replyId,
+      'temporary_id': temporaryId,
     };
   }
 }
@@ -28,17 +31,20 @@ class PostConversationRequestBuilder {
   int? _chatroomId;
   int? _expiryTime;
   String? _replyId;
+  String? _temporaryId;
 
   void text(String text) => _text = text;
   void chatroomId(int chatroomId) => _chatroomId = chatroomId;
   void expiryTime(int expiryTime) => _expiryTime = expiryTime;
   void replyId(String? replyId) => _replyId = replyId;
+  void temporaryId(String temporaryId) => _temporaryId = temporaryId;
 
   PostConversationRequest build() {
     final text = _text;
     final chatroomId = _chatroomId;
     final expiryTime = _expiryTime;
     final replyId = _replyId;
+    final temporaryId = _temporaryId;
 
     if (text == null) {
       throw StateError('Message text is required');
@@ -46,15 +52,15 @@ class PostConversationRequestBuilder {
     if (chatroomId == null) {
       throw StateError('chatroomId is required');
     }
-    if (expiryTime == null) {
-      throw StateError('expiryTime is required');
+    if (temporaryId == null) {
+      throw StateError('temporaryId is required');
     }
-
     return PostConversationRequest._(
       text: text,
       chatroomId: chatroomId,
       expiryTime: expiryTime,
       replyId: replyId,
+      temporaryId: temporaryId,
     );
   }
 }

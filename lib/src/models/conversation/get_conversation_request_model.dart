@@ -4,14 +4,15 @@ class GetConversationRequest {
   final int pageSize;
   final int maxTimestamp;
   final int minTimestamp;
+  final bool isLocalDB;
 
-  GetConversationRequest._({
-    required this.chatroomId,
-    required this.page,
-    required this.pageSize,
-    required this.maxTimestamp,
-    required this.minTimestamp,
-  });
+  GetConversationRequest._(
+      {required this.chatroomId,
+      required this.page,
+      required this.pageSize,
+      required this.maxTimestamp,
+      required this.minTimestamp,
+      this.isLocalDB = false,});
 
   toJson() {
     return {
@@ -20,6 +21,7 @@ class GetConversationRequest {
       "page_size": pageSize,
       "max_timestamp": maxTimestamp,
       "min_timestamp": minTimestamp,
+      "is_local_db": isLocalDB,
     };
   }
 }
@@ -30,6 +32,7 @@ class GetConversationRequestBuilder {
   int? _pageSize;
   int? _maxTimestamp;
   int? _minTimestamp;
+  bool? _isLocalDB;
 
   void chatroomId(int chatroomId) {
     _chatroomId = chatroomId;
@@ -51,6 +54,10 @@ class GetConversationRequestBuilder {
     _minTimestamp = minTimestamp;
   }
 
+  void isLocalDB(bool isLocalDB) {
+    _isLocalDB = isLocalDB;
+  }
+
   GetConversationRequest build() {
     return GetConversationRequest._(
       chatroomId: _chatroomId ?? 0,
@@ -58,6 +65,7 @@ class GetConversationRequestBuilder {
       pageSize: _pageSize ?? 0,
       maxTimestamp: _maxTimestamp ?? 0,
       minTimestamp: _minTimestamp ?? 0,
+      isLocalDB: _isLocalDB ?? false,
     );
   }
 }

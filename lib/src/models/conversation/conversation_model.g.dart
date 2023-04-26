@@ -37,7 +37,7 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       multipleSelectState: json['multiple_select_state'] as int?,
       ogTags: json['og_tags'],
       onlineLinkEnableBefore: json['online_link_enable_before'] as int?,
-      pollAnswerText: json['poll_answer_text'] as String,
+      pollAnswerText: json['poll_answer_text'] as String?,
       pollType: json['poll_type'] as int?,
       replyChatroomId: json['reply_chatroom_id'] as int?,
       replyId: json['reply_id'] as int?,
