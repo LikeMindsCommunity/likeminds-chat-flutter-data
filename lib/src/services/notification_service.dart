@@ -7,7 +7,6 @@ class NotificationService {
 
   NotificationService({required this.apiClient});
 
-  @override
   Future<RegisterDeviceResponse> registerDevice(
       RegisterDeviceRequest request) async {
     try {

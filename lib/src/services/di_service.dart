@@ -7,12 +7,14 @@ import 'package:likeminds_chat_fl/src/methods/participants.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
 import 'package:likeminds_chat_fl/src/services/auth_service.dart';
 import 'package:likeminds_chat_fl/src/services/chatroom_service.dart';
 import 'package:likeminds_chat_fl/src/services/conversation_service.dart';
+import 'package:likeminds_chat_fl/src/services/helper_service.dart';
 import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
 import 'package:likeminds_chat_fl/src/services/media_service.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
@@ -44,6 +46,17 @@ class DIService {
       production: isProduction,
     );
 
+    /// Register all the services in the getIt instance
+    getIt.registerLazySingleton(
+      () => sdkCallback,
+      instanceName: "LMCallback",
+    );
+    getIt.registerLazySingleton(
+      () => NotificationService(
+        apiClient: apiManager,
+      ),
+    );
+
     AuthService authService = AuthService(apiManager: apiManager);
     AuthRepository authRepository = AuthRepository(authService: authService);
 
@@ -69,16 +82,9 @@ class DIService {
     ParticipantsRepository participantsRepository =
         ParticipantsRepository(participantsService: participantsService);
 
-    /// Register all the services in the getIt instance
-    getIt.registerLazySingleton(
-      () => sdkCallback,
-      instanceName: "LMCallback",
-    );
-    getIt.registerLazySingleton(
-      () => NotificationService(
-        apiClient: apiManager,
-      ),
-    );
+    HelperService helperService = HelperService(apiClient: apiManager);
+    HelperRepository helperRepository =
+        HelperRepository(helperService: helperService);
 
     /// Register all the dependencies in the getIt instance
     getIt.registerFactory<AuthRepository>(
@@ -104,6 +110,10 @@ class DIService {
     getIt.registerFactory<ParticipantsRepository>(
       () => participantsRepository,
       instanceName: kInstanceParticipantsRepository,
+    );
+    getIt.registerFactory<HelperRepository>(
+      () => helperRepository,
+      instanceName: kInstanceHelperRepository,
     );
   }
 

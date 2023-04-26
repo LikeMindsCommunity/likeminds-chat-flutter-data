@@ -44,4 +44,8 @@ class EndPoints {
   String get conversationSyncEndpoint => "$KETTLE_HOST/conversation/sync";
 
   String get mediaUploadEndpoint => "$KETTLE_HOST/helper/media/upload";
+
+  String get tagsEndpoint => "$KETTLE_HOST/community/tag";
+
+  String get decodeUrlEndpoint => "$KETTLE_HOST/helper/url";
 }

@@ -1,10 +1,10 @@
 class LMResponse<T> {
-  final bool? success;
+  final bool success;
   final String? errorMessage;
   final T? data;
 
   LMResponse({
-    this.success,
+    required this.success,
     this.errorMessage,
     this.data,
   });

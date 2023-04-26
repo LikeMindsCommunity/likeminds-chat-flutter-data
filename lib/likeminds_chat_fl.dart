@@ -2,6 +2,7 @@ library likeminds_chat_fl;
 
 export 'package:likeminds_chat_fl/src/models/models.dart';
 export 'package:likeminds_chat_fl/src/methods/callback.dart';
+export 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
@@ -146,5 +147,15 @@ class LMChatClient {
   Future<LMResponse<GetParticipantsResponse>> getParticipants(
       GetParticipantsRequest request) {
     return _sdkApplication.getParticipantsApi().getParticipants(request);
+  }
+
+  ///The method to get chatroom's tagging list
+  Future<LMResponse<TagResponseModel>> getTaggingList(TagRequestModel request) {
+    return _sdkApplication.getHelperApi().getTags(request: request);
+  }
+
+  ///The method to get link's preview
+  Future<LMResponse<DecodeUrlResponse>> decodeUrl(DecodeUrlRequest request) {
+    return _sdkApplication.getHelperApi().decodeUrl(request: request);
   }
 }

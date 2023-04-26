@@ -136,7 +136,7 @@ void main() {
     GetConversationRequest request = (GetConversationRequestBuilder()
           ..chatroomId(70989)
           ..page(1)
-          ..pageSize(10)
+          ..pageSize(100)
           ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
           ..minTimestamp(0))
         .build();
