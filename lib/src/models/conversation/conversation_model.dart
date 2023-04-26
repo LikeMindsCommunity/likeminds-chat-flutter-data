@@ -133,6 +133,7 @@ class Conversation {
       toShowResults: entity.toShowResults,
       pollTypeText: entity.pollTypeText,
       submitTypeText: entity.submitTypeText,
+      memberId: entity.memberId,
     );
   }
 
@@ -178,6 +179,7 @@ class Conversation {
       toShowResults: toShowResults,
       pollTypeText: pollTypeText,
       submitTypeText: submitTypeText,
+      memberId: memberId,
     );
   }
 }
