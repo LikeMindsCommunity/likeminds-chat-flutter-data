@@ -3,14 +3,22 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/managers/token_manager.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
+import 'package:likeminds_chat_fl/src/methods/participants.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
 import 'package:likeminds_chat_fl/src/services/auth_service.dart';
 import 'package:likeminds_chat_fl/src/services/chatroom_service.dart';
 import 'package:likeminds_chat_fl/src/services/conversation_service.dart';
+import 'package:likeminds_chat_fl/src/services/helper_service.dart';
 import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
+import 'package:likeminds_chat_fl/src/services/media_service.dart';
+import 'package:likeminds_chat_fl/src/services/notification_service.dart';
+import 'package:likeminds_chat_fl/src/services/participants_service.dart';
 
 /// Dependency Injection Service
 /// This class is responsible for registering all the dependencies
@@ -38,6 +46,17 @@ class DIService {
       production: isProduction,
     );
 
+    /// Register all the services in the getIt instance
+    getIt.registerLazySingleton(
+      () => sdkCallback,
+      instanceName: "LMCallback",
+    );
+    getIt.registerLazySingleton(
+      () => NotificationService(
+        apiClient: apiManager,
+      ),
+    );
+
     AuthService authService = AuthService(apiManager: apiManager);
     AuthRepository authRepository = AuthRepository(authService: authService);
 
@@ -54,11 +73,18 @@ class DIService {
     ConversationRepository conversationRepository =
         ConversationRepository(conversationService: conversationService);
 
-    /// Register all the services in the getIt instance
-    getIt.registerLazySingleton(
-      () => sdkCallback,
-      instanceName: "LMCallback",
-    );
+    MediaService mediaService = MediaService(apiManager: apiManager);
+    MediaRepository mediaRepository =
+        MediaRepository(mediaService: mediaService);
+
+    ParticipantsService participantsService =
+        ParticipantsService(apiManager: apiManager);
+    ParticipantsRepository participantsRepository =
+        ParticipantsRepository(participantsService: participantsService);
+
+    HelperService helperService = HelperService(apiClient: apiManager);
+    HelperRepository helperRepository =
+        HelperRepository(helperService: helperService);
 
     /// Register all the dependencies in the getIt instance
     getIt.registerFactory<AuthRepository>(
@@ -77,6 +103,18 @@ class DIService {
       () => conversationRepository,
       instanceName: kInstanceConversationRepository,
     );
+    getIt.registerFactory<MediaRepository>(
+      () => mediaRepository,
+      instanceName: kInstanceMediaRepository,
+    );
+    getIt.registerFactory<ParticipantsRepository>(
+      () => participantsRepository,
+      instanceName: kInstanceParticipantsRepository,
+    );
+    getIt.registerFactory<HelperRepository>(
+      () => helperRepository,
+      instanceName: kInstanceHelperRepository,
+    );
   }
 
   /// Get the static instance of GetIt to get the dependencies
@@ -89,8 +127,9 @@ class DIService {
   static const String kInstanceChatroomRepository = 'chatroom_repository';
   static const String kInstanceConversationRepository =
       'conversation_repository';
-
   static const String kInstanceMediaRepository = 'media_repository';
   static const String kInstanceBrandingRepository = 'branding_repository';
   static const String kInstanceHelperRepository = 'helper_repository';
+  static const String kInstanceParticipantsRepository =
+      'participants_repository';
 }

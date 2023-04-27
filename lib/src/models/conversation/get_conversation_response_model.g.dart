@@ -11,21 +11,22 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
     GetConversationResponseEntity(
       success: json['success'] as bool,
       errorMessage: json['error_message'] as String?,
-      chatroomMeta: (json['data']['chatroom_meta'] as Map<String, dynamic>).map(
+      chatroomMeta:
+          (json['data']['chatroom_meta'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
             int.parse(k), ChatRoomEntity.fromJson(e as Map<String, dynamic>)),
       ),
       communityMeta:
-          (json['data']['community_meta'] as Map<String, dynamic>).map(
+          (json['data']['community_meta'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
             int.parse(k), CommunityEntity.fromJson(e as Map<String, dynamic>)),
       ),
-      userMeta: (json['data']['user_meta'] as Map<String, dynamic>).map(
+      userMeta: (json['data']['user_meta'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
             int.parse(k), UserEntity.fromJson(e as Map<String, dynamic>)),
       ),
-      conversationData: (json['data']['conversations_data'] as List<dynamic>)
-          .map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>))
+      conversationData: (json['data']['conversations_data'] as List<dynamic>?)
+          ?.map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

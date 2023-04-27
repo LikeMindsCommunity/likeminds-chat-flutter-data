@@ -1,52 +1,79 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:likeminds_chat_fl/src/models/chatroom/chatroom_model.dart';
+import 'package:likeminds_chat_fl/src/models/community/community_model.dart';
 import 'package:likeminds_chat_fl/src/models/home/my_chatroom_model.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
 
 part 'home_feed_response_model.g.dart';
 
 class GetHomeFeedResponse {
   final bool success;
   final String? errorMessage;
-  final List<MyChatRoom>? myChatRooms;
-  final int? totalChatRoomCount;
-  final int? totalUnseenCount;
-  final int? totalPages;
-  final int? unseenChatRoomCount;
+  final Map<String, Community>? communityMeta;
+  final List<ChatRoom>? chatroomsData;
+  final Map<String, Conversation>? conversationMeta;
+  final Map<String, User>? userMeta;
+  final Map<dynamic, dynamic>? cardAttachmentsMeta;
+  final Map<dynamic, dynamic>? conversationAttachmentsMeta;
+  final Map<dynamic, dynamic>? conversationPollsMeta;
 
   GetHomeFeedResponse({
     required this.success,
     this.errorMessage,
-    this.myChatRooms,
-    this.totalChatRoomCount,
-    this.totalUnseenCount,
-    this.totalPages,
-    this.unseenChatRoomCount,
+    this.communityMeta,
+    this.chatroomsData,
+    this.conversationMeta,
+    this.userMeta,
+    this.cardAttachmentsMeta,
+    this.conversationAttachmentsMeta,
+    this.conversationPollsMeta,
   });
 
   factory GetHomeFeedResponse.fromEntity(GetHomeFeedResponseEntity entity) {
     return GetHomeFeedResponse(
       success: entity.success,
       errorMessage: entity.errorMessage,
-      myChatRooms: entity.myChatRooms != null
-          ? entity.myChatRooms!.map((e) => MyChatRoom.fromEntity(e)).toList()
+      communityMeta: entity.communityMeta != null
+          ? entity.communityMeta!
+              .map((key, value) => MapEntry(key, Community.fromEntity(value)))
           : null,
-      totalChatRoomCount: entity.totalChatRoomCount,
-      totalUnseenCount: entity.totalUnseenCount,
-      totalPages: entity.totalPages,
-      unseenChatRoomCount: entity.unseenChatRoomCount,
+      chatroomsData: entity.chatroomsData != null
+          ? entity.chatroomsData!.map((e) => ChatRoom.fromEntity(e)).toList()
+          : null,
+      conversationMeta: entity.conversationMeta != null
+          ? entity.conversationMeta!.map(
+              (key, value) => MapEntry(key, Conversation.fromEntity(value)))
+          : null,
+      userMeta: entity.userMeta != null
+          ? entity.userMeta!
+              .map((key, value) => MapEntry(key, User.fromEntity(value)))
+          : null,
+      cardAttachmentsMeta: entity.cardAttachmentsMeta,
+      conversationAttachmentsMeta: entity.conversationAttachmentsMeta,
+      conversationPollsMeta: entity.conversationPollsMeta,
     );
   }
 
-  toEntity() {
+  GetHomeFeedResponseEntity toEntity() {
     return GetHomeFeedResponseEntity(
       success: success,
       errorMessage: errorMessage,
-      myChatRooms: myChatRooms != null
-          ? myChatRooms!.map((e) => e.toEntity()).toList()
+      communityMeta: communityMeta != null
+          ? communityMeta!.map((key, value) => MapEntry(key, value.toEntity()))
           : null,
-      totalChatRoomCount: totalChatRoomCount,
-      totalUnseenCount: totalUnseenCount,
-      totalPages: totalPages,
-      unseenChatRoomCount: unseenChatRoomCount,
+      chatroomsData: chatroomsData != null
+          ? chatroomsData!.map((e) => e.toEntity()).toList()
+          : null,
+      conversationMeta: conversationMeta != null
+          ? conversationMeta!
+              .map((key, value) => MapEntry(key, value.toEntity()))
+          : null,
+      userMeta: userMeta != null
+          ? userMeta!.map((key, value) => MapEntry(key, value.toEntity()))
+          : null,
+      cardAttachmentsMeta: cardAttachmentsMeta,
+      conversationAttachmentsMeta: conversationAttachmentsMeta,
+      conversationPollsMeta: conversationPollsMeta,
     );
   }
 }
@@ -56,25 +83,31 @@ class GetHomeFeedResponseEntity {
   final bool success;
   @JsonKey(name: 'error_message')
   final String? errorMessage;
-  @JsonKey(name: 'my_chatrooms')
-  final List<MyChatRoomEntity>? myChatRooms;
-  @JsonKey(name: 'total_chatroom_count')
-  final int? totalChatRoomCount;
-  @JsonKey(name: 'total_unseen_count')
-  final int? totalUnseenCount;
-  @JsonKey(name: 'total_pages')
-  final int? totalPages;
-  @JsonKey(name: 'unseen_chatroom_count')
-  final int? unseenChatRoomCount;
+  @JsonKey(name: 'community_meta')
+  final Map<String, CommunityEntity>? communityMeta;
+  @JsonKey(name: 'chatrooms_data')
+  final List<ChatRoomEntity>? chatroomsData;
+  @JsonKey(name: 'conversation_meta')
+  final Map<String, ConversationEntity>? conversationMeta;
+  @JsonKey(name: 'user_meta')
+  final Map<String, UserEntity>? userMeta;
+  @JsonKey(name: 'card_attachments_meta')
+  final Map<dynamic, dynamic>? cardAttachmentsMeta;
+  @JsonKey(name: 'conv_attachments_meta')
+  final Map<dynamic, dynamic>? conversationAttachmentsMeta;
+  @JsonKey(name: 'conv_polls_meta')
+  final Map<dynamic, dynamic>? conversationPollsMeta;
 
   GetHomeFeedResponseEntity({
     required this.success,
     this.errorMessage,
-    this.myChatRooms,
-    this.totalChatRoomCount,
-    this.totalUnseenCount,
-    this.totalPages,
-    this.unseenChatRoomCount,
+    this.communityMeta,
+    this.chatroomsData,
+    this.conversationMeta,
+    this.userMeta,
+    this.cardAttachmentsMeta,
+    this.conversationAttachmentsMeta,
+    this.conversationPollsMeta,
   });
 
   factory GetHomeFeedResponseEntity.fromJson(Map<String, dynamic> json) =>

@@ -11,21 +11,40 @@ GetHomeFeedResponseEntity _$GetHomeFeedResponseEntityFromJson(
     GetHomeFeedResponseEntity(
       success: json['success'] as bool,
       errorMessage: json['error_message'] as String?,
-      myChatRooms: (json['data']['my_chatrooms'] as List<dynamic>?)
-          ?.map((e) => MyChatRoomEntity.fromJson(e as Map<String, dynamic>))
+      communityMeta:
+          (json['data']['community_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, CommunityEntity.fromJson(e as Map<String, dynamic>)),
+      ),
+      chatroomsData: (json['data']['chatrooms_data'] as List<dynamic>?)
+          ?.map((e) => ChatRoomEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalChatRoomCount: json['data']['total_chatroom_count'] as int?,
-      totalUnseenCount: json['data']['total_unseen_count'] as int?,
-      totalPages: json['data']['total_pages'] as int?,
-      unseenChatRoomCount: json['data']['unseen_chatroom_count'] as int?,
+      conversationMeta:
+          (json['data']['conversation_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
+      ),
+      userMeta: (json['data']['user_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, UserEntity.fromJson(e as Map<String, dynamic>)),
+      ),
+      cardAttachmentsMeta:
+          json['data']['card_attachments_meta'] as Map<String, dynamic>?,
+      conversationAttachmentsMeta:
+          json['data']['conv_attachments_meta'] as Map<String, dynamic>?,
+      conversationPollsMeta:
+          json['data']['conv_polls_meta'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$GetHomeFeedResponseEntityToJson(
         GetHomeFeedResponseEntity instance) =>
     <String, dynamic>{
-      'my_chatrooms': instance.myChatRooms,
-      'total_chatroom_count': instance.totalChatRoomCount,
-      'total_unseen_count': instance.totalUnseenCount,
-      'total_pages': instance.totalPages,
-      'unseen_chatroom_count': instance.unseenChatRoomCount,
+      'success': instance.success,
+      'error_message': instance.errorMessage,
+      'community_meta': instance.communityMeta,
+      'chatrooms_data': instance.chatroomsData,
+      'conversation_meta': instance.conversationMeta,
+      'user_meta': instance.userMeta,
+      'card_attachments_meta': instance.cardAttachmentsMeta,
+      'conv_attachments_meta': instance.conversationAttachmentsMeta,
+      'conv_polls_meta': instance.conversationPollsMeta,
     };

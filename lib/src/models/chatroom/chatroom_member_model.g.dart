@@ -20,7 +20,7 @@ ChatRoomMemberEntity _$ChatRoomMemberEntityFromJson(
       name: json['name'] as String,
       organisationName: json['organisation_name'] as String?,
       route: json['route'] as String?,
-      state: json['state'] as int,
+      state: (json['state'] ?? 0) as int,
       updatedAt: json['updated_at'] as int?,
       userUniqueId: json['user_unique_id'] as String?,
     );

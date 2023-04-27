@@ -26,6 +26,9 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       date: json['date'] as String?,
       dateEpoch: json['date_epoch'] as int?,
       dateTime: json['date_time'] as int?,
+      chatroomImageUrl: json['chatroom_image_url'] as String?,
+      lastConversationId: json['last_conversation_id'] as int?,
+      unseenCount: json['unseen_count'] as int?,
       duration: json['duration'] as int?,
       followStatus: json['follow_status'] as bool?,
       hasEventRecording: json['has_event_recording'] as bool?,
@@ -60,6 +63,7 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       type: json['type'] as int?,
       videoCount: json['video_count'] as int?,
       videos: json['videos'] as List<dynamic>?,
+      participantCount: json['participants_count'] as int?,
     );
 
 Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
@@ -85,6 +89,8 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'duration': instance.duration,
       'follow_status': instance.followStatus,
       'has_event_recording': instance.hasEventRecording,
+      'last_conversation_id': instance.lastConversationId,
+      'unseen_count': instance.unseenCount,
       'header': instance.header,
       'id': instance.id,
       'image_count': instance.imageCount,
@@ -94,6 +100,7 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'is_guest': instance.isGuest,
       'is_paid': instance.isPaid,
       'is_pending': instance.isPending,
+      'chatroom_image_url': instance.chatroomImageUrl,
       'is_private': instance.isPrivate,
       'is_private_member': instance.isPrivateMember,
       'is_secret': instance.isSecret,
@@ -113,4 +120,5 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'type': instance.type,
       'video_count': instance.videoCount,
       'videos': instance.videos,
+      'participants_count': instance.participantCount,
     };

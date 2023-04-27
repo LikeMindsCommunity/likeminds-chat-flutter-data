@@ -19,7 +19,10 @@ class ChatRoom {
   final int? communityId;
   final String? communityName;
   final dynamic? createdAt;
+  final int? lastConversationId;
   final String? date;
+  final String? chatroomImageUrl;
+  final int? unseenCount;
   final int? dateEpoch;
   final int? dateTime;
   final int? duration;
@@ -53,6 +56,7 @@ class ChatRoom {
   final int? type;
   final int? videoCount;
   final List<dynamic>? videos;
+  final int? participantCount;
 
   ChatRoom({
     this.access,
@@ -74,8 +78,11 @@ class ChatRoom {
     this.dateEpoch,
     this.dateTime,
     this.duration,
+    this.lastConversationId,
     this.followStatus,
     this.hasEventRecording,
+    this.unseenCount,
+    this.chatroomImageUrl,
     required this.header,
     required this.id,
     this.imageCount,
@@ -104,62 +111,66 @@ class ChatRoom {
     this.type,
     this.videoCount,
     this.videos,
+    this.participantCount,
   });
 
   factory ChatRoom.fromEntity(ChatRoomEntity entity) {
     return ChatRoom(
-      access: entity.access,
-      answerText: entity.answerText,
-      answersCount: entity.answersCount,
-      attachmentCount: entity.attachmentCount,
-      attachments: entity.attachments,
-      attachmentsUploaded: entity.attachmentsUploaded,
-      attendingCount: entity.attendingCount,
-      attendingStatus: entity.attendingStatus,
-      audioCount: entity.audioCount,
-      audios: entity.audios,
-      autoFollowDone: entity.autoFollowDone,
-      cardCreationTime: entity.cardCreationTime,
-      communityId: entity.communityId,
-      communityName: entity.communityName,
-      createdAt: entity.createdAt,
-      date: entity.date,
-      dateEpoch: entity.dateEpoch,
-      dateTime: entity.dateTime,
-      duration: entity.duration,
-      followStatus: entity.followStatus,
-      hasEventRecording: entity.hasEventRecording,
-      header: entity.header,
-      id: entity.id,
-      imageCount: entity.imageCount,
-      images: entity.images,
-      includeMembersLater: entity.includeMembersLater,
-      isEdited: entity.isEdited,
-      isGuest: entity.isGuest,
-      isPaid: entity.isPaid,
-      isPending: entity.isPending,
-      isPrivate: entity.isPrivate,
-      isPrivateMember: entity.isPrivateMember,
-      isSecret: entity.isSecret,
-      isTagged: entity.isTagged,
-      member: entity.member != null
-          ? ChatRoomMember.fromEntity(entity.member!)
-          : null,
-      muteStatus: entity.muteStatus,
-      onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
-      onlineLinkType: entity.onlineLinkType,
-      pdf: entity.pdf,
-      pdfCount: entity.pdfCount,
-      pollsCount: entity.pollsCount,
-      reactions: entity.reactions,
-      secretChatroomLeft: entity.secretChatroomLeft,
-      shareLink: entity.shareLink,
-      state: entity.state,
-      title: entity.title,
-      type: entity.type,
-      videoCount: entity.videoCount,
-      videos: entity.videos,
-    );
+        access: entity.access,
+        answerText: entity.answerText,
+        answersCount: entity.answersCount,
+        attachmentCount: entity.attachmentCount,
+        attachments: entity.attachments,
+        attachmentsUploaded: entity.attachmentsUploaded,
+        attendingCount: entity.attendingCount,
+        attendingStatus: entity.attendingStatus,
+        audioCount: entity.audioCount,
+        audios: entity.audios,
+        chatroomImageUrl: entity.chatroomImageUrl,
+        autoFollowDone: entity.autoFollowDone,
+        cardCreationTime: entity.cardCreationTime,
+        communityId: entity.communityId,
+        communityName: entity.communityName,
+        createdAt: entity.createdAt,
+        date: entity.date,
+        dateEpoch: entity.dateEpoch,
+        dateTime: entity.dateTime,
+        duration: entity.duration,
+        lastConversationId: entity.lastConversationId,
+        followStatus: entity.followStatus,
+        hasEventRecording: entity.hasEventRecording,
+        unseenCount: entity.unseenCount,
+        header: entity.header,
+        id: entity.id,
+        imageCount: entity.imageCount,
+        images: entity.images,
+        includeMembersLater: entity.includeMembersLater,
+        isEdited: entity.isEdited,
+        isGuest: entity.isGuest,
+        isPaid: entity.isPaid,
+        isPending: entity.isPending,
+        isPrivate: entity.isPrivate,
+        isPrivateMember: entity.isPrivateMember,
+        isSecret: entity.isSecret,
+        isTagged: entity.isTagged,
+        member: entity.member != null
+            ? ChatRoomMember.fromEntity(entity.member!)
+            : null,
+        muteStatus: entity.muteStatus,
+        onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
+        onlineLinkType: entity.onlineLinkType,
+        pdf: entity.pdf,
+        pdfCount: entity.pdfCount,
+        pollsCount: entity.pollsCount,
+        reactions: entity.reactions,
+        secretChatroomLeft: entity.secretChatroomLeft,
+        shareLink: entity.shareLink,
+        state: entity.state,
+        title: entity.title,
+        type: entity.type,
+        videoCount: entity.videoCount,
+        videos: entity.videos,
+        participantCount: entity.participantCount);
   }
 
   ChatRoomEntity toEntity() {
@@ -172,11 +183,13 @@ class ChatRoom {
       attachmentsUploaded: attachmentsUploaded,
       attendingCount: attendingCount,
       attendingStatus: attendingStatus,
+      lastConversationId: lastConversationId,
       audioCount: audioCount,
       audios: audios,
       autoFollowDone: autoFollowDone,
       cardCreationTime: cardCreationTime,
       communityId: communityId,
+      unseenCount: unseenCount,
       communityName: communityName,
       createdAt: createdAt,
       date: date,
@@ -184,6 +197,7 @@ class ChatRoom {
       dateTime: dateTime,
       duration: duration,
       followStatus: followStatus,
+      chatroomImageUrl: chatroomImageUrl,
       hasEventRecording: hasEventRecording,
       header: header,
       id: id,
@@ -213,6 +227,7 @@ class ChatRoom {
       type: type,
       videoCount: videoCount,
       videos: videos,
+      participantCount: participantCount,
     );
   }
 }
@@ -240,6 +255,12 @@ class ChatRoomEntity {
   final bool? autoFollowDone;
   @JsonKey(name: 'card_creation_time')
   final String? cardCreationTime;
+  @JsonKey(name: 'chatroom_image_url')
+  final String? chatroomImageUrl;
+  @JsonKey(name: 'last_conversation_id')
+  final int? lastConversationId;
+  @JsonKey(name: 'unseen_count')
+  final int? unseenCount;
   @JsonKey(name: 'community_id')
   final int? communityId;
   @JsonKey(name: 'community_name')
@@ -302,58 +323,62 @@ class ChatRoomEntity {
   @JsonKey(name: 'video_count')
   final int? videoCount;
   final List<dynamic>? videos;
+  final int? participantCount;
 
-  ChatRoomEntity({
-    this.access,
-    this.answerText,
-    this.answersCount,
-    this.attachmentCount,
-    this.attachments,
-    this.attachmentsUploaded,
-    this.attendingCount,
-    this.attendingStatus,
-    this.audioCount,
-    this.audios,
-    this.autoFollowDone,
-    this.cardCreationTime,
-    this.communityId,
-    this.communityName,
-    this.createdAt,
-    this.date,
-    this.dateEpoch,
-    this.dateTime,
-    this.duration,
-    this.followStatus,
-    this.hasEventRecording,
-    required this.header,
-    required this.id,
-    this.imageCount,
-    this.images,
-    this.includeMembersLater,
-    this.isEdited,
-    this.isGuest,
-    this.isPaid,
-    this.isPending,
-    this.isPrivate,
-    this.isPrivateMember,
-    this.isSecret,
-    this.isTagged,
-    this.member,
-    this.muteStatus,
-    this.onlineLinkEnableBefore,
-    this.onlineLinkType,
-    this.pdf,
-    this.pdfCount,
-    this.pollsCount,
-    this.reactions,
-    this.secretChatroomLeft,
-    this.shareLink,
-    this.state,
-    required this.title,
-    this.type,
-    this.videoCount,
-    this.videos,
-  });
+  ChatRoomEntity(
+      {this.access,
+      this.answerText,
+      this.answersCount,
+      this.attachmentCount,
+      this.attachments,
+      this.attachmentsUploaded,
+      this.attendingCount,
+      this.attendingStatus,
+      this.audioCount,
+      this.audios,
+      this.autoFollowDone,
+      this.cardCreationTime,
+      this.communityId,
+      this.communityName,
+      this.createdAt,
+      this.date,
+      this.dateEpoch,
+      this.chatroomImageUrl,
+      this.lastConversationId,
+      this.dateTime,
+      this.unseenCount,
+      this.duration,
+      this.followStatus,
+      this.hasEventRecording,
+      required this.header,
+      required this.id,
+      this.imageCount,
+      this.images,
+      this.includeMembersLater,
+      this.isEdited,
+      this.isGuest,
+      this.isPaid,
+      this.isPending,
+      this.isPrivate,
+      this.isPrivateMember,
+      this.isSecret,
+      this.isTagged,
+      this.member,
+      this.muteStatus,
+      this.onlineLinkEnableBefore,
+      this.onlineLinkType,
+      this.pdf,
+      this.pdfCount,
+      this.pollsCount,
+      this.reactions,
+      this.secretChatroomLeft,
+      this.shareLink,
+      this.state,
+      required this.title,
+      this.type,
+      this.videoCount,
+      this.videos,
+      this.participantCount});
 
   factory ChatRoomEntity.fromJson(Map<String, dynamic> json) =>
       _$ChatRoomEntityFromJson(json);
