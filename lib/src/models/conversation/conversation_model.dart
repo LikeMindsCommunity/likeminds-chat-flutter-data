@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
 
 part 'conversation_model.g.dart';
 
@@ -45,6 +46,7 @@ class Conversation {
   final String? pollTypeText;
   final String? submitTypeText;
   final bool? isTimeStamp;
+  final User? member;
 
   Conversation({
     this.allowAddOption,
@@ -89,6 +91,7 @@ class Conversation {
     this.pollTypeText,
     this.submitTypeText,
     this.isTimeStamp,
+    this.member,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
@@ -134,6 +137,7 @@ class Conversation {
       pollTypeText: entity.pollTypeText,
       submitTypeText: entity.submitTypeText,
       memberId: entity.memberId,
+      member: entity.member != null ? User.fromEntity(entity.member!) : null,
     );
   }
 
@@ -158,6 +162,7 @@ class Conversation {
       header: header,
       id: id,
       internalLink: internalLink,
+      member: member?.toEntity(),
       isAnonymous: isAnonymous,
       isEdited: isEdited,
       lastUpdated: lastUpdated,
@@ -262,6 +267,7 @@ class ConversationEntity {
   final String? pollTypeText;
   @JsonKey(name: 'submit_type_text')
   final String? submitTypeText;
+  final UserEntity? member;
 
   ConversationEntity({
     this.allowAddOption,
@@ -305,6 +311,7 @@ class ConversationEntity {
     this.toShowResults,
     this.pollTypeText,
     this.submitTypeText,
+    this.member,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json) =>

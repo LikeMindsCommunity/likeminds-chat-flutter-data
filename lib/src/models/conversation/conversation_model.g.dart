@@ -49,6 +49,9 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       toShowResults: json['to_show_results'] as bool?,
       pollTypeText: json['poll_type_text'] as String?,
       submitTypeText: json['submit_type_text'] as String?,
+      member: json['member'] == null
+          ? null
+          : UserEntity.fromJson(json['member'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
@@ -94,4 +97,5 @@ Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
       'to_show_results': instance.toShowResults,
       'poll_type_text': instance.pollTypeText,
       'submit_type_text': instance.submitTypeText,
+      'member': instance.member,
     };
