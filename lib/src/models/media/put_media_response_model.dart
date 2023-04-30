@@ -5,7 +5,7 @@ part 'put_media_response_model.g.dart';
 class PutMediaResponse {
   final bool success;
   final String? errorMessage;
-  final dynamic? data;
+  final dynamic data;
 
   PutMediaResponse({
     required this.success,

@@ -3,7 +3,6 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/managers/token_manager.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
-import 'package:likeminds_chat_fl/src/methods/participants.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';

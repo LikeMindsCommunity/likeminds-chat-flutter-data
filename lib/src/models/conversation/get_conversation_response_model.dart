@@ -10,6 +10,7 @@ class GetConversationResponse {
   final Map<int, Community>? communityMeta;
   final Map<int, User>? userMeta;
   final List<Conversation>? conversationData;
+  final Map<String, dynamic>? conversationAttachmentsMeta;
 
   GetConversationResponse({
     required this.success,
@@ -18,6 +19,7 @@ class GetConversationResponse {
     this.communityMeta,
     this.userMeta,
     this.conversationData,
+    this.conversationAttachmentsMeta,
   });
 
   factory GetConversationResponse.fromEntity(
@@ -37,6 +39,7 @@ class GetConversationResponse {
       conversationData: entity.conversationData
           ?.map((e) => Conversation.fromEntity(e))
           .toList(),
+      conversationAttachmentsMeta: entity.conversationAttachmentsMeta,
     );
   }
 
@@ -54,6 +57,7 @@ class GetConversationResponse {
         (key, value) => MapEntry(key, value.toEntity()),
       ),
       conversationData: conversationData?.map((e) => e.toEntity()).toList(),
+      conversationAttachmentsMeta: conversationAttachmentsMeta,
     );
   }
 }
@@ -71,6 +75,8 @@ class GetConversationResponseEntity {
   final Map<int, UserEntity>? userMeta;
   @JsonKey(name: 'conversation_data')
   final List<ConversationEntity>? conversationData;
+  @JsonKey(name: 'conv_attachments_meta')
+  final Map<String, dynamic>? conversationAttachmentsMeta;
 
   GetConversationResponseEntity({
     required this.success,
@@ -79,6 +85,7 @@ class GetConversationResponseEntity {
     this.communityMeta,
     this.userMeta,
     this.conversationData,
+    this.conversationAttachmentsMeta,
   });
 
   factory GetConversationResponseEntity.fromJson(Map<String, dynamic> json) =>

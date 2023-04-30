@@ -8,7 +8,7 @@ class ChatRoom {
   final String? answerText;
   final int? answersCount;
   final int? attachmentCount;
-  final List<dynamic>? attachments;
+  List<dynamic>? attachments;
   final bool? attachmentsUploaded;
   final int? attendingCount;
   final bool? attendingStatus;
@@ -18,7 +18,7 @@ class ChatRoom {
   final String? cardCreationTime;
   final int? communityId;
   final String? communityName;
-  final dynamic? createdAt;
+  final dynamic createdAt;
   final int? lastConversationId;
   final String? date;
   final String? chatroomImageUrl;
