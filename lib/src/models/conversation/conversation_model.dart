@@ -50,7 +50,7 @@ class Conversation {
   final bool? isTimeStamp;
   User? member;
   final int? replyConversation;
-  final Conversation? replyConversationObject;
+  Conversation? replyConversationObject;
 
   Conversation({
     this.allowAddOption,

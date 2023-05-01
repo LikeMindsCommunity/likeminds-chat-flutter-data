@@ -28,6 +28,11 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
       conversationData: (json['data']['conversations_data'] as List<dynamic>?)
           ?.map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
+      conversationMeta:
+          (json['data']['conversation_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
+      ),
       conversationAttachmentsMeta: json['data']['conv_attachments_meta'],
     );
 

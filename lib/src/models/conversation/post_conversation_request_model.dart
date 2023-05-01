@@ -2,7 +2,7 @@ class PostConversationRequest {
   final String text;
   final int chatroomId;
   final int? expiryTime;
-  final String? replyId;
+  final int? replyId;
   final String temporaryId;
   final bool hasFiles;
   final int attachmentCount;
@@ -36,7 +36,7 @@ class PostConversationRequestBuilder {
   String? _text;
   int? _chatroomId;
   int? _expiryTime;
-  String? _replyId;
+  int? _replyId;
   String? _temporaryId;
   bool? _hasFiles;
   int? _attachmentCount;
@@ -44,7 +44,7 @@ class PostConversationRequestBuilder {
   void text(String text) => _text = text;
   void chatroomId(int chatroomId) => _chatroomId = chatroomId;
   void expiryTime(int expiryTime) => _expiryTime = expiryTime;
-  void replyId(String? replyId) => _replyId = replyId;
+  void replyId(int? replyId) => _replyId = replyId;
   void temporaryId(String temporaryId) => _temporaryId = temporaryId;
   void hasFiles(bool hasFiles) => _hasFiles = hasFiles;
   void attachmentCount(int attachmentCount) =>

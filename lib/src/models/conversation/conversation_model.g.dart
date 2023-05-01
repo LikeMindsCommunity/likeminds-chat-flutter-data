@@ -18,7 +18,7 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
           ?.map((e) => AttachmentEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       communityId: json['community_id'] as int,
-      createdAt: json['created_at'] as String,
+      createdAt: json['created_at'].toString(),
       createdEpoch: json['created_epoch'] as int?,
       date: json['date'] as String?,
       deletedByUserId: json['deleted_by_user_id'] as int?,
