@@ -1,11 +1,11 @@
 class FollowChatroomRequest {
   final int chatroomId;
-  final int memberId;
+  final int? memberId;
   final bool value;
 
   FollowChatroomRequest({
     required this.chatroomId,
-    required this.memberId,
+    this.memberId,
     required this.value,
   });
 
@@ -14,7 +14,7 @@ class FollowChatroomRequest {
       // Collabcard to be changed to chatroom, and
       // member id support to be removed.
       'collabcard_id': chatroomId,
-      'member_id': memberId,
+      // 'member_id': memberId,
       'value': value,
     };
   }

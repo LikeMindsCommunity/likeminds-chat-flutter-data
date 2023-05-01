@@ -76,6 +76,13 @@ class LMChatClient {
     return _sdkApplication.getChatroomApi().followChatroom(request);
   }
 
+  /// The method to delete the participant
+  Future<LMResponse<DeleteParticipantResponse>> deleteParticipant(
+    DeleteParticipantRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().deleteParticipant(request);
+  }
+
   /// The method to mute the chatroom
   Future<LMResponse<MuteChatroomResponse>> muteChatroom(
     MuteChatroomRequest request,

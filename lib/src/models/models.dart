@@ -27,6 +27,8 @@ export 'package:likeminds_chat_fl/src/models/chatroom/set_chatroom_topic_request
 export 'package:likeminds_chat_fl/src/models/chatroom/set_chatroom_topic_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/chatroom/share_chatroom_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/chatroom/share_chatroom_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/chatroom/delete_participant_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/chatroom/delete_participant_request_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/conversation/get_conversation_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/get_conversation_response_model.dart';

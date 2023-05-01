@@ -14,6 +14,9 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       attachmentCount: json['attachment_count'] as int?,
       attachmentsUploaded: json['attachments_uploaded'] as bool?,
       chatroomId: json['chatroom_id'] as int?,
+      attachments: (json['attachments'] as List<dynamic>?)
+          ?.map((e) => AttachmentEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
       communityId: json['community_id'] as int,
       createdAt: json['created_at'] as String,
       createdEpoch: json['created_epoch'] as int?,
@@ -41,6 +44,11 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       pollType: json['poll_type'] as int?,
       replyChatroomId: json['reply_chatroom_id'] as int?,
       replyId: json['reply_id'] as int?,
+      replyConversation: json['reply_conversation'] as int?,
+      replyConversationObject: json['reply_conversation_object'] == null
+          ? null
+          : ConversationEntity.fromJson(
+              json['reply_conversation_object'] as Map<String, dynamic>),
       startTime: json['start_time'] as int?,
       state: json['state'] as int?,
       temporaryId: json['temporary_id'] as String?,
@@ -60,6 +68,7 @@ Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
       'answer': instance.answer,
       'api_version': instance.apiVersion,
       'attachment_count': instance.attachmentCount,
+      'attachments': instance.attachments,
       'attachments_uploaded': instance.attachmentsUploaded,
       'chatroom_id': instance.chatroomId,
       'community_id': instance.communityId,

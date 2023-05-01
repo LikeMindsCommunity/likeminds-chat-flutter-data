@@ -44,4 +44,11 @@ class ChatroomRepository {
         await chatroomService.setChatroomTopic(request);
     return response;
   }
+
+  Future<DeleteParticipantResponse> deleteParticipant(
+      DeleteParticipantRequest request) async {
+    DeleteParticipantResponse response =
+        await chatroomService.deleteParticipant(request);
+    return response;
+  }
 }

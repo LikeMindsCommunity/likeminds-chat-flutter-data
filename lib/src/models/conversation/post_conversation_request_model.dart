@@ -22,7 +22,7 @@ class PostConversationRequest {
       'text': text,
       'chatroom_id': chatroomId,
       'expiry_time': expiryTime,
-      'reply_id': replyId,
+      'replied_conversation_id': replyId,
       'temporary_id': temporaryId,
       'has_files': hasFiles,
       'attachment_count': attachmentCount,

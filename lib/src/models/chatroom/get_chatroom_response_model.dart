@@ -8,6 +8,7 @@ class GetChatroomResponse {
   final String? errorMessage;
   final bool? canAccessSecretChatroom;
   final ChatRoom? chatroom;
+  final List<ChatroomAction>? chatroomActions;
   final Community? community;
   final List<ChatRoomMember>? conversationUsers;
   final int? lastConversationId;
@@ -24,6 +25,7 @@ class GetChatroomResponse {
     this.lastConversationId,
     this.participantCount,
     this.unreadMessages,
+    this.chatroomActions,
   });
 
   factory GetChatroomResponse.fromEntity(GetChatroomResponseEntity entity) {
@@ -33,6 +35,11 @@ class GetChatroomResponse {
       canAccessSecretChatroom: entity.canAccessSecretChatroom,
       chatroom: entity.chatroom != null
           ? ChatRoom.fromEntity(entity.chatroom!)
+          : null,
+      chatroomActions: entity.chatroomActions != null
+          ? entity.chatroomActions!
+              .map((e) => ChatroomAction.fromEntity(e))
+              .toList()
           : null,
       community: entity.community != null
           ? Community.fromEntity(entity.community!)
@@ -54,6 +61,9 @@ class GetChatroomResponse {
       errorMessage: errorMessage,
       canAccessSecretChatroom: canAccessSecretChatroom,
       chatroom: chatroom != null ? chatroom!.toEntity() : null,
+      chatroomActions: chatroomActions != null
+          ? chatroomActions!.map((e) => e.toEntity()).toList()
+          : null,
       community: community != null ? community!.toEntity() : null,
       conversationUsers: conversationUsers != null
           ? conversationUsers!.map((e) => e.toEntity()).toList()
@@ -74,6 +84,8 @@ class GetChatroomResponseEntity {
   final bool? canAccessSecretChatroom;
   @JsonKey(name: 'chatroom')
   final ChatRoomEntity? chatroom;
+  @JsonKey(name: 'chatroom_actions')
+  final List<ChatroomActionEntity>? chatroomActions;
   @JsonKey(name: 'community')
   final CommunityEntity? community;
   @JsonKey(name: 'conversation_users')
@@ -90,6 +102,7 @@ class GetChatroomResponseEntity {
     this.errorMessage,
     this.canAccessSecretChatroom,
     this.chatroom,
+    this.chatroomActions,
     this.community,
     this.conversationUsers,
     this.lastConversationId,

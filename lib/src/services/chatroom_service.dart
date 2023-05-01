@@ -12,6 +12,8 @@ abstract class IChatroomService {
   Future<ShareChatroomResponse> shareChatroomUrl(ShareChatroomRequest request);
   Future<SetChatroomTopicResponse> setChatroomTopic(
       SetChatroomTopicRequest request);
+  Future<DeleteParticipantResponse> deleteParticipant(
+      DeleteParticipantRequest request);
 }
 
 class ChatroomService extends IChatroomService {
@@ -26,12 +28,6 @@ class ChatroomService extends IChatroomService {
       final response = await apiManager.get(
         apiManager.endPoints.chatroomEndpoint,
         queryParameters: request.toJson(),
-        // options: Options(
-        //   headers: {
-        //     // 'api_type': '1',
-        //     // 'x-version-code': 'v2',
-        //   },
-        // ),
       );
       return GetChatroomResponseEntity.fromJson(response.data);
     } on DioError catch (e) {
@@ -123,6 +119,24 @@ class ChatroomService extends IChatroomService {
     } on DioError catch (e) {
       debugPrint(e.message);
       return SetChatroomTopicResponse(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
+
+  @override
+  Future<DeleteParticipantResponse> deleteParticipant(
+      DeleteParticipantRequest request) async {
+    try {
+      final response = await apiManager.delete(
+        apiManager.endPoints.chatroomParticipantsEndpoint,
+        queryParameters: request.toJson(),
+      );
+      return DeleteParticipantResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint(e.message);
+      return DeleteParticipantResponse(
         success: false,
         errorMessage: e.message,
       );

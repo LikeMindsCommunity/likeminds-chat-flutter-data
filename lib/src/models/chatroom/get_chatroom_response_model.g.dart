@@ -17,6 +17,9 @@ GetChatroomResponseEntity _$GetChatroomResponseEntityFromJson(
           ? null
           : ChatRoomEntity.fromJson(
               json['data']['chatroom'] as Map<String, dynamic>),
+      chatroomActions: (json['data']['chatroom_actions'] as List<dynamic>?)
+          ?.map((e) => ChatroomActionEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
       community: json['data']['community'] == null
           ? null
           : CommunityEntity.fromJson(
@@ -41,4 +44,5 @@ Map<String, dynamic> _$GetChatroomResponseEntityToJson(
       'last_conversation_id': instance.lastConversationId,
       'participant_count': instance.participantCount,
       'unread_messages': instance.unreadMessages,
+      'chatroom_actions': instance.chatroomActions,
     };
