@@ -27,6 +27,7 @@ class ApiManager {
     Map<String, dynamic> headers = {
       "x-platform-code": EnvDev.platformCode,
       "x-version-code": EnvDev.versionCode,
+      "x-sdk-source": "chat",
       "x-api-key": tokenManager.apiKey,
     };
 
