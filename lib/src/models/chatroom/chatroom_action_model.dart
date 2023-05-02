@@ -4,7 +4,7 @@ part 'chatroom_action_model.g.dart';
 
 class ChatroomAction {
   final int id;
-  final String title;
+  String title;
 
   ChatroomAction({
     required this.id,
