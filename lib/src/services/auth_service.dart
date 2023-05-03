@@ -120,4 +120,29 @@ class AuthService extends IAuthService {
       return logoutResponse;
     }
   }
+
+  /// Get the state of the member for feedroom access
+  /// Returns the state of the member
+  Future<bool> getMemberState() async {
+    try {
+      final response = await apiManager.get(
+        apiManager.endPoints.memberStateEndpoint,
+        options: Options(
+          headers: {
+            'x-api-key': '${apiManager.tokenManager.apiKey}',
+          },
+        ),
+      );
+      print("Response from access check: ${response.data}");
+      if (response.data['data']['state'] == 1 &&
+          response.data['success'] == true) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      print("Error from get member state access: $e");
+      return false;
+    }
+  }
 }

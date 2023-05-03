@@ -51,6 +51,11 @@ class LMChatClient {
     return _sdkApplication.getAuthApi().initiateUser(request);
   }
 
+  /// The method to get the member state
+  Future<LMResponse<bool>> getMemberState() {
+    return _sdkApplication.getAuthApi().getMemberState();
+  }
+
   /// The method to logout the user
   Future<LMResponse<LogoutResponse>> logout(LogoutRequest request) {
     return _sdkApplication.getAuthApi().logout(request);

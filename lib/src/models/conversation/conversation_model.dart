@@ -16,7 +16,7 @@ class Conversation {
   final String createdAt;
   final int? createdEpoch;
   final String? date;
-  final int? deletedByUserId;
+  int? deletedByUserId;
   final String? deviceId;
   final int? endTime;
   final int? expiryTime;
