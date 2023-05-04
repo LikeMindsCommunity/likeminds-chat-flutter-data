@@ -34,7 +34,7 @@ class ChatRoom {
   final List<dynamic>? images;
   final bool? includeMembersLater;
   final bool? isEdited;
-  final bool? isGuest;
+  bool? isGuest;
   final bool? isPaid;
   final bool? isPending;
   final bool? isPrivate;
