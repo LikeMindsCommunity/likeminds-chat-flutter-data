@@ -12,7 +12,7 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 /// ONLY FOR INTERNAL TESTING
-const bool _prodFlag = false;
+const bool _prodFlag = true;
 
 /// The starting point class of the SDK
 class LMChatClient {

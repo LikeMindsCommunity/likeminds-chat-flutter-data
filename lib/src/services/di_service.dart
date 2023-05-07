@@ -42,7 +42,7 @@ class DIService {
 
     ApiManager apiManager = ApiManager(
       tokenManager: tokenManager,
-      production: isProduction,
+      production: production,
     );
 
     /// Register all the services in the getIt instance
