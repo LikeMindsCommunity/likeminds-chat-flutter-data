@@ -51,6 +51,11 @@ class LMChatClient {
     return _sdkApplication.getAuthApi().initiateUser(request);
   }
 
+  /// The method to get the member state
+  Future<LMResponse<bool>> getMemberState() {
+    return _sdkApplication.getAuthApi().getMemberState();
+  }
+
   /// The method to logout the user
   Future<LMResponse<LogoutResponse>> logout(LogoutRequest request) {
     return _sdkApplication.getAuthApi().logout(request);
@@ -74,6 +79,13 @@ class LMChatClient {
     FollowChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().followChatroom(request);
+  }
+
+  /// The method to delete the participant
+  Future<LMResponse<DeleteParticipantResponse>> deleteParticipant(
+    DeleteParticipantRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().deleteParticipant(request);
   }
 
   /// The method to mute the chatroom
@@ -109,6 +121,13 @@ class LMChatClient {
     GetConversationRequest request,
   ) {
     return _sdkApplication.getConversationApi().getConversation(request);
+  }
+
+  /// The method to get a single chatroom conversation
+  Future<LMResponse<GetSingleConversationResponse>> getSingleConversation(
+    GetSingleConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().getSingleConversation(request);
   }
 
   /// The method to post the chatroom conversation

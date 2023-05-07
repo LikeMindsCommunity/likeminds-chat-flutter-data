@@ -1,7 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_chat_fl/src/models/chatroom/chatroom_model.dart';
-import 'package:likeminds_chat_fl/src/models/community/community_model.dart';
-import 'package:likeminds_chat_fl/src/models/home/my_chatroom_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 part 'home_feed_response_model.g.dart';
@@ -12,7 +9,7 @@ class GetHomeFeedResponse {
   final Map<String, Community>? communityMeta;
   final List<ChatRoom>? chatroomsData;
   final Map<String, Conversation>? conversationMeta;
-  final Map<String, User>? userMeta;
+  final Map<int, User>? userMeta;
   final Map<dynamic, dynamic>? cardAttachmentsMeta;
   final Map<dynamic, dynamic>? conversationAttachmentsMeta;
   final Map<dynamic, dynamic>? conversationPollsMeta;
@@ -44,10 +41,12 @@ class GetHomeFeedResponse {
           ? entity.conversationMeta!.map(
               (key, value) => MapEntry(key, Conversation.fromEntity(value)))
           : null,
-      userMeta: entity.userMeta != null
-          ? entity.userMeta!
-              .map((key, value) => MapEntry(key, User.fromEntity(value)))
-          : null,
+      userMeta: entity.userMeta?.map(
+        (key, value) => MapEntry(
+          key,
+          User.fromEntity(value),
+        ),
+      ),
       cardAttachmentsMeta: entity.cardAttachmentsMeta,
       conversationAttachmentsMeta: entity.conversationAttachmentsMeta,
       conversationPollsMeta: entity.conversationPollsMeta,
@@ -90,7 +89,7 @@ class GetHomeFeedResponseEntity {
   @JsonKey(name: 'conversation_meta')
   final Map<String, ConversationEntity>? conversationMeta;
   @JsonKey(name: 'user_meta')
-  final Map<String, UserEntity>? userMeta;
+  final Map<int, UserEntity>? userMeta;
   @JsonKey(name: 'card_attachments_meta')
   final Map<dynamic, dynamic>? cardAttachmentsMeta;
   @JsonKey(name: 'conv_attachments_meta')

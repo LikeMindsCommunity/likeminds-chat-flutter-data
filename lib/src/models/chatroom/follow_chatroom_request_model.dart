@@ -1,11 +1,11 @@
 class FollowChatroomRequest {
   final int chatroomId;
-  final int memberId;
+  final int? memberId;
   final bool value;
 
   FollowChatroomRequest({
     required this.chatroomId,
-    required this.memberId,
+    this.memberId,
     required this.value,
   });
 

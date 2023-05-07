@@ -10,6 +10,8 @@ class GetConversationResponse {
   final Map<int, Community>? communityMeta;
   final Map<int, User>? userMeta;
   final List<Conversation>? conversationData;
+  final Map<String, Conversation>? conversationMeta;
+  final Map<String, dynamic>? conversationAttachmentsMeta;
 
   GetConversationResponse({
     required this.success,
@@ -18,6 +20,8 @@ class GetConversationResponse {
     this.communityMeta,
     this.userMeta,
     this.conversationData,
+    this.conversationMeta,
+    this.conversationAttachmentsMeta,
   });
 
   factory GetConversationResponse.fromEntity(
@@ -37,6 +41,10 @@ class GetConversationResponse {
       conversationData: entity.conversationData
           ?.map((e) => Conversation.fromEntity(e))
           .toList(),
+      conversationMeta: entity.conversationMeta?.map(
+        (key, value) => MapEntry(key, Conversation.fromEntity(value)),
+      ),
+      conversationAttachmentsMeta: entity.conversationAttachmentsMeta,
     );
   }
 
@@ -54,6 +62,10 @@ class GetConversationResponse {
         (key, value) => MapEntry(key, value.toEntity()),
       ),
       conversationData: conversationData?.map((e) => e.toEntity()).toList(),
+      conversationMeta: conversationMeta?.map(
+        (key, value) => MapEntry(key, value.toEntity()),
+      ),
+      conversationAttachmentsMeta: conversationAttachmentsMeta,
     );
   }
 }
@@ -71,6 +83,10 @@ class GetConversationResponseEntity {
   final Map<int, UserEntity>? userMeta;
   @JsonKey(name: 'conversation_data')
   final List<ConversationEntity>? conversationData;
+  @JsonKey(name: 'conversation_meta')
+  final Map<String, ConversationEntity>? conversationMeta;
+  @JsonKey(name: 'conv_attachments_meta')
+  final Map<String, dynamic>? conversationAttachmentsMeta;
 
   GetConversationResponseEntity({
     required this.success,
@@ -79,6 +95,8 @@ class GetConversationResponseEntity {
     this.communityMeta,
     this.userMeta,
     this.conversationData,
+    this.conversationAttachmentsMeta,
+    this.conversationMeta,
   });
 
   factory GetConversationResponseEntity.fromJson(Map<String, dynamic> json) =>

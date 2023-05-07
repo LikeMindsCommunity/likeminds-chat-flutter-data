@@ -1,10 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/get_single_conversation_request_model.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/get_single_conversation_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IConversationService {
   Future<GetConversationResponseEntity> getConversation(
       GetConversationRequest request);
+  Future<GetSingleConversationResponseEntity> getSingleConversation(
+      GetSingleConversationRequest request);
   Future<PostConversationResponseEntity> postConversation(
       PostConversationRequest request);
   Future<EditConversationResponseEntity> editConversation(
@@ -31,6 +35,24 @@ class ConversationService extends IConversationService {
       return GetConversationResponseEntity.fromJson(response.data);
     } on DioError catch (e) {
       return GetConversationResponseEntity(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
+
+  @override
+  Future<GetSingleConversationResponseEntity> getSingleConversation(
+      GetSingleConversationRequest request) async {
+    try {
+      final response = await _apiManager.get(
+        _apiManager.endPoints.conversationEndpoint,
+        queryParameters: request.toJson(),
+      );
+
+      return GetSingleConversationResponseEntity.fromJson(response.data);
+    } on DioError catch (e) {
+      return GetSingleConversationResponseEntity(
         success: false,
         errorMessage: e.message,
       );

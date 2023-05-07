@@ -77,4 +77,16 @@ class ChatroomApi {
       errorMessage: response.errorMessage,
     );
   }
+
+  Future<LMResponse<DeleteParticipantResponse>> deleteParticipant(
+    DeleteParticipantRequest request,
+  ) async {
+    DeleteParticipantResponse response =
+        await chatroomRepository.deleteParticipant(request);
+    return LMResponse<DeleteParticipantResponse>(
+      success: response.success,
+      data: response,
+      errorMessage: response.errorMessage,
+    );
+  }
 }

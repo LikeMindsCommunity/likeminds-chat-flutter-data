@@ -36,23 +36,23 @@ class UtilService {
     }
   }
 
-  Future<BrandingResponseEntity> getBranding(BrandingRequest request) async {
-    try {
-      final response = await apiManager.get(
-        apiManager.endPoints.getBrandingEndPoint(request.communityId),
-        options: Options(
-          headers: {
-            'x-member-id': request.userId ?? apiManager.tokenManager.userId,
-          },
-        ),
-      );
-      BrandingResponseEntity brandingResponse =
-          BrandingResponseEntity.fromJson(response.data);
-      return brandingResponse;
-    } on DioError catch (e) {
-      BrandingResponseEntity brandingResponse =
-          BrandingResponseEntity.fromJson(e.response?.data);
-      return brandingResponse;
-    }
-  }
+  // Future<BrandingResponseEntity> getBranding(BrandingRequest request) async {
+  //   try {
+  //     final response = await apiManager.get(
+  //       apiManager.endPoints.getBrandingEndPoint(request.communityId),
+  //       options: Options(
+  //         headers: {
+  //           'x-member-id': request.userId ?? apiManager.tokenManager.userId,
+  //         },
+  //       ),
+  //     );
+  //     BrandingResponseEntity brandingResponse =
+  //         BrandingResponseEntity.fromJson(response.data);
+  //     return brandingResponse;
+  //   } on DioError catch (e) {
+  //     BrandingResponseEntity brandingResponse =
+  //         BrandingResponseEntity.fromJson(e.response?.data);
+  //     return brandingResponse;
+  //   }
+  // }
 }

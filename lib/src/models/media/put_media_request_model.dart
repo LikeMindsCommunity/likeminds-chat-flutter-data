@@ -3,8 +3,9 @@ class PutMediaRequest {
   final String url;
   final int filesCount;
   final int index;
-  final double height;
-  final double width;
+  final int height;
+  final int width;
+  final String type;
   final dynamic meta;
 
   PutMediaRequest._({
@@ -15,6 +16,7 @@ class PutMediaRequest {
     required this.height,
     required this.width,
     required this.meta,
+    required this.type,
   });
 
   Map<String, dynamic> toJson() {
@@ -26,6 +28,7 @@ class PutMediaRequest {
       "height": height,
       "width": width,
       "meta": meta,
+      "type": type,
     };
   }
 }
@@ -35,25 +38,29 @@ class PutMediaRequestBuilder {
   String? _url;
   int? _filesCount;
   int? _index;
-  double? _height;
-  double? _width;
-  dynamic? _meta;
+  int? _height;
+  int? _width;
+  dynamic _meta;
+  String? _type;
 
   void conversationId(int conversationId) => _conversationId = conversationId;
   void url(String url) => _url = url;
   void filesCount(int filesCount) => _filesCount = filesCount;
-  void height(double height) => _height = height;
-  void width(double width) => _width = width;
+  void height(int height) => _height = height;
+  void width(int width) => _width = width;
   void meta(dynamic meta) => _meta = meta;
+  void index(int index) => _index = index;
+  void type(String type) => _type = type;
 
   PutMediaRequest build() {
     final int? conversationId = _conversationId;
     final String? url = _url;
     final int? filesCount = _filesCount;
     final int? index = _index;
-    final double? height = _height;
-    final double? width = _width;
+    final int? height = _height;
+    final int? width = _width;
     final dynamic meta = _meta;
+    final String? type = _type;
 
     if (conversationId == null) {
       throw StateError('Conversation ID is required');
@@ -65,16 +72,20 @@ class PutMediaRequestBuilder {
       throw StateError('files count is required');
     }
     if (index == null) {
-      throw StateError('Message text is required');
+      throw StateError('index is required');
     }
     if (height == null) {
-      throw StateError('chatroomId is required');
+      throw StateError('chatheightroomId is required');
     }
     if (width == null) {
-      throw StateError('expiryTime is required');
+      throw StateError('width is required');
     }
     if (meta == null) {
       throw StateError('meta is required for this builder');
+    }
+
+    if (type == null) {
+      throw StateError('type is required for this builder');
     }
 
     return PutMediaRequest._(
@@ -85,6 +96,7 @@ class PutMediaRequestBuilder {
       height: height,
       width: width,
       meta: meta,
+      type: type,
     );
   }
 }

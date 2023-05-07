@@ -25,7 +25,8 @@ GetHomeFeedResponseEntity _$GetHomeFeedResponseEntityFromJson(
             MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
       ),
       userMeta: (json['data']['user_meta'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, UserEntity.fromJson(e as Map<String, dynamic>)),
+        (k, e) => MapEntry(
+            int.parse(k), UserEntity.fromJson(e as Map<String, dynamic>)),
       ),
       cardAttachmentsMeta:
           json['data']['card_attachments_meta'] as Map<String, dynamic>?,

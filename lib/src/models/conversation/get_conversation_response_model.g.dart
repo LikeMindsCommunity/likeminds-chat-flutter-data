@@ -28,6 +28,12 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
       conversationData: (json['data']['conversations_data'] as List<dynamic>?)
           ?.map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
+      conversationMeta:
+          (json['data']['conversation_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
+      ),
+      conversationAttachmentsMeta: json['data']['conv_attachments_meta'],
     );
 
 Map<String, dynamic> _$GetConversationResponseEntityToJson(
@@ -35,10 +41,24 @@ Map<String, dynamic> _$GetConversationResponseEntityToJson(
     <String, dynamic>{
       'success': instance.success,
       'error_message': instance.errorMessage,
-      'chatroom_meta':
-          instance.chatroomMeta?.map((k, e) => MapEntry(k.toString(), e)),
-      'community_meta':
-          instance.communityMeta?.map((k, e) => MapEntry(k.toString(), e)),
-      'user_meta': instance.userMeta?.map((k, e) => MapEntry(k.toString(), e)),
+      'chatroom_meta': instance.chatroomMeta?.map(
+        (k, e) => MapEntry(
+          k.toString(),
+          e,
+        ),
+      ),
+      'community_meta': instance.communityMeta?.map(
+        (k, e) => MapEntry(
+          k.toString(),
+          e,
+        ),
+      ),
+      'user_meta': instance.userMeta?.map(
+        (k, e) => MapEntry(
+          k.toString(),
+          e,
+        ),
+      ),
       'conversations_data': instance.conversationData,
+      'conv_attachments_meta': instance.conversationAttachmentsMeta ?? {},
     };

@@ -202,7 +202,7 @@ void main() {
   test('Logging out the user', () async {
     LogoutRequest request = LogoutRequest();
     LMResponse<LogoutResponse> response = await lmClient.logout(request);
-    if (response.success!) {
+    if (response.success) {
       debugPrint("Successfully logged out after all tests");
     }
     expect(response.success, true);

@@ -23,11 +23,9 @@ class EndPoints {
   String get authRefreshEndpoint => "$KETTLE_HOST/user/refresh";
   String get authLogoutEndpoint => "$KETTLE_HOST/user/logout";
 
-  String get registerDeviceEndpoint => "$KETTLE_HOST/user/device/push";
+  String get memberStateEndpoint => "$KETTLE_HOST/community/member/state";
 
-  String getBrandingEndPoint(String communityId) {
-    return "$CARAVAN_HOST/community/$communityId/branding";
-  }
+  String get registerDeviceEndpoint => "$KETTLE_HOST/user/device/push";
 
   String get homeFeedEndpoint => "$KETTLE_HOST/chatroom/sync";
 

@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/attachment_model.dart';
 
 part 'conversation_model.g.dart';
 
@@ -7,13 +9,14 @@ class Conversation {
   final String answer;
   final int? apiVersion;
   final int? attachmentCount;
+  final List<Attachment>? attachments;
   final bool? attachmentsUploaded;
   final int? chatroomId;
   final int communityId;
   final String createdAt;
   final int? createdEpoch;
   final String? date;
-  final int? deletedByUserId;
+  int? deletedByUserId;
   final String? deviceId;
   final int? endTime;
   final int? expiryTime;
@@ -45,6 +48,9 @@ class Conversation {
   final String? pollTypeText;
   final String? submitTypeText;
   final bool? isTimeStamp;
+  User? member;
+  final int? replyConversation;
+  Conversation? replyConversationObject;
 
   Conversation({
     this.allowAddOption,
@@ -52,6 +58,7 @@ class Conversation {
     this.apiVersion,
     this.attachmentCount,
     this.attachmentsUploaded,
+    this.attachments,
     this.chatroomId,
     required this.communityId,
     required this.createdAt,
@@ -89,6 +96,9 @@ class Conversation {
     this.pollTypeText,
     this.submitTypeText,
     this.isTimeStamp,
+    this.member,
+    this.replyConversation,
+    this.replyConversationObject,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
@@ -103,6 +113,9 @@ class Conversation {
       createdAt: entity.createdAt,
       createdEpoch: entity.createdEpoch,
       date: entity.date,
+      attachments: entity.attachments != null
+          ? entity.attachments!.map((e) => Attachment.fromEntity(e)).toList()
+          : null,
       deletedByUserId: entity.deletedByUserId,
       deviceId: entity.deviceId,
       endTime: entity.endTime,
@@ -126,6 +139,10 @@ class Conversation {
       pollType: entity.pollType,
       replyChatroomId: entity.replyChatroomId,
       replyId: entity.replyId,
+      replyConversation: entity.replyConversation,
+      replyConversationObject: entity.replyConversationObject != null
+          ? Conversation.fromEntity(entity.replyConversationObject!)
+          : null,
       startTime: entity.startTime,
       state: entity.state,
       temporaryId: entity.temporaryId,
@@ -134,6 +151,7 @@ class Conversation {
       pollTypeText: entity.pollTypeText,
       submitTypeText: entity.submitTypeText,
       memberId: entity.memberId,
+      member: entity.member != null ? User.fromEntity(entity.member!) : null,
     );
   }
 
@@ -143,6 +161,9 @@ class Conversation {
       answer: answer,
       apiVersion: apiVersion,
       attachmentCount: attachmentCount,
+      attachments: attachments != null
+          ? attachments!.map((e) => e.toEntity()).toList()
+          : null,
       attachmentsUploaded: attachmentsUploaded,
       chatroomId: chatroomId,
       communityId: communityId,
@@ -158,6 +179,7 @@ class Conversation {
       header: header,
       id: id,
       internalLink: internalLink,
+      member: member?.toEntity(),
       isAnonymous: isAnonymous,
       isEdited: isEdited,
       lastUpdated: lastUpdated,
@@ -172,6 +194,10 @@ class Conversation {
       pollType: pollType,
       replyChatroomId: replyChatroomId,
       replyId: replyId,
+      replyConversation: replyConversation,
+      replyConversationObject: replyConversationObject != null
+          ? replyConversationObject!.toEntity()
+          : null,
       startTime: startTime,
       state: state,
       temporaryId: temporaryId,
@@ -193,6 +219,7 @@ class ConversationEntity {
   final int? apiVersion;
   @JsonKey(name: 'attachment_count')
   final int? attachmentCount;
+  final List<AttachmentEntity>? attachments;
   @JsonKey(name: 'attachments_uploaded')
   final bool? attachmentsUploaded;
   @JsonKey(name: 'chatroom_id')
@@ -247,6 +274,10 @@ class ConversationEntity {
   final int? replyChatroomId;
   @JsonKey(name: 'reply_id')
   final int? replyId;
+  @JsonKey(name: 'reply_conversation')
+  final int? replyConversation;
+  @JsonKey(name: 'reply_conversation_object')
+  final ConversationEntity? replyConversationObject;
   @JsonKey(name: 'start_time')
   final int? startTime;
   final int? state;
@@ -262,6 +293,7 @@ class ConversationEntity {
   final String? pollTypeText;
   @JsonKey(name: 'submit_type_text')
   final String? submitTypeText;
+  final UserEntity? member;
 
   ConversationEntity({
     this.allowAddOption,
@@ -270,6 +302,7 @@ class ConversationEntity {
     this.attachmentCount,
     this.attachmentsUploaded,
     this.chatroomId,
+    this.attachments,
     required this.communityId,
     required this.createdAt,
     this.createdEpoch,
@@ -297,6 +330,8 @@ class ConversationEntity {
     this.pollType,
     this.replyChatroomId,
     this.replyId,
+    this.replyConversation,
+    this.replyConversationObject,
     this.startTime,
     this.state,
     this.temporaryId,
@@ -305,6 +340,7 @@ class ConversationEntity {
     this.toShowResults,
     this.pollTypeText,
     this.submitTypeText,
+    this.member,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json) =>
