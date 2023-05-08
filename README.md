@@ -59,8 +59,8 @@ class YourCallback extends LMSdkCallback {
 
 ### Further usage
 
-After initializing the `LMChatClient` instance, you can use it to access the different mehods exposed by the package. You can read the documentation for the package [here](https://pub.dev/documentation/likeminds_chat_fl/latest/likeminds_chat_fl/LMChatClient-class.html).
+After initializing the `LMChatClient` instance, you can use it to access the different mehods exposed by the package. You can read the documentation for the package [here](https://docs.likeminds.community).
 
 ## Example
 
-You can find a complete example of how to use the package [here] within our sample UI package. You can also clone the repo and run the example app on your device.
+You can find a complete example of how to use the package [here](https://github.com/NateshR/LikeMinds-Flutter-GroupChat-MM) within our sample UI package. You can also clone the repo and run the example app on your device.
