@@ -11,8 +11,8 @@ import 'package:likeminds_chat_fl/src/methods/sdk.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
-/// ONLY FOR INTERNAL TESTING
-const bool _prodFlag = true;
+/// Flutter flavour/environment manager v0.0.1
+const bool _prodFlag = !bool.fromEnvironment('DEBUG');
 
 /// The starting point class of the SDK
 class LMChatClient {
