@@ -1,0 +1,180 @@
+library likeminds_chat_fl;
+
+export 'package:likeminds_chat_fl/src/models/models.dart';
+export 'package:likeminds_chat_fl/src/methods/callback.dart';
+export 'package:likeminds_chat_fl/src/services/di_service.dart';
+
+import 'package:flutter/foundation.dart';
+import 'package:likeminds_chat_fl/src/methods/callback.dart';
+import 'package:likeminds_chat_fl/src/methods/notification.dart';
+import 'package:likeminds_chat_fl/src/methods/sdk.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/services/di_service.dart';
+
+/// Flutter flavour/environment manager v0.0.1
+const bool _prodFlag = !bool.fromEnvironment('DEBUG');
+
+/// The starting point class of the SDK
+class LMChatClient {
+  late final SdkApplication _sdkApplication;
+
+  final String _apiKey;
+  final LMSdkCallback _sdkCallback;
+
+  LMChatClient._({
+    required String apiKey,
+    required LMSdkCallback sdkCallback,
+  })  : _apiKey = apiKey,
+        _sdkCallback = sdkCallback {
+    debugPrint("LMChatClient initialized");
+    DIService.instance.init(_apiKey, _prodFlag, _sdkCallback);
+    _sdkApplication = SdkApplication().initialize();
+  }
+
+  /// The static method to initiate the SDK
+  /// [apiKey] is the API key provided by LikeMinds
+  /// [sdkCallback] is the callback to handle the events
+  /// Returns a new instance of the SDK [LMChatClient]
+  static LMChatClient initiateLikeMinds({
+    required String apiKey,
+    required LMSdkCallback sdkCallback,
+  }) {
+    return LMChatClient._(
+      apiKey: apiKey,
+      sdkCallback: sdkCallback,
+    );
+  }
+
+  /// The method to login the user
+  Future<LMResponse<InitiateUserResponse>> initiateUser(
+      InitiateUserRequest request) {
+    return _sdkApplication.getAuthApi().initiateUser(request);
+  }
+
+  /// The method to get the member state
+  Future<LMResponse<bool>> getMemberState() {
+    return _sdkApplication.getAuthApi().getMemberState();
+  }
+
+  /// The method to logout the user
+  Future<LMResponse<LogoutResponse>> logout(LogoutRequest request) {
+    return _sdkApplication.getAuthApi().logout(request);
+  }
+
+  /// The method to get chat home feed
+  Future<LMResponse<GetHomeFeedResponse>> getHomeFeed(
+      GetHomeFeedRequest request) {
+    return _sdkApplication.getHomeApi().getHomeFeed(request);
+  }
+
+  /// The method to get a single chatroom
+  Future<LMResponse<GetChatroomResponse>> getChatroom(
+    GetChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().getChatroom(request);
+  }
+
+  /// The method to follow the chatroom
+  Future<LMResponse<FollowChatroomResponse>> followChatroom(
+    FollowChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().followChatroom(request);
+  }
+
+  /// The method to delete the participant
+  Future<LMResponse<DeleteParticipantResponse>> deleteParticipant(
+    DeleteParticipantRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().deleteParticipant(request);
+  }
+
+  /// The method to mute the chatroom
+  Future<LMResponse<MuteChatroomResponse>> muteChatroom(
+    MuteChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().muteChatroom(request);
+  }
+
+  /// The method to mark read the chatroom
+  Future<LMResponse<MarkReadChatroomResponse>> markReadChatroom(
+    MarkReadChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().markReadChatroom(request);
+  }
+
+  /// The method to share the chatroom
+  Future<LMResponse<ShareChatroomResponse>> shareChatroomUrl(
+    ShareChatroomRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().shareChatroomUrl(request);
+  }
+
+  /// The method to set the chatroom topic
+  Future<LMResponse<SetChatroomTopicResponse>> setChatroomTopic(
+    SetChatroomTopicRequest request,
+  ) {
+    return _sdkApplication.getChatroomApi().setChatroomTopic(request);
+  }
+
+  /// The method to get the chatroom conversation
+  Future<LMResponse<GetConversationResponse>> getConversation(
+    GetConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().getConversation(request);
+  }
+
+  /// The method to get a single chatroom conversation
+  Future<LMResponse<GetSingleConversationResponse>> getSingleConversation(
+    GetSingleConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().getSingleConversation(request);
+  }
+
+  /// The method to post the chatroom conversation
+  Future<LMResponse<PostConversationResponse>> postConversation(
+    PostConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().postConversation(request);
+  }
+
+  /// The method to edit the chatroom conversation
+  Future<LMResponse<EditConversationResponse>> editConversation(
+    EditConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().editConversation(request);
+  }
+
+  /// The method to delete the chatroom conversation
+  Future<LMResponse<DeleteConversationResponse>> deleteConversation(
+    DeleteConversationRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().deleteConversation(request);
+  }
+
+  /// The method to put multimedia in a chat item
+  Future<LMResponse<PutMediaResponse>> putMultimedia(PutMediaRequest request) {
+    return _sdkApplication.getMediaApi().putMultimedia(request);
+  }
+
+  /// The method to register device for notifications
+  Future<LMResponse<RegisterDeviceResponse>> registerDevice(
+      RegisterDeviceRequest request) {
+    return LMNotifications.registerDevice(request);
+  }
+
+  ///The method to get chatroom's participants
+  Future<LMResponse<GetParticipantsResponse>> getParticipants(
+      GetParticipantsRequest request) {
+    return _sdkApplication.getParticipantsApi().getParticipants(request);
+  }
+
+  ///The method to get chatroom's tagging list
+  Future<LMResponse<TagResponseModel>> getTaggingList(TagRequestModel request) {
+    return _sdkApplication.getHelperApi().getTags(request: request);
+  }
+
+  ///The method to get link's preview
+  Future<LMResponse<DecodeUrlResponse>> decodeUrl(DecodeUrlRequest request) {
+    return _sdkApplication.getHelperApi().decodeUrl(request: request);
+  }
+}
