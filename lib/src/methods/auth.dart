@@ -27,12 +27,4 @@ class AuthApi {
       errorMessage: response.errorMessage,
     );
   }
-
-  Future<LMResponse<bool>> getMemberState() async {
-    bool response = await authRepository.getMemberState();
-    return LMResponse<bool>(
-      data: response,
-      success: true,
-    );
-  }
 }

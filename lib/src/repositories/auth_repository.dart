@@ -20,8 +20,4 @@ class AuthRepository {
         await authService.logout(logoutRequest);
     return LogoutResponse.fromEntity(responseEntity);
   }
-
-  Future<bool> getMemberState() {
-    return authService.getMemberState();
-  }
 }

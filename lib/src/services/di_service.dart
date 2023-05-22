@@ -123,6 +123,7 @@ class DIService {
   static const String kInstanceAPIClient = 'api_client';
   static const String kInstanceHomeFeedRepository = 'home_repository';
   static const String kInstanceAuthRepository = 'auth_repository';
+  static const String kInstanceAccessRepository = 'access_repository';
   static const String kInstanceChatroomRepository = 'chatroom_repository';
   static const String kInstanceConversationRepository =
       'conversation_repository';
