@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
-import 'package:likeminds_chat_fl/src/models/auth/member_right_model.dart';
-
 part 'member_state_response_model.g.dart';
 
 class MemberStateResponse {

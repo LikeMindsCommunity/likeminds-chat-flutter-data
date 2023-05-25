@@ -3,6 +3,7 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/managers/token_manager.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
+import 'package:likeminds_chat_fl/src/repositories/access_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';
@@ -10,6 +11,7 @@ import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
+import 'package:likeminds_chat_fl/src/services/access_service.dart';
 import 'package:likeminds_chat_fl/src/services/auth_service.dart';
 import 'package:likeminds_chat_fl/src/services/chatroom_service.dart';
 import 'package:likeminds_chat_fl/src/services/conversation_service.dart';
@@ -59,6 +61,10 @@ class DIService {
     AuthService authService = AuthService(apiManager: apiManager);
     AuthRepository authRepository = AuthRepository(authService: authService);
 
+    AccessService accessService = AccessService(apiManager: apiManager);
+    AccessRepository accessRepository =
+        AccessRepository(accessService: accessService);
+
     HomeFeedService homeFeedService = HomeFeedService(apiManager: apiManager);
     HomeFeedRepository homeFeedRepository =
         HomeFeedRepository(homeFeedService: homeFeedService);
@@ -89,6 +95,10 @@ class DIService {
     getIt.registerFactory<AuthRepository>(
       () => authRepository,
       instanceName: kInstanceAuthRepository,
+    );
+    getIt.registerFactory<AccessRepository>(
+      () => accessRepository,
+      instanceName: kInstanceAccessRepository,
     );
     getIt.registerFactory<HomeFeedRepository>(
       () => homeFeedRepository,
