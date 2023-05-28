@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
-import 'package:likeminds_chat_fl/src/models/conversation/get_single_conversation_request_model.dart';
-import 'package:likeminds_chat_fl/src/models/conversation/get_single_conversation_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IConversationService {

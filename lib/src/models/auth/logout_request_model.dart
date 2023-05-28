@@ -8,8 +8,28 @@ class LogoutRequest {
     instanceName: "LMCallback",
   );
 
-  LogoutRequest({
-    this.refreshToken,
-    this.deviceId,
+  LogoutRequest._({
+    required this.refreshToken,
+    required this.deviceId,
   });
+}
+
+class LogoutRequestBuilder {
+  String? _refreshToken;
+  String? _deviceId;
+
+  void refreshToken(String refreshToken) {
+    _refreshToken = refreshToken;
+  }
+
+  void deviceId(String deviceId) {
+    _deviceId = deviceId;
+  }
+
+  LogoutRequest build() {
+    return LogoutRequest._(
+      refreshToken: _refreshToken!,
+      deviceId: _deviceId!,
+    );
+  }
 }

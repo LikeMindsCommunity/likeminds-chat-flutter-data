@@ -46,10 +46,6 @@ export 'package:likeminds_chat_fl/src/models/conversation/edit_conversation_resp
 
 export 'package:likeminds_chat_fl/src/models/conversation/conversation_model.dart';
 
-export 'package:likeminds_chat_fl/src/models/branding/branding_model.dart';
-export 'package:likeminds_chat_fl/src/models/branding/branding_basic_model.dart';
-export 'package:likeminds_chat_fl/src/models/branding/branding_advanced_model.dart';
-
 export 'package:likeminds_chat_fl/src/models/home/home_feed_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/home/home_feed_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/home/my_chatroom_model.dart';

@@ -1,29 +1,56 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'initiate_user_request_model.g.dart';
-
-@JsonSerializable()
 class InitiateUserRequest {
-  @JsonKey(name: 'user_name')
   final String? userName;
-
-  @JsonKey(name: 'user_unique_id')
   final String? userId;
-
-  @JsonKey(name: 'is_guest')
   final bool? isGuest;
-
-  @JsonKey(name: 'image_url')
   final String? imageUrl;
-
-  @JsonKey(name: 'x-api-key')
   final String? apiKey;
 
-  InitiateUserRequest(
+  InitiateUserRequest._(
       {this.userName, this.userId, this.isGuest, this.imageUrl, this.apiKey});
 
-  factory InitiateUserRequest.fromJson(Map<String, dynamic> json) =>
-      _$InitiateUserRequestFromJson(json);
+  Map<String, dynamic> toJson() => {
+        'user_name': userName,
+        'user_unique_id': userId,
+        'is_guest': isGuest,
+        'image_url': imageUrl,
+        'x-api-key': apiKey,
+      };
+}
 
-  Map<String, dynamic> toJson() => _$InitiateUserRequestToJson(this);
+class InitiateUserRequestBuilder {
+  String? _userName;
+  String? _userId;
+  bool? _isGuest;
+  String? _imageUrl;
+  String? _apiKey;
+
+  void userName(String userName) {
+    _userName = userName;
+  }
+
+  void userId(String userId) {
+    _userId = userId;
+  }
+
+  void isGuest(bool isGuest) {
+    _isGuest = isGuest;
+  }
+
+  void imageUrl(String imageUrl) {
+    _imageUrl = imageUrl;
+  }
+
+  void apiKey(String apiKey) {
+    _apiKey = apiKey;
+  }
+
+  InitiateUserRequest build() {
+    return InitiateUserRequest._(
+      userName: _userName,
+      userId: _userId,
+      isGuest: _isGuest,
+      imageUrl: _imageUrl,
+      apiKey: _apiKey,
+    );
+  }
 }
