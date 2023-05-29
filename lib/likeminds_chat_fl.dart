@@ -12,11 +12,12 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 /// Flutter flavour/environment manager v0.0.1
-const bool _prodFlag = !bool.fromEnvironment('DEBUG');
+const bool _prodFlag = false;
+// !bool.fromEnvironment('DEBUG');
 
 /// The starting point class of the SDK
 class LMChatClient {
-  late final SdkApplication _sdkApplication;
+  late final SDKApplication _sdkApplication;
 
   final String _apiKey;
   final LMSdkCallback _sdkCallback;
@@ -28,21 +29,7 @@ class LMChatClient {
         _sdkCallback = sdkCallback {
     debugPrint("LMChatClient initialized");
     DIService.instance.init(_apiKey, _prodFlag, _sdkCallback);
-    _sdkApplication = SdkApplication().initialize();
-  }
-
-  /// The static method to initiate the SDK
-  /// [apiKey] is the API key provided by LikeMinds
-  /// [sdkCallback] is the callback to handle the events
-  /// Returns a new instance of the SDK [LMChatClient]
-  static LMChatClient initiateLikeMinds({
-    required String apiKey,
-    required LMSdkCallback sdkCallback,
-  }) {
-    return LMChatClient._(
-      apiKey: apiKey,
-      sdkCallback: sdkCallback,
-    );
+    _sdkApplication = SDKApplication().initialize();
   }
 
   /// The method to login the user
@@ -51,9 +38,8 @@ class LMChatClient {
     return _sdkApplication.getAuthApi().initiateUser(request);
   }
 
-  /// The method to get the member state
-  Future<LMResponse<bool>> getMemberState() {
-    return _sdkApplication.getAuthApi().getMemberState();
+  Future<LMResponse<MemberStateResponse>> getMemberState() async {
+    return await _sdkApplication.getAccessApi().getMemberState();
   }
 
   /// The method to logout the user
@@ -176,5 +162,35 @@ class LMChatClient {
   ///The method to get link's preview
   Future<LMResponse<DecodeUrlResponse>> decodeUrl(DecodeUrlRequest request) {
     return _sdkApplication.getHelperApi().decodeUrl(request: request);
+  }
+}
+
+/// Builder class to initiate the SDK
+/// [apiKey] is the API key provided by LikeMinds
+/// [sdkCallback] is the callback to handle the events
+/// Returns a new instance of the SDK [LMChatClient]
+class LMChatClientBuilder {
+  String? _apiKey;
+  LMSdkCallback? _sdkCallback;
+
+  void apiKey(String apiKey) {
+    _apiKey = apiKey;
+  }
+
+  void sdkCallback(LMSdkCallback sdkCallback) {
+    _sdkCallback = sdkCallback;
+  }
+
+  LMChatClient build() {
+    if (_apiKey == null) {
+      throw Exception("API key is required");
+    }
+    if (_sdkCallback == null) {
+      throw Exception("SDK callback is required");
+    }
+    return LMChatClient._(
+      apiKey: _apiKey!,
+      sdkCallback: _sdkCallback!,
+    );
   }
 }

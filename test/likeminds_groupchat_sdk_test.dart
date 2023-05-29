@@ -17,10 +17,10 @@ void main() {
   int? conversationId;
 
   // Initiate the SDK
-  LMChatClient lmClient = LMChatClient.initiateLikeMinds(
-    apiKey: TESTING_API_KEY,
-    sdkCallback: TESTING_CALLBACK,
-  );
+  LMChatClient lmClient = (LMChatClientBuilder()
+        ..apiKey(TESTING_API_KEY)
+        ..sdkCallback(TESTING_CALLBACK))
+      .build();
 
   /// Test the login method
   /// This test will fail if the user can not log in

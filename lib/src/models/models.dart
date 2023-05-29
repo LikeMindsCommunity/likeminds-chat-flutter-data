@@ -2,6 +2,9 @@ export 'lm_response_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/auth/initiate_user_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/initiate_user_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/auth/member_right_model.dart';
+export 'package:likeminds_chat_fl/src/models/auth/member_state_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/auth/member_state_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/logout_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/logout_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/initiate_user_model.dart';
