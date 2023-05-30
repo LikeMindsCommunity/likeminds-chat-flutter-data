@@ -19,7 +19,7 @@ class GetParticipantsRequest {
       "page": page,
       "page_size": pageSize,
       "is_secret": isSecret,
-      "search": search,
+      "participant_name": search,
     };
   }
 }
@@ -37,7 +37,7 @@ class GetParticipantsRequestBuilder {
   void page(int page) => _page = page;
   void pageSize(int pageSize) => _pageSize = pageSize;
   void isSecret(bool isSecret) => _isSecret = isSecret;
-  void search(String search) => _search = search;
+  void search(String? search) => _search = search;
 
   GetParticipantsRequest build() {
     final int? chatroomId = _chatroomId;

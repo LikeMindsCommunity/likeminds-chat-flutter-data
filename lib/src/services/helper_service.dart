@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/models/helper/decode_url_request_model.dart';
@@ -43,7 +44,7 @@ class HelperService {
         );
       }
     } on DioError catch (e) {
-      print("Error from get tags: $e");
+      debugPrint("Error from get tags: $e");
       return TagResponseModelEntity(
         success: false,
         errorMessage: e.message,
@@ -74,7 +75,7 @@ class HelperService {
         );
       }
     } on DioError catch (e) {
-      print("Error from get tags: $e");
+      debugPrint("Error from get tags: $e");
       return DecodeUrlResponseEntity(
         success: false,
         errorMessage: e.message,

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 
@@ -123,7 +124,7 @@ class AuthService extends IAuthService {
 
   /// Get the state of the member for feedroom access
   /// Returns the state of the member
-  Future<bool> getMemberState() async {
+  Future<MemberStateResponseEntity> getMemberState() async {
     try {
       final response = await apiManager.get(
         apiManager.endPoints.memberStateEndpoint,
@@ -133,16 +134,15 @@ class AuthService extends IAuthService {
           },
         ),
       );
-      print("Response from access check: ${response.data}");
-      if (response.data['data']['state'] == 1 &&
-          response.data['success'] == true) {
-        return true;
-      } else {
-        return false;
-      }
+      debugPrint("Response from access check: ${response.data}");
+      final memberStateResponseEntity =
+          MemberStateResponseEntity.fromJson(response.data);
+
+      return memberStateResponseEntity;
     } on DioError catch (e) {
-      print("Error from get member state access: $e");
-      return false;
+      debugPrint("Error from get member state access: $e");
+      return MemberStateResponseEntity(
+          success: false, errorMessage: e.toString());
     }
   }
 }

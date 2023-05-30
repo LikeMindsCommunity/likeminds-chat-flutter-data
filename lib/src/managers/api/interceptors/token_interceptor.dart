@@ -40,9 +40,7 @@ class TokenInterceptor extends Interceptor {
     debugPrint("Refreshing token");
     final refreshToken = apiManager.tokenManager.refreshToken;
     final response = await AuthService(apiManager: apiManager).refresh(
-      RefreshRequest(
-        refreshToken: refreshToken!,
-      ),
+      (RefreshRequestBuilder()..refreshTokem(refreshToken!)).build(),
     );
 
     if (response.success) {
