@@ -15,6 +15,7 @@ const String TESTING_USER_ID = "fa9dd395-873b-4493-9e81-12dfdced9345";
 void main() {
   debugPrint("Starting the tests now...");
   int? conversationId;
+  int chatroomId = 70989;
 
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
@@ -26,10 +27,12 @@ void main() {
   /// This test will fail if the user can not log in
   test('Initiating the chat SDK, and login the user', () async {
     debugPrint("Initiating login test...");
-    InitiateUserRequest request = InitiateUserRequest(userId: TESTING_BOT_ID);
+    InitiateUserRequest request =
+        (InitiateUserRequestBuilder()..userId(TESTING_BOT_ID)).build();
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
     debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
+
     // TESTING_CALLBACK.eventFiredCallback();
     expect(response.success, true);
   });
@@ -38,10 +41,11 @@ void main() {
   /// This test will fail if the user can not get the home feed
   test('Getting the home feed test', () async {
     debugPrint("Initiating home feed test...");
-    GetHomeFeedRequest request = GetHomeFeedRequest(
-      page: 1,
-      pageSize: 10,
-    );
+    GetHomeFeedRequest request = (GetHomeFeedRequestBuilder()
+          ..page(1)
+          ..pageSize(10))
+        .build();
+
     LMResponse<GetHomeFeedResponse> response =
         await lmClient.getHomeFeed(request);
     debugPrint("Got ${response.data?.chatroomsData?.length} chatrooms");
@@ -52,7 +56,8 @@ void main() {
   /// This test will fail if the user can not get the chatroom
   test('Getting the chatroom test', () async {
     debugPrint("Initiating chatroom test...");
-    GetChatroomRequest request = GetChatroomRequest(chatroomId: 70989);
+    GetChatroomRequest request =
+        (GetChatroomRequestBuilder()..chatroomId(chatroomId)).build();
     LMResponse<GetChatroomResponse> response =
         await lmClient.getChatroom(request);
     debugPrint("Got ${response.data?.chatroom?.header} chatroom");
@@ -63,11 +68,12 @@ void main() {
   /// This test will fail if the user can not follow the chatroom
   test('Following the chatroom test', () async {
     debugPrint("Initiating follow chatroom test...");
-    FollowChatroomRequest request = FollowChatroomRequest(
-      chatroomId: 70989,
-      memberId: 87103,
-      value: true,
-    );
+    FollowChatroomRequest request = (FollowChatroomRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..memberId(87103)
+          ..value(true))
+        .build();
+
     LMResponse<FollowChatroomResponse> response =
         await lmClient.followChatroom(request);
     debugPrint("Followed chatroom with ID ${request.chatroomId}");
@@ -78,10 +84,10 @@ void main() {
   /// This test will fail if the user can not mute the chatroom
   test('Muting the chatroom test', () async {
     debugPrint("Initiating mute chatroom test...");
-    MuteChatroomRequest request = MuteChatroomRequest(
-      chatroomId: 70989,
-      value: true,
-    );
+    MuteChatroomRequest request = (MuteChatroomRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..value(true))
+        .build();
     LMResponse<MuteChatroomResponse> response =
         await lmClient.muteChatroom(request);
     debugPrint("Muted chatroom with ID ${request.chatroomId}");
@@ -92,9 +98,8 @@ void main() {
   /// This test will fail if the user can not mark read the chatroom
   test('Marking read the chatroom test', () async {
     debugPrint("Initiating mark read chatroom test...");
-    MarkReadChatroomRequest request = MarkReadChatroomRequest(
-      chatroomId: 70989,
-    );
+    MarkReadChatroomRequest request =
+        (MarkReadChatroomRequestBuilder()..chatroomId(chatroomId)).build();
     LMResponse<MarkReadChatroomResponse> response =
         await lmClient.markReadChatroom(request);
     debugPrint("Marked read chatroom with ID ${request.chatroomId}");
@@ -106,7 +111,7 @@ void main() {
   test('Sharing the chatroom test', () async {
     debugPrint("Initiating share chatroom test...");
     ShareChatroomRequest request = (ShareChatroomRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..domain("https://www.likeminds.ai"))
         .build();
     LMResponse<ShareChatroomResponse> response =
@@ -120,7 +125,7 @@ void main() {
   test('Setting the chatroom topic test', () async {
     debugPrint("Initiating set chatroom topic test...");
     SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..conversationId(273099))
         .build();
     LMResponse<SetChatroomTopicResponse> response =
@@ -134,7 +139,7 @@ void main() {
   test('Getting the conversation test', () async {
     debugPrint("Initiating get conversation test...");
     GetConversationRequest request = (GetConversationRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..page(1)
           ..pageSize(100)
           ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
@@ -151,9 +156,11 @@ void main() {
   /// This test will fail if the user can not post the conversation
   test('Posting the conversation test', () async {
     debugPrint("Initiating post conversation test...");
+    int tempId = DateTime.now().millisecondsSinceEpoch;
     PostConversationRequest request = (PostConversationRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..text("This is a test message from the SDK")
+          ..temporaryId(tempId.toString())
           ..expiryTime(0))
         .build();
     LMResponse<PostConversationResponse> response =
@@ -163,6 +170,22 @@ void main() {
     debugPrint(
       "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
     );
+    expect(response.success, true);
+  });
+
+  /// Test the get single conversation method
+  /// This test will fail if the user can not get the conversation
+  test('Getting the conversation test', () async {
+    debugPrint("Initiating get single conversation test...");
+    GetSingleConversationRequest request =
+        (GetSingleConversationRequestBuilder()
+              ..chatroomId(chatroomId)
+              ..conversationId(conversationId!))
+            .build();
+    LMResponse<GetSingleConversationResponse> response =
+        await lmClient.getSingleConversation(request);
+    debugPrint(
+        "Got single conversation ${response.data!.conversation.toString()}");
     expect(response.success, true);
   });
 
@@ -197,10 +220,49 @@ void main() {
     expect(response.success, true);
   });
 
+  // Test the get participants methods
+  // This test will fail if the user can't the list of participants
+  test('Fetch participants test', () async {
+    debugPrint("Initiating Fetch participants test...");
+    GetParticipantsRequest request = (GetParticipantsRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..page(1)
+          ..pageSize(10)
+          ..search(null)
+          ..isSecret(false))
+        .build();
+    LMResponse<GetParticipantsResponse> response =
+        await lmClient.getParticipants(request);
+    debugPrint(
+        "List of participants ${response.data!.participants.toString()}");
+    expect(response.success, true);
+  });
+
+  // Test the decode URL methods
+  // This test will fail if the user can't decode a URL
+  test('Decode URL test', () async {
+    debugPrint("Initiating decode URL test...");
+    DecodeUrlRequest request = (DecodeUrlRequestBuilder()
+          ..url("https://likeminds.community/"))
+        .build();
+    LMResponse<DecodeUrlResponse> response = await lmClient.decodeUrl(request);
+    debugPrint("Decoded URL ${response.data!.ogTags.toString()}");
+    expect(response.success, true);
+  });
+
+  // Test the member rights methods
+  // This test will fail if the user can't fetch member rights
+  test('Fetch Member Rights test', () async {
+    debugPrint("Initiating Fetch Member Rights test...");
+    LMResponse<MemberStateResponse> response = await lmClient.getMemberState();
+    debugPrint("Member State for User with ID ${response.data!.member!.id}");
+    expect(response.success, true);
+  });
+
   // / Test the logout method
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {
-    LogoutRequest request = LogoutRequest();
+    LogoutRequest request = (LogoutRequestBuilder()).build();
     LMResponse<LogoutResponse> response = await lmClient.logout(request);
     if (response.success) {
       debugPrint("Successfully logged out after all tests");

@@ -1,31 +1,19 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'refresh_request_model.g.dart';
-
 class RefreshRequest {
   final String refreshToken;
 
-  RefreshRequest({required this.refreshToken});
-
-  factory RefreshRequest.fromEntity({required RefreshRequestEntity entity}) =>
-      RefreshRequest(
-        refreshToken: entity.refreshToken,
-      );
-
-  RefreshRequestEntity toEntity() => RefreshRequestEntity(
-        refreshToken: refreshToken,
-      );
+  RefreshRequest._({required this.refreshToken});
 }
 
-@JsonSerializable()
-class RefreshRequestEntity {
-  @JsonKey(name: 'refresh_token')
-  final String refreshToken;
+class RefreshRequestBuilder {
+  String? _refreshToken;
 
-  RefreshRequestEntity({required this.refreshToken});
+  void refreshTokem(String refreshToken) {
+    _refreshToken = refreshToken;
+  }
 
-  factory RefreshRequestEntity.fromJson(Map<String, dynamic> json) =>
-      _$RefreshRequestEntityFromJson(json);
+  RefreshRequest build() {
+    if (_refreshToken == null) throw StateError("Refresh token is required");
 
-  Map<String, dynamic> toJson() => _$RefreshRequestEntityToJson(this);
+    return RefreshRequest._(refreshToken: _refreshToken!);
+  }
 }
