@@ -1,44 +1,29 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'home_feed_request_model.g.dart';
-
 class GetHomeFeedRequest {
   final int? page;
   final int? pageSize;
 
-  GetHomeFeedRequest({
+  GetHomeFeedRequest._({
     this.page,
     this.pageSize,
   });
 
-  factory GetHomeFeedRequest.fromEntity(GetHomeFeedRequestEntity entity) {
-    return GetHomeFeedRequest(
-      page: entity.page,
-      pageSize: entity.pageSize,
-    );
-  }
-
-  toEntity() {
-    return GetHomeFeedRequestEntity(
-      page: page,
-      pageSize: pageSize,
-    );
-  }
+  toJson() => {
+        'page': page,
+        'page_size': pageSize,
+      };
 }
 
-@JsonSerializable()
-class GetHomeFeedRequestEntity {
-  final int? page;
-  @JsonKey(name: 'page_size')
-  final int? pageSize;
+class GetHomeFeedRequestBuilder {
+  int? _page;
+  int? _pageSize;
 
-  GetHomeFeedRequestEntity({
-    this.page,
-    this.pageSize,
-  });
+  void page(int page) => _page = page;
+  void pageSize(int pageSize) => _pageSize = pageSize;
 
-  factory GetHomeFeedRequestEntity.fromJson(Map<String, dynamic> json) =>
-      _$GetHomeFeedRequestEntityFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GetHomeFeedRequestEntityToJson(this);
+  GetHomeFeedRequest build() {
+    return GetHomeFeedRequest._(
+      page: _page,
+      pageSize: _pageSize,
+    );
+  }
 }

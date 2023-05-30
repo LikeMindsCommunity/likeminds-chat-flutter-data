@@ -26,7 +26,7 @@ class HomeFeedService extends IHomeFeedService {
     try {
       final response = await apiManager.get(
         apiManager.endPoints.homeFeedEndpoint,
-        queryParameters: request.toEntity().toJson(),
+        queryParameters: request.toJson(),
       );
       GetHomeFeedResponseEntity homeFeedResponseEntity =
           GetHomeFeedResponseEntity.fromJson(response.data);
