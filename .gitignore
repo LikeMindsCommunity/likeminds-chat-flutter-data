@@ -4,6 +4,7 @@ pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 build/
+.vscode
 
 .env.dev
 .env.prod
