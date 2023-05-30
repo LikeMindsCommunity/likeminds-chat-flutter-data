@@ -15,6 +15,7 @@ const String TESTING_USER_ID = "fa9dd395-873b-4493-9e81-12dfdced9345";
 void main() {
   debugPrint("Starting the tests now...");
   int? conversationId;
+  int chatroomId = 70989;
 
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
@@ -56,7 +57,7 @@ void main() {
   test('Getting the chatroom test', () async {
     debugPrint("Initiating chatroom test...");
     GetChatroomRequest request =
-        (GetChatroomRequestBuilder()..chatroomId(70989)).build();
+        (GetChatroomRequestBuilder()..chatroomId(chatroomId)).build();
     LMResponse<GetChatroomResponse> response =
         await lmClient.getChatroom(request);
     debugPrint("Got ${response.data?.chatroom?.header} chatroom");
@@ -68,7 +69,7 @@ void main() {
   test('Following the chatroom test', () async {
     debugPrint("Initiating follow chatroom test...");
     FollowChatroomRequest request = (FollowChatroomRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..memberId(87103)
           ..value(true))
         .build();
@@ -84,7 +85,7 @@ void main() {
   test('Muting the chatroom test', () async {
     debugPrint("Initiating mute chatroom test...");
     MuteChatroomRequest request = (MuteChatroomRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..value(true))
         .build();
     LMResponse<MuteChatroomResponse> response =
@@ -98,7 +99,7 @@ void main() {
   test('Marking read the chatroom test', () async {
     debugPrint("Initiating mark read chatroom test...");
     MarkReadChatroomRequest request =
-        (MarkReadChatroomRequestBuilder()..chatroomId(70989)).build();
+        (MarkReadChatroomRequestBuilder()..chatroomId(chatroomId)).build();
     LMResponse<MarkReadChatroomResponse> response =
         await lmClient.markReadChatroom(request);
     debugPrint("Marked read chatroom with ID ${request.chatroomId}");
@@ -110,7 +111,7 @@ void main() {
   test('Sharing the chatroom test', () async {
     debugPrint("Initiating share chatroom test...");
     ShareChatroomRequest request = (ShareChatroomRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..domain("https://www.likeminds.ai"))
         .build();
     LMResponse<ShareChatroomResponse> response =
@@ -124,7 +125,7 @@ void main() {
   test('Setting the chatroom topic test', () async {
     debugPrint("Initiating set chatroom topic test...");
     SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..conversationId(273099))
         .build();
     LMResponse<SetChatroomTopicResponse> response =
@@ -138,7 +139,7 @@ void main() {
   test('Getting the conversation test', () async {
     debugPrint("Initiating get conversation test...");
     GetConversationRequest request = (GetConversationRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..page(1)
           ..pageSize(100)
           ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
@@ -157,7 +158,7 @@ void main() {
     debugPrint("Initiating post conversation test...");
     int tempId = DateTime.now().millisecondsSinceEpoch;
     PostConversationRequest request = (PostConversationRequestBuilder()
-          ..chatroomId(70989)
+          ..chatroomId(chatroomId)
           ..text("This is a test message from the SDK")
           ..temporaryId(tempId.toString())
           ..expiryTime(0))
@@ -169,6 +170,22 @@ void main() {
     debugPrint(
       "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
     );
+    expect(response.success, true);
+  });
+
+  /// Test the get single conversation method
+  /// This test will fail if the user can not get the conversation
+  test('Getting the conversation test', () async {
+    debugPrint("Initiating get single conversation test...");
+    GetSingleConversationRequest request =
+        (GetSingleConversationRequestBuilder()
+              ..chatroomId(chatroomId)
+              ..conversationId(conversationId!))
+            .build();
+    LMResponse<GetSingleConversationResponse> response =
+        await lmClient.getSingleConversation(request);
+    debugPrint(
+        "Got single conversation ${response.data!.conversation.toString()}");
     expect(response.success, true);
   });
 
@@ -203,6 +220,38 @@ void main() {
     expect(response.success, true);
   });
 
+  // Test the get participants methods
+  // This test will fail if the user can't the list of participants
+  test('Fetch participants test', () async {
+    debugPrint("Initiating Fetch participants test...");
+    GetParticipantsRequest request = (GetParticipantsRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..page(1)
+          ..pageSize(10)
+          ..search(null)
+          ..isSecret(false))
+        .build();
+    LMResponse<GetParticipantsResponse> response =
+        await lmClient.getParticipants(request);
+    debugPrint(
+        "List of participants ${response.data!.participants.toString()}");
+    expect(response.success, true);
+  });
+
+  // Test the decode URL methods
+  // This test will fail if the user can't decode a URL
+  test('Decode URL test', () async {
+    debugPrint("Initiating decode URL test...");
+    DecodeUrlRequest request = (DecodeUrlRequestBuilder()
+          ..url("https://likeminds.community/"))
+        .build();
+    LMResponse<DecodeUrlResponse> response = await lmClient.decodeUrl(request);
+    debugPrint("Decoded URL ${response.data!.ogTags.toString()}");
+    expect(response.success, true);
+  });
+
+  // Test the member rights methods
+  // This test will fail if the user can't fetch member rights
   test('Fetch Member Rights test', () async {
     debugPrint("Initiating Fetch Member Rights test...");
     LMResponse<MemberStateResponse> response = await lmClient.getMemberState();

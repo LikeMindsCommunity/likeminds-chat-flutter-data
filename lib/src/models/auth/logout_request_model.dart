@@ -28,8 +28,8 @@ class LogoutRequestBuilder {
 
   LogoutRequest build() {
     return LogoutRequest._(
-      refreshToken: _refreshToken!,
-      deviceId: _deviceId!,
+      refreshToken: _refreshToken,
+      deviceId: _deviceId,
     );
   }
 }
