@@ -5,21 +5,32 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
+import 'environment/test_env.dart';
 import 'test_callback.dart';
 
+const bool TESTING_PROD_FLAG = !bool.fromEnvironment('DEBUG');
+
 final TestCallback TESTING_CALLBACK = TestCallback();
-const String TESTING_API_KEY = "bad53fff-c85a-4098-b011-ac36703cc98b";
-const String TESTING_BOT_ID = "22b6a64f-66bf-4bca-800e-b40ca66f924d";
-const String TESTING_USER_ID = "fa9dd395-873b-4493-9e81-12dfdced9345";
+
+final String TESTING_BETA_API_KEY = EnvTest.testingBetaAPIKey;
+final String TESTING_BETA_BOT_ID = EnvTest.testingBetaBotID;
+const int TESTING_BETA_DEFAULT_CHATROOM = EnvTest.testingBetaDefaultChatroom;
+
+final String TESTING_PROD_API_KEY = EnvTest.testingProdAPIKey;
+final String TESTING_PROD_BOT_ID = EnvTest.testingProdBotID;
+const int TESTING_PROD_DEFAULT_CHATROOM = EnvTest.testingProdDefaultChatroom;
 
 void main() {
   debugPrint("Starting the tests now...");
   int? conversationId;
-  int chatroomId = 70989;
+  int chatroomId = TESTING_PROD_FLAG
+      ? TESTING_PROD_DEFAULT_CHATROOM
+      : TESTING_BETA_DEFAULT_CHATROOM;
 
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
-        ..apiKey(TESTING_API_KEY)
+        ..apiKey(
+            TESTING_PROD_FLAG ? TESTING_PROD_API_KEY : TESTING_BETA_API_KEY)
         ..sdkCallback(TESTING_CALLBACK))
       .build();
 
@@ -27,8 +38,10 @@ void main() {
   /// This test will fail if the user can not log in
   test('Initiating the chat SDK, and login the user', () async {
     debugPrint("Initiating login test...");
-    InitiateUserRequest request =
-        (InitiateUserRequestBuilder()..userId(TESTING_BOT_ID)).build();
+    InitiateUserRequest request = (InitiateUserRequestBuilder()
+          ..userId(
+              TESTING_PROD_FLAG ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID))
+        .build();
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
     debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
