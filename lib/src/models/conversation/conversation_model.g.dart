@@ -17,7 +17,7 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       attachments: (json['attachments'] as List<dynamic>?)
           ?.map((e) => AttachmentEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      communityId: json['community_id'] as int,
+      communityId: json['community_id'] as int?,
       createdAt: json['created_at'].toString(),
       createdEpoch: json['created_epoch'] as int?,
       date: json['date'] as String?,
