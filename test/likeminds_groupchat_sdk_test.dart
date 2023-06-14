@@ -190,15 +190,20 @@ void main() {
   /// This test will fail if the user can not get the conversation
   test('Getting the conversation test', () async {
     debugPrint("Initiating get single conversation test...");
-    GetSingleConversationRequest request =
-        (GetSingleConversationRequestBuilder()
-              ..chatroomId(chatroomId)
-              ..conversationId(conversationId!))
-            .build();
-    LMResponse<GetSingleConversationResponse> response =
-        await lmClient.getSingleConversation(request);
+    int maxTimestamp = DateTime.now().millisecondsSinceEpoch;
+    GetConversationRequest request = (GetConversationRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..page(1)
+          ..isLocalDB(false)
+          ..pageSize(200)
+          ..minTimestamp(0)
+          ..maxTimestamp(maxTimestamp)
+          ..conversationId(conversationId!))
+        .build();
+    LMResponse<GetConversationResponse> response =
+        await lmClient.getConversation(request);
     debugPrint(
-        "Got single conversation ${response.data!.conversation.toString()}");
+        "Got single conversation ${response.data!.conversationData?.first.toEntity().toJson()}");
     expect(response.success, true);
   });
 

@@ -35,8 +35,6 @@ export 'package:likeminds_chat_fl/src/models/chatroom/delete_participant_request
 
 export 'package:likeminds_chat_fl/src/models/conversation/get_conversation_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/get_conversation_response_model.dart';
-export 'package:likeminds_chat_fl/src/models/conversation/get_single_conversation_response_model.dart';
-export 'package:likeminds_chat_fl/src/models/conversation/get_single_conversation_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/post_conversation_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/post_conversation_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/delete_conversation_request_model.dart';

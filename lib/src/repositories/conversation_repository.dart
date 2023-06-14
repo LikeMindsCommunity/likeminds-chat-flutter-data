@@ -13,13 +13,6 @@ class ConversationRepository {
     return GetConversationResponse.fromEntity(responseEntity);
   }
 
-  Future<GetSingleConversationResponse> getSingleConversation(
-      GetSingleConversationRequest request) async {
-    GetSingleConversationResponseEntity responseEntity =
-        await conversationService.getSingleConversation(request);
-    return GetSingleConversationResponse.fromEntity(responseEntity);
-  }
-
   Future<PostConversationResponse> postConversation(
       PostConversationRequest request) async {
     PostConversationResponseEntity responseEntity =
