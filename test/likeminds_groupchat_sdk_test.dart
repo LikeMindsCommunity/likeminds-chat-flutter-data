@@ -207,6 +207,9 @@ void main() {
     debugPrint(
       "Edited conversation with ID ${response.data!.conversation?.id} and text is now \"${response.data!.conversation?.answer}\"",
     );
+    debugPrint(
+      "Edited conversation ${response.data!.conversation!.toEntity().toJson()}",
+    );
     expect(response.success, true);
   });
 
