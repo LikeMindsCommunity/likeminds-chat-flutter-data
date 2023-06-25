@@ -37,7 +37,7 @@ class ApiManager {
     _dio.interceptors.add(CommonHeaderInterceptor(tokenManager: tokenManager));
     _dio.interceptors.add(TokenInterceptor(apiManager: this));
 
-    await testRun();
+    // await testRun();
   }
 
   testRun() async {
