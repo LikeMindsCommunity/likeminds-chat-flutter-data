@@ -3,10 +3,11 @@ class PutMediaRequest {
   final String url;
   final int filesCount;
   final int index;
-  final int height;
-  final int width;
+  final int? height;
+  final int? width;
   final String type;
   final dynamic meta;
+  final String? thumbnailUrl;
 
   PutMediaRequest._({
     required this.conversationId,
@@ -17,6 +18,7 @@ class PutMediaRequest {
     required this.width,
     required this.meta,
     required this.type,
+    this.thumbnailUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -29,6 +31,7 @@ class PutMediaRequest {
       "width": width,
       "meta": meta,
       "type": type,
+      "thumbnail_url": thumbnailUrl ?? "",
     };
   }
 }
@@ -42,15 +45,17 @@ class PutMediaRequestBuilder {
   int? _width;
   dynamic _meta;
   String? _type;
+  String? _thumbnailUrl;
 
   void conversationId(int conversationId) => _conversationId = conversationId;
   void url(String url) => _url = url;
   void filesCount(int filesCount) => _filesCount = filesCount;
-  void height(int height) => _height = height;
-  void width(int width) => _width = width;
+  void height(int? height) => _height = height;
+  void width(int? width) => _width = width;
   void meta(dynamic meta) => _meta = meta;
   void index(int index) => _index = index;
   void type(String type) => _type = type;
+  void thumbnailUrl(String? thumbnailUrl) => _thumbnailUrl = thumbnailUrl;
 
   PutMediaRequest build() {
     final int? conversationId = _conversationId;
@@ -74,12 +79,6 @@ class PutMediaRequestBuilder {
     if (index == null) {
       throw StateError('index is required');
     }
-    if (height == null) {
-      throw StateError('chatheightroomId is required');
-    }
-    if (width == null) {
-      throw StateError('width is required');
-    }
     if (meta == null) {
       throw StateError('meta is required for this builder');
     }
@@ -97,6 +96,7 @@ class PutMediaRequestBuilder {
       width: width,
       meta: meta,
       type: type,
+      thumbnailUrl: _thumbnailUrl,
     );
   }
 }
