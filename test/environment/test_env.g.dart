@@ -8,7 +8,7 @@ part of 'test_env.dart';
 
 class _EnvTest {
   static const int testingBetaDefaultChatroom = 81007;
-  static const int testingProdDefaultChatroom = 81007;
+  static const int testingProdDefaultChatroom = 1944815;
   static const List<int> _enviedkeytestingBetaAPIKey = [
     113859016,
     4007407642,
@@ -85,7 +85,7 @@ class _EnvTest {
     99734694,
     577707514
   ];
-  static final testingBetaAPIKey = String.fromCharCodes(
+  static final String testingBetaAPIKey = String.fromCharCodes(
     List.generate(_envieddatatestingBetaAPIKey.length, (i) => i,
             growable: false)
         .map((i) =>
@@ -168,7 +168,7 @@ class _EnvTest {
     3591231965,
     339570257
   ];
-  static final testingBetaBotID = String.fromCharCodes(
+  static final String testingBetaBotID = String.fromCharCodes(
     List.generate(_envieddatatestingBetaBotID.length, (i) => i, growable: false)
         .map((i) =>
             _envieddatatestingBetaBotID[i] ^ _enviedkeytestingBetaBotID[i])
@@ -250,7 +250,7 @@ class _EnvTest {
     1704268907,
     395063751
   ];
-  static final testingProdAPIKey = String.fromCharCodes(
+  static final String testingProdAPIKey = String.fromCharCodes(
     List.generate(_envieddatatestingProdAPIKey.length, (i) => i,
             growable: false)
         .map((i) =>
@@ -333,7 +333,7 @@ class _EnvTest {
     80866804,
     3489071534
   ];
-  static final testingProdBotID = String.fromCharCodes(
+  static final String testingProdBotID = String.fromCharCodes(
     List.generate(_envieddatatestingProdBotID.length, (i) => i, growable: false)
         .map((i) =>
             _envieddatatestingProdBotID[i] ^ _enviedkeytestingProdBotID[i])

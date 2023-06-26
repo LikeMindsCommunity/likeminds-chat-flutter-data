@@ -46,4 +46,8 @@ class EndPoints {
   String get tagsEndpoint => "$KETTLE_HOST/community/tag";
 
   String get decodeUrlEndpoint => "$KETTLE_HOST/helper/url";
+
+  String get exploreFeedEndpoint => "$KETTLE_HOST/community/feed";
+  String get exploreTabCountEndpoint =>
+      "$KETTLE_HOST/community/member/home/meta";
 }

@@ -8,7 +8,7 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'environment/test_env.dart';
 import 'test_callback.dart';
 
-const bool TESTING_PROD_FLAG = !bool.fromEnvironment('DEBUG');
+const bool TESTING_PROD_FLAG = bool.fromEnvironment('DEBUG');
 
 final TestCallback TESTING_CALLBACK = TestCallback();
 
@@ -62,6 +62,33 @@ void main() {
     LMResponse<GetHomeFeedResponse> response =
         await lmClient.getHomeFeed(request);
     debugPrint("Got ${response.data?.chatroomsData?.length} chatrooms");
+    expect(response.success, true);
+  });
+
+  /// Test the get explore tab count method
+  /// This test will fail if the user can not get the explore tab count
+  test('Getting the explore tab count test', () async {
+    debugPrint("Initiating explore tab count test...");
+    LMResponse<GetExploreTabCountResponse> response =
+        await lmClient.getExploreTabCount();
+    debugPrint(
+        "Got ${response.data?.totalChannelCount} chatrooms, out of which ${response.data?.unseenChannelCount} are unseen");
+    expect(response.success, true);
+  });
+
+  /// Test the get explore feed method
+  /// This test will fail if the user can not get the explore feed
+  test('Getting the explore feed test', () async {
+    debugPrint("Initiating explore feed test...");
+    GetExploreFeedRequest request = (GetExploreFeedRequestBuilder()
+          ..page(1)
+          ..orderType(0)
+          ..pinned(false))
+        .build();
+
+    LMResponse<GetExploreFeedResponse> response =
+        await lmClient.getExploreFeed(request);
+    debugPrint("Got ${response.data?.chatrooms?.length} chatrooms");
     expect(response.success, true);
   });
 
@@ -219,6 +246,9 @@ void main() {
         await lmClient.editConversation(request);
     debugPrint(
       "Edited conversation with ID ${response.data!.conversation?.id} and text is now \"${response.data!.conversation?.answer}\"",
+    );
+    debugPrint(
+      "Edited conversation ${response.data!.conversation!.toEntity().toJson()}",
     );
     expect(response.success, true);
   });

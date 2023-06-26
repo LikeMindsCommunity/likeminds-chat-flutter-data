@@ -61,7 +61,7 @@ class AuthService extends IAuthService {
       }
     } on DioError catch (e) {
       InitiateUserResponseEntity initiateUserResponse =
-          InitiateUserResponseEntity.fromJson(e.response?.data);
+          InitiateUserResponseEntity(success: false, errorMessage: e.message);
       return initiateUserResponse;
     }
   }

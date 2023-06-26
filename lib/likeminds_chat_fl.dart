@@ -12,7 +12,7 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 /// Flutter flavour/environment manager v0.0.1
-const bool _prodFlag = !bool.fromEnvironment('DEBUG');
+const bool _prodFlag = bool.fromEnvironment('DEBUG');
 
 /// The starting point class of the SDK
 class LMChatClient {
@@ -50,6 +50,17 @@ class LMChatClient {
   Future<LMResponse<GetHomeFeedResponse>> getHomeFeed(
       GetHomeFeedRequest request) {
     return _sdkApplication.getHomeApi().getHomeFeed(request);
+  }
+
+  /// The method to get home explore feed count
+  Future<LMResponse<GetExploreTabCountResponse>> getExploreTabCount() {
+    return _sdkApplication.getExploreApi().getExploreTabCount();
+  }
+
+  /// The method to get home explore feed
+  Future<LMResponse<GetExploreFeedResponse>> getExploreFeed(
+      GetExploreFeedRequest request) {
+    return _sdkApplication.getExploreApi().getExploreFeed(request);
   }
 
   /// The method to get a single chatroom
