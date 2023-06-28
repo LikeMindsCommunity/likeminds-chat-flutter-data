@@ -43,7 +43,7 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       pollAnswerText: json['poll_answer_text'] as String?,
       pollType: json['poll_type'] as int?,
       replyChatroomId: json['reply_chatroom_id'] as int?,
-      replyId: json['reply_id'] as int?,
+      replyId: (json['reply_id'] ?? json['reply_conversation']) as int?,
       replyConversation: json['reply_conversation'] as int?,
       replyConversationObject: json['reply_conversation_object'] == null
           ? null
@@ -52,7 +52,7 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       startTime: json['start_time'] as int?,
       state: json['state'] as int?,
       temporaryId: json['temporary_id'] as String?,
-      userId: json['user_id'] as int?,
+      userId: (json['user_id'] ?? json['member_id']) as int?,
       memberId: json['member_id'] as int?,
       toShowResults: json['to_show_results'] as bool?,
       pollTypeText: json['poll_type_text'] as String?,

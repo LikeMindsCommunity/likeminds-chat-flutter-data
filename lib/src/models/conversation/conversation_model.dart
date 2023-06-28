@@ -9,7 +9,7 @@ class Conversation {
   final String answer;
   final int? apiVersion;
   final int? attachmentCount;
-  final List<Attachment>? attachments;
+  List<Attachment>? attachments;
   final bool? attachmentsUploaded;
   final int? chatroomId;
   final int? communityId;

@@ -12,7 +12,7 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 /// Flutter flavour/environment manager v0.0.1
-const bool _prodFlag = !bool.fromEnvironment('DEBUG');
+const bool _prodFlag = bool.fromEnvironment('DEBUG');
 
 /// The starting point class of the SDK
 class LMChatClient {
@@ -50,6 +50,17 @@ class LMChatClient {
   Future<LMResponse<GetHomeFeedResponse>> getHomeFeed(
       GetHomeFeedRequest request) {
     return _sdkApplication.getHomeApi().getHomeFeed(request);
+  }
+
+  /// The method to get home explore feed count
+  Future<LMResponse<GetExploreTabCountResponse>> getExploreTabCount() {
+    return _sdkApplication.getExploreApi().getExploreTabCount();
+  }
+
+  /// The method to get home explore feed
+  Future<LMResponse<GetExploreFeedResponse>> getExploreFeed(
+      GetExploreFeedRequest request) {
+    return _sdkApplication.getExploreApi().getExploreFeed(request);
   }
 
   /// The method to get a single chatroom
@@ -108,13 +119,6 @@ class LMChatClient {
     return _sdkApplication.getConversationApi().getConversation(request);
   }
 
-  /// The method to get a single chatroom conversation
-  Future<LMResponse<GetSingleConversationResponse>> getSingleConversation(
-    GetSingleConversationRequest request,
-  ) {
-    return _sdkApplication.getConversationApi().getSingleConversation(request);
-  }
-
   /// The method to post the chatroom conversation
   Future<LMResponse<PostConversationResponse>> postConversation(
     PostConversationRequest request,
@@ -141,24 +145,38 @@ class LMChatClient {
     return _sdkApplication.getMediaApi().putMultimedia(request);
   }
 
+  /// The method to put reactions for a conversation
+  Future<LMResponse<PutReactionResponse>> putReaction(
+    PutReactionRequest request,
+  ) {
+    return _sdkApplication.getReactionApi().putReaction(request);
+  }
+
+  /// The method to delete reaction for a conversation
+  Future<LMResponse<DeleteReactionResponse>> deleteReaction(
+    DeleteReactionRequest request,
+  ) {
+    return _sdkApplication.getReactionApi().deleteReaction(request);
+  }
+
   /// The method to register device for notifications
   Future<LMResponse<RegisterDeviceResponse>> registerDevice(
       RegisterDeviceRequest request) {
     return LMNotifications.registerDevice(request);
   }
 
-  ///The method to get chatroom's participants
+  /// The method to get chatroom's participants
   Future<LMResponse<GetParticipantsResponse>> getParticipants(
       GetParticipantsRequest request) {
     return _sdkApplication.getParticipantsApi().getParticipants(request);
   }
 
-  ///The method to get chatroom's tagging list
+  /// The method to get chatroom's tagging list
   Future<LMResponse<TagResponseModel>> getTaggingList(TagRequestModel request) {
     return _sdkApplication.getHelperApi().getTags(request: request);
   }
 
-  ///The method to get link's preview
+  /// The method to get link's preview
   Future<LMResponse<DecodeUrlResponse>> decodeUrl(DecodeUrlRequest request) {
     return _sdkApplication.getHelperApi().decodeUrl(request: request);
   }
