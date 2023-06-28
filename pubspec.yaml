@@ -1,6 +1,6 @@
 name: likeminds_chat_fl
 description: Likeminds flutter chat SDK
-version: 1.1.0
+version: 1.2.0
 homepage: "https://likeminds.community/"
 
 environment:
@@ -16,6 +16,7 @@ dependencies:
   dio: ^5.1.2
   json_annotation: ^4.8.0
   json_serializable: ^6.6.1
+  curl_logger_dio_interceptor: ^1.0.0
 
 dev_dependencies:
   flutter_test:

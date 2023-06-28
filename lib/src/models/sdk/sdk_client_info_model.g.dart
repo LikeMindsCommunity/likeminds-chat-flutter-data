@@ -8,9 +8,10 @@ part of 'sdk_client_info_model.dart';
 
 SDKClientInfo _$SDKClientInfoFromJson(Map<String, dynamic> json) =>
     SDKClientInfo(
-      community: json['community'] as int,
-      user: json['user'] as int,
-      userUniqueId: json['user_unique_id'] as String,
+      community: json['community'] as int?,
+      user: json['user'] as int?,
+      userUniqueId: json['user_unique_id'] as String?,
+      uuid: json['uuid'] as String?,
     );
 
 Map<String, dynamic> _$SDKClientInfoToJson(SDKClientInfo instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$SDKClientInfoToJson(SDKClientInfo instance) =>
       'community': instance.community,
       'user': instance.user,
       'user_unique_id': instance.userUniqueId,
+      'uuid': instance.uuid,
     };

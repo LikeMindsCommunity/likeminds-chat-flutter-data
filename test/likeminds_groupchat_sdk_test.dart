@@ -5,21 +5,32 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
+import 'environment/test_env.dart';
 import 'test_callback.dart';
 
+const bool TESTING_PROD_FLAG = bool.fromEnvironment('DEBUG');
+
 final TestCallback TESTING_CALLBACK = TestCallback();
-const String TESTING_API_KEY = "bad53fff-c85a-4098-b011-ac36703cc98b";
-const String TESTING_BOT_ID = "22b6a64f-66bf-4bca-800e-b40ca66f924d";
-const String TESTING_USER_ID = "fa9dd395-873b-4493-9e81-12dfdced9345";
+
+final String TESTING_BETA_API_KEY = EnvTest.testingBetaAPIKey;
+final String TESTING_BETA_BOT_ID = EnvTest.testingBetaBotID;
+const int TESTING_BETA_DEFAULT_CHATROOM = EnvTest.testingBetaDefaultChatroom;
+
+final String TESTING_PROD_API_KEY = EnvTest.testingProdAPIKey;
+final String TESTING_PROD_BOT_ID = EnvTest.testingProdBotID;
+const int TESTING_PROD_DEFAULT_CHATROOM = EnvTest.testingProdDefaultChatroom;
 
 void main() {
   debugPrint("Starting the tests now...");
   int? conversationId;
-  int chatroomId = 70989;
+  int chatroomId = TESTING_PROD_FLAG
+      ? TESTING_PROD_DEFAULT_CHATROOM
+      : TESTING_BETA_DEFAULT_CHATROOM;
 
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
-        ..apiKey(TESTING_API_KEY)
+        ..apiKey(
+            TESTING_PROD_FLAG ? TESTING_PROD_API_KEY : TESTING_BETA_API_KEY)
         ..sdkCallback(TESTING_CALLBACK))
       .build();
 
@@ -27,8 +38,10 @@ void main() {
   /// This test will fail if the user can not log in
   test('Initiating the chat SDK, and login the user', () async {
     debugPrint("Initiating login test...");
-    InitiateUserRequest request =
-        (InitiateUserRequestBuilder()..userId(TESTING_BOT_ID)).build();
+    InitiateUserRequest request = (InitiateUserRequestBuilder()
+          ..userId(
+              TESTING_PROD_FLAG ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID))
+        .build();
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
     debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
@@ -49,6 +62,33 @@ void main() {
     LMResponse<GetHomeFeedResponse> response =
         await lmClient.getHomeFeed(request);
     debugPrint("Got ${response.data?.chatroomsData?.length} chatrooms");
+    expect(response.success, true);
+  });
+
+  /// Test the get explore tab count method
+  /// This test will fail if the user can not get the explore tab count
+  test('Getting the explore tab count test', () async {
+    debugPrint("Initiating explore tab count test...");
+    LMResponse<GetExploreTabCountResponse> response =
+        await lmClient.getExploreTabCount();
+    debugPrint(
+        "Got ${response.data?.totalChannelCount} chatrooms, out of which ${response.data?.unseenChannelCount} are unseen");
+    expect(response.success, true);
+  });
+
+  /// Test the get explore feed method
+  /// This test will fail if the user can not get the explore feed
+  test('Getting the explore feed test', () async {
+    debugPrint("Initiating explore feed test...");
+    GetExploreFeedRequest request = (GetExploreFeedRequestBuilder()
+          ..page(1)
+          ..orderType(0)
+          ..pinned(false))
+        .build();
+
+    LMResponse<GetExploreFeedResponse> response =
+        await lmClient.getExploreFeed(request);
+    debugPrint("Got ${response.data?.chatrooms?.length} chatrooms");
     expect(response.success, true);
   });
 
@@ -177,15 +217,20 @@ void main() {
   /// This test will fail if the user can not get the conversation
   test('Getting the conversation test', () async {
     debugPrint("Initiating get single conversation test...");
-    GetSingleConversationRequest request =
-        (GetSingleConversationRequestBuilder()
-              ..chatroomId(chatroomId)
-              ..conversationId(conversationId!))
-            .build();
-    LMResponse<GetSingleConversationResponse> response =
-        await lmClient.getSingleConversation(request);
+    int maxTimestamp = DateTime.now().millisecondsSinceEpoch;
+    GetConversationRequest request = (GetConversationRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..page(1)
+          ..isLocalDB(false)
+          ..pageSize(200)
+          ..minTimestamp(0)
+          ..maxTimestamp(maxTimestamp)
+          ..conversationId(conversationId!))
+        .build();
+    LMResponse<GetConversationResponse> response =
+        await lmClient.getConversation(request);
     debugPrint(
-        "Got single conversation ${response.data!.conversation.toString()}");
+        "Got single conversation ${response.data!.conversationData?.first.toEntity().toJson()}");
     expect(response.success, true);
   });
 
@@ -202,6 +247,9 @@ void main() {
     debugPrint(
       "Edited conversation with ID ${response.data!.conversation?.id} and text is now \"${response.data!.conversation?.answer}\"",
     );
+    debugPrint(
+      "Edited conversation ${response.data!.conversation!.toEntity().toJson()}",
+    );
     expect(response.success, true);
   });
 
@@ -217,6 +265,36 @@ void main() {
         await lmClient.deleteConversation(request);
     debugPrint(
         "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
+    expect(response.success, true);
+  });
+
+  /// Test the put reaction method
+  /// This test will fail if the user can not put a reaction
+  test('Putting a reaction test', () async {
+    debugPrint("Initiating put reaction test...");
+    PutReactionRequest request = (PutReactionRequestBuilder()
+          ..conversationId(conversationId ?? 0)
+          ..reaction("❤️"))
+        .build();
+    LMResponse<PutReactionResponse> response =
+        await lmClient.putReaction(request);
+    debugPrint(
+        "Put reaction with ${request.reaction} reaction returned ${response.success}");
+    expect(response.success, true);
+  });
+
+  /// Test the delete reaction method
+  /// This test will fail if the user can not delete a reaction
+  test('Deleting a reaction test', () async {
+    debugPrint("Initiating delete reaction test...");
+    DeleteReactionRequest request = (DeleteReactionRequestBuilder()
+          ..conversationId(conversationId ?? 0)
+          ..reaction("❤️"))
+        .build();
+    LMResponse<DeleteReactionResponse> response =
+        await lmClient.deleteReaction(request);
+    debugPrint(
+        "Deleted reaction with ${request.reaction} reaction returned ${response.success}");
     expect(response.success, true);
   });
 

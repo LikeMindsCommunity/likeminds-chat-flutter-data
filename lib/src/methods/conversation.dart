@@ -16,16 +16,6 @@ class ConversationApi {
     );
   }
 
-  Future<LMResponse<GetSingleConversationResponse>> getSingleConversation(
-      GetSingleConversationRequest request) async {
-    GetSingleConversationResponse response =
-        await conversationRepository.getSingleConversation(request);
-    return LMResponse<GetSingleConversationResponse>(
-      success: true,
-      data: response,
-    );
-  }
-
   Future<LMResponse<PostConversationResponse>> postConversation(
       PostConversationRequest request) async {
     PostConversationResponse response =

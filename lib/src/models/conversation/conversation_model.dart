@@ -9,10 +9,10 @@ class Conversation {
   final String answer;
   final int? apiVersion;
   final int? attachmentCount;
-  final List<Attachment>? attachments;
+  List<Attachment>? attachments;
   final bool? attachmentsUploaded;
   final int? chatroomId;
-  final int communityId;
+  final int? communityId;
   final String createdAt;
   final int? createdEpoch;
   final String? date;
@@ -60,7 +60,7 @@ class Conversation {
     this.attachmentsUploaded,
     this.attachments,
     this.chatroomId,
-    required this.communityId,
+    this.communityId,
     required this.createdAt,
     this.createdEpoch,
     this.date,
@@ -225,7 +225,7 @@ class ConversationEntity {
   @JsonKey(name: 'chatroom_id')
   final int? chatroomId;
   @JsonKey(name: 'community_id')
-  final int communityId;
+  final int? communityId;
   @JsonKey(name: 'created_at')
   final String createdAt;
   @JsonKey(name: 'created_epoch')
@@ -303,7 +303,7 @@ class ConversationEntity {
     this.attachmentsUploaded,
     this.chatroomId,
     this.attachments,
-    required this.communityId,
+    this.communityId,
     required this.createdAt,
     this.createdEpoch,
     this.date,
