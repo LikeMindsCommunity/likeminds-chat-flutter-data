@@ -40,6 +40,7 @@ class EndPoints {
 
   String get conversationEndpoint => "$KETTLE_HOST/conversation";
   String get conversationSyncEndpoint => "$KETTLE_HOST/conversation/sync";
+  String get reactionEndpoint => "$KETTLE_HOST/conversation/reaction";
 
   String get mediaUploadEndpoint => "$KETTLE_HOST/helper/media/upload";
 

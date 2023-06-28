@@ -145,6 +145,20 @@ class LMChatClient {
     return _sdkApplication.getMediaApi().putMultimedia(request);
   }
 
+  /// The method to put reactions for a conversation
+  Future<LMResponse<PutReactionResponse>> putReaction(
+    PutReactionRequest request,
+  ) {
+    return _sdkApplication.getReactionApi().putReaction(request);
+  }
+
+  /// The method to delete reaction for a conversation
+  Future<LMResponse<DeleteReactionResponse>> deleteReaction(
+    DeleteReactionRequest request,
+  ) {
+    return _sdkApplication.getReactionApi().deleteReaction(request);
+  }
+
   /// The method to register device for notifications
   Future<LMResponse<RegisterDeviceResponse>> registerDevice(
       RegisterDeviceRequest request) {

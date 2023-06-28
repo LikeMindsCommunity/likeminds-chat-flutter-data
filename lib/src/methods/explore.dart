@@ -11,7 +11,8 @@ class ExploreApi {
     GetExploreFeedResponse response =
         await exploreRepository.getExploreFeed(request);
     return LMResponse<GetExploreFeedResponse>(
-      success: true,
+      success: response.success,
+      errorMessage: response.errorMessage,
       data: response,
     );
   }
@@ -20,7 +21,8 @@ class ExploreApi {
     GetExploreTabCountResponse response =
         await exploreRepository.getExploreTabCount();
     return LMResponse<GetExploreTabCountResponse>(
-      success: true,
+      success: response.success,
+      errorMessage: response.errorMessage,
       data: response,
     );
   }
