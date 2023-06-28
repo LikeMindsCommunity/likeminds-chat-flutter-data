@@ -140,18 +140,18 @@ class LMChatClient {
     return LMNotifications.registerDevice(request);
   }
 
-  ///The method to get chatroom's participants
+  /// The method to get chatroom's participants
   Future<LMResponse<GetParticipantsResponse>> getParticipants(
       GetParticipantsRequest request) {
     return _sdkApplication.getParticipantsApi().getParticipants(request);
   }
 
-  ///The method to get chatroom's tagging list
+  /// The method to get chatroom's tagging list
   Future<LMResponse<TagResponseModel>> getTaggingList(TagRequestModel request) {
     return _sdkApplication.getHelperApi().getTags(request: request);
   }
 
-  ///The method to get link's preview
+  /// The method to get link's preview
   Future<LMResponse<DecodeUrlResponse>> decodeUrl(DecodeUrlRequest request) {
     return _sdkApplication.getHelperApi().decodeUrl(request: request);
   }
