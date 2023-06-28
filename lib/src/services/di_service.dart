@@ -12,6 +12,7 @@ import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
 import 'package:likeminds_chat_fl/src/services/access_service.dart';
 import 'package:likeminds_chat_fl/src/services/auth_service.dart';
 import 'package:likeminds_chat_fl/src/services/chatroom_service.dart';
@@ -22,6 +23,7 @@ import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
 import 'package:likeminds_chat_fl/src/services/media_service.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
 import 'package:likeminds_chat_fl/src/services/participants_service.dart';
+import 'package:likeminds_chat_fl/src/services/reaction_service.dart';
 
 /// Dependency Injection Service
 /// This class is responsible for registering all the dependencies
@@ -97,6 +99,10 @@ class DIService {
     ExploreRepository exploreRepository =
         ExploreRepository(exploreService: exploreService);
 
+    ReactionService reactionService = ReactionService(apiManager: apiManager);
+    ReactionRepository reactionRepository =
+        ReactionRepository(reactionService: reactionService);
+
     /// Register all the dependencies in the getIt instance
     getIt.registerFactory<AuthRepository>(
       () => authRepository,
@@ -134,6 +140,10 @@ class DIService {
       () => exploreRepository,
       instanceName: kInstanceExploreRepository,
     );
+    getIt.registerFactory<ReactionRepository>(
+      () => reactionRepository,
+      instanceName: kInstanceReactionRepository,
+    );
   }
 
   /// Get the static instance of GetIt to get the dependencies
@@ -144,6 +154,7 @@ class DIService {
   static const String kInstanceHomeFeedRepository = 'home_repository';
   static const String kInstanceAuthRepository = 'auth_repository';
   static const String kInstanceExploreRepository = 'explore_repository';
+  static const String kInstanceReactionRepository = 'reaction_repository';
   static const String kInstanceAccessRepository = 'access_repository';
   static const String kInstanceChatroomRepository = 'chatroom_repository';
   static const String kInstanceConversationRepository =

@@ -50,7 +50,7 @@ class ExploreService extends IExploreService {
       GetExploreTabCountResponseEntity getExploreTabCountResponse =
           GetExploreTabCountResponseEntity.fromJson(response.data);
       return getExploreTabCountResponse;
-    } on DioException catch (e) {
+    } on DioError catch (e) {
       debugPrint(e.message);
       return GetExploreTabCountResponseEntity(
         success: false,
@@ -76,7 +76,7 @@ class ExploreService extends IExploreService {
       GetExploreFeedResponseEntity getExploreFeedResponse =
           GetExploreFeedResponseEntity.fromJson(response.data);
       return getExploreFeedResponse;
-    } on DioException catch (e) {
+    } on DioError catch (e) {
       debugPrint(e.message);
       return GetExploreFeedResponseEntity(
         success: false,

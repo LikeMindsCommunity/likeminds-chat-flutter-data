@@ -268,6 +268,36 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test the put reaction method
+  /// This test will fail if the user can not put a reaction
+  test('Putting a reaction test', () async {
+    debugPrint("Initiating put reaction test...");
+    PutReactionRequest request = (PutReactionRequestBuilder()
+          ..conversationId(conversationId ?? 0)
+          ..reaction("❤️"))
+        .build();
+    LMResponse<PutReactionResponse> response =
+        await lmClient.putReaction(request);
+    debugPrint(
+        "Put reaction with ${request.reaction} reaction returned ${response.success}");
+    expect(response.success, true);
+  });
+
+  /// Test the delete reaction method
+  /// This test will fail if the user can not delete a reaction
+  test('Deleting a reaction test', () async {
+    debugPrint("Initiating delete reaction test...");
+    DeleteReactionRequest request = (DeleteReactionRequestBuilder()
+          ..conversationId(conversationId ?? 0)
+          ..reaction("❤️"))
+        .build();
+    LMResponse<DeleteReactionResponse> response =
+        await lmClient.deleteReaction(request);
+    debugPrint(
+        "Deleted reaction with ${request.reaction} reaction returned ${response.success}");
+    expect(response.success, true);
+  });
+
   // Test the get participants methods
   // This test will fail if the user can't the list of participants
   test('Fetch participants test', () async {
