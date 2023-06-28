@@ -40,10 +40,15 @@ class EndPoints {
 
   String get conversationEndpoint => "$KETTLE_HOST/conversation";
   String get conversationSyncEndpoint => "$KETTLE_HOST/conversation/sync";
+  String get reactionEndpoint => "$KETTLE_HOST/conversation/reaction";
 
   String get mediaUploadEndpoint => "$KETTLE_HOST/helper/media/upload";
 
   String get tagsEndpoint => "$KETTLE_HOST/community/tag";
 
   String get decodeUrlEndpoint => "$KETTLE_HOST/helper/url";
+
+  String get exploreFeedEndpoint => "$KETTLE_HOST/community/feed";
+  String get exploreTabCountEndpoint =>
+      "$KETTLE_HOST/community/member/home/meta";
 }

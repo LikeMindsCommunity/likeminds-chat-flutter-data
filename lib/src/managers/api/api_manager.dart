@@ -39,7 +39,7 @@ class ApiManager {
     _dio.interceptors.add(TokenInterceptor(apiManager: this));
     _dio.interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
 
-    await testRun();
+    // await testRun();
   }
 
   testRun() async {

@@ -64,3 +64,12 @@ export 'package:likeminds_chat_fl/src/models/helper/og_tags_model.dart';
 export 'package:likeminds_chat_fl/src/models/helper/tag_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/helper/tag_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/helper/user_tag_model.dart';
+
+export 'package:likeminds_chat_fl/src/models/explore/get_explore_tab_count_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/explore/get_explore_feed_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/explore/get_explore_feed_response_model.dart';
+
+export 'package:likeminds_chat_fl/src/models/reaction/put_reaction_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/reaction/put_reaction_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/reaction/delete_reaction_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/reaction/delete_reaction_response_model.dart';

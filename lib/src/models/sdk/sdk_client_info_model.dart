@@ -6,6 +6,7 @@ part 'sdk_client_info_model.g.dart';
 class SDKClientInfo {
   final int? community;
   final int? user;
+  final String? uuid;
 
   @JsonKey(name: 'user_unique_id')
   final String? userUniqueId;
@@ -14,6 +15,7 @@ class SDKClientInfo {
     required this.community,
     required this.user,
     required this.userUniqueId,
+    required this.uuid,
   });
 
   factory SDKClientInfo.fromJson(Map<String, dynamic> json) =>
