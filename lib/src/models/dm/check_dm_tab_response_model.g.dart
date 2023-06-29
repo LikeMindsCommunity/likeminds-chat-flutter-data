@@ -11,9 +11,9 @@ CheckDMTabResponseEntity _$CheckDMTabResponseEntityFromJson(
     CheckDMTabResponseEntity(
       success: json['success'] as bool,
       errorMessage: json['error_message'] as String?,
-      clicked: json['clicked'] as bool?,
-      isCm: json['is_cm'] as bool?,
-      messaged: json['messaged'] as bool?,
+      isCm: json['data']['is_cm'] as bool?,
+      hideDMTab: json['data']['hide_dm_tab'] as bool?,
+      unreadDMCount: json['data']['unread_dm_count'] as bool?,
     );
 
 Map<String, dynamic> _$CheckDMTabResponseEntityToJson(
@@ -21,7 +21,7 @@ Map<String, dynamic> _$CheckDMTabResponseEntityToJson(
     <String, dynamic>{
       'success': instance.success,
       'error_message': instance.errorMessage,
-      'clicked': instance.clicked,
       'is_cm': instance.isCm,
-      'messaged': instance.messaged,
+      'hide_dm_tab': instance.hideDMTab,
+      'unread_dm_count': instance.unreadDMCount,
     };

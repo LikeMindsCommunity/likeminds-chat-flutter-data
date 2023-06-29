@@ -5,25 +5,25 @@ part 'check_dm_tab_response_model.g.dart';
 class CheckDMTabResponse {
   final bool success;
   final String? errorMessage;
-  final bool? clicked;
+  final bool? hideDMTab;
   final bool? isCm;
-  final bool? messaged;
+  final bool? unreadDMCount;
 
   CheckDMTabResponse({
     required this.success,
     this.errorMessage,
-    this.clicked,
     this.isCm,
-    this.messaged,
+    this.hideDMTab,
+    this.unreadDMCount,
   });
 
   factory CheckDMTabResponse.fromEntity(CheckDMTabResponseEntity entity) {
     return CheckDMTabResponse(
       success: entity.success,
       errorMessage: entity.errorMessage,
-      clicked: entity.clicked,
       isCm: entity.isCm,
-      messaged: entity.messaged,
+      hideDMTab: entity.hideDMTab,
+      unreadDMCount: entity.unreadDMCount,
     );
   }
 
@@ -31,9 +31,9 @@ class CheckDMTabResponse {
     return CheckDMTabResponseEntity(
       success: success,
       errorMessage: errorMessage,
-      clicked: clicked,
       isCm: isCm,
-      messaged: messaged,
+      hideDMTab: hideDMTab,
+      unreadDMCount: unreadDMCount,
     );
   }
 }
@@ -43,17 +43,16 @@ class CheckDMTabResponseEntity {
   final bool success;
   @JsonKey(name: "error_message")
   final String? errorMessage;
-  final bool? clicked;
-  @JsonKey(name: "is_cm")
+  final bool? hideDMTab;
   final bool? isCm;
-  final bool? messaged;
+  final bool? unreadDMCount;
 
   CheckDMTabResponseEntity({
     required this.success,
     this.errorMessage,
-    this.clicked,
     this.isCm,
-    this.messaged,
+    this.hideDMTab,
+    this.unreadDMCount,
   });
 
   factory CheckDMTabResponseEntity.fromJson(Map<String, dynamic> json) =>
