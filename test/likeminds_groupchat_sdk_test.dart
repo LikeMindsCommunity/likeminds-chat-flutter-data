@@ -337,6 +337,18 @@ void main() {
     expect(response.success, true);
   });
 
+  /// DM Tests
+
+  /// Test the check DM status method
+  /// This test will fail if the user can not check the DM status or doesn't have permission
+  test('Checking DM status test', () async {
+    debugPrint("Initiating check DM status test...");
+    LMResponse<CheckDMTabResponse> response = await lmClient.checkDMTab();
+    debugPrint(
+        "Checked DM status for user with status ${response.data!.success}");
+    expect(response.success, true);
+  });
+
   // / Test the logout method
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {

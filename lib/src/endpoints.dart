@@ -51,4 +51,6 @@ class EndPoints {
   String get exploreFeedEndpoint => "$KETTLE_HOST/community/feed";
   String get exploreTabCountEndpoint =>
       "$KETTLE_HOST/community/member/home/meta";
+
+  String get checkDMEndpoint => "$KETTLE_HOST/home/dm/meta";
 }

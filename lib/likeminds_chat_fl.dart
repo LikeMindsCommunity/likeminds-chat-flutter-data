@@ -180,6 +180,13 @@ class LMChatClient {
   Future<LMResponse<DecodeUrlResponse>> decodeUrl(DecodeUrlRequest request) {
     return _sdkApplication.getHelperApi().decodeUrl(request: request);
   }
+
+  ///DM Functions
+
+  /// The method to check the status of DM tab
+  Future<LMResponse<CheckDMTabResponse>> checkDMTab() {
+    return _sdkApplication.getDMApi().checkDMTab();
+  }
 }
 
 /// Builder class to initiate the SDK
