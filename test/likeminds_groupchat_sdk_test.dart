@@ -349,6 +349,18 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test the fetch DM feed method
+  /// This test will fail if the user can not fetch the DM feed
+  test('Fetching DM feed test', () async {
+    debugPrint("Initiating fetch DM feed test...");
+    FetchDMFeedRequest request = (FetchDMFeedRequestBuilder()..page(1)).build();
+    LMResponse<FetchDMFeedResponse> response =
+        await lmClient.getDMFeed(request);
+    debugPrint(
+        "Fetched DM feed with ${response.data!.totalPages} conversations");
+    expect(response.success, true);
+  });
+
   // / Test the logout method
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {

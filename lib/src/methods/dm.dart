@@ -14,4 +14,14 @@ class DMApi {
       data: response,
     );
   }
+
+  Future<LMResponse<FetchDMFeedResponse>> fetchDMFeed(
+      FetchDMFeedRequest fetchDMFeedRequest) async {
+    final response = await dmRepository.fetchDMFeed(fetchDMFeedRequest);
+    return LMResponse<FetchDMFeedResponse>(
+      success: response.success,
+      errorMessage: response.errorMessage,
+      data: response,
+    );
+  }
 }

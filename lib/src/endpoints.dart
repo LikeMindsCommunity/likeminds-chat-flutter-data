@@ -53,4 +53,5 @@ class EndPoints {
       "$KETTLE_HOST/community/member/home/meta";
 
   String get checkDMEndpoint => "$KETTLE_HOST/home/dm/meta";
+  String get dmEndpoint => "$KETTLE_HOST/home/dm";
 }

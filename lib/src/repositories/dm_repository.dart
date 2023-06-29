@@ -12,4 +12,13 @@ class DMRepository {
     final response = await dmService.checkDMTab();
     return CheckDMTabResponse.fromEntity(response);
   }
+
+  // Future<FetchDMFeedResponseEntity> fetchDMFeed(
+  // FetchDMFeedRequest fetchDMFeedRequest)
+
+  Future<FetchDMFeedResponse> fetchDMFeed(
+      FetchDMFeedRequest fetchDMFeedRequest) async {
+    final response = await dmService.fetchDMFeed(fetchDMFeedRequest);
+    return FetchDMFeedResponse.fromEntity(response);
+  }
 }
