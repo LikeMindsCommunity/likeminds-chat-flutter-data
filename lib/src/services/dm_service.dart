@@ -91,6 +91,8 @@ abstract class IDMService {
   Future<CheckDMTabResponseEntity> checkDMTab();
   Future<FetchDMFeedResponseEntity> fetchDMFeed(
       FetchDMFeedRequest fetchDMFeedRequest);
+  Future<CheckDMStatusResponseEntity> checkDMStatus(
+      CheckDMStatusRequest checkDMStatusRequest);
 }
 
 class DMService extends IDMService {
@@ -134,6 +136,27 @@ class DMService extends IDMService {
     } on DioError catch (e) {
       debugPrint(e.message);
       return FetchDMFeedResponseEntity(
+        success: false,
+        errorMessage: e.message,
+      );
+    }
+  }
+
+  @override
+  Future<CheckDMStatusResponseEntity> checkDMStatus(
+      CheckDMStatusRequest checkDMStatusRequest) async {
+    try {
+      final response = await apiManager.get(
+        // community/dm/status
+        apiManager.endPoints.checkDMStatusEndpoint,
+        queryParameters: checkDMStatusRequest.toJson(),
+      );
+      CheckDMStatusResponseEntity checkDMStatusResponse =
+          CheckDMStatusResponseEntity.fromJson(response.data);
+      return checkDMStatusResponse;
+    } on DioError catch (e) {
+      debugPrint(e.message);
+      return CheckDMStatusResponseEntity(
         success: false,
         errorMessage: e.message,
       );

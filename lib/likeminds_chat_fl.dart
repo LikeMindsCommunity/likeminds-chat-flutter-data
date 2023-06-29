@@ -193,6 +193,12 @@ class LMChatClient {
       FetchDMFeedRequest request) {
     return _sdkApplication.getDMApi().fetchDMFeed(request);
   }
+
+  /// The method to check the DM status
+  Future<LMResponse<CheckDMStatusResponse>> checkDMStatus(
+      CheckDMStatusRequest request) {
+    return _sdkApplication.getDMApi().checkDMStatus(request);
+  }
 }
 
 /// Builder class to initiate the SDK

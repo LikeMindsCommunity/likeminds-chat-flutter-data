@@ -24,4 +24,14 @@ class DMApi {
       data: response,
     );
   }
+
+  Future<LMResponse<CheckDMStatusResponse>> checkDMStatus(
+      CheckDMStatusRequest checkDMStatusRequest) async {
+    final response = await dmRepository.checkDMStatus(checkDMStatusRequest);
+    return LMResponse<CheckDMStatusResponse>(
+      success: response.success,
+      errorMessage: response.errorMessage,
+      data: response,
+    );
+  }
 }

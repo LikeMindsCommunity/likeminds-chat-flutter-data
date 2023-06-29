@@ -341,7 +341,7 @@ void main() {
 
   /// Test the check DM status method
   /// This test will fail if the user can not check the DM status or doesn't have permission
-  test('Checking DM status test', () async {
+  test('Checking DM Tab status test', () async {
     debugPrint("Initiating check DM status test...");
     LMResponse<CheckDMTabResponse> response = await lmClient.checkDMTab();
     debugPrint(
@@ -358,6 +358,19 @@ void main() {
         await lmClient.getDMFeed(request);
     debugPrint(
         "Fetched DM feed with ${response.data!.totalPages} conversations");
+    expect(response.success, true);
+  });
+
+  /// Test the check DM status method
+  /// This test will fail if the user can not check the DM status or doesn't have permission
+  test('Checking DM status test', () async {
+    debugPrint("Initiating check DM status test...");
+    CheckDMStatusRequest request =
+        (CheckDMStatusRequestBuilder()..reqFrom('dm_feed_v2')).build();
+    LMResponse<CheckDMStatusResponse> response =
+        await lmClient.checkDMStatus(request);
+    debugPrint(
+        "Checked DM status for user with status ${response.data!.showDm}");
     expect(response.success, true);
   });
 

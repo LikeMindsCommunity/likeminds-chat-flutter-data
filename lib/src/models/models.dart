@@ -77,3 +77,5 @@ export 'package:likeminds_chat_fl/src/models/reaction/delete_reaction_response_m
 export 'package:likeminds_chat_fl/src/models/dm/check_dm_tab_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/fetch_dm_feed_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/fetch_dm_feed_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/check_dm_status_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/check_dm_status_response_model.dart';
