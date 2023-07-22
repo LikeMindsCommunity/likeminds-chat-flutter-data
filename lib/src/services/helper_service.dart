@@ -47,7 +47,7 @@ class HelperService {
       debugPrint("Error from get tags: $e");
       return TagResponseModelEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -78,7 +78,7 @@ class HelperService {
       debugPrint("Error from get tags: $e");
       return DecodeUrlResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }

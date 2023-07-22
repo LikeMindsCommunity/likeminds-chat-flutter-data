@@ -19,7 +19,7 @@ class MediaService {
     } on DioError catch (e) {
       return PutMediaResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
