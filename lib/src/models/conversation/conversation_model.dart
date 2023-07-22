@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
 import 'package:likeminds_chat_fl/src/models/conversation/attachment_model.dart';
-import 'package:likeminds_chat_fl/src/models/conversation/poll_model.dart';
 import 'package:likeminds_chat_fl/src/models/conversation/reaction_model.dart';
 
 part 'conversation_model.g.dart';
@@ -54,7 +53,6 @@ class Conversation {
   final int? replyConversation;
   Conversation? replyConversationObject;
   List<Reaction>? conversationReactions;
-  PollInfoData? poll;
 
   Conversation({
     this.allowAddOption,
@@ -104,7 +102,6 @@ class Conversation {
     this.replyConversation,
     this.replyConversationObject,
     this.conversationReactions,
-    this.poll,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
@@ -305,7 +302,6 @@ class ConversationEntity {
   final String? submitTypeText;
   final UserEntity? member;
   final List<ReactionEntity>? conversationReactionsEntity;
-  final PollInfoData? poll;
 
   ConversationEntity({
     this.allowAddOption,
@@ -354,7 +350,6 @@ class ConversationEntity {
     this.submitTypeText,
     this.member,
     this.conversationReactionsEntity,
-    this.poll,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json,

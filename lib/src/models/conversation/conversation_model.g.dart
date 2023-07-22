@@ -16,13 +16,6 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json,
         .map((e) => ReactionEntity.fromJson(e as Map<String, dynamic>))
         .toList();
   }
-  List<Map<String, dynamic>>? pollViewDataList;
-  if (conversationPollMeta != null &&
-      conversationPollMeta.containsKey('${json['id']}')) {
-    pollViewDataList = (conversationPollMeta['${json['id']}'] as List<dynamic>)
-        .map((e) => e as Map<String, dynamic>)
-        .toList();
-  }
 
   return ConversationEntity(
     allowAddOption: json['allow_add_option'] as bool?,
@@ -78,12 +71,6 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json,
         ? null
         : UserEntity.fromJson(json['member'] as Map<String, dynamic>),
     conversationReactionsEntity: reactions,
-    poll: PollInfoData.fromEntity(
-      PollInfoEntity.fromJson(
-        json,
-        pollViewDataList,
-      ),
-    ),
   );
 }
 
