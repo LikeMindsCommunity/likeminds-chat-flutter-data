@@ -32,7 +32,7 @@ class ReactionService extends IReactionService {
       debugPrint(e.message);
       return PutReactionResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -53,7 +53,7 @@ class ReactionService extends IReactionService {
       debugPrint(e.message);
       return DeleteReactionResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }

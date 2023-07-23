@@ -28,7 +28,7 @@ class UtilService {
       return RegisterDeviceResponse.fromEntity(entity);
     } on DioError catch (e) {
       return RegisterDeviceResponse(
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
         success: false,
       );
     }

@@ -32,7 +32,7 @@ class ConversationService extends IConversationService {
     } on DioError catch (e) {
       return GetConversationResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -50,7 +50,7 @@ class ConversationService extends IConversationService {
     } on DioError catch (e) {
       return PostConversationResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -68,7 +68,7 @@ class ConversationService extends IConversationService {
     } on DioError catch (e) {
       return EditConversationResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -86,7 +86,7 @@ class ConversationService extends IConversationService {
     } on DioError catch (e) {
       return DeleteConversationResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
