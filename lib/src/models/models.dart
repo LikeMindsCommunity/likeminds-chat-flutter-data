@@ -84,3 +84,5 @@ export 'package:likeminds_chat_fl/src/models/poll/add_poll_option_request_model.
 export 'package:likeminds_chat_fl/src/models/poll/add_poll_option_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/poll/submit_poll_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/poll/submit_poll_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/poll_info_data.dart';
+export 'package:likeminds_chat_fl/src/models/poll/poll_view_data.dart';

@@ -1,7 +1,7 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 class PostPollConversationRequest {
-  final String chatroomId;
+  final int chatroomId;
   final String text;
   final int state;
   final String? repliedConversationId;
@@ -46,7 +46,7 @@ class PostPollConversationRequest {
 }
 
 class PostPollConversationRequestBuilder {
-  String? _chatroomId;
+  int? _chatroomId;
   String? _text;
   int? _state;
   String? _repliedConversationId;
@@ -61,7 +61,7 @@ class PostPollConversationRequestBuilder {
 
   PostPollConversationRequestBuilder();
 
-  PostPollConversationRequestBuilder chatroomId(String chatroomId) {
+  PostPollConversationRequestBuilder chatroomId(int chatroomId) {
     _chatroomId = chatroomId;
     return this;
   }
@@ -98,7 +98,7 @@ class PostPollConversationRequestBuilder {
     return this;
   }
 
-  PostPollConversationRequestBuilder multipleSelectNo(int multipleSelectNo) {
+  PostPollConversationRequestBuilder multipleSelectNo(int? multipleSelectNo) {
     _multipleSelectNo = multipleSelectNo;
     return this;
   }

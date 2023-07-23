@@ -1,103 +1,104 @@
-class PollOption {
-  final String? id;
+class PollViewData {
+  final int? id;
   final String text;
   final bool? isSelected;
   final int? percentage;
-  final String? subText;
   final int? noVotes;
-  final String? userId;
+  final int? memberId;
   final int? conversationId;
+  final int? chatroomId;
   final int? count;
 
-  PollOption({
+  PollViewData({
     this.id,
     required this.text,
     this.isSelected,
     this.percentage,
-    this.subText,
     this.noVotes,
-    this.userId,
+    this.memberId,
     this.conversationId,
+    this.chatroomId,
     this.count,
   });
 
-  factory PollOption.fromEntity(PollOptionEntity entity) {
-    return PollOption(
+  factory PollViewData.fromEntity(PollViewDataEntity entity) {
+    return PollViewData(
       id: entity.id,
       text: entity.text,
       isSelected: entity.isSelected,
       percentage: entity.percentage,
-      subText: entity.subText,
       noVotes: entity.noVotes,
-      userId: entity.userId,
+      memberId: entity.memberId,
       conversationId: entity.conversationId,
+      chatroomId: entity.chatroomId,
       count: entity.count,
     );
   }
 
-  PollOptionEntity toEntity() {
-    return PollOptionEntity(
+  PollViewDataEntity toEntity() {
+    return PollViewDataEntity(
       id: id,
       text: text,
       isSelected: isSelected,
       percentage: percentage,
-      subText: subText,
       noVotes: noVotes,
-      userId: userId,
+      memberId: memberId,
+      chatroomId: chatroomId,
       conversationId: conversationId,
       count: count,
     );
   }
 }
 
-class PollOptionEntity {
-  final String? id;
+class PollViewDataEntity {
+  final int? id;
   final String text;
   final bool? isSelected;
   final int? percentage;
-  final String? subText;
   final int? noVotes;
-  final String? userId;
   final int? count;
+  final int? memberId;
   final int? conversationId;
+  final int? chatroomId;
 
-  PollOptionEntity({
+  PollViewDataEntity({
     this.id,
     required this.text,
     this.isSelected,
     this.percentage,
-    this.subText,
-    this.noVotes,
-    this.userId,
-    this.conversationId,
     this.count,
+    this.noVotes,
+    this.memberId,
+    this.conversationId,
+    this.chatroomId,
   });
 
-  factory PollOptionEntity.fromJson(Map<String, dynamic> json) {
-    return PollOptionEntity(
-      id: json['id'] as String?,
-      text: json['text'] as String,
-      isSelected: json['is_selected'] as bool?,
-      percentage: json['percentage'] as int?,
-      subText: json['sub_text'] as String?,
-      noVotes: json['no_votes'] as int?,
-      userId: json['user_id'] as String?,
-      conversationId: json['conversation_id'] as int?,
-      count: json['count'] as int?,
+  factory PollViewDataEntity.fromJson(Map<String, dynamic> json) {
+    return PollViewDataEntity(
+      id: json['id'],
+      text: json['text'],
+      isSelected: json['is_selected'],
+      percentage: json['percentage'],
+      noVotes: json['no_votes'],
+      memberId: json['user_id'],
+      conversationId: json['conversation_id'],
+      chatroomId: json['chatroom_id'],
+      count: json['count'],
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
+    final Map<String, dynamic> data = {
       'id': id,
       'text': text,
       'is_selected': isSelected,
       'percentage': percentage,
-      'sub_text': subText,
       'no_votes': noVotes,
-      'user_id': userId,
       'conversation_id': conversationId,
+      'user_id': memberId,
       'count': count,
     };
+
+    return data;
   }
 }

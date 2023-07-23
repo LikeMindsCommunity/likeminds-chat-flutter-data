@@ -14,7 +14,11 @@ PostConversationResponseEntity _$PostConversationResponseEntityFromJson(
       conversation: json['data']['conversation'] == null
           ? null
           : ConversationEntity.fromJson(
-              json['data']['conversation'] as Map<String, dynamic>),
+              json['data']['conversation'] as Map<String, dynamic>,
+              conversationPollMeta: {
+                  "${json['data']['conversation']['id']}":
+                      json['data']['conversation']['polls'] ?? []
+                }),
       id: json['data']['id'] as int?,
     );
 

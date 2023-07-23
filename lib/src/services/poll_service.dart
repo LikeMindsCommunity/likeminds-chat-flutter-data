@@ -4,7 +4,7 @@ import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IPollService {
-  Future<PostPollConversationResponseEntity> postPollConversation(
+  Future<PostConversationResponseEntity> postPollConversation(
       PostPollConversationRequest request);
   Future<GetPollUsersResponseEntity> getPollUsers(GetPollUsersRequest request);
   Future<AddPollOptionResponseEntity> addPollOption(
@@ -20,20 +20,19 @@ class PollService extends IPollService {
   });
 
   @override
-  Future<PostPollConversationResponseEntity> postPollConversation(
+  Future<PostConversationResponseEntity> postPollConversation(
       PostPollConversationRequest request) async {
     try {
       final response = await apiManager.post(
-        // conversation
         apiManager.endPoints.conversationEndpoint,
         data: request.toJson(),
       );
-      PostPollConversationResponseEntity postPollConversationResponse =
-          PostPollConversationResponseEntity.fromJson(response.data);
+      PostConversationResponseEntity postPollConversationResponse =
+          PostConversationResponseEntity.fromJson(response.data);
       return postPollConversationResponse;
     } on DioError catch (e) {
       debugPrint(e.message);
-      return PostPollConversationResponseEntity(
+      return PostConversationResponseEntity(
         success: false,
         errorMessage: e.message,
       );
@@ -45,7 +44,6 @@ class PollService extends IPollService {
       GetPollUsersRequest request) async {
     try {
       final response = await apiManager.get(
-        // conversation/poll/users
         apiManager.endPoints.pollUsersEndpoint,
         queryParameters: request.toJson(),
       );
@@ -56,7 +54,7 @@ class PollService extends IPollService {
       debugPrint(e.message);
       return GetPollUsersResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data["error_message"] ?? "An error occured",
       );
     }
   }
@@ -66,8 +64,7 @@ class PollService extends IPollService {
       AddPollOptionRequest request) async {
     try {
       final response = await apiManager.post(
-        // conversation/poll
-        apiManager.endPoints.pollEndpoint,
+        apiManager.endPoints.pollAddOptionEndpoint,
         data: request.toJson(),
       );
       AddPollOptionResponseEntity addPollOptionResponse =
@@ -86,7 +83,6 @@ class PollService extends IPollService {
   Future<SubmitPollResponseEntity> submitPoll(SubmitPollRequest request) async {
     try {
       final response = await apiManager.post(
-        // conversation/poll/submit
         apiManager.endPoints.pollSubmitEndpoint,
         data: request.toJson(),
       );
@@ -95,6 +91,14 @@ class PollService extends IPollService {
       return submitPollResponse;
     } on DioError catch (e) {
       debugPrint(e.message);
+      if (e.response != null &&
+          e.response!.data != null &&
+          e.response!.data.runtimeType == Map) {
+        return SubmitPollResponseEntity(
+          success: false,
+          errorMessage: e.response?.data["error_message"] ?? "An error occured",
+        );
+      }
       return SubmitPollResponseEntity(
         success: false,
         errorMessage: e.message,
