@@ -41,6 +41,7 @@ export 'package:likeminds_chat_fl/src/models/conversation/delete_conversation_re
 export 'package:likeminds_chat_fl/src/models/conversation/delete_conversation_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/edit_conversation_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/edit_conversation_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/reaction_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/conversation/conversation_model.dart';
 
