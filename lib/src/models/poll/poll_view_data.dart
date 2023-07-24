@@ -1,13 +1,13 @@
 class PollViewData {
-  final int? id;
+  int? id;
   final String text;
-  final bool? isSelected;
-  final int? percentage;
-  final int? noVotes;
+  bool? isSelected;
+  int? percentage;
+  int? noVotes;
   final int? memberId;
   final int? conversationId;
   final int? chatroomId;
-  final int? count;
+  int? count;
 
   PollViewData({
     this.id,

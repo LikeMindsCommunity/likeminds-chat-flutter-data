@@ -67,15 +67,16 @@ class PollService extends IPollService {
         apiManager.endPoints.pollAddOptionEndpoint,
         data: request.toJson(),
       );
+      response.data["temporary_id"] = request.temporaryId;
       AddPollOptionResponseEntity addPollOptionResponse =
           AddPollOptionResponseEntity.fromJson(response.data);
       return addPollOptionResponse;
     } on DioError catch (e) {
       debugPrint(e.message);
       return AddPollOptionResponseEntity(
-        success: false,
-        errorMessage: e.message,
-      );
+          success: false,
+          errorMessage: e.message,
+          temporaryId: request.temporaryId);
     }
   }
 

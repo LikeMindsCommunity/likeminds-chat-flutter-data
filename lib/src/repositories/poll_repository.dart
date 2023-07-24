@@ -25,7 +25,7 @@ class PollRepository {
     return GetPollUsersResponse.fromEntity(responseEntity);
   }
 
-  Future<PostConversationResponseEntity> postPollConversation(
+  Future<PostConversationResponse> postPollConversation(
       PostPollConversationRequest request) async {
     PostConversationResponseEntity responseEntity =
         await pollService.postPollConversation(request);
