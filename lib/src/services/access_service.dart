@@ -57,7 +57,9 @@ class AccessService {
     } on DioError catch (e) {
       debugPrint("Error from get member state access: $e");
       return MemberStateResponseEntity(
-          success: false, errorMessage: e.toString());
+        success: false,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      );
     }
   }
 }

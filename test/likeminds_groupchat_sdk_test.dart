@@ -8,7 +8,7 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'environment/test_env.dart';
 import 'test_callback.dart';
 
-const bool TESTING_PROD_FLAG = bool.fromEnvironment('DEBUG');
+const bool TESTING_PROD_FLAG = !bool.fromEnvironment('DEBUG');
 
 final TestCallback TESTING_CALLBACK = TestCallback();
 

@@ -54,7 +54,7 @@ class ExploreService extends IExploreService {
       debugPrint(e.message);
       return GetExploreTabCountResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -80,7 +80,7 @@ class ExploreService extends IExploreService {
       debugPrint(e.message);
       return GetExploreFeedResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }

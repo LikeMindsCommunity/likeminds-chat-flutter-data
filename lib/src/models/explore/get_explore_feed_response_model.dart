@@ -42,7 +42,7 @@ class GetExploreFeedResponseEntity {
   @JsonKey(name: 'error_message')
   final String? errorMessage;
   final List<ChatRoomEntity>? chatrooms;
-  @JsonKey(name: 'pinned_chatroom_count')
+  @JsonKey(name: 'pinned_chatrooms_count')
   final int? pinnedChatroomCount;
 
   GetExploreFeedResponseEntity({

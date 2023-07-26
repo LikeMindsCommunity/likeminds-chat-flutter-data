@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'attachment_model.g.dart';
@@ -6,8 +8,9 @@ class Attachment {
   final int? answerId;
   final int? createdAt;
   final dynamic dimensions;
-  final String? fileUrl;
-  final String? url;
+  String? fileUrl;
+  String? url;
+  File? attachmentFile;
   final dynamic height;
   final int? id;
   final int? index;
@@ -16,27 +19,30 @@ class Attachment {
   final dynamic locationName;
   final dynamic meta;
   final String? name;
-  final String? thumbnailUrl;
+  String? thumbnailUrl;
+  File? thumbnailFile;
   final String? type;
   final dynamic width;
 
   Attachment({
     required this.answerId,
-    required this.createdAt,
-    required this.dimensions,
-    required this.fileUrl,
-    required this.height,
-    required this.id,
-    required this.index,
-    required this.locationLat,
-    required this.locationLong,
-    required this.locationName,
-    required this.meta,
-    required this.name,
-    required this.thumbnailUrl,
+    this.createdAt,
+    this.dimensions,
+    this.fileUrl,
+    this.height,
+    this.id,
+    this.index,
+    this.locationLat,
+    this.locationLong,
+    this.locationName,
+    this.meta,
+    this.name,
+    this.thumbnailUrl,
     required this.type,
-    required this.width,
-    required this.url,
+    this.width,
+    this.url,
+    this.attachmentFile,
+    this.thumbnailFile,
   });
 
   factory Attachment.fromEntity(AttachmentEntity entity) {

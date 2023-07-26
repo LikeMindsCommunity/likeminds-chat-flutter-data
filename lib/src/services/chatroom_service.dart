@@ -49,7 +49,7 @@ class ChatroomService extends IChatroomService {
       debugPrint(e.message);
       return FollowChatroomResponse(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -63,11 +63,11 @@ class ChatroomService extends IChatroomService {
         data: request.toJson(),
       );
       return MarkReadChatroomResponse.fromJson(response.data);
-    } catch (e) {
+    } on DioError catch (e) {
       debugPrint(e.toString());
       return MarkReadChatroomResponse(
         success: false,
-        errorMessage: e.toString(),
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -84,7 +84,7 @@ class ChatroomService extends IChatroomService {
       debugPrint(e.message);
       return MuteChatroomResponse(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -102,7 +102,7 @@ class ChatroomService extends IChatroomService {
       debugPrint(e.message);
       return ShareChatroomResponse(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -120,7 +120,7 @@ class ChatroomService extends IChatroomService {
       debugPrint(e.message);
       return SetChatroomTopicResponse(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -131,14 +131,14 @@ class ChatroomService extends IChatroomService {
     try {
       final response = await apiManager.delete(
         apiManager.endPoints.chatroomParticipantsEndpoint,
-        queryParameters: request.toJson(),
+        data: request.toJson(),
       );
       return DeleteParticipantResponse.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint(e.message);
       return DeleteParticipantResponse(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }

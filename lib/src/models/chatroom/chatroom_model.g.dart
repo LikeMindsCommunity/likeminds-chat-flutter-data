@@ -64,6 +64,9 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       videoCount: json['video_count'] as int?,
       videos: json['videos'] as List<dynamic>?,
       participantCount: json['participants_count'] as int?,
+      totalResponseCount: json['total_response_count'] as int?,
+      isPinned: json['is_pinned'] as bool?,
+      externalSeen: json['external_seen'] as bool?,
     );
 
 Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
@@ -121,4 +124,7 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'video_count': instance.videoCount,
       'videos': instance.videos,
       'participants_count': instance.participantCount,
+      'total_response_count': instance.totalResponseCount,
+      'is_pinned': instance.isPinned,
+      'external_seen': instance.externalSeen,
     };
