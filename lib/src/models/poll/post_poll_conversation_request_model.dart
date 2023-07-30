@@ -93,7 +93,7 @@ class PostPollConversationRequestBuilder {
   }
 
   PostPollConversationRequestBuilder multipleSelectState(
-      int multipleSelectState) {
+      int? multipleSelectState) {
     _multipleSelectState = multipleSelectState;
     return this;
   }

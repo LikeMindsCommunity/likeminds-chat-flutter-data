@@ -54,5 +54,5 @@ class EndPoints {
 
   String get pollUsersEndpoint => "$KETTLE_HOST/conversation/poll/users";
   String get pollAddOptionEndpoint => "$KETTLE_HOST/conversation/poll";
-  String get pollSubmitEndpoint => "$KETTLE_HOST/conversation/submit";
+  String get pollSubmitEndpoint => "$KETTLE_HOST/conversation/poll/submit";
 }
