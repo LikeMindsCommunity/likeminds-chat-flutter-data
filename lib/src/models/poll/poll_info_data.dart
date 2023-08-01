@@ -12,7 +12,7 @@ class PollInfoData {
   final List<PollViewData>? pollViewDataList;
   final String? pollAnswerText;
   final bool? isPollSubmitted;
-  final bool? toShowResult;
+  bool? toShowResult;
   final int? conversationId;
 
   PollInfoData({
