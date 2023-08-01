@@ -51,4 +51,8 @@ class EndPoints {
   String get exploreFeedEndpoint => "$KETTLE_HOST/community/feed";
   String get exploreTabCountEndpoint =>
       "$KETTLE_HOST/community/member/home/meta";
+
+  String get pollUsersEndpoint => "$KETTLE_HOST/conversation/poll/users";
+  String get pollAddOptionEndpoint => "$KETTLE_HOST/conversation/poll";
+  String get pollSubmitEndpoint => "$KETTLE_HOST/conversation/poll/submit";
 }

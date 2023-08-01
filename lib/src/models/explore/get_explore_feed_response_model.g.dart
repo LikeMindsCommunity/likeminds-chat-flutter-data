@@ -14,7 +14,7 @@ GetExploreFeedResponseEntity _$GetExploreFeedResponseEntityFromJson(
       chatrooms: (json['data']['chatrooms'] as List<dynamic>?)
           ?.map((e) => ChatRoomEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      pinnedChatroomCount: json['data']['pinned_chatroom_count'] as int?,
+      pinnedChatroomCount: json['data']['pinned_chatrooms_count'] as int?,
     );
 
 Map<String, dynamic> _$GetExploreFeedResponseEntityToJson(
@@ -23,5 +23,5 @@ Map<String, dynamic> _$GetExploreFeedResponseEntityToJson(
       'success': instance.success,
       'error_message': instance.errorMessage,
       'chatrooms': instance.chatrooms,
-      'pinned_chatroom_count': instance.pinnedChatroomCount,
+      'pinned_chatrooms_count': instance.pinnedChatroomCount,
     };
