@@ -8,7 +8,7 @@ part 'conversation_model.g.dart';
 
 class Conversation {
   final bool? allowAddOption;
-  final String answer;
+  String answer;
   final int? apiVersion;
   final int? attachmentCount;
   List<Attachment>? attachments;
@@ -28,8 +28,8 @@ class Conversation {
   final int id;
   final String? internalLink;
   final bool? isAnonymous;
-  final bool? isEdited;
-  final int? lastUpdated;
+  bool? isEdited;
+  int? lastUpdated;
   final String? location;
   final String? locationLat;
   final String? locationLong;
