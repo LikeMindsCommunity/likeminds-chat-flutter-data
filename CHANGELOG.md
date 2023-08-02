@@ -20,3 +20,7 @@ Stable first release v1.0.0
 
 - Fixed explore api issues
 - Fixed reaction api issues
+
+## 1.4.0
+
+- Added support for polls
