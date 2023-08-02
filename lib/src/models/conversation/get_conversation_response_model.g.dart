@@ -28,7 +28,9 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
       conversationData: (json['data']['conversations_data'] as List<dynamic>?)
           ?.map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>,
               conversationReactionsMeta:
-                  json['data']['conv_reactions_meta'] as Map<String, dynamic>?))
+                  json['data']['conv_reactions_meta'] as Map<String, dynamic>?,
+              conversationPollMeta:
+                  json['data']['conv_polls_meta'] as Map<String, dynamic>?))
           .toList(),
       conversationMeta:
           (json['data']['conversation_meta'] as Map<String, dynamic>?)?.map(

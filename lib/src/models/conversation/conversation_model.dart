@@ -2,12 +2,13 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
 import 'package:likeminds_chat_fl/src/models/conversation/attachment_model.dart';
 import 'package:likeminds_chat_fl/src/models/conversation/reaction_model.dart';
+import 'package:likeminds_chat_fl/src/models/poll/poll_info_data.dart';
 
 part 'conversation_model.g.dart';
 
 class Conversation {
   final bool? allowAddOption;
-  final String answer;
+  String answer;
   final int? apiVersion;
   final int? attachmentCount;
   List<Attachment>? attachments;
@@ -27,8 +28,8 @@ class Conversation {
   final int id;
   final String? internalLink;
   final bool? isAnonymous;
-  final bool? isEdited;
-  final int? lastUpdated;
+  bool? isEdited;
+  int? lastUpdated;
   final String? location;
   final String? locationLat;
   final String? locationLong;
@@ -53,6 +54,7 @@ class Conversation {
   final int? replyConversation;
   Conversation? replyConversationObject;
   List<Reaction>? conversationReactions;
+  PollInfoData? poll;
 
   Conversation({
     this.allowAddOption,
@@ -102,63 +104,65 @@ class Conversation {
     this.replyConversation,
     this.replyConversationObject,
     this.conversationReactions,
+    this.poll,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
     return Conversation(
-      allowAddOption: entity.allowAddOption,
-      answer: entity.answer,
-      apiVersion: entity.apiVersion,
-      attachmentCount: entity.attachmentCount,
-      attachmentsUploaded: entity.attachmentsUploaded,
-      chatroomId: entity.chatroomId,
-      communityId: entity.communityId,
-      createdAt: entity.createdAt,
-      createdEpoch: entity.createdEpoch,
-      date: entity.date,
-      attachments: entity.attachments != null
-          ? entity.attachments!.map((e) => Attachment.fromEntity(e)).toList()
-          : null,
-      deletedByUserId: entity.deletedByUserId,
-      deviceId: entity.deviceId,
-      endTime: entity.endTime,
-      expiryTime: entity.expiryTime,
-      hasFiles: entity.hasFiles,
-      hasReactions: entity.hasReactions,
-      header: entity.header,
-      id: entity.id,
-      internalLink: entity.internalLink,
-      isAnonymous: entity.isAnonymous,
-      isEdited: entity.isEdited,
-      lastUpdated: entity.lastUpdated,
-      location: entity.location,
-      locationLat: entity.locationLat,
-      locationLong: entity.locationLong,
-      multipleSelectNo: entity.multipleSelectNo,
-      multipleSelectState: entity.multipleSelectState,
-      ogTags: entity.ogTags,
-      onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
-      pollAnswerText: entity.pollAnswerText,
-      pollType: entity.pollType,
-      replyChatroomId: entity.replyChatroomId,
-      replyId: entity.replyId,
-      replyConversation: entity.replyConversation,
-      replyConversationObject: entity.replyConversationObject != null
-          ? Conversation.fromEntity(entity.replyConversationObject!)
-          : null,
-      startTime: entity.startTime,
-      state: entity.state,
-      temporaryId: entity.temporaryId,
-      userId: entity.userId,
-      toShowResults: entity.toShowResults,
-      pollTypeText: entity.pollTypeText,
-      submitTypeText: entity.submitTypeText,
-      memberId: entity.memberId,
-      member: entity.member != null ? User.fromEntity(entity.member!) : null,
-      conversationReactions: entity.conversationReactionsEntity
-          ?.map((e) => Reaction.fromEntity(e))
-          .toList(),
-    );
+        allowAddOption: entity.allowAddOption,
+        answer: entity.answer,
+        apiVersion: entity.apiVersion,
+        attachmentCount: entity.attachmentCount,
+        attachmentsUploaded: entity.attachmentsUploaded,
+        chatroomId: entity.chatroomId,
+        communityId: entity.communityId,
+        createdAt: entity.createdAt,
+        createdEpoch: entity.createdEpoch,
+        date: entity.date,
+        attachments: entity.attachments != null
+            ? entity.attachments!.map((e) => Attachment.fromEntity(e)).toList()
+            : null,
+        deletedByUserId: entity.deletedByUserId,
+        deviceId: entity.deviceId,
+        endTime: entity.endTime,
+        expiryTime: entity.expiryTime,
+        hasFiles: entity.hasFiles,
+        hasReactions: entity.hasReactions,
+        header: entity.header,
+        id: entity.id,
+        internalLink: entity.internalLink,
+        isAnonymous: entity.isAnonymous,
+        isEdited: entity.isEdited,
+        lastUpdated: entity.lastUpdated,
+        location: entity.location,
+        locationLat: entity.locationLat,
+        locationLong: entity.locationLong,
+        multipleSelectNo: entity.multipleSelectNo,
+        multipleSelectState: entity.multipleSelectState,
+        ogTags: entity.ogTags,
+        onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
+        pollAnswerText: entity.pollAnswerText,
+        pollType: entity.pollType,
+        replyChatroomId: entity.replyChatroomId,
+        replyId: entity.replyId,
+        replyConversation: entity.replyConversation,
+        replyConversationObject: entity.replyConversationObject != null
+            ? Conversation.fromEntity(entity.replyConversationObject!)
+            : null,
+        startTime: entity.startTime,
+        state: entity.state,
+        temporaryId: entity.temporaryId,
+        userId: entity.userId,
+        toShowResults: entity.toShowResults,
+        pollTypeText: entity.pollTypeText,
+        submitTypeText: entity.submitTypeText,
+        memberId: entity.memberId,
+        member: entity.member != null ? User.fromEntity(entity.member!) : null,
+        conversationReactions: entity.conversationReactionsEntity
+            ?.map((e) => Reaction.fromEntity(e))
+            .toList(),
+        poll:
+            entity.poll != null ? PollInfoData.fromEntity(entity.poll!) : null);
   }
 
   ConversationEntity toEntity() {
@@ -212,6 +216,7 @@ class Conversation {
         pollTypeText: pollTypeText,
         submitTypeText: submitTypeText,
         memberId: memberId,
+        poll: poll?.toEntity(),
         conversationReactionsEntity:
             conversationReactions?.map((e) => e.toEntity()).toList());
   }
@@ -302,6 +307,7 @@ class ConversationEntity {
   final String? submitTypeText;
   final UserEntity? member;
   final List<ReactionEntity>? conversationReactionsEntity;
+  final PollInfoDataEntity? poll;
 
   ConversationEntity({
     this.allowAddOption,
@@ -350,6 +356,7 @@ class ConversationEntity {
     this.submitTypeText,
     this.member,
     this.conversationReactionsEntity,
+    this.poll,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json,
