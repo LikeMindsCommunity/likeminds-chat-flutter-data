@@ -24,3 +24,7 @@ Stable first release v1.0.0
 ## 1.4.0
 
 - Added support for polls
+
+## 1.5.0
+
+- Optional LMSDKCallback
