@@ -115,7 +115,7 @@ class AuthService extends IAuthService {
 
       LogoutResponseEntity logoutResponse =
           LogoutResponseEntity.fromJson(response.data);
-      request.callback.logoutCallback();
+      request.callback?.logoutCallback();
       apiManager.tokenManager.clearTokens();
       return logoutResponse;
     } on DioError catch (e) {

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
 
-class TestCallback extends LMSdkCallback {
+class TestCallback extends LMSDKCallback {
   @override
   void eventFiredCallback(String eventKey, Map<String, dynamic> propertiesMap) {
     debugPrint("Unit testing; eventFiredCallback: $eventKey, $propertiesMap");

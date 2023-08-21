@@ -110,7 +110,6 @@ void main() {
     debugPrint("Initiating follow chatroom test...");
     FollowChatroomRequest request = (FollowChatroomRequestBuilder()
           ..chatroomId(chatroomId)
-          ..memberId(87103)
           ..value(true))
         .build();
 
@@ -160,13 +159,32 @@ void main() {
     expect(response.success, true);
   });
 
+  test('Posting the conversation test', () async {
+    debugPrint("Initiating post conversation test...");
+    int tempId = DateTime.now().millisecondsSinceEpoch;
+    PostConversationRequest request = (PostConversationRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..text("This is a test message from the SDK")
+          ..temporaryId(tempId.toString())
+          ..expiryTime(0))
+        .build();
+    LMResponse<PostConversationResponse> response =
+        await lmClient.postConversation(request);
+    //Save the conversation ID for the next test
+    conversationId = response.data!.conversation!.id;
+    debugPrint(
+      "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
+    );
+    expect(response.success, true);
+  });
+
   /// Test the set chatroom topic method
   /// This test will fail if the user can not set the chatroom topic
   test('Setting the chatroom topic test', () async {
     debugPrint("Initiating set chatroom topic test...");
     SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
           ..chatroomId(chatroomId)
-          ..conversationId(273099))
+          ..conversationId(conversationId!))
         .build();
     LMResponse<SetChatroomTopicResponse> response =
         await lmClient.setChatroomTopic(request);
@@ -194,24 +212,6 @@ void main() {
 
   /// Test the post conversation method
   /// This test will fail if the user can not post the conversation
-  test('Posting the conversation test', () async {
-    debugPrint("Initiating post conversation test...");
-    int tempId = DateTime.now().millisecondsSinceEpoch;
-    PostConversationRequest request = (PostConversationRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..text("This is a test message from the SDK")
-          ..temporaryId(tempId.toString())
-          ..expiryTime(0))
-        .build();
-    LMResponse<PostConversationResponse> response =
-        await lmClient.postConversation(request);
-    //Save the conversation ID for the next test
-    conversationId = response.data!.id;
-    debugPrint(
-      "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
-    );
-    expect(response.success, true);
-  });
 
   /// Test the get single conversation method
   /// This test will fail if the user can not get the conversation
@@ -250,21 +250,6 @@ void main() {
     debugPrint(
       "Edited conversation ${response.data!.conversation!.toEntity().toJson()}",
     );
-    expect(response.success, true);
-  });
-
-  /// Test the delete conversation method
-  /// This test will fail if the user can not delete the conversation
-  test('Deleting the conversation test', () async {
-    debugPrint("Initiating delete conversation test...");
-    DeleteConversationRequest request = (DeleteConversationRequestBuilder()
-          ..conversationIds([conversationId ?? 0])
-          ..reason("Because testing demands you to"))
-        .build();
-    LMResponse<DeleteConversationResponse> response =
-        await lmClient.deleteConversation(request);
-    debugPrint(
-        "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
     expect(response.success, true);
   });
 
@@ -334,6 +319,21 @@ void main() {
     debugPrint("Initiating Fetch Member Rights test...");
     LMResponse<MemberStateResponse> response = await lmClient.getMemberState();
     debugPrint("Member State for User with ID ${response.data!.member!.id}");
+    expect(response.success, true);
+  });
+
+  /// Test the delete conversation method
+  /// This test will fail if the user can not delete the conversation
+  test('Deleting the conversation test', () async {
+    debugPrint("Initiating delete conversation test...");
+    DeleteConversationRequest request = (DeleteConversationRequestBuilder()
+          ..conversationIds([conversationId ?? 0])
+          ..reason("Because testing demands you to"))
+        .build();
+    LMResponse<DeleteConversationResponse> response =
+        await lmClient.deleteConversation(request);
+    debugPrint(
+        "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
     expect(response.success, true);
   });
 

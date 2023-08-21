@@ -1,7 +1,7 @@
 /// Abstract class for callback methods
 /// To be implemented by the user of the SDK
 /// And sent to the SDK while initializing
-abstract class LMSdkCallback {
+abstract class LMSDKCallback {
   /// Callback for interaction events in the SDK
   /// This is called when any event is fired from the UI
   void eventFiredCallback(String eventKey, Map<String, dynamic> propertiesMap);
