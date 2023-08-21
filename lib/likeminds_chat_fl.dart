@@ -20,11 +20,11 @@ class LMChatClient {
   late final SDKApplication _sdkApplication;
 
   final String _apiKey;
-  final LMSdkCallback _sdkCallback;
+  final LMSDKCallback? _sdkCallback;
 
   LMChatClient._({
     required String apiKey,
-    required LMSdkCallback sdkCallback,
+    LMSDKCallback? sdkCallback,
   })  : _apiKey = apiKey,
         _sdkCallback = sdkCallback {
     debugPrint("LMChatClient initialized");
@@ -212,13 +212,13 @@ class LMChatClient {
 /// Returns a new instance of the SDK [LMChatClient]
 class LMChatClientBuilder {
   String? _apiKey;
-  LMSdkCallback? _sdkCallback;
+  LMSDKCallback? _sdkCallback;
 
   void apiKey(String apiKey) {
     _apiKey = apiKey;
   }
 
-  void sdkCallback(LMSdkCallback sdkCallback) {
+  void sdkCallback(LMSDKCallback? sdkCallback) {
     _sdkCallback = sdkCallback;
   }
 
@@ -226,12 +226,9 @@ class LMChatClientBuilder {
     if (_apiKey == null) {
       throw Exception("API key is required");
     }
-    if (_sdkCallback == null) {
-      throw Exception("SDK callback is required");
-    }
     return LMChatClient._(
       apiKey: _apiKey!,
-      sdkCallback: _sdkCallback!,
+      sdkCallback: _sdkCallback,
     );
   }
 }
