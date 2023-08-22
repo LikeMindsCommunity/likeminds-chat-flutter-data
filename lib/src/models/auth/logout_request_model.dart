@@ -4,9 +4,12 @@ import 'package:likeminds_chat_fl/src/services/di_service.dart';
 class LogoutRequest {
   final String? refreshToken;
   final String? deviceId;
-  final LMSdkCallback callback = DIService.getIt.get<LMSdkCallback>(
-    instanceName: "LMCallback",
-  );
+  final LMSDKCallback? callback =
+      DIService.getIt.isRegistered<LMSDKCallback>(instanceName: "LMCallback")
+          ? DIService.getIt.get<LMSDKCallback>(
+              instanceName: "LMCallback",
+            )
+          : null;
 
   LogoutRequest._({
     required this.refreshToken,

@@ -9,13 +9,14 @@ import 'package:likeminds_chat_fl/src/models/helper/tag_response_model.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 class HelperService {
-  late final LMSdkCallback callback;
+  LMSDKCallback? callback;
   final ApiManager apiClient;
 
   HelperService({required this.apiClient}) {
-    callback = DIService.getIt.get<LMSdkCallback>(
-      instanceName: "LMCallback",
-    );
+    callback =
+        DIService.getIt.isRegistered<LMSDKCallback>(instanceName: "LMCallback")
+            ? DIService.getIt.get<LMSDKCallback>(instanceName: "LMCallback")
+            : null;
   }
 
   Future<TagResponseModelEntity> getTags(
@@ -84,6 +85,6 @@ class HelperService {
   }
 
   void routeProfilePage(String userId) {
-    callback.profileRouteCallback(lmUserId: userId);
+    callback?.profileRouteCallback(lmUserId: userId);
   }
 }
