@@ -1,3 +1,5 @@
+import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
+
 class PostConversationRequest {
   final String text;
   final int chatroomId;
@@ -6,6 +8,8 @@ class PostConversationRequest {
   final String temporaryId;
   final bool hasFiles;
   final int attachmentCount;
+  final OgTags? ogTags;
+  final String? shareLink;
 
   PostConversationRequest._({
     required this.text,
@@ -15,6 +19,8 @@ class PostConversationRequest {
     this.replyId,
     required this.hasFiles,
     this.attachmentCount = 0,
+    this.ogTags,
+    this.shareLink,
   });
 
   toJson() {
@@ -26,6 +32,8 @@ class PostConversationRequest {
       'temporary_id': temporaryId,
       'has_files': hasFiles,
       'attachment_count': attachmentCount,
+      'og_tags': ogTags?.toEntity().toJson(),
+      'share_link': shareLink,
     };
   }
 }
@@ -40,6 +48,8 @@ class PostConversationRequestBuilder {
   String? _temporaryId;
   bool? _hasFiles;
   int? _attachmentCount;
+  OgTags? _ogTags;
+  String? _shareLink;
 
   void text(String text) => _text = text;
   void chatroomId(int chatroomId) => _chatroomId = chatroomId;
@@ -49,6 +59,8 @@ class PostConversationRequestBuilder {
   void hasFiles(bool hasFiles) => _hasFiles = hasFiles;
   void attachmentCount(int attachmentCount) =>
       _attachmentCount = attachmentCount;
+  void ogTags(OgTags ogTags) => _ogTags = ogTags;
+  void shareLink(String shareLink) => _shareLink = shareLink;
 
   PostConversationRequest build() {
     final text = _text;
@@ -74,6 +86,8 @@ class PostConversationRequestBuilder {
       temporaryId: temporaryId,
       attachmentCount: _attachmentCount ?? 0,
       hasFiles: _hasFiles ?? false,
+      ogTags: _ogTags,
+      shareLink: _shareLink,
     );
   }
 }
