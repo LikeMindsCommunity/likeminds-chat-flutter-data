@@ -28,3 +28,7 @@ Stable first release v1.0.0
 ## 1.5.0
 
 - Optional LMSDKCallback
+
+## 1.5.1
+
+- Fixes for set chatroom topic, and link preview
