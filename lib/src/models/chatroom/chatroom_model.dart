@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/src/models/chatroom/chatroom_member_model.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
 
 part 'chatroom_model.g.dart';
 
@@ -43,6 +44,7 @@ class ChatRoom {
   final bool? isTagged;
   final bool? isPinned;
   final ChatRoomMember? member;
+  final Conversation? topic;
   final bool? muteStatus;
   final int? onlineLinkEnableBefore;
   final dynamic onlineLinkType;
@@ -100,6 +102,7 @@ class ChatRoom {
     this.isSecret,
     this.isTagged,
     this.member,
+    this.topic,
     this.muteStatus,
     this.onlineLinkEnableBefore,
     this.onlineLinkType,
@@ -162,6 +165,8 @@ class ChatRoom {
       member: entity.member != null
           ? ChatRoomMember.fromEntity(entity.member!)
           : null,
+      topic:
+          entity.topic != null ? Conversation.fromEntity(entity.topic!) : null,
       muteStatus: entity.muteStatus,
       onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
       onlineLinkType: entity.onlineLinkType,
@@ -223,6 +228,7 @@ class ChatRoom {
       isSecret: isSecret,
       isTagged: isTagged,
       member: member!.toEntity(),
+      topic: topic?.toEntity(),
       muteStatus: muteStatus,
       onlineLinkEnableBefore: onlineLinkEnableBefore,
       onlineLinkType: onlineLinkType,
@@ -314,6 +320,7 @@ class ChatRoomEntity {
   @JsonKey(name: 'is_tagged')
   final bool? isTagged;
   final ChatRoomMemberEntity? member;
+  final ConversationEntity? topic;
   @JsonKey(name: 'mute_status')
   final bool? muteStatus;
   @JsonKey(name: 'online_link_enable_before')
@@ -380,6 +387,7 @@ class ChatRoomEntity {
     this.isSecret,
     this.isTagged,
     this.member,
+    this.topic,
     this.muteStatus,
     this.onlineLinkEnableBefore,
     this.onlineLinkType,
