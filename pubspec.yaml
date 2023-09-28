@@ -27,4 +27,4 @@ dev_dependencies:
   envied_generator:
 
 false_secrets:
-  - *.json
+  - /*.json
