@@ -9,6 +9,7 @@ import 'package:likeminds_chat_fl/src/methods/helper.dart';
 import 'package:likeminds_chat_fl/src/methods/home.dart';
 import 'package:likeminds_chat_fl/src/methods/media.dart';
 import 'package:likeminds_chat_fl/src/methods/participants.dart';
+import 'package:likeminds_chat_fl/src/methods/poll.dart';
 import 'package:likeminds_chat_fl/src/methods/reaction.dart';
 import 'package:likeminds_chat_fl/src/repositories/access_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
@@ -20,6 +21,7 @@ import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/poll_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
@@ -104,6 +106,14 @@ class SDKApplication {
     return ReactionApi(
       reactionRepository: GetIt.instance.get<ReactionRepository>(
         instanceName: DIService.kInstanceReactionRepository,
+      ),
+    );
+  }
+
+  PollApi getPollApi() {
+    return PollApi(
+      pollRepository: GetIt.instance.get<PollRepository>(
+        instanceName: DIService.kInstancePollRepository,
       ),
     );
   }

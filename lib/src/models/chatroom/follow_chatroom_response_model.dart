@@ -7,7 +7,7 @@ class FollowChatroomResponse {
   factory FollowChatroomResponse.fromJson(Map<String, dynamic> json) {
     return FollowChatroomResponse(
       success: json['success'],
-      errorMessage: json['errorMessage'],
+      errorMessage: json['error_message'],
     );
   }
 }

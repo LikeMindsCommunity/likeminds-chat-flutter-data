@@ -35,7 +35,7 @@ class HomeFeedService extends IHomeFeedService {
       debugPrint(e.message);
       return GetHomeFeedResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }

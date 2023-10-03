@@ -12,18 +12,19 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 /// Flutter flavour/environment manager v0.0.1
-const bool _prodFlag = bool.fromEnvironment('DEBUG');
+
+const bool _prodFlag = !bool.fromEnvironment('DEBUG');
 
 /// The starting point class of the SDK
 class LMChatClient {
   late final SDKApplication _sdkApplication;
 
   final String _apiKey;
-  final LMSdkCallback _sdkCallback;
+  final LMSDKCallback? _sdkCallback;
 
   LMChatClient._({
     required String apiKey,
-    required LMSdkCallback sdkCallback,
+    LMSDKCallback? sdkCallback,
   })  : _apiKey = apiKey,
         _sdkCallback = sdkCallback {
     debugPrint("LMChatClient initialized");
@@ -181,6 +182,29 @@ class LMChatClient {
     return _sdkApplication.getHelperApi().decodeUrl(request: request);
   }
 
+  /// The method to get poll users
+  Future<LMResponse<GetPollUsersResponse>> getPollUsers(
+      GetPollUsersRequest request) {
+    return _sdkApplication.getPollApi().getPollUsers(request);
+  }
+
+  /// The method to add poll option
+  Future<LMResponse<AddPollOptionResponse>> addPollOption(
+      AddPollOptionRequest request) {
+    return _sdkApplication.getPollApi().addPollOption(request);
+  }
+
+  /// The method to submit poll
+  Future<LMResponse<SubmitPollResponse>> submitPoll(SubmitPollRequest request) {
+    return _sdkApplication.getPollApi().submitPoll(request);
+  }
+
+  /// The method to get post poll
+  Future<LMResponse<PostConversationResponse>> postPollConversation(
+      PostPollConversationRequest request) {
+    return _sdkApplication.getPollApi().postPollConversation(request);
+  }
+
   ///DM Functions
 
   /// The method to check the status of DM tab
@@ -207,13 +231,13 @@ class LMChatClient {
 /// Returns a new instance of the SDK [LMChatClient]
 class LMChatClientBuilder {
   String? _apiKey;
-  LMSdkCallback? _sdkCallback;
+  LMSDKCallback? _sdkCallback;
 
   void apiKey(String apiKey) {
     _apiKey = apiKey;
   }
 
-  void sdkCallback(LMSdkCallback sdkCallback) {
+  void sdkCallback(LMSDKCallback? sdkCallback) {
     _sdkCallback = sdkCallback;
   }
 
@@ -221,12 +245,9 @@ class LMChatClientBuilder {
     if (_apiKey == null) {
       throw Exception("API key is required");
     }
-    if (_sdkCallback == null) {
-      throw Exception("SDK callback is required");
-    }
     return LMChatClient._(
       apiKey: _apiKey!,
-      sdkCallback: _sdkCallback!,
+      sdkCallback: _sdkCallback,
     );
   }
 }

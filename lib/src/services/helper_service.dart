@@ -9,13 +9,14 @@ import 'package:likeminds_chat_fl/src/models/helper/tag_response_model.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 class HelperService {
-  late final LMSdkCallback callback;
+  LMSDKCallback? callback;
   final ApiManager apiClient;
 
   HelperService({required this.apiClient}) {
-    callback = DIService.getIt.get<LMSdkCallback>(
-      instanceName: "LMCallback",
-    );
+    callback =
+        DIService.getIt.isRegistered<LMSDKCallback>(instanceName: "LMCallback")
+            ? DIService.getIt.get<LMSDKCallback>(instanceName: "LMCallback")
+            : null;
   }
 
   Future<TagResponseModelEntity> getTags(
@@ -47,7 +48,7 @@ class HelperService {
       debugPrint("Error from get tags: $e");
       return TagResponseModelEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
@@ -78,12 +79,12 @@ class HelperService {
       debugPrint("Error from get tags: $e");
       return DecodeUrlResponseEntity(
         success: false,
-        errorMessage: e.message,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
 
   void routeProfilePage(String userId) {
-    callback.profileRouteCallback(lmUserId: userId);
+    callback?.profileRouteCallback(lmUserId: userId);
   }
 }

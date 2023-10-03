@@ -61,7 +61,10 @@ class AuthService extends IAuthService {
       }
     } on DioError catch (e) {
       InitiateUserResponseEntity initiateUserResponse =
-          InitiateUserResponseEntity(success: false, errorMessage: e.message);
+          InitiateUserResponseEntity(
+        success: false,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      );
       return initiateUserResponse;
     }
   }
@@ -112,7 +115,7 @@ class AuthService extends IAuthService {
 
       LogoutResponseEntity logoutResponse =
           LogoutResponseEntity.fromJson(response.data);
-      request.callback.logoutCallback();
+      request.callback?.logoutCallback();
       apiManager.tokenManager.clearTokens();
       return logoutResponse;
     } on DioError catch (e) {
@@ -142,7 +145,9 @@ class AuthService extends IAuthService {
     } on DioError catch (e) {
       debugPrint("Error from get member state access: $e");
       return MemberStateResponseEntity(
-          success: false, errorMessage: e.toString());
+        success: false,
+        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      );
     }
   }
 }

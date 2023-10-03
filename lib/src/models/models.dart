@@ -41,6 +41,8 @@ export 'package:likeminds_chat_fl/src/models/conversation/delete_conversation_re
 export 'package:likeminds_chat_fl/src/models/conversation/delete_conversation_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/edit_conversation_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/conversation/edit_conversation_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/reaction_model.dart';
+export 'package:likeminds_chat_fl/src/models/conversation/attachment_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/conversation/conversation_model.dart';
 
@@ -73,6 +75,18 @@ export 'package:likeminds_chat_fl/src/models/reaction/put_reaction_request_model
 export 'package:likeminds_chat_fl/src/models/reaction/put_reaction_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/reaction/delete_reaction_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/reaction/delete_reaction_response_model.dart';
+
+export 'package:likeminds_chat_fl/src/models/poll/poll_option_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/post_poll_conversation_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/post_poll_conversation_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/get_poll_users_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/get_poll_users_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/add_poll_option_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/add_poll_option_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/submit_poll_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/submit_poll_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/poll/poll_info_data.dart';
+export 'package:likeminds_chat_fl/src/models/poll/poll_view_data.dart';
 
 export 'package:likeminds_chat_fl/src/models/dm/check_dm_tab_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/fetch_dm_feed_request_model.dart';

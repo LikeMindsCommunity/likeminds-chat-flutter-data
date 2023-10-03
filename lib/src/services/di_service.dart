@@ -13,6 +13,7 @@ import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/poll_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
 import 'package:likeminds_chat_fl/src/services/access_service.dart';
 import 'package:likeminds_chat_fl/src/services/auth_service.dart';
@@ -25,6 +26,7 @@ import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
 import 'package:likeminds_chat_fl/src/services/media_service.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
 import 'package:likeminds_chat_fl/src/services/participants_service.dart';
+import 'package:likeminds_chat_fl/src/services/poll_service.dart';
 import 'package:likeminds_chat_fl/src/services/reaction_service.dart';
 
 /// Dependency Injection Service
@@ -43,7 +45,7 @@ class DIService {
 
   /// Init function to register all the dependencies
   /// This function should be called before using any of the methods
-  void init(String apiKey, bool isProduction, LMSdkCallback sdkCallback) {
+  void init(String apiKey, bool isProduction, LMSDKCallback? sdkCallback) {
     _setProduction = isProduction;
     final TokenManager tokenManager = TokenManager();
     tokenManager.setApiKey(apiKey);
@@ -54,10 +56,12 @@ class DIService {
     );
 
     /// Register all the services in the getIt instance
-    getIt.registerLazySingleton(
-      () => sdkCallback,
-      instanceName: "LMCallback",
-    );
+    if (sdkCallback != null) {
+      getIt.registerLazySingleton(
+        () => sdkCallback,
+        instanceName: "LMCallback",
+      );
+    }
     getIt.registerLazySingleton(
       () => NotificationService(
         apiClient: apiManager,
@@ -105,6 +109,9 @@ class DIService {
     ReactionRepository reactionRepository =
         ReactionRepository(reactionService: reactionService);
 
+    PollService pollService = PollService(apiManager: apiManager);
+    PollRepository pollRepository = PollRepository(pollService: pollService);
+
     DMService dmService = DMService(apiManager: apiManager);
     DMRepository dmRepository = DMRepository(dmService: dmService);
 
@@ -149,6 +156,10 @@ class DIService {
       () => reactionRepository,
       instanceName: kInstanceReactionRepository,
     );
+    getIt.registerFactory<PollRepository>(
+      () => pollRepository,
+      instanceName: kInstancePollRepository,
+    );
     getIt.registerFactory<DMRepository>(
       () => dmRepository,
       instanceName: kInstanceDMRepository,
@@ -164,6 +175,7 @@ class DIService {
   static const String kInstanceAuthRepository = 'auth_repository';
   static const String kInstanceExploreRepository = 'explore_repository';
   static const String kInstanceReactionRepository = 'reaction_repository';
+  static const String kInstancePollRepository = 'poll_repository';
   static const String kInstanceDMRepository = 'dm_repository';
   static const String kInstanceAccessRepository = 'access_repository';
   static const String kInstanceChatroomRepository = 'chatroom_repository';
