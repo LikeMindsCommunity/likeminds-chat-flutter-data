@@ -93,3 +93,16 @@ export 'package:likeminds_chat_fl/src/models/dm/fetch_dm_feed_request_model.dart
 export 'package:likeminds_chat_fl/src/models/dm/fetch_dm_feed_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/check_dm_status_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/check_dm_status_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/search_members_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/search_members_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/dm_member_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/check_dm_limit_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/check_dm_limit_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/create_dm_chatroom_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/create_dm_chatroom_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/send_dm_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/send_dm_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/block_member_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/block_member_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/get_all_members_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/get_all_members_response_model.dart';

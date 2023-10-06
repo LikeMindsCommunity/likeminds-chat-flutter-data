@@ -59,4 +59,10 @@ class EndPoints {
   String get checkDMEndpoint => "$KETTLE_HOST/home/dm/meta";
   String get dmEndpoint => "$KETTLE_HOST/home/dm";
   String get checkDMStatusEndpoint => "$KETTLE_HOST/community/dm/status";
+  String get getAllMembersEndpoint => "$KETTLE_HOST/community/member";
+  String get searchMembersEndpoint => "$KETTLE_HOST/community/member/search";
+  String get checkDMLimitEndpoint => "$KETTLE_HOST/chatroom/dm/limit";
+  String get createDMChatroomEndpoint => "$KETTLE_HOST/chatroom/dm/create";
+  String get sendDMRequestEndpoint => "$KETTLE_HOST/chatroom/dm/request";
+  String get blockMemberEndpoint => "$KETTLE_HOST/chatroom/dm/block";
 }

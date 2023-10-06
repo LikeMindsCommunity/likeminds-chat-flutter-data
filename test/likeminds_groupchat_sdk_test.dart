@@ -374,6 +374,78 @@ void main() {
     expect(response.success, true);
   });
 
+  /// Test for the get all members
+  /// This test will fail if the use does not able to fetch all the members list
+  test('Getting all members', () async {
+    debugPrint("Initiating get all members test...");
+    GetAllMembersRequest request =
+        (GetAllMembersRequestBuilder()..memberState(1)).build();
+    LMResponse<GetAllMembersResponse> response =
+        await lmClient.getAllMembers(request);
+    debugPrint("Get all members ${response.data?.members}");
+    expect(response.success, true);
+  });
+
+  /// Test for search members
+  /// This test will fail if user does not able to find member
+  test('Searching members', () async {
+    debugPrint("Initiating search members test...");
+    SearchMembersRequest request =
+        (SearchMemberRequestBuilder()..search("user")).build();
+    LMResponse<SearchMembersResponse> response =
+        await lmClient.searchMembers(request);
+    debugPrint("Search members result ${response.data?.members}");
+    expect(response.success, true);
+  });
+
+  /// Test for check dm limit
+  test('Check dm limit', () async {
+    debugPrint("Initiating check dm limit test...");
+    CheckDMLimitRequest request =
+        (CheckDmLimitRequestBuilder()..uuid('')).build();
+    LMResponse<CheckDMLimitResponse> response =
+        await lmClient.checkDMLimit(request);
+    debugPrint("DM limit exceed: ${response.data?.isRequestDmLimitExceeded}");
+    expect(response.success, true);
+  });
+
+  /// Test for create DM chatroom
+  test('Create DM Chatroom', () async {
+    debugPrint("Initiating create dm chatroom test...");
+    CreateDMChatroomRequest request =
+        (CreateDMChatroomRequestBuilder()..uuid("")).build();
+    LMResponse<CreateDMChatroomResponse> response =
+        await lmClient.createDMChatroom(request);
+    debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
+    expect(response.success, true);
+  });
+
+  /// Test for send DM request
+  test('Send DM request', () async {
+    debugPrint("Initiating send DM request test...");
+    SendDMRequest request = (SendDMRequestBuilder()
+          ..chatRequestState(1)
+          ..chatroomId(chatroomId)
+          ..text("test message"))
+        .build();
+    LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
+    debugPrint("message request sent ${response.data?.conversation?.answer}");
+    expect(response.success, true);
+  });
+
+  /// Test for block member
+  test('Block member', () async {
+    debugPrint("Initiating block member test...");
+    BlockMemberRequest request = (BlockMemberRequestBuilder()
+          ..chatroomId(chatroomId)
+          ..status(0))
+        .build();
+    LMResponse<BlockMemberResponse> response =
+        await lmClient.blockMember(request);
+    debugPrint("Member blocked  ${response.data?.conversation?.answer}");
+    expect(response.success, true);
+  });
+
   // / Test the logout method
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {
