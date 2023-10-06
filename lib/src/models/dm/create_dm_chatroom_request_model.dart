@@ -1,5 +1,5 @@
 class CreateDMChatroomRequest {
-  int memberId;
+  int? memberId;
   String? uuid;
 
   CreateDMChatroomRequest._({
@@ -26,7 +26,7 @@ class CreateDMChatroomRequestBuilder {
 
   CreateDMChatroomRequest build() {
     return CreateDMChatroomRequest._(
-      memberId: _memberId!,
+      memberId: _memberId,
       uuid: _uuid,
     );
   }
