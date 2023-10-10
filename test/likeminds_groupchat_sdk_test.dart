@@ -27,6 +27,9 @@ void main() {
       ? TESTING_PROD_DEFAULT_CHATROOM
       : TESTING_BETA_DEFAULT_CHATROOM;
 
+  String? uuid;
+  int? dmChatroomId;
+  
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
         ..apiKey(
@@ -44,6 +47,8 @@ void main() {
         .build();
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
+    //save user uuid for future tests
+    uuid = response.data?.initiateUser?.user.sdkClientInfo?.uuid;
     debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
 
     // TESTING_CALLBACK.eventFiredCallback();
@@ -345,7 +350,7 @@ void main() {
     debugPrint("Initiating check DM status test...");
     LMResponse<CheckDMTabResponse> response = await lmClient.checkDMTab();
     debugPrint(
-        "Checked DM status for user with status ${response.data!.success}");
+        "Checked DM status for user with status ${response.data!.hideDMTab}");
     expect(response.success, true);
   });
 
@@ -353,7 +358,14 @@ void main() {
   /// This test will fail if the user can not fetch the DM feed
   test('Fetching DM feed test', () async {
     debugPrint("Initiating fetch DM feed test...");
-    FetchDMFeedRequest request = (FetchDMFeedRequestBuilder()..page(1)).build();
+    FetchDMFeedRequest request = (FetchDMFeedRequestBuilder()
+          ..page(1)
+          ..pageSize(50)
+          ..minTimestamp(0)
+          ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
+          ..chatroomTypes([10])
+          )
+        .build();
     LMResponse<FetchDMFeedResponse> response =
         await lmClient.getDMFeed(request);
     debugPrint(
@@ -366,7 +378,7 @@ void main() {
   test('Checking DM status test', () async {
     debugPrint("Initiating check DM status test...");
     CheckDMStatusRequest request =
-        (CheckDMStatusRequestBuilder()..reqFrom('dm_feed_v2')).build();
+        (CheckDMStatusRequestBuilder()..reqFrom('dm_feed')).build();
     LMResponse<CheckDMStatusResponse> response =
         await lmClient.checkDMStatus(request);
     debugPrint(
@@ -382,7 +394,9 @@ void main() {
         (GetAllMembersRequestBuilder()..memberState(1)).build();
     LMResponse<GetAllMembersResponse> response =
         await lmClient.getAllMembers(request);
-    debugPrint("Get all members ${response.data?.members}");
+    debugPrint(
+        "Get all members with member count ${response.data?.members?.length}");
+    uuid = response.data?.members?.first.uuid;
     expect(response.success, true);
   });
 
@@ -390,11 +404,13 @@ void main() {
   /// This test will fail if user does not able to find member
   test('Searching members', () async {
     debugPrint("Initiating search members test...");
-    SearchMembersRequest request =
-        (SearchMemberRequestBuilder()..search("user")).build();
+    SearchMembersRequest request = (SearchMemberRequestBuilder()
+          ..search("user")
+          ..searchType("name"))
+        .build();
     LMResponse<SearchMembersResponse> response =
         await lmClient.searchMembers(request);
-    debugPrint("Search members result ${response.data?.members}");
+    debugPrint("Search members  ${response.data?.members?.length} results");
     expect(response.success, true);
   });
 
@@ -402,7 +418,7 @@ void main() {
   test('Check dm limit', () async {
     debugPrint("Initiating check dm limit test...");
     CheckDMLimitRequest request =
-        (CheckDmLimitRequestBuilder()..uuid('')).build();
+        (CheckDmLimitRequestBuilder()..uuid(uuid!)).build();
     LMResponse<CheckDMLimitResponse> response =
         await lmClient.checkDMLimit(request);
     debugPrint("DM limit exceed: ${response.data?.isRequestDmLimitExceeded}");
@@ -413,10 +429,11 @@ void main() {
   test('Create DM Chatroom', () async {
     debugPrint("Initiating create dm chatroom test...");
     CreateDMChatroomRequest request =
-        (CreateDMChatroomRequestBuilder()..uuid("")).build();
+        (CreateDMChatroomRequestBuilder()..uuid(uuid!)).build();
     LMResponse<CreateDMChatroomResponse> response =
         await lmClient.createDMChatroom(request);
-    debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
+    dmChatroomId = response.data?.chatRoom?.id;
+        debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
     expect(response.success, true);
   });
 
@@ -424,8 +441,8 @@ void main() {
   test('Send DM request', () async {
     debugPrint("Initiating send DM request test...");
     SendDMRequest request = (SendDMRequestBuilder()
-          ..chatRequestState(1)
-          ..chatroomId(chatroomId)
+          ..chatRequestState(0)
+          ..chatroomId(dmChatroomId!)
           ..text("test message"))
         .build();
     LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
@@ -437,7 +454,7 @@ void main() {
   test('Block member', () async {
     debugPrint("Initiating block member test...");
     BlockMemberRequest request = (BlockMemberRequestBuilder()
-          ..chatroomId(chatroomId)
+          ..chatroomId(dmChatroomId!)
           ..status(0))
         .build();
     LMResponse<BlockMemberResponse> response =

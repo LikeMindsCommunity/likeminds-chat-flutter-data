@@ -1,11 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_chat_fl/src/models/dm/dm_member_model.dart';
+import 'package:likeminds_chat_fl/src/models/dm/dm_all_member_model.dart';
+import 'package:likeminds_chat_fl/src/models/dm/dm_search_member_model.dart';
 part 'search_members_response_model.g.dart';
 
 class SearchMembersResponse {
   final bool success;
   final String? errorMessage;
-  final List<DmMember>? members;
+  final List<DMSearchMember>? members;
 
   SearchMembersResponse({
     required this.success,
@@ -17,7 +18,7 @@ class SearchMembersResponse {
     return SearchMembersResponse(
       success: entity.success,
       errorMessage: entity.errorMessage,
-      members: entity.members?.map((e) => DmMember.fromEntity(e)).toList(),
+      members: entity.members?.map((e) => DMSearchMember.fromEntity(e)).toList(),
     );
   }
 
@@ -35,7 +36,7 @@ class SearchMembersResponseEntity {
   final bool success;
   @JsonKey(name: "error_message")
   final String? errorMessage;
-  final List<DmMemberEntity>? members;
+  final List<DMSearchMemberEntity>? members;
 
   SearchMembersResponseEntity({
     required this.success,

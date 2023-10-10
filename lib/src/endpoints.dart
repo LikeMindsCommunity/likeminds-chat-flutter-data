@@ -57,7 +57,7 @@ class EndPoints {
   String get pollSubmitEndpoint => "$KETTLE_HOST/conversation/poll/submit";
 
   String get checkDMEndpoint => "$KETTLE_HOST/home/dm/meta";
-  String get dmEndpoint => "$KETTLE_HOST/home/dm";
+  String get dmEndpoint => "$KETTLE_HOST/chatroom/sync";
   String get checkDMStatusEndpoint => "$KETTLE_HOST/community/dm/status";
   String get getAllMembersEndpoint => "$KETTLE_HOST/community/member";
   String get searchMembersEndpoint => "$KETTLE_HOST/community/member/search";

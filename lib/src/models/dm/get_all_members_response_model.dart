@@ -5,7 +5,7 @@ part 'get_all_members_response_model.g.dart';
 class GetAllMembersResponse {
   final bool success;
   final String? errorMessage;
-  final List<DmMember>? members;
+  final List<DmAllMember>? members;
 
   GetAllMembersResponse({
     required this.success,
@@ -17,9 +17,7 @@ class GetAllMembersResponse {
     return GetAllMembersResponse(
       success: entity.success,
       errorMessage: entity.errorMessage,
-      members: entity.members != null
-          ? entity.members!.map((e) => DmMember.fromEntity(e)).toList()
-          : null,
+      members: entity.members?.map((e) => DmAllMember.fromEntity(e)).toList(),
     );
   }
 
@@ -37,7 +35,7 @@ class GetAllMembersResponseEntity {
   final bool success;
   @JsonKey(name: "error_message")
   final String? errorMessage;
-  final List<DmMemberEntity>? members;
+  final List<DmAllMemberEntity>? members;
 
   GetAllMembersResponseEntity({
     required this.success,

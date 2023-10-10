@@ -95,7 +95,7 @@ export 'package:likeminds_chat_fl/src/models/dm/check_dm_status_request_model.da
 export 'package:likeminds_chat_fl/src/models/dm/check_dm_status_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/search_members_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/search_members_response_model.dart';
-export 'package:likeminds_chat_fl/src/models/dm/dm_member_model.dart';
+export 'package:likeminds_chat_fl/src/models/dm/dm_all_member_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/check_dm_limit_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/check_dm_limit_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/create_dm_chatroom_request_model.dart';
