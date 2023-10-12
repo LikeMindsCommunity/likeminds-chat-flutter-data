@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 @Timeout(Duration(seconds: 600))
 
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
@@ -29,7 +31,8 @@ void main() {
 
   String? uuid;
   int? dmChatroomId;
-  
+  int? memberId;
+
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
         ..apiKey(
@@ -47,8 +50,8 @@ void main() {
         .build();
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
-    //save user uuid for future tests
-    uuid = response.data?.initiateUser?.user.sdkClientInfo?.uuid;
+    //save memberId for future tests
+    memberId = response.data?.initiateUser?.user.id;
     debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
 
     // TESTING_CALLBACK.eventFiredCallback();
@@ -115,6 +118,7 @@ void main() {
     debugPrint("Initiating follow chatroom test...");
     FollowChatroomRequest request = (FollowChatroomRequestBuilder()
           ..chatroomId(chatroomId)
+          ..memberId(memberId!)
           ..value(true))
         .build();
 
@@ -330,16 +334,16 @@ void main() {
   /// Test the delete conversation method
   /// This test will fail if the user can not delete the conversation
   test('Deleting the conversation test', () async {
-    debugPrint("Initiating delete conversation test...");
-    DeleteConversationRequest request = (DeleteConversationRequestBuilder()
-          ..conversationIds([conversationId ?? 0])
-          ..reason("Because testing demands you to"))
-        .build();
-    LMResponse<DeleteConversationResponse> response =
-        await lmClient.deleteConversation(request);
-    debugPrint(
-        "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
-    expect(response.success, true);
+  debugPrint("Initiating delete conversation test...");
+  DeleteConversationRequest request = (DeleteConversationRequestBuilder()
+  ..conversationIds([conversationId ?? 0])
+  ..reason("Because testing demands you to"))
+  .build();
+  LMResponse<DeleteConversationResponse> response =
+  await lmClient.deleteConversation(request);
+  debugPrint(
+  "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
+  expect(response.success, true);
   });
 
   /// DM Tests
@@ -363,8 +367,7 @@ void main() {
           ..pageSize(50)
           ..minTimestamp(0)
           ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
-          ..chatroomTypes([10])
-          )
+          ..chatroomTypes([10]))
         .build();
     LMResponse<FetchDMFeedResponse> response =
         await lmClient.getDMFeed(request);
@@ -396,7 +399,9 @@ void main() {
         await lmClient.getAllMembers(request);
     debugPrint(
         "Get all members with member count ${response.data?.members?.length}");
-    uuid = response.data?.members?.first.uuid;
+    //save user uuid for future tests
+    int index = Random().nextInt(response.data!.members!.length-1);
+    uuid = response.data?.members?.elementAt(index).uuid;
     expect(response.success, true);
   });
 
@@ -433,34 +438,34 @@ void main() {
     LMResponse<CreateDMChatroomResponse> response =
         await lmClient.createDMChatroom(request);
     dmChatroomId = response.data?.chatRoom?.id;
-        debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
+    debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
     expect(response.success, true);
   });
 
   /// Test for send DM request
   test('Send DM request', () async {
-    debugPrint("Initiating send DM request test...");
-    SendDMRequest request = (SendDMRequestBuilder()
-          ..chatRequestState(0)
-          ..chatroomId(dmChatroomId!)
-          ..text("test message"))
-        .build();
-    LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
-    debugPrint("message request sent ${response.data?.conversation?.answer}");
-    expect(response.success, true);
+  debugPrint("Initiating send DM request test...");
+  SendDMRequest request = (SendDMRequestBuilder()
+  ..chatRequestState(0)
+  ..chatroomId(dmChatroomId!)
+  ..text("test message"))
+  .build();
+  LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
+  debugPrint("message request sent ${response.data?.conversation?.answer}");
+  expect(response.success, true);
   });
 
   /// Test for block member
   test('Block member', () async {
-    debugPrint("Initiating block member test...");
-    BlockMemberRequest request = (BlockMemberRequestBuilder()
-          ..chatroomId(dmChatroomId!)
-          ..status(0))
-        .build();
-    LMResponse<BlockMemberResponse> response =
-        await lmClient.blockMember(request);
-    debugPrint("Member blocked  ${response.data?.conversation?.answer}");
-    expect(response.success, true);
+  debugPrint("Initiating block member test...");
+  BlockMemberRequest request = (BlockMemberRequestBuilder()
+  ..chatroomId(dmChatroomId!)
+  ..status(0))
+  .build();
+  LMResponse<BlockMemberResponse> response =
+  await lmClient.blockMember(request);
+  debugPrint("Member blocked  ${response.data?.conversation?.answer}");
+  expect(response.success, true);
   });
 
   // / Test the logout method
