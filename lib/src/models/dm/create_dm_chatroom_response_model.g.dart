@@ -13,7 +13,8 @@ CreateDMChatroomResponseEntity _$CreateDMChatroomResponseEntityFromJson(
       errorMessage: json['error_message'] as String?,
       chatRoomEntity: json['data']['chatroom'] == null
           ? null
-          : ChatRoomEntity.fromJson(json['data']['chatroom'] as Map<String, dynamic>),
+          : ChatRoomEntity.fromJson(
+              json['data']['chatroom'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CreateDMChatroomResponseEntityToJson(

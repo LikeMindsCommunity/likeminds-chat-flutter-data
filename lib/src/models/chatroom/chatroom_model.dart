@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_chat_fl/src/models/chatroom/chatroom_member_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 part 'chatroom_model.g.dart';

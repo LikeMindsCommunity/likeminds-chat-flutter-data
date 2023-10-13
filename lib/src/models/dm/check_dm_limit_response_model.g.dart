@@ -12,7 +12,8 @@ CheckDMLimitResponseEntity _$CheckDMLimitResponseEntityFromJson(
       success: json['success'] as bool,
       errorMessage: json['error_message'] as String?,
       chatroomId: json['data']['chatroom_id'] as int?,
-      isRequestDmLimitExceeded: json['data']['is_request_dm_limit_exceeded'] as bool?,
+      isRequestDmLimitExceeded:
+          json['data']['is_request_dm_limit_exceeded'] as bool?,
       newRequestDmTimestamp: json['data']['new_request_dm_timestamp'] as int?,
     );
 
