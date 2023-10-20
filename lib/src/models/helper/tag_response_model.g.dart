@@ -17,6 +17,9 @@ TagResponseModelEntity _$TagResponseModelEntityFromJson(
       members: (json['data']['community_members'] as List<dynamic>?)
           ?.map((e) => UserTagEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
+      participants: (json['data']['chatroom_participants'] as List<dynamic>?)
+          ?.map((e) => UserTagEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$TagResponseModelEntityToJson(
