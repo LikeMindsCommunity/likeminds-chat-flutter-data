@@ -8,12 +8,14 @@ class TagResponseModel {
   final String? errorMessage;
   final List<GroupTag>? groupTags;
   final List<UserTag>? members;
+  final List<UserTag>? participants;
 
   TagResponseModel({
     required this.success,
     this.errorMessage,
     this.groupTags,
     this.members,
+    this.participants,
   });
 
   factory TagResponseModel.fromEntity(TagResponseModelEntity entity) {
@@ -22,6 +24,8 @@ class TagResponseModel {
       errorMessage: entity.errorMessage,
       groupTags: entity.groupTags?.map((e) => GroupTag.fromEntity(e)).toList(),
       members: entity.members?.map((e) => UserTag.fromEntity(e)).toList(),
+      participants:
+          entity.participants?.map((e) => UserTag.fromEntity(e)).toList(),
     );
   }
 
@@ -31,6 +35,7 @@ class TagResponseModel {
       errorMessage: errorMessage,
       groupTags: groupTags?.map((e) => e.toEntity()).toList(),
       members: members?.map((e) => e.toEntity()).toList(),
+      participants: participants?.map((e) => e.toEntity()).toList(),
     );
   }
 }
@@ -48,11 +53,15 @@ class TagResponseModelEntity {
   @JsonKey(name: 'community_members')
   final List<UserTagEntity>? members;
 
+  @JsonKey(name: 'chatroom_participants')
+  final List<UserTagEntity>? participants;
+
   TagResponseModelEntity({
     required this.success,
     this.errorMessage,
     this.groupTags,
     this.members,
+    this.participants,
   });
 
   factory TagResponseModelEntity.fromJson(Map<String, dynamic> json) =>
