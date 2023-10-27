@@ -32,3 +32,7 @@ Stable first release v1.0.0
 ## 1.5.1
 
 - Fixes for set chatroom topic, and link preview
+
+## 1.5.2
+
+- Added participants support in tagging
