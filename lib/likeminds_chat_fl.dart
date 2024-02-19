@@ -3,6 +3,7 @@ library likeminds_chat_fl;
 export 'package:likeminds_chat_fl/src/models/models.dart';
 export 'package:likeminds_chat_fl/src/methods/callback.dart';
 export 'package:likeminds_chat_fl/src/services/di_service.dart';
+export 'package:likeminds_chat_fl/src/utils/enums.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
@@ -10,6 +11,7 @@ import 'package:likeminds_chat_fl/src/methods/notification.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
+import 'package:likeminds_chat_fl/src/utils/enums.dart';
 
 /// Flutter flavour/environment manager v0.0.1
 
@@ -21,6 +23,7 @@ class LMChatClient {
 
   final String _apiKey;
   final LMSDKCallback? _sdkCallback;
+  static List<ConversationState>? _excludedConversationStates;
 
   LMChatClient._({
     required String apiKey,
@@ -117,6 +120,32 @@ class LMChatClient {
   Future<LMResponse<GetConversationResponse>> getConversation(
     GetConversationRequest request,
   ) {
+    if (_excludedConversationStates != null &&
+        _excludedConversationStates!.isNotEmpty) {
+      List<int> states = [];
+      _excludedConversationStates?.forEach((element) {
+        states.add(element.toInt());
+      });
+      final conversationRequestBuilder = GetConversationRequestBuilder()
+        ..chatroomId(request.chatroomId)
+        ..page(request.page)
+        ..pageSize(request.pageSize)
+        ..maxTimestamp(request.maxTimestamp)
+        ..minTimestamp(request.minTimestamp)
+        ..isLocalDB(request.isLocalDB);
+      if (request.conversationId != null) {
+        conversationRequestBuilder.conversationId(request.conversationId!);
+      }
+      if (request.excludedConversationStates != null) {
+        conversationRequestBuilder
+            .excludedConversationStates(request.excludedConversationStates!);
+      } else {
+        conversationRequestBuilder.excludedConversationStates(states);
+      }
+      return _sdkApplication
+          .getConversationApi()
+          .getConversation(conversationRequestBuilder.build());
+    }
     return _sdkApplication.getConversationApi().getConversation(request);
   }
 
@@ -213,6 +242,7 @@ class LMChatClient {
 class LMChatClientBuilder {
   String? _apiKey;
   LMSDKCallback? _sdkCallback;
+  List<ConversationState>? _excludedConversationStates;
 
   void apiKey(String apiKey) {
     _apiKey = apiKey;
@@ -222,10 +252,15 @@ class LMChatClientBuilder {
     _sdkCallback = sdkCallback;
   }
 
+  void excludedConversationStates(List<ConversationState> states) {
+    _excludedConversationStates = states;
+  }
+
   LMChatClient build() {
     if (_apiKey == null) {
       throw Exception("API key is required");
     }
+    LMChatClient._excludedConversationStates = _excludedConversationStates;
     return LMChatClient._(
       apiKey: _apiKey!,
       sdkCallback: _sdkCallback,
