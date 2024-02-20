@@ -121,30 +121,19 @@ class LMChatClient {
     GetConversationRequest request,
   ) {
     if (_excludedConversationStates != null &&
-        _excludedConversationStates!.isNotEmpty) {
+        _excludedConversationStates!.isNotEmpty &&
+        request.excludedConversationStates == null) {
       List<int> states = [];
       _excludedConversationStates?.forEach((element) {
         states.add(element.toInt());
       });
-      final conversationRequestBuilder = GetConversationRequestBuilder()
-        ..chatroomId(request.chatroomId)
-        ..page(request.page)
-        ..pageSize(request.pageSize)
-        ..maxTimestamp(request.maxTimestamp)
-        ..minTimestamp(request.minTimestamp)
-        ..isLocalDB(request.isLocalDB);
-      if (request.conversationId != null) {
-        conversationRequestBuilder.conversationId(request.conversationId!);
-      }
-      if (request.excludedConversationStates != null) {
-        conversationRequestBuilder
-            .excludedConversationStates(request.excludedConversationStates!);
-      } else {
-        conversationRequestBuilder.excludedConversationStates(states);
-      }
+
+      final conversationRequest = request.copyWith(
+        excludedConversationStates: states,
+      );
       return _sdkApplication
           .getConversationApi()
-          .getConversation(conversationRequestBuilder.build());
+          .getConversation(conversationRequest);
     }
     return _sdkApplication.getConversationApi().getConversation(request);
   }

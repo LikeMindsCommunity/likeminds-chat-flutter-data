@@ -33,6 +33,29 @@ class GetConversationRequest {
       "excluded_conversation_states": jsonEncode(excludedConversationStates),
     };
   }
+
+  GetConversationRequest copyWith({
+    int? chatroomId,
+    int? page,
+    int? pageSize,
+    int? maxTimestamp,
+    int? minTimestamp,
+    bool? isLocalDB,
+    int? conversationId,
+    List<int>? excludedConversationStates,
+  }) {
+    return GetConversationRequest._(
+      chatroomId: chatroomId ?? this.chatroomId,
+      page: page ?? this.page,
+      pageSize: pageSize ?? this.pageSize,
+      maxTimestamp: maxTimestamp ?? this.maxTimestamp,
+      minTimestamp: minTimestamp ?? this.minTimestamp,
+      isLocalDB: isLocalDB ?? this.isLocalDB,
+      conversationId: conversationId ?? this.conversationId,
+      excludedConversationStates:
+          excludedConversationStates ?? this.excludedConversationStates,
+    );
+  }
 }
 
 class GetConversationRequestBuilder {
