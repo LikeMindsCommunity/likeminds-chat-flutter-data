@@ -36,3 +36,7 @@ Stable first release v1.0.0
 ## 1.5.2
 
 - Added participants support in tagging
+
+## 1.5.3
+
+ - Added support for excluding state messages
