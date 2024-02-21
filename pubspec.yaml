@@ -1,11 +1,11 @@
 name: likeminds_chat_fl
 description: Likeminds flutter chat SDK
-version: 1.5.2
+version: 1.5.3
 homepage: "https://likeminds.community/"
 
 environment:
-  sdk: ">=2.18.6 <4.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
 
 dependencies:
   flutter:
