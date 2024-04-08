@@ -204,6 +204,60 @@ class LMChatClient {
       PostPollConversationRequest request) {
     return _sdkApplication.getPollApi().postPollConversation(request);
   }
+
+  ///DM Functions
+
+  /// The method to check the status of DM tab
+  Future<LMResponse<CheckDMTabResponse>> checkDMTab() {
+    return _sdkApplication.getDMApi().checkDMTab();
+  }
+
+  /// The method to fetch the DM feed
+  Future<LMResponse<FetchDMFeedResponse>> getDMFeed(
+      FetchDMFeedRequest request) {
+    return _sdkApplication.getDMApi().fetchDMFeed(request);
+  }
+
+  /// The method to check the DM status
+  Future<LMResponse<CheckDMStatusResponse>> checkDMStatus(
+      CheckDMStatusRequest request) {
+    return _sdkApplication.getDMApi().checkDMStatus(request);
+  }
+
+  /// The method to get All Members
+  Future<LMResponse<GetAllMembersResponse>> getAllMembers(
+      GetAllMembersRequest request) {
+    return _sdkApplication.getDMApi().getAllMembers(request);
+  }
+
+  /// The method to search users
+  Future<LMResponse<SearchMembersResponse>> searchMembers(
+      SearchMembersRequest request) {
+    return _sdkApplication.getDMApi().searchMembers(request);
+  }
+
+  /// The method to check dm limit
+  Future<LMResponse<CheckDMLimitResponse>> checkDMLimit(
+      CheckDMLimitRequest request) {
+    return _sdkApplication.getDMApi().checkDMLimit(request);
+  }
+
+  /// The method to create DMChatroom
+  Future<LMResponse<CreateDMChatroomResponse>> createDMChatroom(
+      CreateDMChatroomRequest request) {
+    return _sdkApplication.getDMApi().createDMChatroom(request);
+  }
+
+  /// The method to send DM Request
+  Future<LMResponse<SendDMResponse>> sendDMRequest(SendDMRequest request) {
+    return _sdkApplication.getDMApi().sendDMRequest(request);
+  }
+
+  /// The method to block Member
+  Future<LMResponse<BlockMemberResponse>> blockMember(
+      BlockMemberRequest request) {
+    return _sdkApplication.getDMApi().blockMember(request);
+  }
 }
 
 /// Builder class to initiate the SDK

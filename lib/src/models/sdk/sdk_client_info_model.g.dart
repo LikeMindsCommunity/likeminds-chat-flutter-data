@@ -18,6 +18,6 @@ Map<String, dynamic> _$SDKClientInfoToJson(SDKClientInfo instance) =>
     <String, dynamic>{
       'community': instance.community,
       'user': instance.user,
-      'user_unique_id': instance.userUniqueId,
       'uuid': instance.uuid,
+      'user_unique_id': instance.userUniqueId,
     };
