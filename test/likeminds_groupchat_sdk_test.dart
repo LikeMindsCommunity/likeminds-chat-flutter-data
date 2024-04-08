@@ -358,24 +358,6 @@ void main() {
     expect(response.success, true);
   });
 
-  /// Test the fetch DM feed method
-  /// This test will fail if the user can not fetch the DM feed
-  test('Fetching DM feed test', () async {
-    debugPrint("Initiating fetch DM feed test...");
-    FetchDMFeedRequest request = (FetchDMFeedRequestBuilder()
-          ..page(1)
-          ..pageSize(50)
-          ..minTimestamp(0)
-          ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
-          ..chatroomTypes([10]))
-        .build();
-    LMResponse<FetchDMFeedResponse> response =
-        await lmClient.getDMFeed(request);
-    debugPrint(
-        "Fetched DM feed with ${response.data!.totalPages} conversations");
-    expect(response.success, true);
-  });
-
   /// Test the check DM status method
   /// This test will fail if the user can not check the DM status or doesn't have permission
   test('Checking DM status test', () async {

@@ -212,12 +212,6 @@ class LMChatClient {
     return _sdkApplication.getDMApi().checkDMTab();
   }
 
-  /// The method to fetch the DM feed
-  Future<LMResponse<FetchDMFeedResponse>> getDMFeed(
-      FetchDMFeedRequest request) {
-    return _sdkApplication.getDMApi().fetchDMFeed(request);
-  }
-
   /// The method to check the DM status
   Future<LMResponse<CheckDMStatusResponse>> checkDMStatus(
       CheckDMStatusRequest request) {
