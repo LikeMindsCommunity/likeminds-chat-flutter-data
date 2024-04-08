@@ -26,7 +26,7 @@ class UtilService {
       );
       final entity = RegisterDeviceResponseEntity.fromJson(response.data);
       return RegisterDeviceResponse.fromEntity(entity);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return RegisterDeviceResponse(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
         success: false,
@@ -47,7 +47,7 @@ class UtilService {
   //     BrandingResponseEntity brandingResponse =
   //         BrandingResponseEntity.fromJson(response.data);
   //     return brandingResponse;
-  //   } on DioError catch (e) {
+  //   } on DioException catch (e) {
   //     BrandingResponseEntity brandingResponse =
   //         BrandingResponseEntity.fromJson(e.response?.data);
   //     return brandingResponse;

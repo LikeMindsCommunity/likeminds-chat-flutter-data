@@ -30,7 +30,7 @@ class PollService extends IPollService {
       PostConversationResponseEntity postPollConversationResponse =
           PostConversationResponseEntity.fromJson(response.data);
       return postPollConversationResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return PostConversationResponseEntity(
         success: false,
@@ -50,7 +50,7 @@ class PollService extends IPollService {
       GetPollUsersResponseEntity getPollUsersResponse =
           GetPollUsersResponseEntity.fromJson(response.data);
       return getPollUsersResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return GetPollUsersResponseEntity(
         success: false,
@@ -71,7 +71,7 @@ class PollService extends IPollService {
       AddPollOptionResponseEntity addPollOptionResponse =
           AddPollOptionResponseEntity.fromJson(response.data);
       return addPollOptionResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return AddPollOptionResponseEntity(
           success: false,
@@ -90,7 +90,7 @@ class PollService extends IPollService {
       SubmitPollResponseEntity submitPollResponse =
           SubmitPollResponseEntity.fromJson(response.data);
       return submitPollResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       if (e.response != null &&
           e.response!.data != null &&

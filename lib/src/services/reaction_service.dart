@@ -28,7 +28,7 @@ class ReactionService extends IReactionService {
       PutReactionResponseEntity putReactionResponse =
           PutReactionResponseEntity.fromJson(response.data);
       return putReactionResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return PutReactionResponseEntity(
         success: false,
@@ -49,7 +49,7 @@ class ReactionService extends IReactionService {
       DeleteReactionResponseEntity deleteReactionResponse =
           DeleteReactionResponseEntity.fromJson(response.data);
       return deleteReactionResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return DeleteReactionResponseEntity(
         success: false,

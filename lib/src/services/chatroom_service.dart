@@ -30,7 +30,7 @@ class ChatroomService extends IChatroomService {
         queryParameters: request.toJson(),
       );
       return GetChatroomResponseEntity.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return GetChatroomResponseEntity(success: false, errorMessage: e.message);
     }
@@ -45,7 +45,7 @@ class ChatroomService extends IChatroomService {
         queryParameters: request.toJson(),
       );
       return FollowChatroomResponse.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return FollowChatroomResponse(
         success: false,
@@ -63,7 +63,7 @@ class ChatroomService extends IChatroomService {
         data: request.toJson(),
       );
       return MarkReadChatroomResponse.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.toString());
       return MarkReadChatroomResponse(
         success: false,
@@ -80,7 +80,7 @@ class ChatroomService extends IChatroomService {
         data: request.toJson(),
       );
       return MuteChatroomResponse.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return MuteChatroomResponse(
         success: false,
@@ -98,7 +98,7 @@ class ChatroomService extends IChatroomService {
         queryParameters: request.toJson(),
       );
       return ShareChatroomResponse.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return ShareChatroomResponse(
         success: false,
@@ -116,7 +116,7 @@ class ChatroomService extends IChatroomService {
         data: request.toJson(),
       );
       return SetChatroomTopicResponse.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return SetChatroomTopicResponse(
         success: false,
@@ -134,7 +134,7 @@ class ChatroomService extends IChatroomService {
         data: request.toJson(),
       );
       return DeleteParticipantResponse.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return DeleteParticipantResponse(
         success: false,

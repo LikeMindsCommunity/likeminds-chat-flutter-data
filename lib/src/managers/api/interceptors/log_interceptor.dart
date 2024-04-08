@@ -16,7 +16,8 @@ class Logging extends Interceptor {
   }
 
   @override
-  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(
+      DioException err, ErrorInterceptorHandler handler) async {
     debugPrint(
         'ERROR[${err.response?.toString()}] => PATH: ${err.requestOptions.path}');
     return super.onError(err, handler);
