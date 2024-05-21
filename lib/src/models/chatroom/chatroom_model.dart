@@ -61,6 +61,14 @@ class ChatRoom {
   final int? participantCount;
   final int? totalResponseCount;
   bool? externalSeen;
+  final bool? memberCanMessage;
+  final int? chatRequestState;
+  final ChatRoomMember? chatRequestedBy;
+  final int? chatRequestedById;
+  final ChatRoomMember? chatroomWithUser;
+  final int? chatroomWithUserId;
+  final int? userId;
+  final List<ChatRoomMember>? lastResponseMembers;
 
   ChatRoom({
     this.access,
@@ -120,6 +128,14 @@ class ChatRoom {
     this.totalResponseCount,
     this.isPinned,
     this.externalSeen,
+    this.chatRequestState,
+    this.chatRequestedBy,
+    this.chatRequestedById,
+    this.chatroomWithUser,
+    this.chatroomWithUserId,
+    this.userId,
+    this.lastResponseMembers,
+    this.memberCanMessage,
   });
 
   factory ChatRoom.fromEntity(ChatRoomEntity entity) {
@@ -184,6 +200,17 @@ class ChatRoom {
       totalResponseCount: entity.totalResponseCount,
       isPinned: entity.isPinned,
       externalSeen: entity.externalSeen,
+      memberCanMessage: entity.memberCanMessage,
+      chatRequestState: entity.chatRequestState,
+      chatRequestedBy: entity.chatRequestedBy != null
+          ? ChatRoomMember.fromEntity(entity.chatRequestedBy!)
+          : null,
+      chatRequestedById: entity.chatRequestedById,
+      chatroomWithUser: entity.chatroomWithUser != null
+          ? ChatRoomMember.fromEntity(entity.chatroomWithUser!)
+          : null,
+      chatroomWithUserId: entity.chatroomWithUserId,
+      userId: entity.userId,
     );
   }
 
@@ -246,6 +273,9 @@ class ChatRoom {
       totalResponseCount: totalResponseCount,
       isPinned: isPinned,
       externalSeen: externalSeen,
+      chatRequestedById: chatRequestedById,
+      chatroomWithUserId: chatroomWithUserId,
+      userId: userId,
     );
   }
 }
@@ -346,6 +376,22 @@ class ChatRoomEntity {
   final int? totalResponseCount;
   final bool? isPinned;
   bool? externalSeen;
+  @JsonKey(name: 'member_can_message')
+  final bool? memberCanMessage;
+  @JsonKey(name: 'chat_request_state')
+  final int? chatRequestState;
+  @JsonKey(name: 'chat_requested_by')
+  final ChatRoomMemberEntity? chatRequestedBy;
+  @JsonKey(name: 'chat_requested_by_id')
+  final int? chatRequestedById;
+  @JsonKey(name: 'chatroom_with_user')
+  final ChatRoomMemberEntity? chatroomWithUser;
+  @JsonKey(name: 'chatroom_with_user_id')
+  final int? chatroomWithUserId;
+  @JsonKey(name: 'user_id')
+  final int? userId;
+  @JsonKey(name: 'last_response_members')
+  final List<ChatRoomMemberEntity>? lastResponseMembers;
 
   ChatRoomEntity({
     this.access,
@@ -405,6 +451,14 @@ class ChatRoomEntity {
     this.totalResponseCount,
     this.isPinned,
     this.externalSeen,
+    this.chatRequestState,
+    this.chatRequestedBy,
+    this.chatRequestedById,
+    this.chatroomWithUser,
+    this.chatroomWithUserId,
+    this.lastResponseMembers,
+    this.memberCanMessage,
+    this.userId,
   });
 
   factory ChatRoomEntity.fromJson(Map<String, dynamic> json) =>

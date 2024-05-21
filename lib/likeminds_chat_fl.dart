@@ -12,8 +12,9 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 /// Flutter flavour/environment manager v0.0.1
-
 const bool _prodFlag = !bool.fromEnvironment('DEBUG');
+
+const String chatSDKVersion = '1.6.0';
 
 /// The starting point class of the SDK
 class LMChatClient {
@@ -323,6 +324,13 @@ class LMChatClient {
   /// [CheckDMTabResponse] is returned as a Future
   Future<LMResponse<CheckDMTabResponse>> checkDMTab() {
     return _sdkApplication.getDMApi().checkDMTab();
+  }
+
+  /// fetchDMFeed is used to fetch a list of all DM chatrooms
+  /// [FetchDMFeedResponse] is returned as a future
+  Future<LMResponse<FetchDMFeedResponse>> fetchDMFeed(
+      FetchDMFeedRequest request) {
+    return _sdkApplication.getDMApi().fetchDMFeed(request);
   }
 
   /// checkDMStatus is used to check the DM status
