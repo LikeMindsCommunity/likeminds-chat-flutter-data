@@ -31,7 +31,7 @@ class AccessService {
   //     } else {
   //       return false;
   //     }
-  //   } on DioError catch (e) {
+  //   } on DioException catch (e) {
   //     print("Error from get post: $e");
   //     return false;
   //   }
@@ -54,7 +54,7 @@ class AccessService {
           MemberStateResponseEntity.fromJson(response.data);
 
       return memberStateResponseEntity;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint("Error from get member state access: $e");
       return MemberStateResponseEntity(
         success: false,

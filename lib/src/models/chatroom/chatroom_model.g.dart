@@ -25,10 +25,10 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       createdAt: json['created_at'] as dynamic,
       date: json['date'] as String?,
       dateEpoch: json['date_epoch'] as int?,
-dateTime: json['date_time'] as int?,
+      dateTime: json['date_time'] as int?,
       chatroomImageUrl: json['chatroom_image_url'] as String?,
       lastConversationId: json['last_conversation_id'] as int?,
-            unseenCount: json['unseen_count'] as int?,
+      unseenCount: json['unseen_count'] as int?,
       duration: json['duration'] as int?,
       followStatus: json['follow_status'] as bool?,
       hasEventRecording: json['has_event_recording'] as bool?,
@@ -70,6 +70,22 @@ dateTime: json['date_time'] as int?,
       totalResponseCount: json['total_response_count'] as int?,
       isPinned: json['is_pinned'] as bool?,
       externalSeen: json['external_seen'] as bool?,
+      memberCanMessage: json['member_can_message'] as bool?,
+      chatRequestState: json['chat_request_state'] as int?,
+      chatRequestedBy: json['chat_requested_by'] == null
+          ? null
+          : ChatRoomMemberEntity.fromJson(
+              json['chat_requested_by'] as Map<String, dynamic>),
+      chatRequestedById: json['chat_requested_by_id'] as int?,
+      chatroomWithUser: json['chatroom_with_user'] == null
+          ? null
+          : ChatRoomMemberEntity.fromJson(
+              json['chatroom_with_user'] as Map<String, dynamic>),
+      chatroomWithUserId: json['chatroom_with_user_id'] as int?,
+      userId: json['user_id'] as int?,
+      lastResponseMembers: (json['last_response_members'] as List<dynamic>?)
+          ?.map((e) => ChatRoomMemberEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
@@ -86,7 +102,7 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'audios': instance.audios,
       'auto_follow_done': instance.autoFollowDone,
       'card_creation_time': instance.cardCreationTime,
-            'community_id': instance.communityId,
+      'community_id': instance.communityId,
       'community_name': instance.communityName,
       'created_at': instance.createdAt,
       'date': instance.date,
@@ -95,7 +111,7 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'duration': instance.duration,
       'follow_status': instance.followStatus,
       'has_event_recording': instance.hasEventRecording,
-'last_conversation_id': instance.lastConversationId,
+      'last_conversation_id': instance.lastConversationId,
       'unseen_count': instance.unseenCount,
       'header': instance.header,
       'id': instance.id,
@@ -106,7 +122,7 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'is_guest': instance.isGuest,
       'is_paid': instance.isPaid,
       'is_pending': instance.isPending,
-'chatroom_image_url': instance.chatroomImageUrl,
+      'chatroom_image_url': instance.chatroomImageUrl,
       'is_private': instance.isPrivate,
       'is_private_member': instance.isPrivateMember,
       'is_secret': instance.isSecret,
@@ -131,4 +147,6 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'total_response_count': instance.totalResponseCount,
       'is_pinned': instance.isPinned,
       'external_seen': instance.externalSeen,
+      'member_can_message': instance.memberCanMessage,
+      'chat_request_state': instance.chatRequestState,
     };

@@ -39,4 +39,8 @@ Stable first release v1.0.0
 
 ## 1.5.3
 
- - Added support for excluding state messages
+- Added support for excluding state messages
+
+## 1.6.0
+
+- Added DM functions

@@ -1,53 +1,55 @@
+import 'dart:convert';
+
 class GetHomeFeedRequest {
   final int page;
   final int? pageSize;
-  final List<int>? chatroomType;
-  final int? minTimeStamp;
-  final int? maxTimeStamp;
-  final bool? isLocalDB;
+  final int? minTimestamp;
+  final int? maxTimestamp;
+  final List<int>? chatroomTypes;
+  bool isLocalDb;
 
   GetHomeFeedRequest._({
     required this.page,
-    this.pageSize = 20,
-    this.chatroomType,
-    this.isLocalDB,
-    this.maxTimeStamp,
-    this.minTimeStamp,
+    this.pageSize,
+    this.minTimestamp,
+    this.maxTimestamp,
+    this.chatroomTypes,
+    this.isLocalDb = false,
   });
 
   toJson() => {
         'page': page,
         'page_size': pageSize,
-        'min_timestamp': minTimeStamp,
-        'max_timestamp': maxTimeStamp,
-        'chatroom_type': chatroomType,
-        'is_local_db': isLocalDB,
+        'min_timestamp': minTimestamp,
+        'max_timestamp': maxTimestamp,
+        'chatroom_types': jsonEncode(chatroomTypes),
+        'is_local_db': isLocalDb,
       };
 }
 
 class GetHomeFeedRequestBuilder {
   int? _page;
   int? _pageSize;
-  int? _minTimeStamp;
-  int? _maxTimeStamp;
-  List<int>? _chatroomType;
-  bool? _isLocalDB;
+  int? _minTimestamp;
+  int? _maxTimestamp;
+  List<int>? _chatroomTypes;
+  bool? _isLocalDb;
 
   void page(int page) => _page = page;
   void pageSize(int pageSize) => _pageSize = pageSize;
-  void minTimeStamp(int minTimeStamp) => _minTimeStamp = minTimeStamp;
-  void maxTimeStamp(int maxTimeStamp) => _maxTimeStamp = maxTimeStamp;
-  void chatroomType(List<int> chatroomType) => _chatroomType = chatroomType;
-  void isLocalDB(bool isLocalDB) => _isLocalDB = isLocalDB;
+  void minTimestamp(int minTimestamp) => _minTimestamp = minTimestamp;
+  void maxTimestamp(int maxTimestamp) => _maxTimestamp = maxTimestamp;
+  void chatroomTypes(List<int> chatroomTypes) => _chatroomTypes = chatroomTypes;
+  void isLocalDb(bool isLocalDb) => _isLocalDb = isLocalDb;
 
   GetHomeFeedRequest build() {
     return GetHomeFeedRequest._(
       page: _page!,
       pageSize: _pageSize,
-      minTimeStamp: _minTimeStamp,
-      maxTimeStamp: _maxTimeStamp,
-      chatroomType: _chatroomType,
-      isLocalDB: _isLocalDB,
+      minTimestamp: _minTimestamp,
+      maxTimestamp: _maxTimestamp,
+      chatroomTypes: _chatroomTypes,
+      isLocalDb: _isLocalDb ?? false,
     );
   }
 }

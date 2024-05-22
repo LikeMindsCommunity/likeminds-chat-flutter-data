@@ -3,6 +3,7 @@ import 'package:likeminds_chat_fl/src/methods/access.dart';
 import 'package:likeminds_chat_fl/src/methods/auth.dart';
 import 'package:likeminds_chat_fl/src/methods/chatroom.dart';
 import 'package:likeminds_chat_fl/src/methods/conversation.dart';
+import 'package:likeminds_chat_fl/src/methods/dm.dart';
 import 'package:likeminds_chat_fl/src/methods/explore.dart';
 import 'package:likeminds_chat_fl/src/methods/helper.dart';
 import 'package:likeminds_chat_fl/src/methods/home.dart';
@@ -14,6 +15,7 @@ import 'package:likeminds_chat_fl/src/repositories/access_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/dm_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/explore_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
@@ -112,6 +114,14 @@ class SDKApplication {
     return PollApi(
       pollRepository: GetIt.instance.get<PollRepository>(
         instanceName: DIService.kInstancePollRepository,
+      ),
+    );
+  }
+
+  DMApi getDMApi() {
+    return DMApi(
+      dmRepository: GetIt.instance.get<DMRepository>(
+        instanceName: DIService.kInstanceDMRepository,
       ),
     );
   }

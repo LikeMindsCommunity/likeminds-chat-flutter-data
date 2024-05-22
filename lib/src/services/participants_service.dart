@@ -17,7 +17,7 @@ class ParticipantsService {
       );
 
       return GetParticipantsResponseEntity.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return GetParticipantsResponseEntity(
         success: false,
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',

@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 @Timeout(Duration(seconds: 600))
 
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
@@ -28,6 +30,9 @@ void main() {
       : TESTING_BETA_DEFAULT_CHATROOM;
   int? memberId;
 
+  String? uuid;
+  int? dmChatroomId;
+
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
         ..apiKey(
@@ -45,6 +50,8 @@ void main() {
         .build();
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
+    //save memberId for future tests
+    memberId = response.data?.initiateUser?.user.id;
     debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
     memberId = response.data?.initiateUser?.user.id;
     // TESTING_CALLBACK.eventFiredCallback();
@@ -335,6 +342,110 @@ void main() {
         await lmClient.deleteConversation(request);
     debugPrint(
         "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
+    expect(response.success, true);
+  });
+
+  /// DM Tests
+
+  /// Test the check DM status method
+  /// This test will fail if the user can not check the DM status or doesn't have permission
+  test('Checking DM Tab status test', () async {
+    debugPrint("Initiating check DM status test...");
+    LMResponse<CheckDMTabResponse> response = await lmClient.checkDMTab();
+    debugPrint(
+        "Checked DM status for user with status ${response.data!.hideDMTab}");
+    expect(response.success, true);
+  });
+
+  /// Test the check DM status method
+  /// This test will fail if the user can not check the DM status or doesn't have permission
+  test('Checking DM status test', () async {
+    debugPrint("Initiating check DM status test...");
+    CheckDMStatusRequest request =
+        (CheckDMStatusRequestBuilder()..reqFrom('dm_feed')).build();
+    LMResponse<CheckDMStatusResponse> response =
+        await lmClient.checkDMStatus(request);
+    debugPrint(
+        "Checked DM status for user with status ${response.data!.showDm}");
+    expect(response.success, true);
+  });
+
+  /// Test for the get all members
+  /// This test will fail if the use does not able to fetch all the members list
+  test('Getting all members', () async {
+    debugPrint("Initiating get all members test...");
+    GetAllMembersRequest request =
+        (GetAllMembersRequestBuilder()..memberState(1)).build();
+    LMResponse<GetAllMembersResponse> response =
+        await lmClient.getAllMembers(request);
+    debugPrint(
+        "Get all members with member count ${response.data?.members?.length}");
+    //save user uuid for future tests
+    int index = Random().nextInt(response.data!.members!.length - 1);
+    uuid = response.data?.members?.elementAt(index).uuid;
+    expect(response.success, true);
+  });
+
+  /// Test for search members
+  /// This test will fail if user does not able to find member
+  test('Searching members', () async {
+    debugPrint("Initiating search members test...");
+    SearchMembersRequest request = (SearchMemberRequestBuilder()
+          ..search("user")
+          ..searchType("name"))
+        .build();
+    LMResponse<SearchMembersResponse> response =
+        await lmClient.searchMembers(request);
+    debugPrint("Search members  ${response.data?.members?.length} results");
+    expect(response.success, true);
+  });
+
+  /// Test for check dm limit
+  test('Check dm limit', () async {
+    debugPrint("Initiating check dm limit test...");
+    CheckDMLimitRequest request =
+        (CheckDmLimitRequestBuilder()..uuid(uuid!)).build();
+    LMResponse<CheckDMLimitResponse> response =
+        await lmClient.checkDMLimit(request);
+    debugPrint("DM limit exceed: ${response.data?.isRequestDmLimitExceeded}");
+    expect(response.success, true);
+  });
+
+  /// Test for create DM chatroom
+  test('Create DM Chatroom', () async {
+    debugPrint("Initiating create dm chatroom test...");
+    CreateDMChatroomRequest request =
+        (CreateDMChatroomRequestBuilder()..uuid(uuid!)).build();
+    LMResponse<CreateDMChatroomResponse> response =
+        await lmClient.createDMChatroom(request);
+    dmChatroomId = response.data?.chatRoom?.id;
+    debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
+    expect(response.success, true);
+  });
+
+  /// Test for send DM request
+  test('Send DM request', () async {
+    debugPrint("Initiating send DM request test...");
+    SendDMRequest request = (SendDMRequestBuilder()
+          ..chatRequestState(1)
+          ..chatroomId(dmChatroomId!)
+          ..text("test message"))
+        .build();
+    LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
+    debugPrint("message request sent ${response.data?.conversation?.answer}");
+    expect(response.success, true);
+  });
+
+  /// Test for block member
+  test('Block member', () async {
+    debugPrint("Initiating block member test...");
+    BlockMemberRequest request = (BlockMemberRequestBuilder()
+          ..chatroomId(dmChatroomId!)
+          ..status(0))
+        .build();
+    LMResponse<BlockMemberResponse> response =
+        await lmClient.blockMember(request);
+    debugPrint("Member blocked  ${response.data?.conversation?.answer}");
     expect(response.success, true);
   });
 

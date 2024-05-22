@@ -1,21 +1,21 @@
-name: Feed SDK test on every PR
+name: Chat SDK test on every PR
 
 on:
   pull_request:
     branches-ignore: #exclude the branches from the test
       - master
-      
+
 jobs:
   run-flutter-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
       - run: flutter pub get #installing the plugins for the flutter project
-      
+
       - name: Lint
         run: flutter analyze > lint-results.txt
 
@@ -25,11 +25,11 @@ jobs:
         with:
           name: lint-results
           path: lint-results.txt
-        
-      - name : Tests
+
+      - name: Tests
         if: always()
         run: flutter test --dart-define=DEBUG=true
-      
+
       - name: Dry run for pub.dev
         if: always()
         run: flutter pub publish --dry-run
