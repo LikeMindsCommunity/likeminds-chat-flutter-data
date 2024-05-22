@@ -24,7 +24,7 @@ class NotificationService {
           );
       final entity = RegisterDeviceResponseEntity.fromJson(response.data);
       return RegisterDeviceResponse.fromEntity(entity);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return RegisterDeviceResponse(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
         success: false,

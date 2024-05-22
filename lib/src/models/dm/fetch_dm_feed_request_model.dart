@@ -1,16 +1,16 @@
 class FetchDMFeedRequest {
-  int page;
-  int pageSize;
-  int maxTimestamp;
-  int minTimestamp;
-  List<int>? chatroomTypes;
+  final int page;
+  final int pageSize;
+  final int maxTimestamp;
+  final int minTimestamp;
+  final List<int> chatroomTypes;
 
   FetchDMFeedRequest._({
     required this.page,
     required this.pageSize,
     required this.maxTimestamp,
     required this.minTimestamp,
-    this.chatroomTypes,
+    required this.chatroomTypes,
   });
 
   Map<String, dynamic> toJson() => {
@@ -18,7 +18,7 @@ class FetchDMFeedRequest {
         'page_size': pageSize,
         'max_timestamp': maxTimestamp,
         'min_timestamp': minTimestamp,
-        'chatroom_types': chatroomTypes.toString(),
+        'chatroom_types': chatroomTypes.toList(),
       };
 }
 

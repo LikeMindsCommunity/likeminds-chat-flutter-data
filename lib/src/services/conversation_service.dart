@@ -29,7 +29,7 @@ class ConversationService extends IConversationService {
       );
 
       return GetConversationResponseEntity.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return GetConversationResponseEntity(
         success: false,
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
@@ -47,7 +47,7 @@ class ConversationService extends IConversationService {
       );
 
       return PostConversationResponseEntity.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return PostConversationResponseEntity(
         success: false,
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
@@ -65,7 +65,7 @@ class ConversationService extends IConversationService {
       );
 
       return EditConversationResponseEntity.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return EditConversationResponseEntity(
         success: false,
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
@@ -83,7 +83,7 @@ class ConversationService extends IConversationService {
       );
 
       return DeleteConversationResponseEntity.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return DeleteConversationResponseEntity(
         success: false,
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',

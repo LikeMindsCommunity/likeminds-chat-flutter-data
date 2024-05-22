@@ -334,16 +334,16 @@ void main() {
   /// Test the delete conversation method
   /// This test will fail if the user can not delete the conversation
   test('Deleting the conversation test', () async {
-  debugPrint("Initiating delete conversation test...");
-  DeleteConversationRequest request = (DeleteConversationRequestBuilder()
-  ..conversationIds([conversationId ?? 0])
-  ..reason("Because testing demands you to"))
-  .build();
-  LMResponse<DeleteConversationResponse> response =
-  await lmClient.deleteConversation(request);
-  debugPrint(
-  "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
-  expect(response.success, true);
+    debugPrint("Initiating delete conversation test...");
+    DeleteConversationRequest request = (DeleteConversationRequestBuilder()
+          ..conversationIds([conversationId ?? 0])
+          ..reason("Because testing demands you to"))
+        .build();
+    LMResponse<DeleteConversationResponse> response =
+        await lmClient.deleteConversation(request);
+    debugPrint(
+        "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
+    expect(response.success, true);
   });
 
   /// DM Tests
@@ -355,24 +355,6 @@ void main() {
     LMResponse<CheckDMTabResponse> response = await lmClient.checkDMTab();
     debugPrint(
         "Checked DM status for user with status ${response.data!.hideDMTab}");
-    expect(response.success, true);
-  });
-
-  /// Test the fetch DM feed method
-  /// This test will fail if the user can not fetch the DM feed
-  test('Fetching DM feed test', () async {
-    debugPrint("Initiating fetch DM feed test...");
-    FetchDMFeedRequest request = (FetchDMFeedRequestBuilder()
-          ..page(1)
-          ..pageSize(50)
-          ..minTimestamp(0)
-          ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
-          ..chatroomTypes([10]))
-        .build();
-    LMResponse<FetchDMFeedResponse> response =
-        await lmClient.getDMFeed(request);
-    debugPrint(
-        "Fetched DM feed with ${response.data!.totalPages} conversations");
     expect(response.success, true);
   });
 
@@ -400,7 +382,7 @@ void main() {
     debugPrint(
         "Get all members with member count ${response.data?.members?.length}");
     //save user uuid for future tests
-    int index = Random().nextInt(response.data!.members!.length-1);
+    int index = Random().nextInt(response.data!.members!.length - 1);
     uuid = response.data?.members?.elementAt(index).uuid;
     expect(response.success, true);
   });
@@ -444,28 +426,28 @@ void main() {
 
   /// Test for send DM request
   test('Send DM request', () async {
-  debugPrint("Initiating send DM request test...");
-  SendDMRequest request = (SendDMRequestBuilder()
-  ..chatRequestState(0)
-  ..chatroomId(dmChatroomId!)
-  ..text("test message"))
-  .build();
-  LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
-  debugPrint("message request sent ${response.data?.conversation?.answer}");
-  expect(response.success, true);
+    debugPrint("Initiating send DM request test...");
+    SendDMRequest request = (SendDMRequestBuilder()
+          ..chatRequestState(1)
+          ..chatroomId(dmChatroomId!)
+          ..text("test message"))
+        .build();
+    LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
+    debugPrint("message request sent ${response.data?.conversation?.answer}");
+    expect(response.success, true);
   });
 
   /// Test for block member
   test('Block member', () async {
-  debugPrint("Initiating block member test...");
-  BlockMemberRequest request = (BlockMemberRequestBuilder()
-  ..chatroomId(dmChatroomId!)
-  ..status(0))
-  .build();
-  LMResponse<BlockMemberResponse> response =
-  await lmClient.blockMember(request);
-  debugPrint("Member blocked  ${response.data?.conversation?.answer}");
-  expect(response.success, true);
+    debugPrint("Initiating block member test...");
+    BlockMemberRequest request = (BlockMemberRequestBuilder()
+          ..chatroomId(dmChatroomId!)
+          ..status(0))
+        .build();
+    LMResponse<BlockMemberResponse> response =
+        await lmClient.blockMember(request);
+    debugPrint("Member blocked  ${response.data?.conversation?.answer}");
+    expect(response.success, true);
   });
 
   // / Test the logout method

@@ -39,7 +39,7 @@ class DMService extends IDMService {
       CheckDMTabResponseEntity checkDMTabResponse =
           CheckDMTabResponseEntity.fromJson(response.data);
       return checkDMTabResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return CheckDMTabResponseEntity(
         success: false,
@@ -60,7 +60,7 @@ class DMService extends IDMService {
       FetchDMFeedResponseEntity fetchDMFeedResponse =
           FetchDMFeedResponseEntity.fromJson(response.data);
       return fetchDMFeedResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return FetchDMFeedResponseEntity(
         success: false,
@@ -81,7 +81,7 @@ class DMService extends IDMService {
       CheckDMStatusResponseEntity checkDMStatusResponse =
           CheckDMStatusResponseEntity.fromJson(response.data);
       return checkDMStatusResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return CheckDMStatusResponseEntity(
         success: false,

@@ -20,7 +20,7 @@ class AuthService extends IAuthService {
   /// Initiate User API
   /// Calls our backend for initiating a LikeMinds user
   /// Returns a [InitiateUserResponse] object
-  /// Throws [DioError] if something goes wrong
+  /// Throws [DioException] if something goes wrong
   @override
   Future<InitiateUserResponseEntity> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
@@ -59,7 +59,7 @@ class AuthService extends IAuthService {
       } else {
         return initiateUserResponse;
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       InitiateUserResponseEntity initiateUserResponse =
           InitiateUserResponseEntity(
         success: false,
@@ -73,7 +73,7 @@ class AuthService extends IAuthService {
   /// Refreshes a SDK user, and updates tokens
   /// Returns [RefreshResponseEntity] if success
   /// Takes [RefreshRequest] as input
-  /// Throws [DioError] if error
+  /// Throws [DioException] if error
   @override
   Future<RefreshResponseEntity> refresh(RefreshRequest request) async {
     Dio dio = Dio();
@@ -90,7 +90,7 @@ class AuthService extends IAuthService {
           RefreshResponseEntity.fromJson(response.data);
 
       return refreshResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       RefreshResponseEntity refreshResponse =
           RefreshResponseEntity.fromJson(e.response?.data);
       return refreshResponse;
@@ -101,7 +101,7 @@ class AuthService extends IAuthService {
   /// Logs out a SDK user, and clears tokens
   /// Returns [LogoutResponseEntity] if success
   /// Takes [LogoutRequest] as input
-  /// Throws [DioError] if error
+  /// Throws [DioException] if error
   @override
   Future<LogoutResponseEntity> logout(LogoutRequest? request) async {
     try {
@@ -118,7 +118,7 @@ class AuthService extends IAuthService {
       request.callback?.logoutCallback();
       apiManager.tokenManager.clearTokens();
       return logoutResponse;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       LogoutResponseEntity logoutResponse =
           LogoutResponseEntity.fromJson(e.response?.data);
       return logoutResponse;
@@ -142,7 +142,7 @@ class AuthService extends IAuthService {
           MemberStateResponseEntity.fromJson(response.data);
 
       return memberStateResponseEntity;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint("Error from get member state access: $e");
       return MemberStateResponseEntity(
         success: false,

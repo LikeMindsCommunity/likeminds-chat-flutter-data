@@ -44,7 +44,7 @@ class HelperService {
           errorMessage: response.data['message'],
         );
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint("Error from get tags: $e");
       return TagResponseModelEntity(
         success: false,
@@ -75,7 +75,7 @@ class HelperService {
           errorMessage: response.data['message'],
         );
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint("Error from get tags: $e");
       return DecodeUrlResponseEntity(
         success: false,

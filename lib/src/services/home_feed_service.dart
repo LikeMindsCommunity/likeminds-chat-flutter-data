@@ -18,7 +18,7 @@ class HomeFeedService extends IHomeFeedService {
   /// Get Home Feed API
   /// Calls our backend for getting the home feed of chatrooms
   /// Returns a [GetHomeFeedResponseEntity] object
-  /// Throws [DioError] if something goes wrong
+  /// Throws [DioException] if something goes wrong
   @override
   Future<GetHomeFeedResponseEntity> getHomeFeed(
     GetHomeFeedRequest request,
@@ -31,7 +31,7 @@ class HomeFeedService extends IHomeFeedService {
       GetHomeFeedResponseEntity homeFeedResponseEntity =
           GetHomeFeedResponseEntity.fromJson(response.data);
       return homeFeedResponseEntity;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return GetHomeFeedResponseEntity(
         success: false,

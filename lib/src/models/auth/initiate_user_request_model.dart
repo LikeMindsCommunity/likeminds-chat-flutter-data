@@ -5,8 +5,13 @@ class InitiateUserRequest {
   final String? imageUrl;
   final String? apiKey;
 
-  InitiateUserRequest._(
-      {this.userName, this.userId, this.isGuest, this.imageUrl, this.apiKey});
+  InitiateUserRequest._({
+    this.userName,
+    this.userId,
+    this.isGuest,
+    this.imageUrl,
+    this.apiKey,
+  });
 
   Map<String, dynamic> toJson() => {
         'user_name': userName,
