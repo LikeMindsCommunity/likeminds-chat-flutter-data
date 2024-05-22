@@ -7,7 +7,7 @@ The starting point is the LikeMinds website. Create your account and get an API 
 Then add the package as dependency in pubspec.yaml
 
 ```yaml
-likeminds_chat_fl: 1.5.1
+likeminds_chat_fl: 1.6.0
 ```
 
 or you can run this command in the terminal
@@ -28,10 +28,7 @@ After adding the import, get an instance of the `LMChatClient` class and initial
 
 ```dart
  // Initiate the LMChatClient instance
-  LMChatClient lmClient = LMChatClient.initiateLikeMinds(
-    apiKey: YOUR_API_KEY,
-    sdkCallback: YOUR_CALLBACK,
-  );
+  LMChatClient lmClient;
 ```
 
 ### LMSdkCallback
