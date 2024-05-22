@@ -33,6 +33,10 @@ Stable first release v1.0.0
 
 - Fixes for set chatroom topic, and link preview
 
-## 1.6.0
+## 1.5.2
 
-- Adding public DM API functions
+- Added participants support in tagging
+
+## 1.5.3
+
+- Added support for excluding state messages

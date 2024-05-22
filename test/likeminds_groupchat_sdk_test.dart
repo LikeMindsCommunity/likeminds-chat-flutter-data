@@ -28,10 +28,10 @@ void main() {
   int chatroomId = TESTING_PROD_FLAG
       ? TESTING_PROD_DEFAULT_CHATROOM
       : TESTING_BETA_DEFAULT_CHATROOM;
+  int? memberId;
 
   String? uuid;
   int? dmChatroomId;
-  int? memberId;
 
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
@@ -53,7 +53,7 @@ void main() {
     //save memberId for future tests
     memberId = response.data?.initiateUser?.user.id;
     debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
-
+    memberId = response.data?.initiateUser?.user.id;
     // TESTING_CALLBACK.eventFiredCallback();
     expect(response.success, true);
   });
@@ -118,7 +118,7 @@ void main() {
     debugPrint("Initiating follow chatroom test...");
     FollowChatroomRequest request = (FollowChatroomRequestBuilder()
           ..chatroomId(chatroomId)
-          ..memberId(memberId!)
+          ..memberId(memberId ?? 0)
           ..value(true))
         .build();
 
@@ -314,9 +314,8 @@ void main() {
   // This test will fail if the user can't decode a URL
   test('Decode URL test', () async {
     debugPrint("Initiating decode URL test...");
-    DecodeUrlRequest request = (DecodeUrlRequestBuilder()
-          ..url("https://likeminds.community/"))
-        .build();
+    DecodeUrlRequest request =
+        (DecodeUrlRequestBuilder()..url("https://yahoo.com/")).build();
     LMResponse<DecodeUrlResponse> response = await lmClient.decodeUrl(request);
     debugPrint("Decoded URL ${response.data!.ogTags.toString()}");
     expect(response.success, true);

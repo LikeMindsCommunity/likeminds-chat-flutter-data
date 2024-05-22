@@ -1,12 +1,12 @@
 class DeleteParticipantRequest {
   final int chatroomId;
   final bool? isSecret;
-  final String memberId;
+  final String? memberId;
 
   DeleteParticipantRequest._({
     required this.chatroomId,
     this.isSecret = false,
-    required this.memberId,
+    this.memberId,
   });
 
   toJson() {
@@ -39,7 +39,7 @@ class DeleteParticipantRequestBuilder {
     return DeleteParticipantRequest._(
       chatroomId: _chatroomId!,
       isSecret: _isSecret,
-      memberId: _memberId!,
+      memberId: _memberId,
     );
   }
 }

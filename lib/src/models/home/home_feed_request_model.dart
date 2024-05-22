@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class GetHomeFeedRequest {
-  final int? page;
+  final int page;
   final int? pageSize;
   final int? minTimestamp;
   final int? maxTimestamp;
@@ -9,7 +9,7 @@ class GetHomeFeedRequest {
   bool isLocalDb;
 
   GetHomeFeedRequest._({
-    this.page,
+    required this.page,
     this.pageSize,
     this.minTimestamp,
     this.maxTimestamp,
@@ -44,7 +44,7 @@ class GetHomeFeedRequestBuilder {
 
   GetHomeFeedRequest build() {
     return GetHomeFeedRequest._(
-      page: _page,
+      page: _page!,
       pageSize: _pageSize,
       minTimestamp: _minTimestamp,
       maxTimestamp: _maxTimestamp,
