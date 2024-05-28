@@ -237,7 +237,7 @@ class LMChatClient {
   /// putReaction is used to put a reaction for a conversation
   /// [PutReactionRequest] is used to pass the required parameters
   /// [PutReactionResponse] is returned as a Future
-  Future<LMResponse<PutReactionResponse>> putReaction(
+  Future<LMResponse<void>> putReaction(
     PutReactionRequest request,
   ) {
     return _sdkApplication.getReactionApi().putReaction(request);
@@ -246,7 +246,7 @@ class LMChatClient {
   /// deleteReaction is used to delete a reaction for a conversation
   /// [DeleteReactionRequest] is used to pass the required parameters
   /// [DeleteReactionResponse] is returned as a Future
-  Future<LMResponse<DeleteReactionResponse>> deleteReaction(
+  Future<LMResponse<void>> deleteReaction(
     DeleteReactionRequest request,
   ) {
     return _sdkApplication.getReactionApi().deleteReaction(request);
@@ -260,7 +260,7 @@ class LMChatClient {
   /// registerDevice is used to register a device for receiving notifications
   /// [RegisterDeviceRequest] is used to pass the required parameters
   /// [RegisterDeviceResponse] is returned as a Future
-  Future<LMResponse<RegisterDeviceResponse>> registerDevice(
+  Future<LMResponse<void>> registerDevice(
       RegisterDeviceRequest request) {
     return LMNotifications.registerDevice(request);
   }
@@ -321,7 +321,7 @@ class LMChatClient {
   /// submitPoll is used to submit a poll
   /// [SubmitPollRequest] is used to pass the required parameters
   /// [SubmitPollResponse] is returned as a Future
-  Future<LMResponse<SubmitPollResponse>> submitPoll(SubmitPollRequest request) {
+  Future<LMResponse<void>> submitPoll(SubmitPollRequest request) {
     return _sdkApplication.getPollApi().submitPoll(request);
   }
 

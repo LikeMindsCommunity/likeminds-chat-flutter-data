@@ -8,41 +8,21 @@ class ConversationApi {
 
   Future<LMResponse<GetConversationResponse>> getConversation(
       GetConversationRequest request) async {
-    GetConversationResponse response =
-        await conversationRepository.getConversation(request);
-    return LMResponse<GetConversationResponse>(
-      success: true,
-      data: response,
-    );
+    return await conversationRepository.getConversation(request);
   }
 
   Future<LMResponse<PostConversationResponse>> postConversation(
       PostConversationRequest request) async {
-    PostConversationResponse response =
-        await conversationRepository.postConversation(request);
-    return LMResponse<PostConversationResponse>(
-      success: true,
-      data: response,
-    );
+    return await conversationRepository.postConversation(request);
   }
 
   Future<LMResponse<EditConversationResponse>> editConversation(
       EditConversationRequest request) async {
-    EditConversationResponse response =
-        await conversationRepository.editConversation(request);
-    return LMResponse<EditConversationResponse>(
-      success: true,
-      data: response,
-    );
+    return await conversationRepository.editConversation(request);
   }
 
   Future<LMResponse<DeleteConversationResponse>> deleteConversation(
       DeleteConversationRequest request) async {
-    DeleteConversationResponse response =
-        await conversationRepository.deleteConversation(request);
-    return LMResponse<DeleteConversationResponse>(
-      success: true,
-      data: response,
-    );
+    return await conversationRepository.deleteConversation(request);
   }
 }

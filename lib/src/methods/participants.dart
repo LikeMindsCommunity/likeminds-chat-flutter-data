@@ -8,11 +8,6 @@ class ParticipantsApi {
 
   Future<LMResponse<GetParticipantsResponse>> getParticipants(
       GetParticipantsRequest request) async {
-    final response = await participantsRepository.getParticipants(request);
-    return LMResponse<GetParticipantsResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return await participantsRepository.getParticipants(request);
   }
 }

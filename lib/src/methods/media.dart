@@ -8,11 +8,6 @@ class MediaApi {
 
   Future<LMResponse<PutMediaResponse>> putMultimedia(
       PutMediaRequest request) async {
-    final response = await mediaRepository.putMultimedia(request);
-    return LMResponse<PutMediaResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return await mediaRepository.putMultimedia(request);
   }
 }

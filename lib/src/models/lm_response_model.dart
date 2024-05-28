@@ -10,7 +10,7 @@ class LMResponse<T> {
   });
 
   factory LMResponse.fromData({required LMResponse response, T? data}) {
-    if (response.success && data != null) {
+    if (response.success) {
       return LMResponse.success(data: data);
     } else {
       return LMResponse.error(errorMessage: response.errorMessage!);

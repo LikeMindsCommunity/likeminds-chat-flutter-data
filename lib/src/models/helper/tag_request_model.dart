@@ -16,7 +16,7 @@ class TagRequestModel {
       'chatroom_id': chatroomId,
       'page': page,
       'page_size': pageSize,
-      'search_query': searchQuery,
+      'search_name': searchQuery,
     };
   }
 }

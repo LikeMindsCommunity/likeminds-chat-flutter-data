@@ -6,6 +6,7 @@ import 'package:likeminds_chat_fl/src/models/helper/decode_url_request_model.dar
 import 'package:likeminds_chat_fl/src/models/helper/decode_url_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/helper/tag_request_model.dart';
 import 'package:likeminds_chat_fl/src/models/helper/tag_response_model.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 
 class HelperService {
@@ -19,67 +20,46 @@ class HelperService {
             : null;
   }
 
-  Future<TagResponseModelEntity> getTags(
+  Future<LMResponse<TagResponseModelEntity>> getTags(
       {required TagRequestModel request}) async {
     try {
       final response = await apiClient.client().get(
-        apiClient.endPoints.tagsEndpoint,
-        options: Options(
-          headers: {
-            'x-api-key': '${apiClient.tokenManager.apiKey}',
-          },
-        ),
-        queryParameters: {
-          'chatroom_id': request.chatroomId,
-          'page': request.page,
-          'page_size': request.pageSize,
-          'search_name': request.searchQuery,
-        },
-      );
-      if (response.data['success'] == true) {
-        return TagResponseModelEntity.fromJson(response.data);
-      } else {
-        return TagResponseModelEntity(
-          success: false,
-          errorMessage: response.data['message'],
+            apiClient.endPoints.tagsEndpoint,
+            queryParameters: request.toJson(),
+          );
+      if (response.data['success'] == true && response.data['data'] != null) {
+        return LMResponse.success(
+          data: TagResponseModelEntity.fromJson(response.data),
         );
+      } else {
+        return LMResponse.error(errorMessage: response.data['message']);
       }
     } on DioException catch (e) {
       debugPrint("Error from get tags: $e");
-      return TagResponseModelEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+       return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }
 
-  Future<DecodeUrlResponseEntity> decodeUrl(
+  Future<LMResponse<DecodeUrlResponseEntity>> decodeUrl(
       {required DecodeUrlRequest request}) async {
     try {
       final response = await apiClient.client().get(
         apiClient.endPoints.decodeUrlEndpoint,
-        options: Options(
-          headers: {
-            'Authorization': '${apiClient.tokenManager.accessToken}',
-          },
-        ),
-        queryParameters: {
-          'url': request.url,
-        },
+        queryParameters: request.toJson(),
       );
-      if (response.data['success'] == true) {
-        return DecodeUrlResponseEntity.fromJson(response.data);
-      } else {
-        return DecodeUrlResponseEntity(
-          success: false,
-          errorMessage: response.data['message'],
+      if (response.data['success'] == true && response.data['data'] != null) {
+        return LMResponse.success(
+          data: DecodeUrlResponseEntity.fromJson(response.data),
         );
+      } else {
+        return LMResponse.error(errorMessage: response.data['message']);
       }
     } on DioException catch (e) {
       debugPrint("Error from get tags: $e");
-      return DecodeUrlResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }

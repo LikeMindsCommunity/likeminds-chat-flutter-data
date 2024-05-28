@@ -11,11 +11,6 @@ class HomeApi {
   Future<LMResponse<GetHomeFeedResponse>> getHomeFeed(
     GetHomeFeedRequest request,
   ) async {
-    GetHomeFeedResponse response = await homeRepository.getHomeFeed(request);
-    return LMResponse<GetHomeFeedResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return await homeRepository.getHomeFeed(request);
   }
 }

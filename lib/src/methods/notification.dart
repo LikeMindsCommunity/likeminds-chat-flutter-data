@@ -8,13 +8,8 @@ class LMNotifications {
   static final NotificationService _notifService =
       GetIt.instance<NotificationService>();
 
-  static Future<LMResponse<RegisterDeviceResponse>> registerDevice(
+  static Future<LMResponse<void>> registerDevice(
       RegisterDeviceRequest request) async {
-    final response = await _notifService.registerDevice(request);
-    return LMResponse<RegisterDeviceResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return await _notifService.registerDevice(request);
   }
 }

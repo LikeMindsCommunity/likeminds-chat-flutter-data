@@ -8,22 +8,10 @@ class ExploreApi {
 
   Future<LMResponse<GetExploreFeedResponse>> getExploreFeed(
       GetExploreFeedRequest request) async {
-    GetExploreFeedResponse response =
-        await exploreRepository.getExploreFeed(request);
-    return LMResponse<GetExploreFeedResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+    return await exploreRepository.getExploreFeed(request);
   }
 
   Future<LMResponse<GetExploreTabCountResponse>> getExploreTabCount() async {
-    GetExploreTabCountResponse response =
-        await exploreRepository.getExploreTabCount();
-    return LMResponse<GetExploreTabCountResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+    return await exploreRepository.getExploreTabCount();
   }
 }

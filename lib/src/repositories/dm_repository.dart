@@ -8,55 +8,109 @@ class DMRepository {
     required this.dmService,
   });
 
-  Future<CheckDMTabResponse> checkDMTab() async {
+  Future<LMResponse<CheckDMTabResponse>> checkDMTab() async {
     final response = await dmService.checkDMTab();
-    return CheckDMTabResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: CheckDMTabResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<FetchDMFeedResponse> fetchDMFeed(
+  Future<LMResponse<FetchDMFeedResponse>> fetchDMFeed(
       FetchDMFeedRequest fetchDMFeedRequest) async {
     final response = await dmService.fetchDMFeed(fetchDMFeedRequest);
-    return FetchDMFeedResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: FetchDMFeedResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<CheckDMStatusResponse> checkDMStatus(
+  Future<LMResponse<CheckDMStatusResponse>> checkDMStatus(
       CheckDMStatusRequest checkDMStatusRequest) async {
     final response = await dmService.checkDMStatus(checkDMStatusRequest);
-    return CheckDMStatusResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: CheckDMStatusResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<GetAllMembersResponse> getAllMembers(
+  Future<LMResponse<GetAllMembersResponse>> getAllMembers(
       GetAllMembersRequest getAllMembersRequest) async {
     final response = await dmService.getAllMembers(getAllMembersRequest);
-    return GetAllMembersResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: GetAllMembersResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<SearchMembersResponse> searchMembers(
+  Future<LMResponse<SearchMembersResponse>> searchMembers(
       SearchMembersRequest searchMembersRequest) async {
     final response = await dmService.searchMembers(searchMembersRequest);
-    return SearchMembersResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: SearchMembersResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<CheckDMLimitResponse> checkDMLimit(
+  Future<LMResponse<CheckDMLimitResponse>> checkDMLimit(
       CheckDMLimitRequest checkDMLimitRequest) async {
     final response = await dmService.checkDMLimit(checkDMLimitRequest);
-    return CheckDMLimitResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: CheckDMLimitResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<CreateDMChatroomResponse> createDMChatroom(
+  Future<LMResponse<CreateDMChatroomResponse>> createDMChatroom(
       CreateDMChatroomRequest createDMChatroomRequest) async {
     final response = await dmService.createDMChatroom(createDMChatroomRequest);
-    return CreateDMChatroomResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: CreateDMChatroomResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<SendDMResponse> sendDMRequest(SendDMRequest sendDMRequest) async {
+  Future<LMResponse<SendDMResponse>> sendDMRequest(SendDMRequest sendDMRequest) async {
     final response = await dmService.sendDMRequest(sendDMRequest);
-    return SendDMResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: SendDMResponse.fromEntity(response.data!),
+    );
   }
 
-  Future<BlockMemberResponse> blockMember(
+  Future<LMResponse<BlockMemberResponse>> blockMember(
       BlockMemberRequest blockMemberRequest) async {
     final response = await dmService.blockMember(blockMemberRequest);
-    return BlockMemberResponse.fromEntity(response);
+    if(!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: BlockMemberResponse.fromEntity(response.data!),
+    );
   }
 }

@@ -6,45 +6,22 @@ class PollApi {
 
   PollApi({required this.pollRepository});
 
-  Future<LMResponse<SubmitPollResponse>> submitPoll(
-      SubmitPollRequest request) async {
-    SubmitPollResponse response = await pollRepository.submitPoll(request);
-    return LMResponse<SubmitPollResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+  Future<LMResponse<void>> submitPoll(SubmitPollRequest request) async {
+    return await pollRepository.submitPoll(request);
   }
 
   Future<LMResponse<AddPollOptionResponse>> addPollOption(
       AddPollOptionRequest request) async {
-    AddPollOptionResponse response =
-        await pollRepository.addPollOption(request);
-    return LMResponse<AddPollOptionResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+    return await pollRepository.addPollOption(request);
   }
 
   Future<LMResponse<GetPollUsersResponse>> getPollUsers(
       GetPollUsersRequest request) async {
-    GetPollUsersResponse response = await pollRepository.getPollUsers(request);
-    return LMResponse<GetPollUsersResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+    return await pollRepository.getPollUsers(request);
   }
 
   Future<LMResponse<PostConversationResponse>> postPollConversation(
       PostPollConversationRequest request) async {
-    PostConversationResponse response =
-        await pollRepository.postPollConversation(request);
-    return LMResponse<PostConversationResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+    return await pollRepository.postPollConversation(request);
   }
 }

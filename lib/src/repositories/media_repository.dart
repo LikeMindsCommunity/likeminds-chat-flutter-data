@@ -6,8 +6,15 @@ class MediaRepository {
 
   MediaRepository({required this.mediaService});
 
-  Future<PutMediaResponse> putMultimedia(PutMediaRequest request) async {
+  Future<LMResponse<PutMediaResponse>> putMultimedia(
+      PutMediaRequest request) async {
     final response = await mediaService.putMultimedia(request);
-    return PutMediaResponse.fromEntity(response);
+    if (!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: PutMediaResponse.fromEntity(response.data!),
+    );
   }
 }

@@ -9,15 +9,13 @@ class HelperApi {
   Future<LMResponse<TagResponseModel>> getTags({
     required TagRequestModel request,
   }) async {
-    final response = await helperRepository.getTags(request: request);
-    return LMResponse(success: response.success, data: response);
+    return await helperRepository.getTags(request: request);
   }
 
   Future<LMResponse<DecodeUrlResponse>> decodeUrl({
     required DecodeUrlRequest request,
   }) async {
-    final response = await helperRepository.decodeUrl(request: request);
-    return LMResponse(success: response.success, data: response);
+    return await helperRepository.decodeUrl(request: request);
   }
 
   void routeProfilePage(String userId) {

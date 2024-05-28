@@ -122,8 +122,7 @@ void main() {
           ..value(true))
         .build();
 
-    LMResponse<void> response =
-        await lmClient.followChatroom(request);
+    LMResponse<void> response = await lmClient.followChatroom(request);
     debugPrint("Followed chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -136,8 +135,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..value(true))
         .build();
-    LMResponse<void> response =
-        await lmClient.muteChatroom(request);
+    LMResponse<void> response = await lmClient.muteChatroom(request);
     debugPrint("Muted chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -148,8 +146,7 @@ void main() {
     debugPrint("Initiating mark read chatroom test...");
     MarkReadChatroomRequest request =
         (MarkReadChatroomRequestBuilder()..chatroomId(chatroomId)).build();
-    LMResponse<void> response =
-        await lmClient.markReadChatroom(request);
+    LMResponse<void> response = await lmClient.markReadChatroom(request);
     debugPrint("Marked read chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -162,8 +159,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..domain("https://www.likeminds.ai"))
         .build();
-    LMResponse<void> response =
-        await lmClient.shareChatroomUrl(request);
+    LMResponse<void> response = await lmClient.shareChatroomUrl(request);
     debugPrint("Shared chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -195,8 +191,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..conversationId(conversationId!))
         .build();
-    LMResponse<void> response =
-        await lmClient.setChatroomTopic(request);
+    LMResponse<void> response = await lmClient.setChatroomTopic(request);
     debugPrint("Set chatroom topic with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -270,8 +265,7 @@ void main() {
           ..conversationId(conversationId ?? 0)
           ..reaction("❤️"))
         .build();
-    LMResponse<PutReactionResponse> response =
-        await lmClient.putReaction(request);
+    LMResponse<void> response = await lmClient.putReaction(request);
     debugPrint(
         "Put reaction with ${request.reaction} reaction returned ${response.success}");
     expect(response.success, true);
@@ -285,8 +279,7 @@ void main() {
           ..conversationId(conversationId ?? 0)
           ..reaction("❤️"))
         .build();
-    LMResponse<DeleteReactionResponse> response =
-        await lmClient.deleteReaction(request);
+    LMResponse<void> response = await lmClient.deleteReaction(request);
     debugPrint(
         "Deleted reaction with ${request.reaction} reaction returned ${response.success}");
     expect(response.success, true);
