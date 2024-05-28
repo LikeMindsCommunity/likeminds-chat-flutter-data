@@ -11,7 +11,7 @@ class UtilService {
   Future<RegisterDeviceResponse> registerDevice(
       RegisterDeviceRequest request) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         apiManager.endPoints.registerDeviceEndpoint,
         options: Options(
           headers: {

@@ -10,7 +10,7 @@ class MediaService {
 
   Future<PutMediaResponseEntity> putMultimedia(PutMediaRequest request) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         apiManager.endPoints.mediaUploadEndpoint,
         data: request.toJson(),
       );

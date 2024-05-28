@@ -14,9 +14,7 @@ GetParticipantsResponseEntity _$GetParticipantsResponseEntityFromJson(
       canEditParticipant: json['data']['can_edit_participant'] as bool?,
       participants: (json['data']['participants'] as List<dynamic>?)
           ?.map(
-            (e) => User.fromEntity(
-              UserEntity.fromJson(e),
-            ),
+            (e) => UserEntity.fromJson(e),
           )
           .toList(),
     );

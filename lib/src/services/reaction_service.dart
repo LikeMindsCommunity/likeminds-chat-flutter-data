@@ -20,7 +20,7 @@ class ReactionService extends IReactionService {
   Future<PutReactionResponseEntity> putReaction(
       PutReactionRequest request) async {
     try {
-      final response = await apiManager.put(
+      final response = await apiManager.client().put(
         // conversation/reaction
         apiManager.endPoints.reactionEndpoint,
         data: request.toJson(),
@@ -41,7 +41,7 @@ class ReactionService extends IReactionService {
   Future<DeleteReactionResponseEntity> deleteReaction(
       DeleteReactionRequest request) async {
     try {
-      final response = await apiManager.delete(
+      final response = await apiManager.client().delete(
         // conversation/reaction
         apiManager.endPoints.reactionEndpoint,
         data: request.toJson(),

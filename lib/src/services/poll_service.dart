@@ -23,7 +23,7 @@ class PollService extends IPollService {
   Future<PostConversationResponseEntity> postPollConversation(
       PostPollConversationRequest request) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         apiManager.endPoints.conversationEndpoint,
         data: request.toJson(),
       );
@@ -63,7 +63,7 @@ class PollService extends IPollService {
   Future<AddPollOptionResponseEntity> addPollOption(
       AddPollOptionRequest request) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         apiManager.endPoints.pollAddOptionEndpoint,
         data: request.toJson(),
       );
@@ -83,7 +83,7 @@ class PollService extends IPollService {
   @override
   Future<SubmitPollResponseEntity> submitPoll(SubmitPollRequest request) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         apiManager.endPoints.pollSubmitEndpoint,
         data: request.toJson(),
       );

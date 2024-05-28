@@ -8,16 +8,27 @@ class AuthRepository {
     required this.authService,
   });
 
-  Future<InitiateUserResponse> initiateUser(
+  Future<LMResponse<InitiateUserResponse>> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
-    InitiateUserResponseEntity initiateUserResponseEntity =
+    LMResponse<InitiateUserResponseEntity> initiateUserResponseEntity =
         await authService.initiateUser(initiateUserRequest);
-    return InitiateUserResponse.fromEntity(initiateUserResponseEntity);
+    if (!initiateUserResponseEntity.success) {
+      return LMResponse.error(
+          errorMessage: initiateUserResponseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: initiateUserResponseEntity,
+      data: InitiateUserResponse.fromEntity(initiateUserResponseEntity.data!),
+    );
   }
 
-  Future<LogoutResponse> logout(LogoutRequest logoutRequest) async {
-    LogoutResponseEntity responseEntity =
-        await authService.logout(logoutRequest);
-    return LogoutResponse.fromEntity(responseEntity);
+  Future<LMResponse<void>> logout(LogoutRequest logoutRequest) async {
+    LMResponse<void> responseEntity = await authService.logout(logoutRequest);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.success(
+      data: null,
+    );
   }
 }

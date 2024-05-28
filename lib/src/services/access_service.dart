@@ -8,57 +8,26 @@ class AccessService {
 
   AccessService({required this.apiManager});
 
-  /// Get access for a particular post access type
-  /// [accessType] - The access type to check for
-  /// Returns true if the user has access, false otherwise
-  // Future<bool> getAccess(String accessType) async {
-  //   try {
-  //     final response = await apiClient.client().get(
-  //           apiClient.getEndpoints.accessEndpoint,
-  //           queryParameters: {
-  //             'access_type': accessType,
-  //           },
-  //           options: Options(
-  //             headers: {
-  //               'x-member-id': '${apiClient.getUserId}',
-  //               'x-api-key': '${apiClient.getApiKey}',
-  //             },
-  //           ),
-  //         );
-  //     print("Response from access check: ${response.data}");
-  //     if (response.data['access'] == true && response.data['success'] == true) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   } on DioException catch (e) {
-  //     print("Error from get post: $e");
-  //     return false;
-  //   }
-  // }
-
   /// Get the state of the member for feedroom access
   /// Returns the state of the member
-  Future<MemberStateResponseEntity> getMemberState() async {
+  Future<LMResponse<MemberStateResponseEntity>> getMemberState() async {
     try {
-      final response = await apiManager.client().get(
+      final Response response = await apiManager.client().get(
             apiManager.endPoints.memberStateEndpoint,
-            options: Options(
-              headers: {
-                'x-api-key': '${apiManager.tokenManager.apiKey}',
-              },
-            ),
           );
 
-      final memberStateResponseEntity =
-          MemberStateResponseEntity.fromJson(response.data);
-
-      return memberStateResponseEntity;
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse<MemberStateResponseEntity>.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse<MemberStateResponseEntity>.success(
+        data: MemberStateResponseEntity.fromJson(response.data),
+      );
     } on DioException catch (e) {
       debugPrint("Error from get member state access: $e");
-      return MemberStateResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      return LMResponse<MemberStateResponseEntity>.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }

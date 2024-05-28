@@ -453,7 +453,7 @@ void main() {
   // / This test will fail if the user can not log out
   test('Logging out the user', () async {
     LogoutRequest request = (LogoutRequestBuilder()).build();
-    LMResponse<LogoutResponse> response = await lmClient.logout(request);
+    LMResponse<void> response = await lmClient.logout(request);
     if (response.success) {
       debugPrint("Successfully logged out after all tests");
     }

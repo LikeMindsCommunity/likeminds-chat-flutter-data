@@ -7,11 +7,6 @@ class AccessApi {
   AccessApi({required this.accessRepository});
 
   Future<LMResponse<MemberStateResponse>> getMemberState() async {
-    MemberStateResponse response = await accessRepository.getMemberState();
-    return LMResponse<MemberStateResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return await accessRepository.getMemberState();
   }
 }

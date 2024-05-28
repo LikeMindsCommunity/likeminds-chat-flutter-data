@@ -9,29 +9,23 @@ part of 'member_state_response_model.dart';
 MemberStateResponseEntity _$MemberStateResponseEntityFromJson(
         Map<String, dynamic> json) =>
     MemberStateResponseEntity(
-      success: json['success'] as bool,
-      createdAt: json['data']['created_at'] as String?,
-      editRequired: json['data']['edit_required'] as bool?,
-      member: json['data']['member'] == null
+      createdAt: json['created_at'] as String?,
+      editRequired: json['edit_required'] as bool?,
+      member: json['member'] == null
           ? null
-          : UserEntity.fromJson(json['data']['member'] as Map<String, dynamic>),
-      memberRights: (json['data']['member_rights'] as List<dynamic>)
-          .map((e) => MemberRight.fromJson(e as Map<String, dynamic>))
+          : UserEntity.fromJson(json['member'] as Map<String, dynamic>),
+      memberRights: (json['member_rights'] as List<dynamic>?)
+          ?.map((e) => MemberRight.fromJson(e as Map<String, dynamic>))
           .toList(),
-      state: json['data']['state'] as int?,
-      errorMessage: json['error_message'] as String?,
+      state: (json['state'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$MemberStateResponseEntityToJson(
         MemberStateResponseEntity instance) =>
     <String, dynamic>{
-      'success': instance.success,
-      'data': {
-        'created_at': instance.createdAt,
-        'edit_required': instance.editRequired,
-        'member': instance.member?.toJson(),
-        'member_rights': instance.memberRights?.map((e) => e.toJson()).toList(),
-      },
-      'error_message': instance.errorMessage,
+      'created_at': instance.createdAt,
+      'edit_required': instance.editRequired,
+      'member': instance.member,
+      'member_rights': instance.memberRights,
       'state': instance.state,
     };

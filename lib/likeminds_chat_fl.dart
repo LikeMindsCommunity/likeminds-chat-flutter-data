@@ -51,7 +51,7 @@ class LMChatClient {
   /// logout is used to logout a user session
   /// [LogoutRequest] is used to pass the required parameters
   /// [LogoutResponse] is returned as a Future
-  Future<LMResponse<LogoutResponse>> logout(LogoutRequest request) {
+  Future<LMResponse<void>> logout(LogoutRequest request) {
     return _sdkApplication.getAuthApi().logout(request);
   }
   // ------------------------------------------

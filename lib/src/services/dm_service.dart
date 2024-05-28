@@ -155,7 +155,7 @@ class DMService extends IDMService {
   Future<CreateDMChatroomResponseEntity> createDMChatroom(
       CreateDMChatroomRequest createDMChatroomRequest) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         // chatroom/dm/create
         apiManager.endPoints.createDMChatroomEndpoint,
         data: createDMChatroomRequest.toJson(),
@@ -174,7 +174,7 @@ class DMService extends IDMService {
   Future<SendDMResponseEntity> sendDMRequest(
       SendDMRequest sendDMRequest) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         // chatroom/dm/request
         apiManager.endPoints.sendDMRequestEndpoint,
         data: sendDMRequest.toJson(),
@@ -195,7 +195,7 @@ class DMService extends IDMService {
   Future<BlockMemberResponseEntity> blockMember(
       BlockMemberRequest blockMemberRequest) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         // chatroom/dm/block
         apiManager.endPoints.blockMemberEndpoint,
         data: blockMemberRequest.toJson(),

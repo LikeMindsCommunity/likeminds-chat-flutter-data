@@ -48,7 +48,7 @@ class GetHomeFeedRequestBuilder {
       pageSize: _pageSize,
       minTimestamp: _minTimestamp,
       maxTimestamp: _maxTimestamp,
-      chatroomTypes: _chatroomTypes,
+      chatroomTypes: _chatroomTypes ?? [0, 7],
       isLocalDb: _isLocalDb ?? false,
     );
   }

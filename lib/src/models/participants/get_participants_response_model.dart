@@ -22,16 +22,19 @@ class GetParticipantsResponse {
       success: entity.success,
       errorMessage: entity.errorMessage,
       canEditParticipant: entity.canEditParticipant,
-      participants: entity.participants,
+      participants: entity.participants
+          ?.map((userEntity) => User.fromEntity(userEntity))
+          .toList(),
     );
   }
 
   toEntity() {
     return GetParticipantsResponseEntity(
-        success: success,
-        errorMessage: errorMessage,
-        canEditParticipant: canEditParticipant,
-        participants: participants);
+      success: success,
+      errorMessage: errorMessage,
+      canEditParticipant: canEditParticipant,
+      participants: participants?.map((user) => user.toEntity()).toList(),
+    );
   }
 }
 
@@ -41,7 +44,7 @@ class GetParticipantsResponseEntity {
   @JsonKey(name: "error_message")
   final String? errorMessage;
   final bool? canEditParticipant;
-  final List<User>? participants;
+  final List<UserEntity>? participants;
 
   GetParticipantsResponseEntity({
     required this.success,

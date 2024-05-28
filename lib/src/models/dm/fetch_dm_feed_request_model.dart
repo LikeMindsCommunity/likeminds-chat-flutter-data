@@ -59,7 +59,7 @@ class FetchDMFeedRequestBuilder {
       pageSize: _pageSize!,
       maxTimestamp: _maxTimestamp!,
       minTimestamp: _minTimestamp!,
-      chatroomTypes: _chatroomTypes!,
+      chatroomTypes: _chatroomTypes ?? [10],
     );
   }
 }

@@ -41,7 +41,7 @@ class ConversationService extends IConversationService {
   Future<PostConversationResponseEntity> postConversation(
       PostConversationRequest request) async {
     try {
-      final response = await _apiManager.post(
+      final response = await _apiManager.client().post(
         _apiManager.endPoints.conversationEndpoint,
         data: request.toJson(),
       );
@@ -59,7 +59,7 @@ class ConversationService extends IConversationService {
   Future<EditConversationResponseEntity> editConversation(
       EditConversationRequest request) async {
     try {
-      final response = await _apiManager.put(
+      final response = await _apiManager.client().put(
         _apiManager.endPoints.conversationEndpoint,
         data: request.toJson(),
       );
@@ -77,7 +77,7 @@ class ConversationService extends IConversationService {
   Future<DeleteConversationResponseEntity> deleteConversation(
       DeleteConversationRequest request) async {
     try {
-      final response = await _apiManager.delete(
+      final response = await _apiManager.client().delete(
         _apiManager.endPoints.conversationEndpoint,
         data: request.toJson(),
       );

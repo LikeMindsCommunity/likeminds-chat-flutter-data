@@ -46,8 +46,8 @@ class TokenInterceptor extends Interceptor {
 
     if (response.success) {
       apiManager.tokenManager.initTokens(
-        response.accessToken!,
-        response.refreshToken!,
+        response.data!.accessToken!,
+        response.data!.refreshToken!,
       );
     }
   }

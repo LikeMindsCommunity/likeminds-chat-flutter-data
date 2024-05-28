@@ -10,21 +10,10 @@ class AuthApi {
 
   Future<LMResponse<InitiateUserResponse>> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
-    InitiateUserResponse response =
-        await authRepository.initiateUser(initiateUserRequest);
-    return LMResponse<InitiateUserResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return authRepository.initiateUser(initiateUserRequest);
   }
 
-  Future<LMResponse<LogoutResponse>> logout(LogoutRequest logoutRequest) async {
-    LogoutResponse response = await authRepository.logout(logoutRequest);
-    return LMResponse<LogoutResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+  Future<LMResponse<void>> logout(LogoutRequest logoutRequest) async {
+    return authRepository.logout(logoutRequest);
   }
 }
