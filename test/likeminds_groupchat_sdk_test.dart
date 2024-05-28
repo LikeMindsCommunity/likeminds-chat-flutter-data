@@ -122,7 +122,7 @@ void main() {
           ..value(true))
         .build();
 
-    LMResponse<FollowChatroomResponse> response =
+    LMResponse<void> response =
         await lmClient.followChatroom(request);
     debugPrint("Followed chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
@@ -136,7 +136,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..value(true))
         .build();
-    LMResponse<MuteChatroomResponse> response =
+    LMResponse<void> response =
         await lmClient.muteChatroom(request);
     debugPrint("Muted chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
@@ -148,7 +148,7 @@ void main() {
     debugPrint("Initiating mark read chatroom test...");
     MarkReadChatroomRequest request =
         (MarkReadChatroomRequestBuilder()..chatroomId(chatroomId)).build();
-    LMResponse<MarkReadChatroomResponse> response =
+    LMResponse<void> response =
         await lmClient.markReadChatroom(request);
     debugPrint("Marked read chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
@@ -162,7 +162,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..domain("https://www.likeminds.ai"))
         .build();
-    LMResponse<ShareChatroomResponse> response =
+    LMResponse<void> response =
         await lmClient.shareChatroomUrl(request);
     debugPrint("Shared chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
@@ -195,7 +195,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..conversationId(conversationId!))
         .build();
-    LMResponse<SetChatroomTopicResponse> response =
+    LMResponse<void> response =
         await lmClient.setChatroomTopic(request);
     debugPrint("Set chatroom topic with ID ${request.chatroomId}");
     expect(response.success, true);

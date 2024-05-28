@@ -9,17 +9,6 @@ class LMResponse<T> {
     this.data,
   });
 
-  factory LMResponse.tryIt({
-    required T Function(T entity) function,
-    LMResponse? response,
-  }) {
-    try {
-      return LMResponse.success(data: function(response!.data!));
-    } catch (e) {
-      return LMResponse.error(errorMessage: e.toString());
-    }
-  }
-
   factory LMResponse.fromData({required LMResponse response, T? data}) {
     if (response.success && data != null) {
       return LMResponse.success(data: data);
@@ -28,15 +17,7 @@ class LMResponse<T> {
     }
   }
 
-  factory LMResponse.copy({required LMResponse response}) {
-    return LMResponse(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response.data,
-    );
-  }
-
-  factory LMResponse.success({required T data}) {
+  factory LMResponse.success({required T? data}) {
     return LMResponse(
       success: true,
       data: data,
