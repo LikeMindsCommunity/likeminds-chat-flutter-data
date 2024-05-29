@@ -70,7 +70,7 @@ class GetConversationResponseEntity {
   final Map<int, CommunityEntity>? communityMeta;
   @JsonKey(name: 'user_meta')
   final Map<int, UserEntity>? userMeta;
-  @JsonKey(name: 'conversation_data')
+  @JsonKey(name: 'conversations_data')
   final List<ConversationEntity>? conversationData;
   @JsonKey(name: 'conversation_meta')
   final Map<String, ConversationEntity>? conversationMeta;

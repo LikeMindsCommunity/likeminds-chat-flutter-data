@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/dm_service.dart';
 
@@ -10,6 +11,7 @@ class DMRepository {
 
   Future<LMResponse<CheckDMTabResponse>> checkDMTab() async {
     final response = await dmService.checkDMTab();
+    debugPrint("-----------------------------Response: ${response.data?.isCm}--------------------");
     if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }

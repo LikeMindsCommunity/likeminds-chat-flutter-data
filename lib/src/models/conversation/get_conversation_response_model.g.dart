@@ -21,7 +21,7 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
         (k, e) => MapEntry(
             int.parse(k), UserEntity.fromJson(e as Map<String, dynamic>)),
       ),
-      conversationData: (json['conversation_data'] as List<dynamic>?)
+      conversationData: (json['conversations_data'] as List<dynamic>?)
           ?.map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       conversationAttachmentsMeta:

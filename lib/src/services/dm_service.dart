@@ -36,6 +36,8 @@ class DMService extends IDMService {
       final response = await apiManager.get(
         apiManager.endPoints.checkDMEndpoint,
       );
+      debugPrint(response.requestOptions.headers.toString());
+      debugPrint('---------------DMResponse: ${response.data}-------------');
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
             errorMessage:
@@ -43,7 +45,7 @@ class DMService extends IDMService {
       }
 
       CheckDMTabResponseEntity checkDMTabResponse =
-          CheckDMTabResponseEntity.fromJson(response.data);
+          CheckDMTabResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: checkDMTabResponse);
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -67,7 +69,7 @@ class DMService extends IDMService {
       }
 
       FetchDMFeedResponseEntity fetchDMFeedResponse =
-          FetchDMFeedResponseEntity.fromJson(response.data);
+          FetchDMFeedResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: fetchDMFeedResponse);
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -119,7 +121,7 @@ class DMService extends IDMService {
         );
       }
       GetAllMembersResponseEntity getAllMembersResponseEntity =
-          GetAllMembersResponseEntity.fromJson(response.data);
+          GetAllMembersResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: getAllMembersResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -145,7 +147,7 @@ class DMService extends IDMService {
         );
       }
       SearchMembersResponseEntity searchMembersResponseEntity =
-          SearchMembersResponseEntity.fromJson(response.data);
+          SearchMembersResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: searchMembersResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -171,7 +173,7 @@ class DMService extends IDMService {
         );
       }
       CheckDMLimitResponseEntity checkDMLimitResponseEntity =
-          CheckDMLimitResponseEntity.fromJson(response.data);
+          CheckDMLimitResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: checkDMLimitResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -197,7 +199,7 @@ class DMService extends IDMService {
         );
       }
       CreateDMChatroomResponseEntity createDMChatroomResponseEntity =
-          CreateDMChatroomResponseEntity.fromJson(response.data);
+          CreateDMChatroomResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: createDMChatroomResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -223,7 +225,7 @@ class DMService extends IDMService {
         );
       }
       SendDMResponseEntity sendDMResponseEntity =
-          SendDMResponseEntity.fromJson(response.data);
+          SendDMResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: sendDMResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);

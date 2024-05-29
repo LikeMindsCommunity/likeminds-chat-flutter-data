@@ -22,7 +22,7 @@ class AccessService {
         );
       }
       return LMResponse<MemberStateResponseEntity>.success(
-        data: MemberStateResponseEntity.fromJson(response.data),
+        data: MemberStateResponseEntity.fromJson(response.data['data']),
       );
     } on DioException catch (e) {
       debugPrint("Error from get member state access: $e");
