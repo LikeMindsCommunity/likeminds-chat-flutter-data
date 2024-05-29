@@ -9,10 +9,9 @@ part of 'decode_url_response_model.dart';
 DecodeUrlResponseEntity _$DecodeUrlResponseEntityFromJson(
         Map<String, dynamic> json) =>
     DecodeUrlResponseEntity(
-      ogTags: json['data']['og_tags'] == null
+      ogTags: json['og_tags'] == null
           ? null
-          : OgTagsEntity.fromJson(
-              json['data']['og_tags'] as Map<String, dynamic>),
+          : OgTagsEntity.fromJson(json['og_tags'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DecodeUrlResponseEntityToJson(

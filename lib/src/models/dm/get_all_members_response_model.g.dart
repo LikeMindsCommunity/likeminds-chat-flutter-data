@@ -9,7 +9,7 @@ part of 'get_all_members_response_model.dart';
 GetAllMembersResponseEntity _$GetAllMembersResponseEntityFromJson(
         Map<String, dynamic> json) =>
     GetAllMembersResponseEntity(
-      members: (json['data']['members'] as List<dynamic>?)
+      members: (json['members'] as List<dynamic>?)
           ?.map((e) => DmAllMemberEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

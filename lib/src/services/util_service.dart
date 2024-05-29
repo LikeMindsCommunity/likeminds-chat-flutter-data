@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
-import 'package:likeminds_chat_fl/src/models/utils/register_device_request_model.dart';
-import 'package:likeminds_chat_fl/src/models/utils/register_device_response_model.dart';
 
 class UtilService {
   final ApiManager apiManager;

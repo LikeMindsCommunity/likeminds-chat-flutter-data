@@ -9,10 +9,10 @@ part of 'fetch_dm_feed_response_model.dart';
 FetchDMFeedResponseEntity _$FetchDMFeedResponseEntityFromJson(
         Map<String, dynamic> json) =>
     FetchDMFeedResponseEntity(
-      dmChatRooms: (json['data']['dm_chatrooms'] as List<dynamic>?)
+      dmChatRooms: (json['dm_chatrooms'] as List<dynamic>?)
           ?.map((e) => ChatRoomEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalPages: json['data']['total_pages'] as int?,
+      totalPages: (json['total_pages'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$FetchDMFeedResponseEntityToJson(

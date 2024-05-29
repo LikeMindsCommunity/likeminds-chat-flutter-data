@@ -9,10 +9,10 @@ part of 'block_member_response_model.dart';
 BlockMemberResponseEntity _$BlockMemberResponseEntityFromJson(
         Map<String, dynamic> json) =>
     BlockMemberResponseEntity(
-      conversationEntity: json['data']['conversation'] == null
+      conversationEntity: json['conversation'] == null
           ? null
           : ConversationEntity.fromJson(
-              json['data']['conversation'] as Map<String, dynamic>),
+              json['conversation'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$BlockMemberResponseEntityToJson(

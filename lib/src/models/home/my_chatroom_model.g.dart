@@ -21,10 +21,11 @@ MyChatRoomEntity _$MyChatRoomEntityFromJson(Map<String, dynamic> json) =>
           .toList(),
       isDraft: json['is_draft'] as bool?,
       lastConversationTime: json['last_conversation_time'] as String?,
-      memberState: json['member_state'] as int?,
-      unseenConversationCount: json['unseen_conversation_count'] as int?,
+      memberState: (json['member_state'] as num?)?.toInt(),
+      unseenConversationCount:
+          (json['unseen_conversation_count'] as num?)?.toInt(),
       memberRightStates: (json['member_right_states'] as List<dynamic>?)
-          ?.map((e) => e as int)
+          ?.map((e) => (e as num).toInt())
           .toList(),
     );
 

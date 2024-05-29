@@ -9,10 +9,10 @@ part of 'check_dm_limit_response_model.dart';
 CheckDMLimitResponseEntity _$CheckDMLimitResponseEntityFromJson(
         Map<String, dynamic> json) =>
     CheckDMLimitResponseEntity(
-      chatroomId: json['data']['chatroom_id'] as int?,
-      isRequestDmLimitExceeded:
-          json['data']['is_request_dm_limit_exceeded'] as bool?,
-      newRequestDmTimestamp: json['data']['new_request_dm_timestamp'] as int?,
+      chatroomId: (json['chatroom_id'] as num?)?.toInt(),
+      isRequestDmLimitExceeded: json['is_request_dm_limit_exceeded'] as bool?,
+      newRequestDmTimestamp:
+          (json['new_request_dm_timestamp'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CheckDMLimitResponseEntityToJson(

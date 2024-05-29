@@ -32,6 +32,7 @@ class GetParticipantsResponse {
 
 @JsonSerializable()
 class GetParticipantsResponseEntity {
+  @JsonKey(name: 'can_edit_participant')
   final bool? canEditParticipant;
   final List<UserEntity>? participants;
 

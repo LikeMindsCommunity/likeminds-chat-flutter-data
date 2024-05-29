@@ -9,13 +9,13 @@ part of 'tag_response_model.dart';
 TagResponseModelEntity _$TagResponseModelEntityFromJson(
         Map<String, dynamic> json) =>
     TagResponseModelEntity(
-      groupTags: (json['data']['group_tags'] as List<dynamic>?)
+      groupTags: (json['group_tags'] as List<dynamic>?)
           ?.map((e) => GroupTagEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      members: (json['data']['community_members'] as List<dynamic>?)
+      members: (json['community_members'] as List<dynamic>?)
           ?.map((e) => UserTagEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      participants: (json['data']['chatroom_participants'] as List<dynamic>?)
+      participants: (json['chatroom_participants'] as List<dynamic>?)
           ?.map((e) => UserTagEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -25,4 +25,5 @@ Map<String, dynamic> _$TagResponseModelEntityToJson(
     <String, dynamic>{
       'group_tags': instance.groupTags,
       'community_members': instance.members,
+      'chatroom_participants': instance.participants,
     };

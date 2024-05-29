@@ -9,10 +9,10 @@ part of 'send_dm_response_model.dart';
 SendDMResponseEntity _$SendDMResponseEntityFromJson(
         Map<String, dynamic> json) =>
     SendDMResponseEntity(
-      conversationEntity: json['data']['conversation'] == null
+      conversationEntity: json['conversation'] == null
           ? null
           : ConversationEntity.fromJson(
-              json['data']['conversation'] as Map<String, dynamic>),
+              json['conversation'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SendDMResponseEntityToJson(

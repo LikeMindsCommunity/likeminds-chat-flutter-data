@@ -32,8 +32,11 @@ class CheckDMTabResponse {
 
 @JsonSerializable()
 class CheckDMTabResponseEntity {
+  @JsonKey(name: 'hide_dm_tab')
   final bool? hideDMTab;
+  @JsonKey(name: 'is_cm')
   final bool? isCm;
+  @JsonKey(name: 'unread_dm_count')
   final bool? unreadDMCount;
 
   CheckDMTabResponseEntity({

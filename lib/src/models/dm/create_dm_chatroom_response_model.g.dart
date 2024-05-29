@@ -9,10 +9,9 @@ part of 'create_dm_chatroom_response_model.dart';
 CreateDMChatroomResponseEntity _$CreateDMChatroomResponseEntityFromJson(
         Map<String, dynamic> json) =>
     CreateDMChatroomResponseEntity(
-      chatRoomEntity: json['data']['chatroom'] == null
+      chatRoomEntity: json['chatroom'] == null
           ? null
-          : ChatRoomEntity.fromJson(
-              json['data']['chatroom'] as Map<String, dynamic>),
+          : ChatRoomEntity.fromJson(json['chatroom'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CreateDMChatroomResponseEntityToJson(

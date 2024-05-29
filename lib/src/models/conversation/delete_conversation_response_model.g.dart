@@ -9,7 +9,7 @@ part of 'delete_conversation_response_model.dart';
 DeleteConversationResponseEntity _$DeleteConversationResponseEntityFromJson(
         Map<String, dynamic> json) =>
     DeleteConversationResponseEntity(
-      conversations: (json['data']['conversations'] as List<dynamic>?)
+      conversations: (json['conversations'] as List<dynamic>?)
           ?.map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

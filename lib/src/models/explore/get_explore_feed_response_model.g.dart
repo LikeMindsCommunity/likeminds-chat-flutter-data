@@ -9,10 +9,10 @@ part of 'get_explore_feed_response_model.dart';
 GetExploreFeedResponseEntity _$GetExploreFeedResponseEntityFromJson(
         Map<String, dynamic> json) =>
     GetExploreFeedResponseEntity(
-      chatrooms: (json['data']['chatrooms'] as List<dynamic>?)
+      chatrooms: (json['chatrooms'] as List<dynamic>?)
           ?.map((e) => ChatRoomEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      pinnedChatroomCount: json['data']['pinned_chatrooms_count'] as int?,
+      pinnedChatroomCount: (json['pinned_chatrooms_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$GetExploreFeedResponseEntityToJson(
