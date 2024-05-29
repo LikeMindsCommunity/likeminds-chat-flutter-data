@@ -1,6 +1,8 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 
+// ignore: lines_longer_than_80_chars
+/// ChatroomApi class is responsible for handling all the chatroom related API calls
 class ChatroomApi {
   final ChatroomRepository chatroomRepository;
 

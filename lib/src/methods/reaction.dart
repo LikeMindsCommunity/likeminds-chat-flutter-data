@@ -1,6 +1,8 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
 
+// ignore: lines_longer_than_80_chars
+/// ReactionApi class is responsible for handling all the reaction related API calls
 class ReactionApi {
   final ReactionRepository reactionRepository;
 

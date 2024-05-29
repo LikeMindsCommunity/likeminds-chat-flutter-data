@@ -1,6 +1,7 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 
+/// HelperApi class is responsible for handling all the helper related API calls
 class HelperApi {
   final HelperRepository helperRepository;
 

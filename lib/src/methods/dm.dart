@@ -1,6 +1,7 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/dm_repository.dart';
 
+/// DMApi class is responsible for handling all the DM related API calls
 class DMApi {
   final DMRepository dmRepository;
 

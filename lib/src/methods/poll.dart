@@ -1,6 +1,7 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/poll_repository.dart';
 
+/// PollApi class is responsible for handling all the poll related API calls
 class PollApi {
   final PollRepository pollRepository;
 
