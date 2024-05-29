@@ -17,7 +17,7 @@ CheckDMTabResponseEntity _$CheckDMTabResponseEntityFromJson(
 Map<String, dynamic> _$CheckDMTabResponseEntityToJson(
         CheckDMTabResponseEntity instance) =>
     <String, dynamic>{
-      'hideDMTab': instance.hideDMTab,
-      'isCm': instance.isCm,
-      'unreadDMCount': instance.unreadDMCount,
+      'hide_dm_tab': instance.hideDMTab,
+      'is_cm': instance.isCm,
+      'unread_dm_count': instance.unreadDMCount,
     };

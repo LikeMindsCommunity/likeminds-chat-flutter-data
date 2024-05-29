@@ -18,6 +18,6 @@ GetParticipantsResponseEntity _$GetParticipantsResponseEntityFromJson(
 Map<String, dynamic> _$GetParticipantsResponseEntityToJson(
         GetParticipantsResponseEntity instance) =>
     <String, dynamic>{
-      'canEditParticipant': instance.canEditParticipant,
+      'can_edit_participant': instance.canEditParticipant,
       'participants': instance.participants,
     };

@@ -10,8 +10,10 @@ InitiateUserResponseEntity _$InitiateUserResponseEntityFromJson(
         Map<String, dynamic> json) =>
     InitiateUserResponseEntity(
       appAccess: json['app_access'] as bool?,
-      initiateUser:
-          json['community'] == null ? null : InitiateUserEntity.fromJson(json),
+      initiateUser: json['user'] == null
+          ? null
+          : InitiateUserEntity.fromJson(
+              json),
       accessToken: json['access_token'] as String?,
       refreshToken: json['refresh_token'] as String?,
     );
