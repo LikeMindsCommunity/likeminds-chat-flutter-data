@@ -1,53 +1,53 @@
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
-part 'delete_participant_response_model.g.dart';
+// part 'delete_participant_response_model.g.dart';
 
-class DeleteParticipantResponse {
-  final bool success;
-  final String? errorMessage;
+// class DeleteParticipantResponse {
+//   final bool success;
+//   final String? errorMessage;
 
-  DeleteParticipantResponse({
-    required this.success,
-    this.errorMessage,
-  });
+//   DeleteParticipantResponse({
+//     required this.success,
+//     this.errorMessage,
+//   });
 
-  factory DeleteParticipantResponse.fromEntity(
-      DeleteParticipantResponseEntity entity) {
-    return DeleteParticipantResponse(
-      success: entity.success,
-      errorMessage: entity.errorMessage,
-    );
-  }
+//   factory DeleteParticipantResponse.fromEntity(
+//       DeleteParticipantResponseEntity entity) {
+//     return DeleteParticipantResponse(
+//       success: entity.success,
+//       errorMessage: entity.errorMessage,
+//     );
+//   }
 
-  factory DeleteParticipantResponse.fromJson(Map<String, dynamic> json) {
-    return DeleteParticipantResponse(
-      success: json["success"],
-      errorMessage: json["error_message"],
-    );
-  }
+//   factory DeleteParticipantResponse.fromJson(Map<String, dynamic> json) {
+//     return DeleteParticipantResponse(
+//       success: json["success"],
+//       errorMessage: json["error_message"],
+//     );
+//   }
 
-  DeleteParticipantResponseEntity toEntity() {
-    return DeleteParticipantResponseEntity(
-      success: success,
-      errorMessage: errorMessage,
-    );
-  }
-}
+//   DeleteParticipantResponseEntity toEntity() {
+//     return DeleteParticipantResponseEntity(
+//       success: success,
+//       errorMessage: errorMessage,
+//     );
+//   }
+// }
 
-@JsonSerializable()
-class DeleteParticipantResponseEntity {
-  final bool success;
-  @JsonKey(name: 'error_message')
-  final String? errorMessage;
+// @JsonSerializable()
+// class DeleteParticipantResponseEntity {
+//   final bool success;
+//   @JsonKey(name: 'error_message')
+//   final String? errorMessage;
 
-  DeleteParticipantResponseEntity({
-    required this.success,
-    this.errorMessage,
-  });
+//   DeleteParticipantResponseEntity({
+//     required this.success,
+//     this.errorMessage,
+//   });
 
-  factory DeleteParticipantResponseEntity.fromJson(Map<String, dynamic> json) =>
-      _$DeleteParticipantResponseEntityFromJson(json);
+//   factory DeleteParticipantResponseEntity.fromJson(Map<String, dynamic> json) =>
+//       _$DeleteParticipantResponseEntityFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$DeleteParticipantResponseEntityToJson(this);
-}
+//   Map<String, dynamic> toJson() =>
+//       _$DeleteParticipantResponseEntityToJson(this);
+// }

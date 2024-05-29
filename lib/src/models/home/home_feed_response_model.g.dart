@@ -9,8 +9,6 @@ part of 'home_feed_response_model.dart';
 GetHomeFeedResponseEntity _$GetHomeFeedResponseEntityFromJson(
         Map<String, dynamic> json) =>
     GetHomeFeedResponseEntity(
-      success: json['success'] as bool,
-      errorMessage: json['error_message'] as String?,
       communityMeta:
           (json['data']['community_meta'] as Map<String, dynamic>?)?.map(
         (k, e) =>
@@ -39,8 +37,6 @@ GetHomeFeedResponseEntity _$GetHomeFeedResponseEntityFromJson(
 Map<String, dynamic> _$GetHomeFeedResponseEntityToJson(
         GetHomeFeedResponseEntity instance) =>
     <String, dynamic>{
-      'success': instance.success,
-      'error_message': instance.errorMessage,
       'community_meta': instance.communityMeta,
       'chatrooms_data': instance.chatroomsData,
       'conversation_meta': instance.conversationMeta,

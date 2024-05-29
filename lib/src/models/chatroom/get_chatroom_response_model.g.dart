@@ -9,8 +9,6 @@ part of 'get_chatroom_response_model.dart';
 GetChatroomResponseEntity _$GetChatroomResponseEntityFromJson(
         Map<String, dynamic> json) =>
     GetChatroomResponseEntity(
-      success: json['success'] as bool,
-      errorMessage: json['error_message'] as String?,
       canAccessSecretChatroom:
           json['data']['can_access_secret_chatroom'] as bool?,
       chatroom: json['data']['chatroom'] == null
@@ -35,8 +33,6 @@ GetChatroomResponseEntity _$GetChatroomResponseEntityFromJson(
 Map<String, dynamic> _$GetChatroomResponseEntityToJson(
         GetChatroomResponseEntity instance) =>
     <String, dynamic>{
-      'success': instance.success,
-      'error_message': instance.errorMessage,
       'can_access_secret_chatroom': instance.canAccessSecretChatroom,
       'chatroom': instance.chatroom,
       'community': instance.community,

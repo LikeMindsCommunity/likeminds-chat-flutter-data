@@ -146,10 +146,9 @@ class AuthService extends IAuthService {
         data: null,
       );
     } on DioException catch (e) {
-      LogoutResponseEntity logoutResponse =
-          LogoutResponseEntity.fromJson(e.response?.data);
+
       return LMResponse.error(
-        errorMessage: logoutResponse.errorMessage ?? 'An error occurred',
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }

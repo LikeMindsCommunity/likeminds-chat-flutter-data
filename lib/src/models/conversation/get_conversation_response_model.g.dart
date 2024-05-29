@@ -9,8 +9,6 @@ part of 'get_conversation_response_model.dart';
 GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
         Map<String, dynamic> json) =>
     GetConversationResponseEntity(
-      success: json['success'] as bool,
-      errorMessage: json['error_message'] as String?,
       chatroomMeta:
           (json['data']['chatroom_meta'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
@@ -48,8 +46,6 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
 Map<String, dynamic> _$GetConversationResponseEntityToJson(
         GetConversationResponseEntity instance) =>
     <String, dynamic>{
-      'success': instance.success,
-      'error_message': instance.errorMessage,
       'chatroom_meta': instance.chatroomMeta?.map(
         (k, e) => MapEntry(
           k.toString(),

@@ -9,8 +9,6 @@ part of 'edit_conversation_response_model.dart';
 EditConversationResponseEntity _$EditConversationResponseEntityFromJson(
         Map<String, dynamic> json) =>
     EditConversationResponseEntity(
-      success: json['success'] as bool,
-      errorMessage: json['error_message'] as String?,
       conversation: json['data']['conversation'] == null
           ? null
           : ConversationEntity.fromJson(
@@ -20,7 +18,5 @@ EditConversationResponseEntity _$EditConversationResponseEntityFromJson(
 Map<String, dynamic> _$EditConversationResponseEntityToJson(
         EditConversationResponseEntity instance) =>
     <String, dynamic>{
-      'success': instance.success,
-      'error_message': instance.errorMessage,
       'conversation': instance.conversation,
     };
