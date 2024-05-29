@@ -4,6 +4,7 @@ class FetchDMFeedRequest {
   final int maxTimestamp;
   final int minTimestamp;
   final List<int> chatroomTypes;
+  final bool isLocalDb;
 
   FetchDMFeedRequest._({
     required this.page,
@@ -11,6 +12,7 @@ class FetchDMFeedRequest {
     required this.maxTimestamp,
     required this.minTimestamp,
     required this.chatroomTypes,
+    this.isLocalDb = false,
   });
 
   Map<String, dynamic> toJson() => {
@@ -19,6 +21,7 @@ class FetchDMFeedRequest {
         'max_timestamp': maxTimestamp,
         'min_timestamp': minTimestamp,
         'chatroom_types': chatroomTypes.toList(),
+        'is_local_db': isLocalDb,
       };
 }
 
@@ -28,6 +31,7 @@ class FetchDMFeedRequestBuilder {
   int? _maxTimestamp;
   int? _minTimestamp;
   List<int>? _chatroomTypes;
+  bool? _isLocalDb;
 
   void page(int page) {
     _page = page;
@@ -37,6 +41,7 @@ class FetchDMFeedRequestBuilder {
   void maxTimestamp(int maxTimestamp) => _maxTimestamp = maxTimestamp;
   void minTimestamp(int minTimestamp) => _minTimestamp = minTimestamp;
   void chatroomTypes(List<int> chatroomTypes) => _chatroomTypes = chatroomTypes;
+  void isLocalDb(bool isLocalDb) => _isLocalDb = isLocalDb;
 
   FetchDMFeedRequest build() {
     if (_page == null) {
@@ -60,6 +65,7 @@ class FetchDMFeedRequestBuilder {
       maxTimestamp: _maxTimestamp!,
       minTimestamp: _minTimestamp!,
       chatroomTypes: _chatroomTypes ?? [10],
+      isLocalDb: _isLocalDb ?? false,
     );
   }
 }

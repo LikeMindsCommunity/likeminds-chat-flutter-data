@@ -5,7 +5,7 @@ part 'check_dm_tab_response_model.g.dart';
 class CheckDMTabResponse {
   final bool? hideDMTab;
   final bool? isCm;
-  final bool? unreadDMCount;
+  final int? unreadDMCount;
 
   CheckDMTabResponse({
     this.isCm,
@@ -37,7 +37,7 @@ class CheckDMTabResponseEntity {
   @JsonKey(name: 'is_cm')
   final bool? isCm;
   @JsonKey(name: 'unread_dm_count')
-  final bool? unreadDMCount;
+  final int? unreadDMCount;
 
   CheckDMTabResponseEntity({
     this.isCm,

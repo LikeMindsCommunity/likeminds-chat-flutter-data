@@ -44,7 +44,7 @@ class ExploreService extends IExploreService {
   Future<LMResponse<GetExploreTabCountResponseEntity>>
       getExploreTabCount() async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         // community/member/home/meta
         apiManager.endPoints.exploreTabCountEndpoint,
       );
@@ -66,7 +66,7 @@ class ExploreService extends IExploreService {
   Future<LMResponse<GetExploreFeedResponseEntity>> getExploreFeed(
       GetExploreFeedRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         // community/feed
         apiManager.endPoints.exploreFeedEndpoint,
         queryParameters: request.toJson(),

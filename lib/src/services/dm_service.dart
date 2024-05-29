@@ -33,8 +33,13 @@ class DMService extends IDMService {
   @override
   Future<LMResponse<CheckDMTabResponseEntity>> checkDMTab() async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.checkDMEndpoint,
+        options: Options(
+          headers: {
+           'x-api-version': 1,
+          },
+        ),
       );
       debugPrint(response.requestOptions.headers.toString());
       debugPrint('---------------DMResponse: ${response.data}-------------');
@@ -57,7 +62,7 @@ class DMService extends IDMService {
   Future<LMResponse<FetchDMFeedResponseEntity>> fetchDMFeed(
       FetchDMFeedRequest fetchDMFeedRequest) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.dmEndpoint,
         queryParameters: fetchDMFeedRequest.toJson(),
       );
@@ -83,8 +88,13 @@ class DMService extends IDMService {
   Future<LMResponse<CheckDMStatusResponseEntity>> checkDMStatus(
       CheckDMStatusRequest checkDMStatusRequest) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         // community/dm/status
+        options: Options(
+          headers: {
+           'x-api-version': 1,
+          },
+        ),
         apiManager.endPoints.checkDMStatusEndpoint,
         queryParameters: checkDMStatusRequest.toJson(),
       );
@@ -95,7 +105,7 @@ class DMService extends IDMService {
         );
       }
       CheckDMStatusResponseEntity checkDMStatusResponse =
-          CheckDMStatusResponseEntity.fromJson(response.data);
+          CheckDMStatusResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: checkDMStatusResponse);
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -109,7 +119,7 @@ class DMService extends IDMService {
   Future<LMResponse<GetAllMembersResponseEntity>> getAllMembers(
       GetAllMembersRequest getAllMembersRequest) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         //community/member
         apiManager.endPoints.getAllMembersEndpoint,
         queryParameters: getAllMembersRequest.toJson(),
@@ -135,7 +145,7 @@ class DMService extends IDMService {
   Future<LMResponse<SearchMembersResponseEntity>> searchMembers(
       SearchMembersRequest searchMembersRequest) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         //community/member/search
         apiManager.endPoints.searchMembersEndpoint,
         queryParameters: searchMembersRequest.toJson(),
@@ -161,7 +171,7 @@ class DMService extends IDMService {
   Future<LMResponse<CheckDMLimitResponseEntity>> checkDMLimit(
       CheckDMLimitRequest checkDMLimitRequest) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         // chatroom/dm/limit
         apiManager.endPoints.checkDMLimitEndpoint,
         queryParameters: checkDMLimitRequest.toJson(),

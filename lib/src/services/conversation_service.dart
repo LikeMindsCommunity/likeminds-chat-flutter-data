@@ -23,7 +23,7 @@ class ConversationService extends IConversationService {
   Future<LMResponse<GetConversationResponseEntity>> getConversation(
       GetConversationRequest request) async {
     try {
-      final response = await _apiManager.get(
+      final response = await _apiManager.client().get(
         _apiManager.endPoints.conversationSyncEndpoint,
         queryParameters: request.toJson(),
       );

@@ -12,7 +12,7 @@ class ParticipantsService {
   Future<LMResponse<GetParticipantsResponseEntity>> getParticipants(
       GetParticipantsRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.chatroomParticipantsEndpoint,
         queryParameters: request.toJson(),
       );

@@ -26,12 +26,9 @@ class AuthService extends IAuthService {
   Future<LMResponse<InitiateUserResponseEntity>> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
     try {
-      final BaseOptions options = apiManager.client().options;
-      final headers = options.headers;
       final Response response = await apiManager.client().post(
             options: Options(
               headers: {
-                ...headers,
                 'x-api-key': apiManager.tokenManager.apiKey,
               },
             ),

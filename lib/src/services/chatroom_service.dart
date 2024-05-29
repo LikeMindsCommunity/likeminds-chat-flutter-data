@@ -23,7 +23,7 @@ class ChatroomService extends IChatroomService {
   Future<LMResponse<GetChatroomResponseEntity>> getChatroom(
       GetChatroomRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.chatroomEndpoint,
         queryParameters: request.toJson(),
       );
@@ -106,7 +106,7 @@ class ChatroomService extends IChatroomService {
   Future<LMResponse<void>> shareChatroomUrl(
       ShareChatroomRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.chatroomShareEndpoint,
         queryParameters: request.toJson(),
       );

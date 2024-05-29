@@ -48,7 +48,7 @@ class PollService extends IPollService {
   Future<LMResponse<GetPollUsersResponseEntity>> getPollUsers(
       GetPollUsersRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.pollUsersEndpoint,
         queryParameters: request.toJson(),
       );
