@@ -3,11 +3,9 @@ import 'package:likeminds_chat_fl/src/models/dm/dm_search_member_model.dart';
 part 'search_members_response_model.g.dart';
 
 class SearchMembersResponse {
-
   final List<DMSearchMember>? members;
 
   SearchMembersResponse({
-
     this.members,
   });
 

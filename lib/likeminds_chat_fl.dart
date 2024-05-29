@@ -260,8 +260,7 @@ class LMChatClient {
   /// registerDevice is used to register a device for receiving notifications
   /// [RegisterDeviceRequest] is used to pass the required parameters
   /// [RegisterDeviceResponse] is returned as a Future
-  Future<LMResponse<void>> registerDevice(
-      RegisterDeviceRequest request) {
+  Future<LMResponse<void>> registerDevice(RegisterDeviceRequest request) {
     return LMNotifications.registerDevice(request);
   }
   // ------------------------------------------

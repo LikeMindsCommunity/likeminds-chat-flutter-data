@@ -45,8 +45,6 @@ class InitiateUserResponseEntity {
   @JsonKey(name: 'initiate_user')
   final InitiateUserEntity? initiateUser;
 
-
-
   @JsonKey(name: 'access_token')
   final String? accessToken;
 

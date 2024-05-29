@@ -90,12 +90,12 @@ class ChatroomService extends IChatroomService {
             data: request.toJson(),
           );
 
-      if(!response.data['success']) {
+      if (!response.data['success']) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',
         );
       }
-  return LMResponse.success(data: null);
+      return LMResponse.success(data: null);
     } on DioException catch (e) {
       debugPrint(e.message);
       return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
@@ -110,7 +110,7 @@ class ChatroomService extends IChatroomService {
         apiManager.endPoints.chatroomShareEndpoint,
         queryParameters: request.toJson(),
       );
-     if(!response.data['success']) {
+      if (!response.data['success']) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',
         );

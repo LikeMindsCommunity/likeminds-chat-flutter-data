@@ -6,13 +6,11 @@ class ReactionApi {
 
   ReactionApi({required this.reactionRepository});
 
-  Future<LMResponse<void>> putReaction(
-      PutReactionRequest request) async {
+  Future<LMResponse<void>> putReaction(PutReactionRequest request) async {
     return await reactionRepository.putReaction(request);
   }
 
-  Future<LMResponse<void>> deleteReaction(
-      DeleteReactionRequest request) async {
+  Future<LMResponse<void>> deleteReaction(DeleteReactionRequest request) async {
     return await reactionRepository.deleteReaction(request);
   }
 }

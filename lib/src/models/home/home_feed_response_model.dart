@@ -24,11 +24,12 @@ class GetHomeFeedResponse {
 
   factory GetHomeFeedResponse.fromEntity(GetHomeFeedResponseEntity entity) {
     return GetHomeFeedResponse(
-
-      communityMeta: entity.communityMeta?.map((key, value) => MapEntry(key, Community.fromEntity(value))),
-      chatroomsData: entity.chatroomsData?.map((e) => ChatRoom.fromEntity(e)).toList(),
-      conversationMeta: entity.conversationMeta?.map(
-              (key, value) => MapEntry(key, Conversation.fromEntity(value))),
+      communityMeta: entity.communityMeta
+          ?.map((key, value) => MapEntry(key, Community.fromEntity(value))),
+      chatroomsData:
+          entity.chatroomsData?.map((e) => ChatRoom.fromEntity(e)).toList(),
+      conversationMeta: entity.conversationMeta
+          ?.map((key, value) => MapEntry(key, Conversation.fromEntity(value))),
       userMeta: entity.userMeta?.map(
         (key, value) => MapEntry(
           key,
@@ -43,9 +44,11 @@ class GetHomeFeedResponse {
 
   GetHomeFeedResponseEntity toEntity() {
     return GetHomeFeedResponseEntity(
-      communityMeta: communityMeta?.map((key, value) => MapEntry(key, value.toEntity())),
+      communityMeta:
+          communityMeta?.map((key, value) => MapEntry(key, value.toEntity())),
       chatroomsData: chatroomsData?.map((e) => e.toEntity()).toList(),
-      conversationMeta: conversationMeta?.map((key, value) => MapEntry(key, value.toEntity())),
+      conversationMeta: conversationMeta
+          ?.map((key, value) => MapEntry(key, value.toEntity())),
       userMeta: userMeta?.map((key, value) => MapEntry(key, value.toEntity())),
       cardAttachmentsMeta: cardAttachmentsMeta,
       conversationAttachmentsMeta: conversationAttachmentsMeta,

@@ -10,7 +10,7 @@ class DMRepository {
 
   Future<LMResponse<CheckDMTabResponse>> checkDMTab() async {
     final response = await dmService.checkDMTab();
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -22,7 +22,7 @@ class DMRepository {
   Future<LMResponse<FetchDMFeedResponse>> fetchDMFeed(
       FetchDMFeedRequest fetchDMFeedRequest) async {
     final response = await dmService.fetchDMFeed(fetchDMFeedRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -34,7 +34,7 @@ class DMRepository {
   Future<LMResponse<CheckDMStatusResponse>> checkDMStatus(
       CheckDMStatusRequest checkDMStatusRequest) async {
     final response = await dmService.checkDMStatus(checkDMStatusRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -46,7 +46,7 @@ class DMRepository {
   Future<LMResponse<GetAllMembersResponse>> getAllMembers(
       GetAllMembersRequest getAllMembersRequest) async {
     final response = await dmService.getAllMembers(getAllMembersRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -58,7 +58,7 @@ class DMRepository {
   Future<LMResponse<SearchMembersResponse>> searchMembers(
       SearchMembersRequest searchMembersRequest) async {
     final response = await dmService.searchMembers(searchMembersRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -70,7 +70,7 @@ class DMRepository {
   Future<LMResponse<CheckDMLimitResponse>> checkDMLimit(
       CheckDMLimitRequest checkDMLimitRequest) async {
     final response = await dmService.checkDMLimit(checkDMLimitRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -82,7 +82,7 @@ class DMRepository {
   Future<LMResponse<CreateDMChatroomResponse>> createDMChatroom(
       CreateDMChatroomRequest createDMChatroomRequest) async {
     final response = await dmService.createDMChatroom(createDMChatroomRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -91,9 +91,10 @@ class DMRepository {
     );
   }
 
-  Future<LMResponse<SendDMResponse>> sendDMRequest(SendDMRequest sendDMRequest) async {
+  Future<LMResponse<SendDMResponse>> sendDMRequest(
+      SendDMRequest sendDMRequest) async {
     final response = await dmService.sendDMRequest(sendDMRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(
@@ -105,7 +106,7 @@ class DMRepository {
   Future<LMResponse<BlockMemberResponse>> blockMember(
       BlockMemberRequest blockMemberRequest) async {
     final response = await dmService.blockMember(blockMemberRequest);
-    if(!response.success) {
+    if (!response.success) {
       return LMResponse.error(errorMessage: response.errorMessage!);
     }
     return LMResponse.fromData(

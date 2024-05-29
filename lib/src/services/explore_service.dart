@@ -41,13 +41,14 @@ class ExploreService extends IExploreService {
   });
 
   @override
-  Future<LMResponse<GetExploreTabCountResponseEntity>> getExploreTabCount() async {
+  Future<LMResponse<GetExploreTabCountResponseEntity>>
+      getExploreTabCount() async {
     try {
       final response = await apiManager.get(
         // community/member/home/meta
         apiManager.endPoints.exploreTabCountEndpoint,
       );
-      if(!response.data['success'] || response.data['data'] == null) {
+      if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',
         );

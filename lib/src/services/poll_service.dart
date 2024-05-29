@@ -28,7 +28,7 @@ class PollService extends IPollService {
             apiManager.endPoints.conversationEndpoint,
             data: request.toJson(),
           );
-      if(!response.data['success'] || response.data['data'] == null) {
+      if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',
         );

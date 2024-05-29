@@ -36,7 +36,7 @@ class HelperService {
       }
     } on DioException catch (e) {
       debugPrint("Error from get tags: $e");
-       return LMResponse.error(
+      return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
     }
@@ -46,9 +46,9 @@ class HelperService {
       {required DecodeUrlRequest request}) async {
     try {
       final response = await apiClient.client().get(
-        apiClient.endPoints.decodeUrlEndpoint,
-        queryParameters: request.toJson(),
-      );
+            apiClient.endPoints.decodeUrlEndpoint,
+            queryParameters: request.toJson(),
+          );
       if (response.data['success'] == true && response.data['data'] != null) {
         return LMResponse.success(
           data: DecodeUrlResponseEntity.fromJson(response.data),

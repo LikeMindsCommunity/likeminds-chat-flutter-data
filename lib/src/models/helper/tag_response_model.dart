@@ -34,7 +34,6 @@ class TagResponseModel {
 
 @JsonSerializable()
 class TagResponseModelEntity {
-
   @JsonKey(name: 'group_tags')
   final List<GroupTagEntity>? groupTags;
 

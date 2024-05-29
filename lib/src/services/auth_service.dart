@@ -146,7 +146,6 @@ class AuthService extends IAuthService {
         data: null,
       );
     } on DioException catch (e) {
-
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );

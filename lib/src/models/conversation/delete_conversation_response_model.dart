@@ -13,14 +13,13 @@ class DeleteConversationResponse {
   factory DeleteConversationResponse.fromEntity(
       DeleteConversationResponseEntity entity) {
     return DeleteConversationResponse(
-      conversations: entity.conversations?.map((e) => Conversation.fromEntity(e))
-              .toList(),
+      conversations:
+          entity.conversations?.map((e) => Conversation.fromEntity(e)).toList(),
     );
   }
 
   DeleteConversationResponseEntity toEntity() {
     return DeleteConversationResponseEntity(
-
       conversations: conversations?.map((e) => e.toEntity()).toList(),
     );
   }

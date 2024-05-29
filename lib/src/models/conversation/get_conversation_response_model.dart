@@ -12,7 +12,6 @@ class GetConversationResponse {
   final Map<String, dynamic>? conversationAttachmentsMeta;
 
   GetConversationResponse({
-
     this.chatroomMeta,
     this.communityMeta,
     this.userMeta,

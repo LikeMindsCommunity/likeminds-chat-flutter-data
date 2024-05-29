@@ -30,13 +30,15 @@ class GetChatroomResponse {
       chatroom: entity.chatroom != null
           ? ChatRoom.fromEntity(entity.chatroom!)
           : null,
-      chatroomActions: entity.chatroomActions?.map((e) => ChatroomAction.fromEntity(e))
-              .toList(),
+      chatroomActions: entity.chatroomActions
+          ?.map((e) => ChatroomAction.fromEntity(e))
+          .toList(),
       community: entity.community != null
           ? Community.fromEntity(entity.community!)
           : null,
-      conversationUsers: entity.conversationUsers?.map((e) => ChatRoomMember.fromEntity(e))
-              .toList(),
+      conversationUsers: entity.conversationUsers
+          ?.map((e) => ChatRoomMember.fromEntity(e))
+          .toList(),
       lastConversationId: entity.lastConversationId,
       participantCount: entity.participantCount,
       unreadMessages: entity.unreadMessages,

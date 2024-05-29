@@ -5,8 +5,7 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IReactionService {
   Future<LMResponse<void>> putReaction(PutReactionRequest request);
-  Future<LMResponse<void>> deleteReaction(
-      DeleteReactionRequest request);
+  Future<LMResponse<void>> deleteReaction(DeleteReactionRequest request);
 }
 
 class ReactionService extends IReactionService {

@@ -39,8 +39,7 @@ class AddPollOptionResponseEntity {
     return AddPollOptionResponseEntity(
       temporaryId: json['temporary_id'],
       pollViewData: json['poll'] != null
-          ? PollViewDataEntity.fromJson(
-              json['poll'] as Map<String, dynamic>)
+          ? PollViewDataEntity.fromJson(json['poll'] as Map<String, dynamic>)
           : null,
     );
   }

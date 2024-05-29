@@ -14,7 +14,6 @@ class CheckDMLimitResponse {
 
   factory CheckDMLimitResponse.fromEntity(CheckDMLimitResponseEntity entity) {
     return CheckDMLimitResponse(
-
       chatroomId: entity.chatroomId,
       isRequestDmLimitExceeded: entity.isRequestDmLimitExceeded,
       newRequestDmTimestamp: entity.newRequestDmTimestamp,

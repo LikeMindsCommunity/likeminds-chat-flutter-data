@@ -13,7 +13,6 @@ class EditConversationResponse {
   factory EditConversationResponse.fromEntity(
       EditConversationResponseEntity entity) {
     return EditConversationResponse(
-
       conversation: entity.conversation != null
           ? Conversation.fromEntity(entity.conversation!)
           : null,
