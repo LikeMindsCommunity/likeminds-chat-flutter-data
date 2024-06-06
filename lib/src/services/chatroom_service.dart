@@ -4,16 +4,14 @@ import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IChatroomService {
-  Future<GetChatroomResponseEntity> getChatroom(GetChatroomRequest request);
-  Future<FollowChatroomResponse> followChatroom(FollowChatroomRequest request);
-  Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request);
-  Future<MarkReadChatroomResponse> markReadChatroom(
-      MarkReadChatroomRequest request);
-  Future<ShareChatroomResponse> shareChatroomUrl(ShareChatroomRequest request);
-  Future<SetChatroomTopicResponse> setChatroomTopic(
-      SetChatroomTopicRequest request);
-  Future<DeleteParticipantResponse> deleteParticipant(
-      DeleteParticipantRequest request);
+  Future<LMResponse<GetChatroomResponseEntity>> getChatroom(
+      GetChatroomRequest request);
+  Future<LMResponse<void>> followChatroom(FollowChatroomRequest request);
+  Future<LMResponse<void>> muteChatroom(MuteChatroomRequest request);
+  Future<LMResponse<void>> markReadChatroom(MarkReadChatroomRequest request);
+  Future<LMResponse<void>> shareChatroomUrl(ShareChatroomRequest request);
+  Future<LMResponse<void>> setChatroomTopic(SetChatroomTopicRequest request);
+  Future<LMResponse<void>> deleteParticipant(DeleteParticipantRequest request);
 }
 
 class ChatroomService extends IChatroomService {
@@ -22,124 +20,145 @@ class ChatroomService extends IChatroomService {
   ChatroomService({required this.apiManager});
 
   @override
-  Future<GetChatroomResponseEntity> getChatroom(
+  Future<LMResponse<GetChatroomResponseEntity>> getChatroom(
       GetChatroomRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.chatroomEndpoint,
         queryParameters: request.toJson(),
       );
-      return GetChatroomResponseEntity.fromJson(response.data);
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(
+        data: GetChatroomResponseEntity.fromJson(response.data['data']),
+      );
     } on DioException catch (e) {
       debugPrint(e.message);
-      return GetChatroomResponseEntity(success: false, errorMessage: e.message);
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
+      );
     }
   }
 
   @override
-  Future<FollowChatroomResponse> followChatroom(
-      FollowChatroomRequest request) async {
+  Future<LMResponse<void>> followChatroom(FollowChatroomRequest request) async {
     try {
-      final response = await apiManager.put(
-        apiManager.endPoints.chatroomFollowEndpoint,
-        queryParameters: request.toJson(),
-      );
-      return FollowChatroomResponse.fromJson(response.data);
+      final response = await apiManager.client().put(
+            apiManager.endPoints.chatroomFollowEndpoint,
+            queryParameters: request.toJson(),
+          );
+      if (!response.data['success']) {
+        LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(data: null);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return FollowChatroomResponse(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 
   @override
-  Future<MarkReadChatroomResponse> markReadChatroom(
+  Future<LMResponse<void>> markReadChatroom(
       MarkReadChatroomRequest request) async {
     try {
-      final response = await apiManager.post(
-        apiManager.endPoints.chatroomMarkReadEndpoint,
-        data: request.toJson(),
-      );
-      return MarkReadChatroomResponse.fromJson(response.data);
+      final response = await apiManager.client().post(
+            apiManager.endPoints.chatroomMarkReadEndpoint,
+            data: request.toJson(),
+          );
+      if (!response.data['success']) {
+        LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(data: null);
     } on DioException catch (e) {
       debugPrint(e.toString());
-      return MarkReadChatroomResponse(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 
   @override
-  Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request) async {
+  Future<LMResponse<void>> muteChatroom(MuteChatroomRequest request) async {
     try {
-      final response = await apiManager.put(
-        apiManager.endPoints.chatroomMuteEndpoint,
-        data: request.toJson(),
-      );
-      return MuteChatroomResponse.fromJson(response.data);
+      final response = await apiManager.client().put(
+            apiManager.endPoints.chatroomMuteEndpoint,
+            data: request.toJson(),
+          );
+
+      if (!response.data['success']) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(data: null);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return MuteChatroomResponse(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 
   @override
-  Future<ShareChatroomResponse> shareChatroomUrl(
+  Future<LMResponse<void>> shareChatroomUrl(
       ShareChatroomRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.chatroomShareEndpoint,
         queryParameters: request.toJson(),
       );
-      return ShareChatroomResponse.fromJson(response.data);
+      if (!response.data['success']) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(data: null);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return ShareChatroomResponse(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 
   @override
-  Future<SetChatroomTopicResponse> setChatroomTopic(
+  Future<LMResponse<void>> setChatroomTopic(
       SetChatroomTopicRequest request) async {
     try {
-      final response = await apiManager.put(
-        apiManager.endPoints.chatroomSetTopicEndpoint,
-        data: request.toJson(),
-      );
-      return SetChatroomTopicResponse.fromJson(response.data);
+      final response = await apiManager.client().put(
+            apiManager.endPoints.chatroomSetTopicEndpoint,
+            data: request.toJson(),
+          );
+      if (!response.data['success']) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(data: null);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return SetChatroomTopicResponse(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 
   @override
-  Future<DeleteParticipantResponse> deleteParticipant(
+  Future<LMResponse<void>> deleteParticipant(
       DeleteParticipantRequest request) async {
     try {
-      final response = await apiManager.delete(
-        apiManager.endPoints.chatroomParticipantsEndpoint,
-        data: request.toJson(),
-      );
-      return DeleteParticipantResponse.fromJson(response.data);
+      final response = await apiManager.client().delete(
+            apiManager.endPoints.chatroomParticipantsEndpoint,
+            data: request.toJson(),
+          );
+      if (!response.data['success']) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(data: null);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return DeleteParticipantResponse(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 }

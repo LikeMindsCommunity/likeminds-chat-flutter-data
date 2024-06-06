@@ -6,48 +6,52 @@ class ChatroomRepository {
 
   ChatroomRepository({required this.chatroomService});
 
-  Future<GetChatroomResponse> getChatroom(GetChatroomRequest request) async {
-    GetChatroomResponseEntity responseEntity =
+  Future<LMResponse<GetChatroomResponse>> getChatroom(
+      GetChatroomRequest request) async {
+    LMResponse<GetChatroomResponseEntity> responseEntity =
         await chatroomService.getChatroom(request);
-    return GetChatroomResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: GetChatroomResponse.fromEntity(
+        responseEntity.data!,
+      ),
+    );
   }
 
-  Future<FollowChatroomResponse> followChatroom(
-      FollowChatroomRequest request) async {
-    FollowChatroomResponse response =
-        await chatroomService.followChatroom(request);
+  Future<LMResponse<void>> followChatroom(FollowChatroomRequest request) async {
+    LMResponse<void> response = await chatroomService.followChatroom(request);
     return response;
   }
 
-  Future<MuteChatroomResponse> muteChatroom(MuteChatroomRequest request) async {
-    MuteChatroomResponse response = await chatroomService.muteChatroom(request);
+  Future<LMResponse<void>> muteChatroom(MuteChatroomRequest request) async {
+    LMResponse<void> response = await chatroomService.muteChatroom(request);
     return response;
   }
 
-  Future<MarkReadChatroomResponse> markReadChatroom(
+  Future<LMResponse<void>> markReadChatroom(
       MarkReadChatroomRequest request) async {
-    MarkReadChatroomResponse response =
-        await chatroomService.markReadChatroom(request);
+    LMResponse<void> response = await chatroomService.markReadChatroom(request);
     return response;
   }
 
-  Future<ShareChatroomResponse> shareChatroomUrl(
+  Future<LMResponse<void>> shareChatroomUrl(
       ShareChatroomRequest request) async {
-    ShareChatroomResponse response =
-        await chatroomService.shareChatroomUrl(request);
+    LMResponse<void> response = await chatroomService.shareChatroomUrl(request);
     return response;
   }
 
-  Future<SetChatroomTopicResponse> setChatroomTopic(
+  Future<LMResponse<void>> setChatroomTopic(
       SetChatroomTopicRequest request) async {
-    SetChatroomTopicResponse response =
-        await chatroomService.setChatroomTopic(request);
+    LMResponse<void> response = await chatroomService.setChatroomTopic(request);
     return response;
   }
 
-  Future<DeleteParticipantResponse> deleteParticipant(
+  Future<LMResponse<void>> deleteParticipant(
       DeleteParticipantRequest request) async {
-    DeleteParticipantResponse response =
+    LMResponse<void> response =
         await chatroomService.deleteParticipant(request);
     return response;
   }

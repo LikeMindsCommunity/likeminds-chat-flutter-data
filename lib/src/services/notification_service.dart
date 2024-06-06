@@ -7,8 +7,7 @@ class NotificationService {
 
   NotificationService({required this.apiClient});
 
-  Future<RegisterDeviceResponse> registerDevice(
-      RegisterDeviceRequest request) async {
+  Future<LMResponse<void>> registerDevice(RegisterDeviceRequest request) async {
     try {
       final response = await apiClient.client().post(
             apiClient.endPoints.registerDeviceEndpoint,
@@ -17,17 +16,22 @@ class NotificationService {
             },
             options: Options(
               headers: {
-                'x-api-key': '${apiClient.tokenManager.apiKey}',
                 'x-device-id': request.deviceId,
               },
             ),
           );
-      final entity = RegisterDeviceResponseEntity.fromJson(response.data);
-      return RegisterDeviceResponse.fromEntity(entity);
+      if (!response.data['success']) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+
+      return LMResponse.success(
+        data: null,
+      );
     } on DioException catch (e) {
-      return RegisterDeviceResponse(
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-        success: false,
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }

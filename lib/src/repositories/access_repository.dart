@@ -6,12 +6,14 @@ class AccessRepository {
 
   AccessRepository({required this.accessService});
 
-  // Future<bool> getAccess(String accesType) async {
-  //   return await accessService.getAccess(accesType);
-  // }
-
-  Future<MemberStateResponse> getMemberState() async {
+  Future<LMResponse<MemberStateResponse>> getMemberState() async {
     final response = await accessService.getMemberState();
-    return MemberStateResponse.fromEntity(response);
+    if (!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: MemberStateResponse.fromEntity(response.data!),
+    );
   }
 }

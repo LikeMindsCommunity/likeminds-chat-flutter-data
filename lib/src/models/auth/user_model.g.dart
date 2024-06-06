@@ -7,7 +7,7 @@ part of 'user_model.dart';
 // **************************************************************************
 
 UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       imageUrl: json['image_url'] as String?,
       isGuest: json['is_guest'] as bool?,
@@ -17,14 +17,14 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
           ? null
           : SDKClientInfo.fromJson(
               json['sdk_client_info'] as Map<String, dynamic>),
-      updatedAt: json['updated_at'] as int?,
+      updatedAt: (json['updated_at'] as num?)?.toInt(),
       isOwner: json['is_owner'] as bool?,
       customTitle: json['custom_title'] as String?,
       memberSince: json['member_since'] as String?,
       route: json['route'] as String?,
-      state: json['state'] as int?,
-      communityId: json['community_id'] as int?,
-      createdAt: json['created_at'] as int?,
+      state: (json['state'] as num?)?.toInt(),
+      communityId: (json['community_id'] as num?)?.toInt(),
+      createdAt: (json['created_at'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$UserEntityToJson(UserEntity instance) =>

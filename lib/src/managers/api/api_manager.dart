@@ -29,7 +29,6 @@ class ApiManager {
       "x-platform-code": EnvDev.platformCode,
       "x-version-code": EnvDev.versionCode,
       "x-sdk-source": "chat",
-      "x-api-key": tokenManager.apiKey,
     };
 
     BaseOptions options = BaseOptions(headers: headers);
@@ -45,65 +44,24 @@ class ApiManager {
   testRun() async {
     var res = await _dio.get(EnvDev.kettleHost);
     if (res.data["success"]) {
-      debugPrint("All systems go");
+      debugPrint("All systems up and running");
     } else {
       debugPrint("Backend is down");
     }
   }
 
-  Dio client() => _dio;
+  Dio client({bool isRefresh = false}) {
+    String? accessToken = tokenManager.accessToken;
+    Map<String, dynamic> headers = _dio.options.headers;
 
-  Future<Response> get(
-    String path, {
-    Options? options,
-    Map<String, dynamic>? queryParameters,
-  }) async {
-    return await _dio.get(
-      path,
-      options: options,
-      queryParameters: queryParameters,
-    );
-  }
-
-  Future<Response> post(
-    String path, {
-    Options? options,
-    Map<String, dynamic>? queryParameters,
-    dynamic data,
-  }) async {
-    return await _dio.post(
-      path,
-      options: options,
-      data: data,
-      queryParameters: queryParameters,
-    );
-  }
-
-  Future<Response> put(
-    String path, {
-    Options? options,
-    Map<String, dynamic>? queryParameters,
-    dynamic data,
-  }) async {
-    return await _dio.put(
-      path,
-      options: options,
-      data: data,
-      queryParameters: queryParameters,
-    );
-  }
-
-  Future<Response> delete(
-    String path, {
-    Options? options,
-    Map<String, dynamic>? queryParameters,
-    dynamic data,
-  }) async {
-    return await _dio.delete(
-      path,
-      options: options,
-      queryParameters: queryParameters,
-      data: data,
-    );
+    if (!isRefresh && accessToken != null) {
+      headers.addAll({'Authorization': accessToken});
+      _dio.options.headers = headers;
+      return _dio;
+    } else {
+      headers.remove('Authorization');
+      _dio.options.headers = headers;
+      return _dio;
+    }
   }
 }

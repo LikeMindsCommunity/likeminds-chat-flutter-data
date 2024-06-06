@@ -51,7 +51,7 @@ class LMChatClient {
   /// logout is used to logout a user session
   /// [LogoutRequest] is used to pass the required parameters
   /// [LogoutResponse] is returned as a Future
-  Future<LMResponse<LogoutResponse>> logout(LogoutRequest request) {
+  Future<LMResponse<void>> logout(LogoutRequest request) {
     return _sdkApplication.getAuthApi().logout(request);
   }
   // ------------------------------------------
@@ -110,7 +110,7 @@ class LMChatClient {
   /// followChatroom is used to follow a chatroom
   /// [FollowChatroomRequest] is used to pass the required parameters
   /// [FollowChatroomResponse] is returned as a Future
-  Future<LMResponse<FollowChatroomResponse>> followChatroom(
+  Future<LMResponse<void>> followChatroom(
     FollowChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().followChatroom(request);
@@ -119,7 +119,7 @@ class LMChatClient {
   /// deleteParticipant is used to delete a participant from a chatroom
   /// [DeleteParticipantRequest] is used to pass the required parameters
   /// [DeleteParticipantResponse] is returned as a Future
-  Future<LMResponse<DeleteParticipantResponse>> deleteParticipant(
+  Future<LMResponse<void>> deleteParticipant(
     DeleteParticipantRequest request,
   ) {
     return _sdkApplication.getChatroomApi().deleteParticipant(request);
@@ -128,7 +128,7 @@ class LMChatClient {
   /// muteChatroom is used to mute a chatroom
   /// [MuteChatroomRequest] is used to pass the required parameters
   /// [MuteChatroomResponse] is returned as a Future
-  Future<LMResponse<MuteChatroomResponse>> muteChatroom(
+  Future<LMResponse<void>> muteChatroom(
     MuteChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().muteChatroom(request);
@@ -137,7 +137,7 @@ class LMChatClient {
   /// markReadChatroom is used to mark a chatroom as read
   /// [MarkReadChatroomRequest] is used to pass the required parameters
   /// [MarkReadChatroomResponse] is returned as a Future
-  Future<LMResponse<MarkReadChatroomResponse>> markReadChatroom(
+  Future<LMResponse<void>> markReadChatroom(
     MarkReadChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().markReadChatroom(request);
@@ -146,7 +146,7 @@ class LMChatClient {
   /// shareChatroomUrl is used to share the chatroom URL
   /// [ShareChatroomRequest] is used to pass the required parameters
   /// [ShareChatroomResponse] is returned as a Future
-  Future<LMResponse<ShareChatroomResponse>> shareChatroomUrl(
+  Future<LMResponse<void>> shareChatroomUrl(
     ShareChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().shareChatroomUrl(request);
@@ -155,7 +155,7 @@ class LMChatClient {
   /// setChatroomTopic is used to set the chatroom topic
   /// [SetChatroomTopicRequest] is used to pass the required parameters
   /// [SetChatroomTopicResponse] is returned as a Future
-  Future<LMResponse<SetChatroomTopicResponse>> setChatroomTopic(
+  Future<LMResponse<void>> setChatroomTopic(
     SetChatroomTopicRequest request,
   ) {
     return _sdkApplication.getChatroomApi().setChatroomTopic(request);
@@ -237,7 +237,7 @@ class LMChatClient {
   /// putReaction is used to put a reaction for a conversation
   /// [PutReactionRequest] is used to pass the required parameters
   /// [PutReactionResponse] is returned as a Future
-  Future<LMResponse<PutReactionResponse>> putReaction(
+  Future<LMResponse<void>> putReaction(
     PutReactionRequest request,
   ) {
     return _sdkApplication.getReactionApi().putReaction(request);
@@ -246,7 +246,7 @@ class LMChatClient {
   /// deleteReaction is used to delete a reaction for a conversation
   /// [DeleteReactionRequest] is used to pass the required parameters
   /// [DeleteReactionResponse] is returned as a Future
-  Future<LMResponse<DeleteReactionResponse>> deleteReaction(
+  Future<LMResponse<void>> deleteReaction(
     DeleteReactionRequest request,
   ) {
     return _sdkApplication.getReactionApi().deleteReaction(request);
@@ -260,8 +260,7 @@ class LMChatClient {
   /// registerDevice is used to register a device for receiving notifications
   /// [RegisterDeviceRequest] is used to pass the required parameters
   /// [RegisterDeviceResponse] is returned as a Future
-  Future<LMResponse<RegisterDeviceResponse>> registerDevice(
-      RegisterDeviceRequest request) {
+  Future<LMResponse<void>> registerDevice(RegisterDeviceRequest request) {
     return LMNotifications.registerDevice(request);
   }
   // ------------------------------------------
@@ -321,7 +320,7 @@ class LMChatClient {
   /// submitPoll is used to submit a poll
   /// [SubmitPollRequest] is used to pass the required parameters
   /// [SubmitPollResponse] is returned as a Future
-  Future<LMResponse<SubmitPollResponse>> submitPoll(SubmitPollRequest request) {
+  Future<LMResponse<void>> submitPoll(SubmitPollRequest request) {
     return _sdkApplication.getPollApi().submitPoll(request);
   }
 

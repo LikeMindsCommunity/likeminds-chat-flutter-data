@@ -1,30 +1,18 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
 
+// ignore: lines_longer_than_80_chars
+/// ReactionApi class is responsible for handling all the reaction related API calls
 class ReactionApi {
   final ReactionRepository reactionRepository;
 
   ReactionApi({required this.reactionRepository});
 
-  Future<LMResponse<PutReactionResponse>> putReaction(
-      PutReactionRequest request) async {
-    PutReactionResponse response =
-        await reactionRepository.putReaction(request);
-    return LMResponse<PutReactionResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+  Future<LMResponse<void>> putReaction(PutReactionRequest request) async {
+    return await reactionRepository.putReaction(request);
   }
 
-  Future<LMResponse<DeleteReactionResponse>> deleteReaction(
-      DeleteReactionRequest request) async {
-    DeleteReactionResponse response =
-        await reactionRepository.deleteReaction(request);
-    return LMResponse<DeleteReactionResponse>(
-      success: response.success,
-      errorMessage: response.errorMessage,
-      data: response,
-    );
+  Future<LMResponse<void>> deleteReaction(DeleteReactionRequest request) async {
+    return await reactionRepository.deleteReaction(request);
   }
 }

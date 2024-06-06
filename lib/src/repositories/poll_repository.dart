@@ -6,29 +6,46 @@ class PollRepository {
 
   PollRepository({required this.pollService});
 
-  Future<SubmitPollResponse> submitPoll(SubmitPollRequest request) async {
-    SubmitPollResponseEntity responseEntity =
-        await pollService.submitPoll(request);
-    return SubmitPollResponse.fromEntity(responseEntity);
+  Future<LMResponse<void>> submitPoll(SubmitPollRequest request) async {
+    return await pollService.submitPoll(request);
   }
 
-  Future<AddPollOptionResponse> addPollOption(
+  Future<LMResponse<AddPollOptionResponse>> addPollOption(
       AddPollOptionRequest request) async {
-    AddPollOptionResponseEntity responseEntity =
+    LMResponse<AddPollOptionResponseEntity> responseEntity =
         await pollService.addPollOption(request);
-    return AddPollOptionResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: AddPollOptionResponse.fromEntity(responseEntity.data!),
+    );
   }
 
-  Future<GetPollUsersResponse> getPollUsers(GetPollUsersRequest request) async {
-    GetPollUsersResponseEntity responseEntity =
+  Future<LMResponse<GetPollUsersResponse>> getPollUsers(
+      GetPollUsersRequest request) async {
+    LMResponse<GetPollUsersResponseEntity> responseEntity =
         await pollService.getPollUsers(request);
-    return GetPollUsersResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: GetPollUsersResponse.fromEntity(responseEntity.data!),
+    );
   }
 
-  Future<PostConversationResponse> postPollConversation(
+  Future<LMResponse<PostConversationResponse>> postPollConversation(
       PostPollConversationRequest request) async {
-    PostConversationResponseEntity responseEntity =
+    LMResponse<PostConversationResponseEntity> responseEntity =
         await pollService.postPollConversation(request);
-    return PostConversationResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: PostConversationResponse.fromEntity(responseEntity.data!),
+    );
   }
 }

@@ -6,16 +6,11 @@ class ReactionRepository {
 
   ReactionRepository({required this.reactionService});
 
-  Future<PutReactionResponse> putReaction(PutReactionRequest request) async {
-    PutReactionResponseEntity responseEntity =
-        await reactionService.putReaction(request);
-    return PutReactionResponse.fromEntity(responseEntity);
+  Future<LMResponse<void>> putReaction(PutReactionRequest request) async {
+    return await reactionService.putReaction(request);
   }
 
-  Future<DeleteReactionResponse> deleteReaction(
-      DeleteReactionRequest request) async {
-    DeleteReactionResponseEntity responseEntity =
-        await reactionService.deleteReaction(request);
-    return DeleteReactionResponse.fromEntity(responseEntity);
+  Future<LMResponse<void>> deleteReaction(DeleteReactionRequest request) async {
+    return await reactionService.deleteReaction(request);
   }
 }

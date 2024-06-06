@@ -28,8 +28,8 @@ import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IExploreService {
-  Future<GetExploreTabCountResponseEntity> getExploreTabCount();
-  Future<GetExploreFeedResponseEntity> getExploreFeed(
+  Future<LMResponse<GetExploreTabCountResponseEntity>> getExploreTabCount();
+  Future<LMResponse<GetExploreFeedResponseEntity>> getExploreFeed(
       GetExploreFeedRequest request);
 }
 
@@ -41,29 +41,32 @@ class ExploreService extends IExploreService {
   });
 
   @override
-  Future<GetExploreTabCountResponseEntity> getExploreTabCount() async {
+  Future<LMResponse<GetExploreTabCountResponseEntity>>
+      getExploreTabCount() async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         // community/member/home/meta
         apiManager.endPoints.exploreTabCountEndpoint,
       );
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
       GetExploreTabCountResponseEntity getExploreTabCountResponse =
           GetExploreTabCountResponseEntity.fromJson(response.data);
-      return getExploreTabCountResponse;
+      return LMResponse.success(data: getExploreTabCountResponse);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return GetExploreTabCountResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 
   @override
-  Future<GetExploreFeedResponseEntity> getExploreFeed(
+  Future<LMResponse<GetExploreFeedResponseEntity>> getExploreFeed(
       GetExploreFeedRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         // community/feed
         apiManager.endPoints.exploreFeedEndpoint,
         queryParameters: request.toJson(),
@@ -73,14 +76,19 @@ class ExploreService extends IExploreService {
           },
         ),
       );
+
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
       GetExploreFeedResponseEntity getExploreFeedResponse =
           GetExploreFeedResponseEntity.fromJson(response.data);
-      return getExploreFeedResponse;
+      return LMResponse.success(data: getExploreFeedResponse);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return GetExploreFeedResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }

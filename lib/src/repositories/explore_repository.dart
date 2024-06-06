@@ -6,16 +6,28 @@ class ExploreRepository {
 
   ExploreRepository({required this.exploreService});
 
-  Future<GetExploreFeedResponse> getExploreFeed(
+  Future<LMResponse<GetExploreFeedResponse>> getExploreFeed(
       GetExploreFeedRequest request) async {
-    GetExploreFeedResponseEntity responseEntity =
+    LMResponse<GetExploreFeedResponseEntity> responseEntity =
         await exploreService.getExploreFeed(request);
-    return GetExploreFeedResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: GetExploreFeedResponse.fromEntity(responseEntity.data!),
+    );
   }
 
-  Future<GetExploreTabCountResponse> getExploreTabCount() async {
-    GetExploreTabCountResponseEntity responseEntity =
+  Future<LMResponse<GetExploreTabCountResponse>> getExploreTabCount() async {
+    LMResponse<GetExploreTabCountResponseEntity> responseEntity =
         await exploreService.getExploreTabCount();
-    return GetExploreTabCountResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: GetExploreTabCountResponse.fromEntity(responseEntity.data!),
+    );
   }
 }

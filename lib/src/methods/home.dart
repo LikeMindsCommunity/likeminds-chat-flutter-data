@@ -1,6 +1,7 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 
+/// HomeApi class is responsible for handling all the home related API calls
 class HomeApi {
   HomeApi({
     required this.homeRepository,
@@ -11,11 +12,6 @@ class HomeApi {
   Future<LMResponse<GetHomeFeedResponse>> getHomeFeed(
     GetHomeFeedRequest request,
   ) async {
-    GetHomeFeedResponse response = await homeRepository.getHomeFeed(request);
-    return LMResponse<GetHomeFeedResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return await homeRepository.getHomeFeed(request);
   }
 }

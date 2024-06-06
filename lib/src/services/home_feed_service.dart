@@ -3,9 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/home/home_feed_request_model.dart';
 import 'package:likeminds_chat_fl/src/models/home/home_feed_response_model.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IHomeFeedService {
-  Future<GetHomeFeedResponseEntity> getHomeFeed(GetHomeFeedRequest request);
+  Future<LMResponse<GetHomeFeedResponseEntity>> getHomeFeed(
+      GetHomeFeedRequest request);
 }
 
 class HomeFeedService extends IHomeFeedService {
@@ -20,23 +22,25 @@ class HomeFeedService extends IHomeFeedService {
   /// Returns a [GetHomeFeedResponseEntity] object
   /// Throws [DioException] if something goes wrong
   @override
-  Future<GetHomeFeedResponseEntity> getHomeFeed(
+  Future<LMResponse<GetHomeFeedResponseEntity>> getHomeFeed(
     GetHomeFeedRequest request,
   ) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.homeFeedEndpoint,
         queryParameters: request.toJson(),
       );
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
       GetHomeFeedResponseEntity homeFeedResponseEntity =
           GetHomeFeedResponseEntity.fromJson(response.data);
-      return homeFeedResponseEntity;
+      return LMResponse.success(data: homeFeedResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);
-      return GetHomeFeedResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 }

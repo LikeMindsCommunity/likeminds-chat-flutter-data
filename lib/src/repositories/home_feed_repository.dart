@@ -8,12 +8,18 @@ class HomeFeedRepository {
     required this.homeFeedService,
   });
 
-  Future<GetHomeFeedResponse> getHomeFeed(
+  Future<LMResponse<GetHomeFeedResponse>> getHomeFeed(
       GetHomeFeedRequest homeFeedRequest) async {
-    GetHomeFeedResponseEntity entity =
+    LMResponse<GetHomeFeedResponseEntity> entity =
         await homeFeedService.getHomeFeed(homeFeedRequest);
+    if (!entity.success) {
+      return LMResponse.error(errorMessage: entity.errorMessage!);
+    }
     GetHomeFeedResponse homeFeedResponse =
-        GetHomeFeedResponse.fromEntity(entity);
-    return homeFeedResponse;
+        GetHomeFeedResponse.fromEntity(entity.data!);
+    return LMResponse.fromData(
+      response: entity,
+      data: homeFeedResponse,
+    );
   }
 }

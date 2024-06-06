@@ -3,15 +3,11 @@ import 'package:json_annotation/json_annotation.dart';
 part 'check_dm_tab_response_model.g.dart';
 
 class CheckDMTabResponse {
-  final bool success;
-  final String? errorMessage;
   final bool? hideDMTab;
   final bool? isCm;
-  final bool? unreadDMCount;
+  final int? unreadDMCount;
 
   CheckDMTabResponse({
-    required this.success,
-    this.errorMessage,
     this.isCm,
     this.hideDMTab,
     this.unreadDMCount,
@@ -19,8 +15,6 @@ class CheckDMTabResponse {
 
   factory CheckDMTabResponse.fromEntity(CheckDMTabResponseEntity entity) {
     return CheckDMTabResponse(
-      success: entity.success,
-      errorMessage: entity.errorMessage,
       isCm: entity.isCm,
       hideDMTab: entity.hideDMTab,
       unreadDMCount: entity.unreadDMCount,
@@ -29,8 +23,6 @@ class CheckDMTabResponse {
 
   CheckDMTabResponseEntity toEntity() {
     return CheckDMTabResponseEntity(
-      success: success,
-      errorMessage: errorMessage,
       isCm: isCm,
       hideDMTab: hideDMTab,
       unreadDMCount: unreadDMCount,
@@ -40,16 +32,14 @@ class CheckDMTabResponse {
 
 @JsonSerializable()
 class CheckDMTabResponseEntity {
-  final bool success;
-  @JsonKey(name: "error_message")
-  final String? errorMessage;
+  @JsonKey(name: 'hide_dm_tab')
   final bool? hideDMTab;
+  @JsonKey(name: 'is_cm')
   final bool? isCm;
-  final bool? unreadDMCount;
+  @JsonKey(name: 'unread_dm_count')
+  final int? unreadDMCount;
 
   CheckDMTabResponseEntity({
-    required this.success,
-    this.errorMessage,
     this.isCm,
     this.hideDMTab,
     this.unreadDMCount,

@@ -1,6 +1,7 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 
+/// MediaApi class is responsible for handling all the media related API calls
 class MediaApi {
   final MediaRepository mediaRepository;
 
@@ -8,11 +9,6 @@ class MediaApi {
 
   Future<LMResponse<PutMediaResponse>> putMultimedia(
       PutMediaRequest request) async {
-    final response = await mediaRepository.putMultimedia(request);
-    return LMResponse<PutMediaResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return await mediaRepository.putMultimedia(request);
   }
 }

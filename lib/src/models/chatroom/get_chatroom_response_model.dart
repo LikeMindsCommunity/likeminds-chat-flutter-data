@@ -4,8 +4,6 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 part 'get_chatroom_response_model.g.dart';
 
 class GetChatroomResponse {
-  final bool success;
-  final String? errorMessage;
   final bool? canAccessSecretChatroom;
   final ChatRoom? chatroom;
   final List<ChatroomAction>? chatroomActions;
@@ -16,8 +14,6 @@ class GetChatroomResponse {
   final int? unreadMessages;
 
   GetChatroomResponse({
-    required this.success,
-    this.errorMessage,
     this.canAccessSecretChatroom,
     this.chatroom,
     this.community,
@@ -30,25 +26,19 @@ class GetChatroomResponse {
 
   factory GetChatroomResponse.fromEntity(GetChatroomResponseEntity entity) {
     return GetChatroomResponse(
-      success: entity.success,
-      errorMessage: entity.errorMessage,
       canAccessSecretChatroom: entity.canAccessSecretChatroom,
       chatroom: entity.chatroom != null
           ? ChatRoom.fromEntity(entity.chatroom!)
           : null,
-      chatroomActions: entity.chatroomActions != null
-          ? entity.chatroomActions!
-              .map((e) => ChatroomAction.fromEntity(e))
-              .toList()
-          : null,
+      chatroomActions: entity.chatroomActions
+          ?.map((e) => ChatroomAction.fromEntity(e))
+          .toList(),
       community: entity.community != null
           ? Community.fromEntity(entity.community!)
           : null,
-      conversationUsers: entity.conversationUsers != null
-          ? entity.conversationUsers!
-              .map((e) => ChatRoomMember.fromEntity(e))
-              .toList()
-          : null,
+      conversationUsers: entity.conversationUsers
+          ?.map((e) => ChatRoomMember.fromEntity(e))
+          .toList(),
       lastConversationId: entity.lastConversationId,
       participantCount: entity.participantCount,
       unreadMessages: entity.unreadMessages,
@@ -57,17 +47,11 @@ class GetChatroomResponse {
 
   GetChatroomResponseEntity toEntity() {
     return GetChatroomResponseEntity(
-      success: success,
-      errorMessage: errorMessage,
       canAccessSecretChatroom: canAccessSecretChatroom,
-      chatroom: chatroom != null ? chatroom!.toEntity() : null,
-      chatroomActions: chatroomActions != null
-          ? chatroomActions!.map((e) => e.toEntity()).toList()
-          : null,
-      community: community != null ? community!.toEntity() : null,
-      conversationUsers: conversationUsers != null
-          ? conversationUsers!.map((e) => e.toEntity()).toList()
-          : null,
+      chatroom: chatroom?.toEntity(),
+      chatroomActions: chatroomActions?.map((e) => e.toEntity()).toList(),
+      community: community?.toEntity(),
+      conversationUsers: conversationUsers?.map((e) => e.toEntity()).toList(),
       lastConversationId: lastConversationId,
       participantCount: participantCount,
       unreadMessages: unreadMessages,
@@ -77,9 +61,6 @@ class GetChatroomResponse {
 
 @JsonSerializable()
 class GetChatroomResponseEntity {
-  final bool success;
-  @JsonKey(name: 'error_message')
-  final String? errorMessage;
   @JsonKey(name: 'can_access_secret_chatroom')
   final bool? canAccessSecretChatroom;
   @JsonKey(name: 'chatroom')
@@ -98,8 +79,6 @@ class GetChatroomResponseEntity {
   final int? unreadMessages;
 
   GetChatroomResponseEntity({
-    required this.success,
-    this.errorMessage,
     this.canAccessSecretChatroom,
     this.chatroom,
     this.chatroomActions,

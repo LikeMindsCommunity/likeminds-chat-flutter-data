@@ -4,10 +4,11 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 
 abstract class IAuthService {
-  Future<InitiateUserResponseEntity> initiateUser(
+  Future<LMResponse<InitiateUserResponseEntity>> initiateUser(
       InitiateUserRequest initiateUserRequest);
-  Future<LogoutResponseEntity> logout(LogoutRequest logoutRequest);
-  Future<RefreshResponseEntity> refresh(RefreshRequest refreshRequest);
+  Future<LMResponse<void>> logout(LogoutRequest logoutRequest);
+  Future<LMResponse<RefreshResponseEntity>> refresh(
+      RefreshRequest refreshRequest);
 }
 
 class AuthService extends IAuthService {
@@ -22,50 +23,56 @@ class AuthService extends IAuthService {
   /// Returns a [InitiateUserResponse] object
   /// Throws [DioException] if something goes wrong
   @override
-  Future<InitiateUserResponseEntity> initiateUser(
+  Future<LMResponse<InitiateUserResponseEntity>> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
     try {
-      final response = await apiManager.client().post(
+      final Response response = await apiManager.client().post(
+            options: Options(
+              headers: {
+                'x-api-key': apiManager.tokenManager.apiKey,
+              },
+            ),
             apiManager.endPoints.authEndpoint,
             data: initiateUserRequest.toJson(),
           );
-      InitiateUserResponseEntity initiateUserResponse =
-          InitiateUserResponseEntity.fromJson(response.data);
 
       // Checking if API returned success
-      if (initiateUserResponse.success) {
+      if (response.data['success'] && response.data['data'] != null) {
         // Checking if API returned app access
-        if (initiateUserResponse.appAccess!) {
+        final InitiateUserResponseEntity initiateUserEntity =
+            InitiateUserResponseEntity.fromJson(response.data['data']);
+
+        if (initiateUserEntity.appAccess!) {
           // If API returned app access, then set tokens and return response
           apiManager.tokenManager.initTokens(
-            initiateUserResponse.accessToken!,
-            initiateUserResponse.refreshToken!,
+            initiateUserEntity.accessToken!,
+            initiateUserEntity.refreshToken!,
           );
           final InitiateUserEntity initiateUser =
-              initiateUserResponse.initiateUser!;
+              initiateUserEntity.initiateUser!;
           apiManager.tokenManager.setUserId(initiateUser.user.id);
           apiManager.tokenManager.setCommunityId(initiateUser.community.id);
-          return initiateUserResponse;
+          return LMResponse.success(
+            data: initiateUserEntity,
+          );
           // Else, if API returned no app access
         } else {
           // If API returned no app access, then logout and return response
           final response = await logout(null);
-          return InitiateUserResponseEntity(
-            success: false,
-            logoutResponse: response,
-          );
+          return LMResponse.error(
+              errorMessage: response.errorMessage ?? 'An error occurred');
         }
         // Else, if API returned error message
       } else {
-        return initiateUserResponse;
+        return LMResponse.error(
+            errorMessage:
+                response.data['error_message'] ?? 'An error occurred');
       }
     } on DioException catch (e) {
-      InitiateUserResponseEntity initiateUserResponse =
-          InitiateUserResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      debugPrint("Error from initiate user: $e");
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
-      return initiateUserResponse;
     }
   }
 
@@ -75,25 +82,36 @@ class AuthService extends IAuthService {
   /// Takes [RefreshRequest] as input
   /// Throws [DioException] if error
   @override
-  Future<RefreshResponseEntity> refresh(RefreshRequest request) async {
-    Dio dio = Dio();
+  Future<LMResponse<RefreshResponseEntity>> refresh(
+      RefreshRequest request) async {
     try {
-      final response = await dio.post(
-        apiManager.endPoints.authRefreshEndpoint,
-        options: Options(
-          headers: {
-            'Authorization': request.refreshToken,
-          },
-        ),
-      );
-      RefreshResponseEntity refreshResponse =
-          RefreshResponseEntity.fromJson(response.data);
+      final BaseOptions options = apiManager.client(isRefresh: true).options;
+      final headers = options.headers;
+      final response = await apiManager.client(isRefresh: true).post(
+            apiManager.endPoints.authRefreshEndpoint,
+            options: Options(
+              headers: {
+                ...headers,
+                'Authorization': request.refreshToken,
+              },
+            ),
+          );
+      if (response.data['success'] == false || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'],
+        );
+      }
 
-      return refreshResponse;
-    } on DioException catch (e) {
       RefreshResponseEntity refreshResponse =
-          RefreshResponseEntity.fromJson(e.response?.data);
-      return refreshResponse;
+          RefreshResponseEntity.fromJson(response.data['data']);
+
+      return LMResponse.success(
+        data: refreshResponse,
+      );
+    } on DioException catch (e) {
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
+      );
     }
   }
 
@@ -103,9 +121,9 @@ class AuthService extends IAuthService {
   /// Takes [LogoutRequest] as input
   /// Throws [DioException] if error
   @override
-  Future<LogoutResponseEntity> logout(LogoutRequest? request) async {
+  Future<LMResponse<void>> logout(LogoutRequest? request) async {
     try {
-      final response = await apiManager.post(
+      final response = await apiManager.client().post(
         apiManager.endPoints.authLogoutEndpoint,
         data: {
           "refresh_token":
@@ -113,41 +131,49 @@ class AuthService extends IAuthService {
         },
       );
 
-      LogoutResponseEntity logoutResponse =
-          LogoutResponseEntity.fromJson(response.data);
+      if (response.data['success'] == false) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'],
+        );
+      }
+
       request.callback?.logoutCallback();
       apiManager.tokenManager.clearTokens();
-      return logoutResponse;
+      return LMResponse<void>.success(
+        data: null,
+      );
     } on DioException catch (e) {
-      LogoutResponseEntity logoutResponse =
-          LogoutResponseEntity.fromJson(e.response?.data);
-      return logoutResponse;
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
+      );
     }
   }
 
   /// Get the state of the member for feedroom access
   /// Returns the state of the member
-  Future<MemberStateResponseEntity> getMemberState() async {
-    try {
-      final response = await apiManager.get(
-        apiManager.endPoints.memberStateEndpoint,
-        options: Options(
-          headers: {
-            'x-api-key': '${apiManager.tokenManager.apiKey}',
-          },
-        ),
-      );
-      debugPrint("Response from access check: ${response.data}");
-      final memberStateResponseEntity =
-          MemberStateResponseEntity.fromJson(response.data);
+  // Future<LMResponse<MemberStateResponseEntity>> getMemberState() async {
+  //   try {
+  //     final response = await apiManager.get(
+  //       apiManager.endPoints.memberStateEndpoint,
+  //     );
+  //     debugPrint("Response from access check: ${response.data}");
+  //     if (response.data['success'] == true && response.data['data'] != null) {
+  //       final memberStateResponseEntity =
+  //           MemberStateResponseEntity.fromJson(response.data);
 
-      return memberStateResponseEntity;
-    } on DioException catch (e) {
-      debugPrint("Error from get member state access: $e");
-      return MemberStateResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-      );
-    }
-  }
+  //       return LMResponse.success(
+  //         data: memberStateResponseEntity,
+  //       );
+  //     } else {
+  //       return LMResponse.error(
+  //         errorMessage: response.data['error_message'],
+  //       );
+  //     }
+  //   } on DioException catch (e) {
+  //     debugPrint("Error from get member state access: $e");
+  //     return LMResponse.error(
+  //       errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+  //     );
+  //   }
+  // }
 }

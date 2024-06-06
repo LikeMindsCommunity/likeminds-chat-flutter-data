@@ -6,8 +6,7 @@ class NotificationRepository {
 
   NotificationRepository({required this.notificationService});
 
-  Future<RegisterDeviceResponse> registerDevice(
-      RegisterDeviceRequest request) async {
+  Future<LMResponse<void>> registerDevice(RegisterDeviceRequest request) async {
     return await notificationService.registerDevice(request);
   }
 }

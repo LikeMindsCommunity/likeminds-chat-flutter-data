@@ -12,6 +12,7 @@ class InitiateUser {
     required this.community,
   });
 
+  /// Converts [InitiateUserEntity] to [InitiateUser] object
   factory InitiateUser.fromEntity(InitiateUserEntity entity) {
     return InitiateUser(
       user: User.fromEntity(entity.user),
@@ -19,6 +20,7 @@ class InitiateUser {
     );
   }
 
+  /// Converts [InitiateUser] to [InitiateUserEntity] object
   toEntity() {
     return InitiateUserEntity(
       user: user.toEntity(),
@@ -37,8 +39,10 @@ class InitiateUserEntity {
     required this.community,
   });
 
+  /// Converts a [Map<String, dynamic>] to [InitiateUserEntity] object
   factory InitiateUserEntity.fromJson(Map<String, dynamic> json) =>
       _$InitiateUserEntityFromJson(json);
 
+  /// Converts [InitiateUserEntity] to [Map<String, dynamic>]
   Map<String, dynamic> toJson() => _$InitiateUserEntityToJson(this);
 }

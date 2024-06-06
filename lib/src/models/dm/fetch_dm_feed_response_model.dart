@@ -4,33 +4,25 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 part 'fetch_dm_feed_response_model.g.dart';
 
 class FetchDMFeedResponse {
-  final bool success;
-  final String? errorMessage;
-  final List<ChatRoom>? dmChatrooms;
+  final List<ChatRoom>? dmChatRooms;
   final int? totalPages;
 
   FetchDMFeedResponse({
-    required this.success,
-    this.errorMessage,
-    this.dmChatrooms,
+    this.dmChatRooms,
     this.totalPages,
   });
 
   factory FetchDMFeedResponse.fromEntity(FetchDMFeedResponseEntity entity) {
     return FetchDMFeedResponse(
-      success: entity.success,
-      errorMessage: entity.errorMessage,
-      dmChatrooms:
-          entity.dmChatrooms?.map((e) => ChatRoom.fromEntity(e)).toList(),
+      dmChatRooms:
+          entity.dmChatRooms?.map((e) => ChatRoom.fromEntity(e)).toList(),
       totalPages: entity.totalPages,
     );
   }
 
   FetchDMFeedResponseEntity toEntity() {
     return FetchDMFeedResponseEntity(
-      success: success,
-      errorMessage: errorMessage,
-      dmChatrooms: dmChatrooms?.map((e) => e.toEntity()).toList(),
+      dmChatRooms: dmChatRooms?.map((e) => e.toEntity()).toList(),
       totalPages: totalPages,
     );
   }
@@ -38,18 +30,13 @@ class FetchDMFeedResponse {
 
 @JsonSerializable()
 class FetchDMFeedResponseEntity {
-  final bool success;
-  @JsonKey(name: 'error_message')
-  final String? errorMessage;
   @JsonKey(name: 'dm_chatrooms')
-  final List<ChatRoomEntity>? dmChatrooms;
+  final List<ChatRoomEntity>? dmChatRooms;
   @JsonKey(name: 'total_pages')
   final int? totalPages;
 
   FetchDMFeedResponseEntity({
-    required this.success,
-    this.errorMessage,
-    this.dmChatrooms,
+    this.dmChatRooms,
     this.totalPages,
   });
 

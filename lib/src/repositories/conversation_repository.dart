@@ -6,31 +6,63 @@ class ConversationRepository {
 
   ConversationRepository({required this.conversationService});
 
-  Future<GetConversationResponse> getConversation(
+  Future<LMResponse<GetConversationResponse>> getConversation(
       GetConversationRequest request) async {
-    GetConversationResponseEntity responseEntity =
+    LMResponse<GetConversationResponseEntity> responseEntity =
         await conversationService.getConversation(request);
-    return GetConversationResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: GetConversationResponse.fromEntity(
+        responseEntity.data!,
+      ),
+    );
   }
 
-  Future<PostConversationResponse> postConversation(
+  Future<LMResponse<PostConversationResponse>> postConversation(
       PostConversationRequest request) async {
-    PostConversationResponseEntity responseEntity =
+    LMResponse<PostConversationResponseEntity> responseEntity =
         await conversationService.postConversation(request);
-    return PostConversationResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: PostConversationResponse.fromEntity(
+        responseEntity.data!,
+      ),
+    );
   }
 
-  Future<EditConversationResponse> editConversation(
+  Future<LMResponse<EditConversationResponse>> editConversation(
       EditConversationRequest request) async {
-    EditConversationResponseEntity responseEntity =
+    LMResponse<EditConversationResponseEntity> responseEntity =
         await conversationService.editConversation(request);
-    return EditConversationResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: EditConversationResponse.fromEntity(
+        responseEntity.data!,
+      ),
+    );
   }
 
-  Future<DeleteConversationResponse> deleteConversation(
+  Future<LMResponse<DeleteConversationResponse>> deleteConversation(
       DeleteConversationRequest request) async {
-    DeleteConversationResponseEntity responseEntity =
+    LMResponse<DeleteConversationResponseEntity> responseEntity =
         await conversationService.deleteConversation(request);
-    return DeleteConversationResponse.fromEntity(responseEntity);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: DeleteConversationResponse.fromEntity(
+        responseEntity.data!,
+      ),
+    );
   }
 }

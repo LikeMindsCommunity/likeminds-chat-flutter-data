@@ -6,18 +6,32 @@ class HelperRepository {
 
   HelperRepository({required this.helperService});
 
-  Future<TagResponseModel> getTags({
+  Future<LMResponse<TagResponseModel>> getTags({
     required TagRequestModel request,
   }) async {
     final response = await helperService.getTags(request: request);
-    return TagResponseModel.fromEntity(response);
+    if (!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    } else {
+      return LMResponse.fromData(
+        response: response,
+        data: TagResponseModel.fromEntity(response.data!),
+      );
+    }
   }
 
-  Future<DecodeUrlResponse> decodeUrl({
+  Future<LMResponse<DecodeUrlResponse>> decodeUrl({
     required DecodeUrlRequest request,
   }) async {
     final response = await helperService.decodeUrl(request: request);
-    return DecodeUrlResponse.fromEntity(response);
+    if (!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    } else {
+      return LMResponse.fromData(
+        response: response,
+        data: DecodeUrlResponse.fromEntity(response.data!),
+      );
+    }
   }
 
   void routeProfilePage(String userId) {

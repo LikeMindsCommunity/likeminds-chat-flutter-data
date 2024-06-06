@@ -1,6 +1,7 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 
+/// AuthApi class is responsible for handling all the auth related API calls
 class AuthApi {
   final AuthRepository authRepository;
 
@@ -10,21 +11,10 @@ class AuthApi {
 
   Future<LMResponse<InitiateUserResponse>> initiateUser(
       InitiateUserRequest initiateUserRequest) async {
-    InitiateUserResponse response =
-        await authRepository.initiateUser(initiateUserRequest);
-    return LMResponse<InitiateUserResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+    return authRepository.initiateUser(initiateUserRequest);
   }
 
-  Future<LMResponse<LogoutResponse>> logout(LogoutRequest logoutRequest) async {
-    LogoutResponse response = await authRepository.logout(logoutRequest);
-    return LMResponse<LogoutResponse>(
-      data: response,
-      success: response.success,
-      errorMessage: response.errorMessage,
-    );
+  Future<LMResponse<void>> logout(LogoutRequest logoutRequest) async {
+    return authRepository.logout(logoutRequest);
   }
 }
