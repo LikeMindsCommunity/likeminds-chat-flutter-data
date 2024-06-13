@@ -362,9 +362,9 @@ class ConversationEntity {
   factory ConversationEntity.fromJson(Map<String, dynamic> json,
           {Map<String, dynamic>? conversationReactionsMeta,
           Map<String, dynamic>? conversationPollMeta}) =>
-      _$ConversationEntityFromJson(json,
-          conversationReactionsMeta: conversationReactionsMeta,
-          conversationPollMeta: conversationPollMeta);
+      _$ConversationEntityFromJson(
+        json,
+      );
 
   Map<String, dynamic> toJson() => _$ConversationEntityToJson(this);
 }

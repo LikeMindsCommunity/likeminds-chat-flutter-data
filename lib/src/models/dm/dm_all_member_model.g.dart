@@ -9,7 +9,7 @@ part of 'dm_all_member_model.dart';
 DmAllMemberEntity _$DmAllMemberEntityFromJson(Map<String, dynamic> json) =>
     DmAllMemberEntity(
       customTitle: json['custom_title'] as String?,
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       imageUrl: json['image_url'] as String?,
       isDeleted: json['is_deleted'] as bool?,
       isGuest: json['is_guest'] as bool?,

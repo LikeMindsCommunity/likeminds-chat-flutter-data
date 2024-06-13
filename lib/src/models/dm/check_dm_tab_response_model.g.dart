@@ -11,7 +11,7 @@ CheckDMTabResponseEntity _$CheckDMTabResponseEntityFromJson(
     CheckDMTabResponseEntity(
       isCm: json['is_cm'] as bool?,
       hideDMTab: json['hide_dm_tab'] as bool?,
-      unreadDMCount: json['unread_dm_count'] as int?,
+      unreadDMCount: (json['unread_dm_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CheckDMTabResponseEntityToJson(

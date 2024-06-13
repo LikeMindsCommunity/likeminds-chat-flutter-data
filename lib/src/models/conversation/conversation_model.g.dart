@@ -6,80 +6,69 @@ part of 'conversation_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json,
-    {Map<String, dynamic>? conversationReactionsMeta,
-    Map<String, dynamic>? conversationPollMeta}) {
-  List<ReactionEntity> reactions = [];
-  if (conversationReactionsMeta != null &&
-      conversationReactionsMeta.containsKey('${json['id']}')) {
-    reactions = (conversationReactionsMeta['${json['id']}'] as List<dynamic>)
-        .map((e) => ReactionEntity.fromJson(e as Map<String, dynamic>))
-        .toList();
-  }
-
-  if (conversationPollMeta != null &&
-      conversationPollMeta.containsKey('${json['id']}')) {
-    json['poll_view_data_list'] =
-        (conversationPollMeta['${json['id']}'] as List?);
-  }
-
-  return ConversationEntity(
-    allowAddOption: json['allow_add_option'] as bool?,
-    answer: json['answer'] as String,
-    apiVersion: json['api_version'] as int?,
-    attachmentCount: json['attachment_count'] as int?,
-    attachmentsUploaded: json['attachments_uploaded'] as bool?,
-    chatroomId: json['chatroom_id'] as int?,
-    attachments: (json['attachments'] as List<dynamic>?)
-        ?.map((e) => AttachmentEntity.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    communityId: json['community_id'] as int?,
-    createdAt: json['created_at'].toString(),
-    createdEpoch: json['created_epoch'] as int?,
-    date: json['date'] as String?,
-    deletedByUserId: json['deleted_by_user_id'] as int?,
-    deviceId: json['device_id'] as String?,
-    endTime: json['end_time'] as int?,
-    expiryTime: json['expiry_time'] as int?,
-    hasFiles: json['has_files'] as bool?,
-    hasReactions: json['has_reactions'] as bool?,
-    header: json['header'] as String?,
-    id: json['id'] as int,
-    internalLink: json['internal_link'] as String?,
-    isAnonymous: json['is_anonymous'] as bool?,
-    isEdited: json['is_edited'] as bool?,
-    lastUpdated: json['last_updated'] as int?,
-    location: json['location'] as String?,
-    locationLat: json['location_lat'] as String?,
-    locationLong: json['location_long'] as String?,
-    multipleSelectNo: json['multiple_select_no'] as int?,
-    multipleSelectState: json['multiple_select_state'] as int?,
-    ogTags: json['og_tags'],
-    onlineLinkEnableBefore: json['online_link_enable_before'] as int?,
-    pollAnswerText: json['poll_answer_text'] as String?,
-    pollType: json['poll_type'] as int?,
-    replyChatroomId: json['reply_chatroom_id'] as int?,
-    replyId: (json['reply_id'] ?? json['reply_conversation']) as int?,
-    replyConversation: json['reply_conversation'] as int?,
-    replyConversationObject: json['reply_conversation_object'] == null
-        ? null
-        : ConversationEntity.fromJson(
-            json['reply_conversation_object'] as Map<String, dynamic>),
-    startTime: json['start_time'] as int?,
-    state: json['state'] as int?,
-    temporaryId: json['temporary_id'] as String?,
-    userId: (json['user_id'] ?? json['member_id']) as int?,
-    memberId: json['member_id'] as int?,
-    toShowResults: json['to_show_results'] as bool?,
-    pollTypeText: json['poll_type_text'] as String?,
-    submitTypeText: json['submit_type_text'] as String?,
-    member: json['member'] == null
-        ? null
-        : UserEntity.fromJson(json['member'] as Map<String, dynamic>),
-    conversationReactionsEntity: reactions,
-    poll: PollInfoDataEntity.fromJson(json),
-  );
-}
+ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
+    ConversationEntity(
+      allowAddOption: json['allow_add_option'] as bool?,
+      answer: json['answer'] as String,
+      apiVersion: (json['api_version'] as num?)?.toInt(),
+      attachmentCount: (json['attachment_count'] as num?)?.toInt(),
+      attachmentsUploaded: json['attachments_uploaded'] as bool?,
+      chatroomId: (json['chatroom_id'] as num?)?.toInt(),
+      attachments: (json['attachments'] as List<dynamic>?)
+          ?.map((e) => AttachmentEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      communityId: (json['community_id'] as num?)?.toInt(),
+      createdAt: json['created_at'] as String,
+      createdEpoch: (json['created_epoch'] as num?)?.toInt(),
+      date: json['date'] as String?,
+      deletedByUserId: (json['deleted_by_user_id'] as num?)?.toInt(),
+      deviceId: json['device_id'] as String?,
+      endTime: (json['end_time'] as num?)?.toInt(),
+      expiryTime: (json['expiry_time'] as num?)?.toInt(),
+      hasFiles: json['has_files'] as bool?,
+      hasReactions: json['has_reactions'] as bool?,
+      header: json['header'] as String?,
+      id: (json['id'] as num).toInt(),
+      internalLink: json['internal_link'] as String?,
+      isAnonymous: json['is_anonymous'] as bool?,
+      isEdited: json['is_edited'] as bool?,
+      lastUpdated: (json['last_updated'] as num?)?.toInt(),
+      location: json['location'] as String?,
+      locationLat: json['location_lat'] as String?,
+      locationLong: json['location_long'] as String?,
+      multipleSelectNo: (json['multiple_select_no'] as num?)?.toInt(),
+      multipleSelectState: (json['multiple_select_state'] as num?)?.toInt(),
+      ogTags: json['og_tags'],
+      onlineLinkEnableBefore:
+          (json['online_link_enable_before'] as num?)?.toInt(),
+      pollAnswerText: json['poll_answer_text'] as String?,
+      pollType: (json['poll_type'] as num?)?.toInt(),
+      replyChatroomId: (json['reply_chatroom_id'] as num?)?.toInt(),
+      replyId: (json['reply_id'] as num?)?.toInt(),
+      replyConversation: (json['reply_conversation'] as num?)?.toInt(),
+      replyConversationObject: json['reply_conversation_object'] == null
+          ? null
+          : ConversationEntity.fromJson(
+              json['reply_conversation_object'] as Map<String, dynamic>),
+      startTime: (json['start_time'] as num?)?.toInt(),
+      state: (json['state'] as num?)?.toInt(),
+      temporaryId: json['temporary_id'] as String?,
+      userId: (json['user_id'] as num?)?.toInt(),
+      memberId: (json['member_id'] as num?)?.toInt(),
+      toShowResults: json['to_show_results'] as bool?,
+      pollTypeText: json['poll_type_text'] as String?,
+      submitTypeText: json['submit_type_text'] as String?,
+      member: json['member'] == null
+          ? null
+          : UserEntity.fromJson(json['member'] as Map<String, dynamic>),
+      conversationReactionsEntity:
+          (json['conversationReactionsEntity'] as List<dynamic>?)
+              ?.map((e) => ReactionEntity.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      poll: json['poll'] == null
+          ? null
+          : PollInfoDataEntity.fromJson(json['poll'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
     <String, dynamic>{
@@ -117,6 +106,8 @@ Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
       'poll_type': instance.pollType,
       'reply_chatroom_id': instance.replyChatroomId,
       'reply_id': instance.replyId,
+      'reply_conversation': instance.replyConversation,
+      'reply_conversation_object': instance.replyConversationObject,
       'start_time': instance.startTime,
       'state': instance.state,
       'temporary_id': instance.temporaryId,
@@ -126,4 +117,6 @@ Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
       'poll_type_text': instance.pollTypeText,
       'submit_type_text': instance.submitTypeText,
       'member': instance.member,
+      'conversationReactionsEntity': instance.conversationReactionsEntity,
+      'poll': instance.poll,
     };

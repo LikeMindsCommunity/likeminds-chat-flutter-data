@@ -8,14 +8,13 @@ part of 'attachment_model.dart';
 
 AttachmentEntity _$AttachmentEntityFromJson(Map<String, dynamic> json) =>
     AttachmentEntity(
-      answerId: json['answer_id'] as int?,
-      createdAt: json['created_at'] as int?,
+      answerId: (json['answer_id'] as num?)?.toInt(),
+      createdAt: (json['created_at'] as num?)?.toInt(),
       dimensions: json['dimensions'],
       fileUrl: json['file_url'] as String?,
-      url: json['url'] as String?,
       height: json['height'],
-      id: json['id'] as int?,
-      index: json['index'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      index: (json['index'] as num?)?.toInt(),
       locationLat: json['location_lat'],
       locationLong: json['location_long'],
       locationName: json['location_name'],
@@ -24,6 +23,7 @@ AttachmentEntity _$AttachmentEntityFromJson(Map<String, dynamic> json) =>
       thumbnailUrl: json['thumbnail_url'] as String?,
       type: json['type'] as String?,
       width: json['width'],
+      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$AttachmentEntityToJson(AttachmentEntity instance) =>
@@ -43,4 +43,5 @@ Map<String, dynamic> _$AttachmentEntityToJson(AttachmentEntity instance) =>
       'thumbnail_url': instance.thumbnailUrl,
       'type': instance.type,
       'width': instance.width,
+      'url': instance.url,
     };
