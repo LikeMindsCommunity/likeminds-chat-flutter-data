@@ -91,7 +91,7 @@ class LMChatUserSchema extends HiveObject {
   });
 }
 
-@HiveType(typeId: 32)
+@HiveType(typeId: 34)
 class LMChatMemberRightSchema extends HiveObject {
   @HiveField(0)
   int id;

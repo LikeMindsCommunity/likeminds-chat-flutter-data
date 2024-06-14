@@ -6,20 +6,19 @@ import 'package:likeminds_chat_fl/src/persistence/user/utils/utils.dart';
 // This class handles all the DB operations
 // related to User Data
 // Accepts box names as strings
-class LMUserDBHandlerHive {
+class LMChatUserDBHandler {
   final String userBoxName;
   final String memberStateBoxName;
   late Box<LMChatUserSchema> userBox;
   late Box<LMChatMemberStateSchema> memberStateBox;
 
-  LMUserDBHandlerHive({
+  LMChatUserDBHandler({
     required this.userBoxName,
     required this.memberStateBoxName,
   });
 
   Future<LMResponse> initiate() async {
     try {
-      Hive.registerAdapter(LMChatMemberRightSchemaAdapter());
       Hive.registerAdapter(LMChatMemberStateSchemaAdapter());
       Hive.registerAdapter(LMChatSDKClientInfoSchemaAdapter());
       Hive.registerAdapter(LMChatUserSchemaAdapter());
@@ -42,8 +41,8 @@ class LMUserDBHandlerHive {
   // Insert [User] data into local DB
   Future<LMResponse<void>> insertOrUpdateUser(User user) async {
     try {
-      final userHiveModel = user.toUserSchema();
-      await userBox.put(userHiveModel.uuid, userHiveModel);
+      final userSchema = user.toUserSchema();
+      await userBox.put(userSchema.uuid, userSchema);
       return LMResponse<void>(success: true);
     } on Exception catch (e) {
       return LMResponse<void>(
@@ -69,12 +68,12 @@ class LMUserDBHandlerHive {
   // Get [User] data from local DB
   LMResponse<User> getUser() {
     try {
-      final userHiveModels = userBox.values.toList();
+      final userSchemas = userBox.values.toList();
 
-      if (userHiveModels.isEmpty) {
+      if (userSchemas.isEmpty) {
         return LMResponse(success: false, errorMessage: "User not found");
       }
-      final user = userHiveModels.first.toUser();
+      final user = userSchemas.first.toUser();
       return LMResponse(success: true, data: user);
     } on Exception catch (e) {
       return LMResponse(success: false, errorMessage: e.toString());
@@ -85,13 +84,13 @@ class LMUserDBHandlerHive {
   // Get [MemberStateResponse] data from local DB
   LMResponse<MemberStateResponse> getMemberState() {
     try {
-      final memberStateHiveModels = memberStateBox.values.toList();
+      final memberStateSchemas = memberStateBox.values.toList();
 
-      if (memberStateHiveModels.isEmpty) {
+      if (memberStateSchemas.isEmpty) {
         return LMResponse(
             success: false, errorMessage: "MemberState not found");
       }
-      final memberStateResponse = memberStateHiveModels.first.toMemberState();
+      final memberStateResponse = memberStateSchemas.first.toMemberState();
       return LMResponse(success: true, data: memberStateResponse);
     } on Exception catch (e) {
       return LMResponse(success: false, errorMessage: e.toString());
@@ -102,8 +101,8 @@ class LMUserDBHandlerHive {
   Future<LMResponse<void>> insertOrUpdateMemberState(
       MemberStateResponse memberStateResponse) async {
     try {
-      final memberStateHiveModel = memberStateResponse.toMemberStateSchema();
-      await memberStateBox.put(memberStateHiveModel.uuid, memberStateHiveModel);
+      final memberStateSchema = memberStateResponse.toMemberStateSchema();
+      await memberStateBox.put(memberStateSchema.uuid, memberStateSchema);
       return LMResponse<void>(success: true);
     } on Exception catch (e) {
       return LMResponse<void>(

@@ -129,7 +129,7 @@ class LMChatUserSchemaAdapter extends TypeAdapter<LMChatUserSchema> {
 class LMChatMemberRightSchemaAdapter
     extends TypeAdapter<LMChatMemberRightSchema> {
   @override
-  final int typeId = 32;
+  final int typeId = 34;
 
   @override
   LMChatMemberRightSchema read(BinaryReader reader) {
