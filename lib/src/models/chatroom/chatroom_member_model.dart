@@ -14,7 +14,7 @@ class ChatRoomMember {
   final String name;
   final String? organisationName;
   final String? route;
-  final int state;
+  final int? state;
   final int? updatedAt;
   final String? userUniqueId;
 
@@ -95,7 +95,7 @@ class ChatRoomMemberEntity {
   @JsonKey(name: 'organisation_name')
   final String? organisationName;
   final String? route;
-  final int state;
+  final int? state;
   @JsonKey(name: 'updated_at')
   final int? updatedAt;
   @JsonKey(name: 'user_unique_id')

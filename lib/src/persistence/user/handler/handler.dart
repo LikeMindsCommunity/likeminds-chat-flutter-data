@@ -19,6 +19,7 @@ class LMChatUserDBHandler {
 
   Future<LMResponse> initiate() async {
     try {
+      Hive.registerAdapter(LMChatMemberRightSchemaAdapter());
       Hive.registerAdapter(LMChatMemberStateSchemaAdapter());
       Hive.registerAdapter(LMChatSDKClientInfoSchemaAdapter());
       Hive.registerAdapter(LMChatUserSchemaAdapter());

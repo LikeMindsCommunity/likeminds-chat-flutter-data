@@ -23,6 +23,7 @@ class LMChatCommunityDBHandler {
       if (!Hive.isAdapterRegistered(30)) {
         Hive.registerAdapter(LMChatUserSchemaAdapter());
       }
+      Hive.registerAdapter(LMChatCommunitySettingsRightsSchemaAdapter());
       Hive.registerAdapter(LMChatCommunitySchemaAdapter());
       communityBox =
           await Hive.openBox<LMChatCommunitySchema>(communityBoxName);

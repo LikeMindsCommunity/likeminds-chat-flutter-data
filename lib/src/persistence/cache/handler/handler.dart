@@ -26,8 +26,8 @@ class LMChatCacheDBHandler {
 
   Future<LMResponse<void>> insertOrUpdateValueInCache(LMChatCache cache) async {
     try {
-      final cacheHiveModel = cache.toChatCacheSchema();
-      await cacheBox.put(cacheHiveModel.key, cacheHiveModel);
+      final cacheSchema = cache.toChatCacheSchema();
+      await cacheBox.put(cacheSchema.key, cacheSchema);
       return LMResponse.success(data: null);
     } on Exception catch (e) {
       return LMResponse.error(errorMessage: e.toString());

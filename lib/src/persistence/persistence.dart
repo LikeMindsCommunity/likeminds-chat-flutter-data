@@ -20,9 +20,9 @@ Future<void> initHive() async {
 /// [LMChatPersistence] is a class that provides methods to interact with the
 /// persistence layer of the chat SDK.
 class LMChatPersistence {
-  late LMChatUserDBHandler userDBHandlerHive;
-  late LMChatCacheDBHandler cacheDBHandlerHive;
-  late LMChatCommunityDBHandler communityDBHandlerHive;
+  late LMChatUserDBHandler userDBHandler;
+  late LMChatCacheDBHandler cacheDBHandler;
+  late LMChatCommunityDBHandler communityDBHandler;
 
   static LMChatPersistence? _instance;
 
@@ -32,14 +32,14 @@ class LMChatPersistence {
   /// [LMChatPersistence] is the private constructor for the [LMChatPersistence] class.
   LMChatPersistence._() {
     initHive();
-    userDBHandlerHive = LMChatUserDBHandler(
+    userDBHandler = LMChatUserDBHandler(
       userBoxName: 'userBox',
       memberStateBoxName: 'memberStateBox',
     );
-    cacheDBHandlerHive = LMChatCacheDBHandler(
+    cacheDBHandler = LMChatCacheDBHandler(
       cacheBoxName: 'cacheBox',
     );
-    communityDBHandlerHive = LMChatCommunityDBHandler(
+    communityDBHandler = LMChatCommunityDBHandler(
       communityBoxName: 'communityBox',
     );
   }
@@ -49,9 +49,9 @@ class LMChatPersistence {
   /// It should be called before any other method of the [LMChatPersistence] class.
   Future<LMResponse<void>> initiate() async {
     await initHive();
-    LMResponse<void> userDBInit = await userDBHandlerHive.initiate();
-    LMResponse<void> cacheDBInit = await cacheDBHandlerHive.initiate();
-    LMResponse<void> communityDBInit = await communityDBHandlerHive.initiate();
+    LMResponse<void> userDBInit = await userDBHandler.initiate();
+    LMResponse<void> cacheDBInit = await cacheDBHandler.initiate();
+    LMResponse<void> communityDBInit = await communityDBHandler.initiate();
 
     if (!userDBInit.success) {
       return LMResponse.error(
@@ -72,67 +72,67 @@ class LMChatPersistence {
 
   /// [insertOrUpdateUser] is a method that inserts or updates a user in the box.
   Future<LMResponse<void>> insertOrUpdateUser(User user) {
-    return userDBHandlerHive.insertOrUpdateUser(user);
+    return userDBHandler.insertOrUpdateUser(user);
   }
 
   /// [getUser] is a method that returns the user from the box.
   LMResponse<User> getUser() {
-    return userDBHandlerHive.getUser();
+    return userDBHandler.getUser();
   }
 
   /// [deleteUser] is a method that deletes the user from the box.
   Future<LMResponse<void>> deleteUser() {
-    return userDBHandlerHive.deleteUser();
+    return userDBHandler.deleteUser();
   }
 
   /// [insertOrUpdateValueInCache] is a method that inserts or updates a value in the cache.
   Future<LMResponse<void>> insertOrUpdateValueInCache(LMChatCache cache) {
-    return cacheDBHandlerHive.insertOrUpdateValueInCache(cache);
+    return cacheDBHandler.insertOrUpdateValueInCache(cache);
   }
 
   /// [deleteCache] is a method that deletes a value from the cache.
   Future<LMResponse<void>> deleteCache(String key) {
-    return cacheDBHandlerHive.deleteValueFromCache(key);
+    return cacheDBHandler.deleteValueFromCache(key);
   }
 
   /// [getCache] is a method that gets a value from the cache.
   LMResponse<LMChatCache> getCache(String key) {
-    return cacheDBHandlerHive.getValueFromCache(key);
+    return cacheDBHandler.getValueFromCache(key);
   }
 
   /// [clearCache] is a method that clears the cache.
   Future<LMResponse<void>> clearCache() {
-    return cacheDBHandlerHive.clearCache();
+    return cacheDBHandler.clearCache();
   }
 
   /// [insertOrUpdateMemberState] is a method that inserts or updates a member state in the box.
   Future<LMResponse<void>> insertOrUpdateMemberState(
       MemberStateResponse memberStateResponse) {
-    return userDBHandlerHive.insertOrUpdateMemberState(memberStateResponse);
+    return userDBHandler.insertOrUpdateMemberState(memberStateResponse);
   }
 
   /// [getMemberState] is a method that returns the member state from the box.
   LMResponse<MemberStateResponse> getMemberState() {
-    return userDBHandlerHive.getMemberState();
+    return userDBHandler.getMemberState();
   }
 
   /// [deleteMemberState] is a method that deletes the member state from the box.
   Future<LMResponse<void>> deleteMemberState() {
-    return userDBHandlerHive.deleteMemberState();
+    return userDBHandler.deleteMemberState();
   }
 
   /// [insertOrUpdateCommunity] is a method that inserts or updates a community in the box.
   Future<LMResponse<void>> insertOrUpdateCommunity(Community community) {
-    return communityDBHandlerHive.insertOrUpdateCommunity(community);
+    return communityDBHandler.insertOrUpdateCommunity(community);
   }
 
   /// [getCommunity] is a method that returns the community from the box.
   LMResponse<Community> getCommunity() {
-    return communityDBHandlerHive.getCommunity();
+    return communityDBHandler.getCommunity();
   }
 
   /// [deleteCommunity] is a method that deletes the community from the box.
   Future<LMResponse<void>> deleteCommunity() {
-    return communityDBHandlerHive.deleteCommunity();
+    return communityDBHandler.deleteCommunity();
   }
 }
