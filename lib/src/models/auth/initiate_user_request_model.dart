@@ -18,8 +18,6 @@ class InitiateUserRequest {
         'user_unique_id': userId,
         'is_guest': isGuest,
         'image_url': imageUrl,
-        "token_expiry_beta": 1,
-        "rtm_token_expiry_beta": 2
       };
 }
 

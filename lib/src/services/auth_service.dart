@@ -157,18 +157,15 @@ class AuthService extends IAuthService {
     try {
       final BaseOptions options = apiManager.client(isRefresh: true).options;
       final headers = options.headers;
-      final response = await apiManager
-          .client(isRefresh: true)
-          .post(apiManager.endPoints.authRefreshEndpoint,
-              options: Options(
-                headers: {
-                  ...headers,
-                  'Authorization': request.refreshToken,
-                },
-              ),
-              data: {
-            "token_expiry_beta": 1,
-          });
+      final response = await apiManager.client(isRefresh: true).post(
+            apiManager.endPoints.authRefreshEndpoint,
+            options: Options(
+              headers: {
+                ...headers,
+                'Authorization': request.refreshToken,
+              },
+            ),
+          );
       if (response.data['success'] == false || response.data['data'] == null) {
         return LMResponse.error(
           errorMessage: response.data['error_message'],
