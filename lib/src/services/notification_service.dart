@@ -3,14 +3,14 @@ import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 class NotificationService {
-  final ApiManager apiClient;
+  final ApiManager apiManager;
 
-  NotificationService({required this.apiClient});
+  NotificationService({required this.apiManager});
 
   Future<LMResponse<void>> registerDevice(RegisterDeviceRequest request) async {
     try {
-      final response = await apiClient.client().post(
-            apiClient.endPoints.registerDeviceEndpoint,
+      final response = await apiManager.client().post(
+            apiManager.endPoints.registerDeviceEndpoint,
             data: {
               'token': request.token,
             },

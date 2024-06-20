@@ -1,21 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars
-
-import 'package:flutter/foundation.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/persistence/cache/handler/handler.dart';
 import 'package:likeminds_chat_fl/src/persistence/community/handler/handler.dart';
 import 'package:likeminds_chat_fl/src/persistence/user/handler/handler.dart';
-import 'package:path_provider/path_provider.dart';
-
-/// Function to initialize Hive
-Future<void> initHive() async {
-  if (!kIsWeb) {
-    Hive.init((await getApplicationDocumentsDirectory()).path);
-  } else {
-    Hive.init('');
-  }
-}
 
 /// [LMChatPersistence] is a class that provides methods to interact with the
 /// persistence layer of the chat SDK.
@@ -31,7 +19,6 @@ class LMChatPersistence {
 
   /// [LMChatPersistence] is the private constructor for the [LMChatPersistence] class.
   LMChatPersistence._() {
-    initHive();
     userDBHandler = LMChatUserDBHandler(
       userBoxName: 'userBox',
       memberStateBoxName: 'memberStateBox',
@@ -48,7 +35,7 @@ class LMChatPersistence {
   /// It returns a [LMResponse] with a [void] data type.
   /// It should be called before any other method of the [LMChatPersistence] class.
   Future<LMResponse<void>> initiate() async {
-    await initHive();
+    await Hive.initFlutter();
     LMResponse<void> userDBInit = await userDBHandler.initiate();
     LMResponse<void> cacheDBInit = await cacheDBHandler.initiate();
     LMResponse<void> communityDBInit = await communityDBHandler.initiate();

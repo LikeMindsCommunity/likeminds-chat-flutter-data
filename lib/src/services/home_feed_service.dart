@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
-import 'package:likeminds_chat_fl/src/models/home/home_feed_request_model.dart';
-import 'package:likeminds_chat_fl/src/models/home/home_feed_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IHomeFeedService {

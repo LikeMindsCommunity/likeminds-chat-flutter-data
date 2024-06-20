@@ -2,7 +2,7 @@ library likeminds_chat_fl;
 
 export 'package:likeminds_chat_fl/src/models/models.dart';
 export 'package:likeminds_chat_fl/src/methods/callback.dart';
-export 'package:likeminds_chat_fl/src/services/di_service.dart';
+export 'package:likeminds_chat_fl/src/services/service_provider.dart';
 export 'package:likeminds_chat_fl/src/utils/enums.dart';
 
 import 'package:flutter/foundation.dart';
@@ -11,7 +11,7 @@ import 'package:likeminds_chat_fl/src/methods/notification.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
-import 'package:likeminds_chat_fl/src/services/di_service.dart';
+import 'package:likeminds_chat_fl/src/services/service_provider.dart';
 import 'package:likeminds_chat_fl/src/utils/enums.dart';
 
 /// Flutter flavour/environment manager v0.0.1
@@ -22,19 +22,16 @@ const String chatSDKVersion = '1.6.0';
 /// The starting point class of the SDK
 class LMChatClient {
   late final SDKApplication _sdkApplication;
-
-  final String _apiKey;
-  final LMSDKCallback? _sdkCallback;
-  static List<ConversationState>? _excludedConversationStates;
-
+  final LMChatSDKCallback _sdkCallback;
+  final List<ConversationState>? _excludedConversationStates;
   LMChatClient._({
-    required String apiKey,
-    LMSDKCallback? sdkCallback,
-  })  : _apiKey = apiKey,
+    required LMChatSDKCallback sdkCallback,
+    List<ConversationState>? excludedConversationStates,
+  })  : _excludedConversationStates = excludedConversationStates,
         _sdkCallback = sdkCallback {
     debugPrint("LMChatClient initialized");
-    DIService.instance.init(_apiKey, _prodFlag, _sdkCallback);
-    _sdkApplication = SDKApplication().initialize();
+    LMChatServiceProvider.instance.init(_prodFlag, _sdkCallback);
+    _sdkApplication = SDKApplication.instance;
   }
   // Initializes the DB
   Future<LMResponse<void>> initiateDB() async {
@@ -51,6 +48,14 @@ class LMChatClient {
   Future<LMResponse<InitiateUserResponse>> initiateUser(
       InitiateUserRequest request) {
     return _sdkApplication.getAuthApi().initiateUser(request);
+  }
+
+  /// validateUser is used to validate a user session
+  /// [ValidateUserRequest] is used to pass the required parameters
+  /// [ValidateUserResponse] is returned as a Future
+  Future<LMResponse<ValidateUserResponse>> validateUser(
+      ValidateUserRequest validateUserRequest) async {
+    return await _sdkApplication.getAuthApi().validateUser(validateUserRequest);
   }
 
   /// logout is used to logout a user session
@@ -496,15 +501,10 @@ class LMChatClient {
 /// [sdkCallback] is the callback to handle the events
 /// Returns a new instance of the SDK [LMChatClient]
 class LMChatClientBuilder {
-  String? _apiKey;
-  LMSDKCallback? _sdkCallback;
+  LMChatSDKCallback? _sdkCallback;
   List<ConversationState>? _excludedConversationStates;
 
-  void apiKey(String apiKey) {
-    _apiKey = apiKey;
-  }
-
-  void sdkCallback(LMSDKCallback? sdkCallback) {
+  void sdkCallback(LMChatSDKCallback? sdkCallback) {
     _sdkCallback = sdkCallback;
   }
 
@@ -513,13 +513,9 @@ class LMChatClientBuilder {
   }
 
   LMChatClient build() {
-    if (_apiKey == null) {
-      throw Exception("API key is required");
-    }
-    LMChatClient._excludedConversationStates = _excludedConversationStates;
     return LMChatClient._(
-      apiKey: _apiKey!,
-      sdkCallback: _sdkCallback,
+      excludedConversationStates: _excludedConversationStates,
+      sdkCallback: _sdkCallback!,
     );
   }
 }

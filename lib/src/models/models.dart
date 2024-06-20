@@ -6,10 +6,12 @@ export 'package:likeminds_chat_fl/src/models/auth/member_right_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/member_state_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/member_state_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/logout_request_model.dart';
-export 'package:likeminds_chat_fl/src/models/auth/initiate_user_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/refresh_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/refresh_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/auth/auth_token_model.dart';
+export 'package:likeminds_chat_fl/src/models/auth/validate_user_request_model.dart';
+export 'package:likeminds_chat_fl/src/models/auth/validate_user_response_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/community/community_model.dart';
 export 'package:likeminds_chat_fl/src/models/community/community_settings_rights_model.dart';

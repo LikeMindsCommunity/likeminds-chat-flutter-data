@@ -22,6 +22,20 @@ class AuthRepository {
     );
   }
 
+  Future<LMResponse<ValidateUserResponse>> validateUser(
+      ValidateUserRequest validateUserRequest) async {
+    LMResponse<ValidateUserResponseEntity> validateUserResponseEntity =
+        await authService.validateUser(validateUserRequest);
+    if (!validateUserResponseEntity.success) {
+      return LMResponse.error(
+          errorMessage: validateUserResponseEntity.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: validateUserResponseEntity,
+      data: ValidateUserResponse.fromEntity(validateUserResponseEntity.data!),
+    );
+  }
+
   Future<LMResponse<void>> logout(LogoutRequest logoutRequest) async {
     LMResponse<void> responseEntity = await authService.logout(logoutRequest);
     if (!responseEntity.success) {

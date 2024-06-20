@@ -1,31 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'initiate_user_response_model.dart';
+part of 'validate_user_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-InitiateUserResponseEntity _$InitiateUserResponseEntityFromJson(
+ValidateUserResponseEntity _$ValidateUserResponseEntityFromJson(
         Map<String, dynamic> json) =>
-    InitiateUserResponseEntity(
-      appAccess: json['app_access'] as bool?,
+    ValidateUserResponseEntity(
       user: json['user'] == null
           ? null
           : UserEntity.fromJson(json['user'] as Map<String, dynamic>),
       community: json['community'] == null
           ? null
           : CommunityEntity.fromJson(json['community'] as Map<String, dynamic>),
-      accessToken: json['access_token'] as String?,
-      refreshToken: json['refresh_token'] as String?,
+      appAccess: json['app_access'] as bool?,
     );
 
-Map<String, dynamic> _$InitiateUserResponseEntityToJson(
-        InitiateUserResponseEntity instance) =>
+Map<String, dynamic> _$ValidateUserResponseEntityToJson(
+        ValidateUserResponseEntity instance) =>
     <String, dynamic>{
-      'app_access': instance.appAccess,
       'user': instance.user,
       'community': instance.community,
-      'access_token': instance.accessToken,
-      'refresh_token': instance.refreshToken,
+      'app_access': instance.appAccess,
     };

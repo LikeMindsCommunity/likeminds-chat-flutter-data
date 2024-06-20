@@ -7,7 +7,7 @@ class RefreshRequest {
 class RefreshRequestBuilder {
   String? _refreshToken;
 
-  void refreshTokem(String refreshToken) {
+  void refreshToken(String refreshToken) {
     _refreshToken = refreshToken;
   }
 

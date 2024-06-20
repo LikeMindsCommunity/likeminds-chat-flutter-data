@@ -2,22 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
-import 'package:likeminds_chat_fl/src/models/helper/decode_url_request_model.dart';
-import 'package:likeminds_chat_fl/src/models/helper/decode_url_response_model.dart';
-import 'package:likeminds_chat_fl/src/models/helper/tag_request_model.dart';
-import 'package:likeminds_chat_fl/src/models/helper/tag_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
-import 'package:likeminds_chat_fl/src/services/di_service.dart';
+import 'package:likeminds_chat_fl/src/services/service_provider.dart';
 
 class HelperService {
-  LMSDKCallback? callback;
+  LMChatSDKCallback? callback;
   final ApiManager apiClient;
 
   HelperService({required this.apiClient}) {
-    callback =
-        DIService.getIt.isRegistered<LMSDKCallback>(instanceName: "LMCallback")
-            ? DIService.getIt.get<LMSDKCallback>(instanceName: "LMCallback")
-            : null;
+    callback = LMChatServiceProvider.instance.sdkCallback;
   }
 
   Future<LMResponse<TagResponseModelEntity>> getTags(

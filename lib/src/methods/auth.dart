@@ -14,6 +14,11 @@ class AuthApi {
     return authRepository.initiateUser(initiateUserRequest);
   }
 
+  Future<LMResponse<ValidateUserResponse>> validateUser(
+      ValidateUserRequest validateUserRequest) async {
+    return authRepository.validateUser(validateUserRequest);
+  }
+
   Future<LMResponse<void>> logout(LogoutRequest logoutRequest) async {
     return authRepository.logout(logoutRequest);
   }

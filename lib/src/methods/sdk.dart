@@ -1,4 +1,3 @@
-import 'package:get_it/get_it.dart';
 import 'package:likeminds_chat_fl/src/methods/access.dart';
 import 'package:likeminds_chat_fl/src/methods/auth.dart';
 import 'package:likeminds_chat_fl/src/methods/chatroom.dart';
@@ -12,127 +11,92 @@ import 'package:likeminds_chat_fl/src/methods/participants.dart';
 import 'package:likeminds_chat_fl/src/methods/persistence.dart';
 import 'package:likeminds_chat_fl/src/methods/poll.dart';
 import 'package:likeminds_chat_fl/src/methods/reaction.dart';
-import 'package:likeminds_chat_fl/src/repositories/access_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/dm_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/explore_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/persistence_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/poll_repository.dart';
-import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
-import 'package:likeminds_chat_fl/src/services/di_service.dart';
+import 'package:likeminds_chat_fl/src/services/service_provider.dart';
 
 class SDKApplication {
-  SDKApplication initialize() {
-    return SDKApplication();
-  }
+  static SDKApplication? _instance;
+  static SDKApplication get instance => _instance ??= SDKApplication._();
+
+  SDKApplication._();
 
   AuthApi getAuthApi() {
     return AuthApi(
-      authRepository: GetIt.instance.get<AuthRepository>(
-        instanceName: DIService.kInstanceAuthRepository,
-      ),
+      authRepository: LMChatServiceProvider.instance.authRepository,
     );
   }
 
   AccessApi getAccessApi() {
     return AccessApi(
-      accessRepository: GetIt.instance.get<AccessRepository>(
-        instanceName: DIService.kInstanceAccessRepository,
-      ),
+      accessRepository: LMChatServiceProvider.instance.accessRepository,
     );
   }
 
   HomeApi getHomeApi() {
     return HomeApi(
-      homeRepository: GetIt.instance.get<HomeFeedRepository>(
-        instanceName: DIService.kInstanceHomeFeedRepository,
-      ),
+      homeRepository: LMChatServiceProvider.instance.homeFeedRepository,
     );
   }
 
   ChatroomApi getChatroomApi() {
     return ChatroomApi(
-      chatroomRepository: GetIt.instance.get<ChatroomRepository>(
-        instanceName: DIService.kInstanceChatroomRepository,
-      ),
+      chatroomRepository: LMChatServiceProvider.instance.chatroomRepository,
     );
   }
 
   ConversationApi getConversationApi() {
     return ConversationApi(
-      conversationRepository: GetIt.instance.get<ConversationRepository>(
-        instanceName: DIService.kInstanceConversationRepository,
-      ),
+      conversationRepository:
+          LMChatServiceProvider.instance.conversationRepository,
     );
   }
 
   MediaApi getMediaApi() {
     return MediaApi(
-      mediaRepository: GetIt.instance.get<MediaRepository>(
-        instanceName: DIService.kInstanceMediaRepository,
-      ),
+      mediaRepository: LMChatServiceProvider.instance.mediaRepository,
     );
   }
 
   ParticipantsApi getParticipantsApi() {
     return ParticipantsApi(
-      participantsRepository: GetIt.instance.get<ParticipantsRepository>(
-        instanceName: DIService.kInstanceParticipantsRepository,
-      ),
+      participantsRepository:
+          LMChatServiceProvider.instance.participantsRepository,
     );
   }
 
   HelperApi getHelperApi() {
     return HelperApi(
-      helperRepository: GetIt.instance.get<HelperRepository>(
-        instanceName: DIService.kInstanceHelperRepository,
-      ),
+      helperRepository: LMChatServiceProvider.instance.helperRepository,
     );
   }
 
   ExploreApi getExploreApi() {
     return ExploreApi(
-      exploreRepository: GetIt.instance.get<ExploreRepository>(
-        instanceName: DIService.kInstanceExploreRepository,
-      ),
+      exploreRepository: LMChatServiceProvider.instance.exploreRepository,
     );
   }
 
   ReactionApi getReactionApi() {
     return ReactionApi(
-      reactionRepository: GetIt.instance.get<ReactionRepository>(
-        instanceName: DIService.kInstanceReactionRepository,
-      ),
+      reactionRepository: LMChatServiceProvider.instance.reactionRepository,
     );
   }
 
   PollApi getPollApi() {
     return PollApi(
-      pollRepository: GetIt.instance.get<PollRepository>(
-        instanceName: DIService.kInstancePollRepository,
-      ),
+      pollRepository: LMChatServiceProvider.instance.pollRepository,
     );
   }
 
   DMApi getDMApi() {
     return DMApi(
-      dmRepository: GetIt.instance.get<DMRepository>(
-        instanceName: DIService.kInstanceDMRepository,
-      ),
+      dmRepository: LMChatServiceProvider.instance.dmRepository,
     );
   }
-  
+
   PersistenceApi getPersistenceApi() {
     return PersistenceApi(
-      persistenceRepository: GetIt.instance.get<PersistenceRepository>(
-        instanceName: DIService.kInstancePersistenceRepository,
-      ),
+      persistenceRepository:
+          LMChatServiceProvider.instance.persistenceRepository,
     );
   }
 }
