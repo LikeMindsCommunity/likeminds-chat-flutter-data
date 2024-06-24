@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/endpoints.dart';
 import 'package:likeminds_chat_fl/src/environment/env.dart';
-import 'package:likeminds_chat_fl/src/managers/api/interceptors/common_header_interceptor.dart';
 import 'package:likeminds_chat_fl/src/managers/api/interceptors/log_interceptor.dart';
 import 'package:likeminds_chat_fl/src/managers/token_manager.dart';
 
@@ -10,15 +9,20 @@ import 'interceptors/token_interceptor.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 
 class ApiManager {
-  final TokenManager tokenManager;
+  final TokenManager tokenManager = TokenManager.instance;
   final bool production;
 
-  ApiManager({
-    required this.tokenManager,
+  ApiManager._({
     required this.production,
   }) {
     endPoints = EndPoints.instance(production);
     _init();
+  }
+  static ApiManager? _instance;
+
+  factory ApiManager({required bool production}) {
+    _instance ??= ApiManager._(production: production);
+    return _instance!;
   }
 
   late final EndPoints endPoints;
@@ -34,7 +38,6 @@ class ApiManager {
     BaseOptions options = BaseOptions(headers: headers);
     _dio.options = options;
     _dio.interceptors.add(Logging());
-    _dio.interceptors.add(CommonHeaderInterceptor(tokenManager: tokenManager));
     _dio.interceptors.add(TokenInterceptor(apiManager: this));
     _dio.interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
 

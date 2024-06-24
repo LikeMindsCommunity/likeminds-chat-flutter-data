@@ -25,6 +25,8 @@ const int TESTING_PROD_DEFAULT_CHATROOM = EnvTest.testingProdDefaultChatroom;
 
 void main() {
   debugPrint("Starting the tests now...");
+  // initialize flutter binding
+  TestWidgetsFlutterBinding.ensureInitialized();
   int? conversationId;
   int chatroomId = TESTING_PROD_FLAG
       ? TESTING_PROD_DEFAULT_CHATROOM
@@ -36,8 +38,6 @@ void main() {
 
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
-        ..apiKey(
-            TESTING_PROD_FLAG ? TESTING_PROD_API_KEY : TESTING_BETA_API_KEY)
         ..sdkCallback(TESTING_CALLBACK))
       .build();
 
@@ -52,9 +52,9 @@ void main() {
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
     //save memberId for future tests
-    memberId = response.data?.initiateUser?.user.id;
-    debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
-    memberId = response.data?.initiateUser?.user.id;
+    memberId = response.data?.user?.id;
+    debugPrint("Logged in as, ${response.data?.user?.name}");
+    memberId = response.data?.user?.id;
     // TESTING_CALLBACK.eventFiredCallback();
     expect(response.success, true);
   });
