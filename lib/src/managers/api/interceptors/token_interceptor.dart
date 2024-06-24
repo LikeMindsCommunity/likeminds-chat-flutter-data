@@ -17,7 +17,6 @@ class TokenInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     debugPrint("Authenticated request completed");
-     debugPrint("this is this auth $callback");
     return super.onResponse(response, handler);
   }
 
@@ -25,7 +24,6 @@ class TokenInterceptor extends Interceptor {
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      debugPrint("this is this$callback");
       if (!err.response!.requestOptions.path.contains("user/refresh")) {
         debugPrint("Authenticated request failed in onError");
         await refreshToken();
@@ -78,8 +76,6 @@ class TokenInterceptor extends Interceptor {
         newRefreshToken,
       );
     } else {
-      // apiManager.tokenManager.clearTokens();
-      // throw Exception("Token refresh failed");
       apiManager.tokenManager.clearTokens();
       debugPrint("Authenticated request failed in onError");
       LMAuthToken? request = await callback?.onRefreshTokenExpired.call();

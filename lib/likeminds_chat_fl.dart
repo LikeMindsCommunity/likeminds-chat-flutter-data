@@ -415,7 +415,6 @@ class LMChatClient {
     return _sdkApplication.getDMApi().blockMember(request);
   }
   // ------------------------------------------
-  // ------------------------------------------
 
   // ------------------------------------------
   // Persistence Functions
