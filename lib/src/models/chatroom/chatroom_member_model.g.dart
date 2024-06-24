@@ -11,17 +11,17 @@ ChatRoomMemberEntity _$ChatRoomMemberEntityFromJson(
     ChatRoomMemberEntity(
       customIntroText: json['custom_intro_text'] as String?,
       customTitle: json['custom_title'] as String?,
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       imageUrl: json['image_url'] as String?,
       isGuest: json['is_guest'] as bool?,
       isOwner: json['is_owner'] as bool?,
       memberSince: json['member_since'] as String?,
-      memberSinceEpoch: json['member_since_epoch'] as int?,
+      memberSinceEpoch: (json['member_since_epoch'] as num?)?.toInt(),
       name: json['name'] as String,
       organisationName: json['organisation_name'] as String?,
       route: json['route'] as String?,
-      state: (json['state'] ?? 0) as int,
-      updatedAt: json['updated_at'] as int?,
+      state: (json['state'] as num?)?.toInt(),
+      updatedAt: (json['updated_at'] as num?)?.toInt(),
       userUniqueId: json['user_unique_id'] as String?,
     );
 

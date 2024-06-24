@@ -18,7 +18,6 @@ class InitiateUserRequest {
         'user_unique_id': userId,
         'is_guest': isGuest,
         'image_url': imageUrl,
-        'x-api-key': apiKey,
       };
 }
 

@@ -102,3 +102,5 @@ export 'package:likeminds_chat_fl/src/models/dm/block_member_request_model.dart'
 export 'package:likeminds_chat_fl/src/models/dm/block_member_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/get_all_members_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/dm/get_all_members_response_model.dart';
+
+export 'package:likeminds_chat_fl/src/models/cache/cache.dart';

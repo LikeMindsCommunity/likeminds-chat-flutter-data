@@ -12,7 +12,7 @@ DMSearchMemberEntity _$DMSearchMemberEntityFromJson(
       clientUserUniqueId: json['client_user_unique_id'] as String?,
       customClickText: json['custom_click_text'] as String?,
       customIntroText: json['custom_intro_text'] as String?,
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       isOwner: json['is_owner'] as bool?,
       memberCohorts: (json['member_cohorts'] as List<dynamic>?)
           ?.map((e) => MemberCohortEntity.fromJson(e as Map<String, dynamic>))
@@ -25,8 +25,8 @@ DMSearchMemberEntity _$DMSearchMemberEntityFromJson(
           ? null
           : SDKClientInfo.fromJson(
               json['sdk_client_info'] as Map<String, dynamic>),
-      state: json['state'] as int?,
-      updatedAt: json['updated_at'] as int?,
+      state: (json['state'] as num?)?.toInt(),
+      updatedAt: (json['updated_at'] as num?)?.toInt(),
       userUniqueId: json['user_unique_id'] as String?,
       uuid: json['uuid'] as String?,
     );
@@ -62,7 +62,7 @@ Map<String, dynamic> _$MenuEntityToJson(MenuEntity instance) =>
 
 MemberCohortEntity _$MemberCohortEntityFromJson(Map<String, dynamic> json) =>
     MemberCohortEntity(
-      cohortId: json['cohort_id'] as int?,
+      cohortId: (json['cohort_id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 

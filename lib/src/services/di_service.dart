@@ -13,6 +13,7 @@ import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/persistence_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/poll_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
 import 'package:likeminds_chat_fl/src/services/access_service.dart';
@@ -26,6 +27,7 @@ import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
 import 'package:likeminds_chat_fl/src/services/media_service.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
 import 'package:likeminds_chat_fl/src/services/participants_service.dart';
+import 'package:likeminds_chat_fl/src/services/persistance_service.dart';
 import 'package:likeminds_chat_fl/src/services/poll_service.dart';
 import 'package:likeminds_chat_fl/src/services/reaction_service.dart';
 
@@ -114,6 +116,9 @@ class DIService {
 
     DMService dmService = DMService(apiManager: apiManager);
     DMRepository dmRepository = DMRepository(dmService: dmService);
+    PersistenceService persistenceService = PersistenceService();
+    PersistenceRepository persistenceRepository =
+        PersistenceRepository(persistenceService: persistenceService);
 
     /// Register all the dependencies in the getIt instance
     getIt.registerFactory<AuthRepository>(
@@ -164,6 +169,10 @@ class DIService {
       () => dmRepository,
       instanceName: kInstanceDMRepository,
     );
+    getIt.registerFactory<PersistenceRepository>(
+      () => persistenceRepository,
+      instanceName: kInstancePersistenceRepository,
+    );
   }
 
   /// Get the static instance of GetIt to get the dependencies
@@ -186,4 +195,5 @@ class DIService {
   static const String kInstanceHelperRepository = 'helper_repository';
   static const String kInstanceParticipantsRepository =
       'participants_repository';
+  static const String kInstancePersistenceRepository = 'persistence_repository';
 }

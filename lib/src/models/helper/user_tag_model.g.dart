@@ -11,7 +11,7 @@ UserTagEntity _$UserTagEntityFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       imageUrl: json['image_url'] as String?,
       customTitle: json['custom_title'] as String?,
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       isGuest: json['is_guest'] as bool?,
       userUniqueId: json['user_unique_id'] as String?,
     );

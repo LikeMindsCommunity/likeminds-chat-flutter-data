@@ -36,7 +36,7 @@ class HomeFeedService extends IHomeFeedService {
         );
       }
       GetHomeFeedResponseEntity homeFeedResponseEntity =
-          GetHomeFeedResponseEntity.fromJson(response.data);
+          GetHomeFeedResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: homeFeedResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);

@@ -10,6 +10,7 @@ import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/methods/notification.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 import 'package:likeminds_chat_fl/src/services/di_service.dart';
 import 'package:likeminds_chat_fl/src/utils/enums.dart';
 
@@ -34,6 +35,10 @@ class LMChatClient {
     debugPrint("LMChatClient initialized");
     DIService.instance.init(_apiKey, _prodFlag, _sdkCallback);
     _sdkApplication = SDKApplication().initialize();
+  }
+  // Initializes the DB
+  Future<LMResponse<void>> initiateDB() async {
+    return await LMChatPersistence.instance.initiate();
   }
 
   // ------------------------------------------
@@ -405,6 +410,85 @@ class LMChatClient {
     return _sdkApplication.getDMApi().blockMember(request);
   }
   // ------------------------------------------
+  // ------------------------------------------
+
+  // ------------------------------------------
+  // Persistence Functions
+  // These are used to talk to our persistence layer
+  // for implementing caching and local DB
+
+  /// [insertOrUpdateLoggedInUser] is used to insert or update the logged in user
+  Future<LMResponse<void>> insertOrUpdateLoggedInUser(User user) async {
+    return _sdkApplication.getPersistenceApi().insertOrUpdateUser(user);
+  }
+
+  /// [getLoggedInUser] is used to get the logged in user
+  LMResponse<User> getLoggedInUser() {
+    return _sdkApplication.getPersistenceApi().getUser();
+  }
+
+  /// [deleteLoggedInUser] is used to delete the logged in user
+  Future<LMResponse<void>> deleteLoggedInUser() async {
+    return _sdkApplication.getPersistenceApi().deleteUser();
+  }
+
+  /// [insertOrUpdateCache] is used to insert or update the cache
+  Future<LMResponse<void>> insertOrUpdateCache(LMChatCache cache) async {
+    return _sdkApplication
+        .getPersistenceApi()
+        .insertOrUpdateValueInCache(cache);
+  }
+
+  /// [deleteCache] is used to delete the cache
+  Future<LMResponse<void>> deleteCache(String key) async {
+    return _sdkApplication.getPersistenceApi().deleteCache(key);
+  }
+
+  /// [getCache] is used to get the cache
+  LMResponse<LMChatCache> getCache(String key) {
+    return _sdkApplication.getPersistenceApi().getCache(key);
+  }
+
+  /// [clearCache] is used to clear the cache
+  Future<LMResponse<void>> clearCache() async {
+    return _sdkApplication.getPersistenceApi().clearCache();
+  }
+
+  /// [insertOrUpdateLoggedInMemberState] is used to insert or update the logged in member state
+  Future<LMResponse<void>> insertOrUpdateLoggedInMemberState(
+      MemberStateResponse memberStateResponse) async {
+    return await _sdkApplication
+        .getPersistenceApi()
+        .insertOrUpdateMemberState(memberStateResponse);
+  }
+
+  /// [getLoggedInMemberState] is used to get the logged in member state
+  LMResponse<MemberStateResponse> getLoggedInMemberState() {
+    return _sdkApplication.getPersistenceApi().getMemberState();
+  }
+
+  /// [deleteLoggedInMemberState] is used to delete the logged in member state
+  Future<LMResponse<void>> deleteLoggedInMemberState() async {
+    return await _sdkApplication.getPersistenceApi().deleteMemberState();
+  }
+
+  /// [insertOrUpdateCommunity] is used to insert or update the community
+  Future<LMResponse<void>> insertOrUpdateCommunity(Community community) async {
+    return await _sdkApplication
+        .getPersistenceApi()
+        .insertOrUpdateCommunity(community);
+  }
+
+  /// [getCommunity] is used to get the community
+  LMResponse<Community> getCommunity() {
+    return _sdkApplication.getPersistenceApi().getCommunity();
+  }
+
+  /// [deleteCommunity] is used to delete the community
+  Future<LMResponse<void>> deleteCommunity() async {
+    return await _sdkApplication.getPersistenceApi().deleteCommunity();
+  }
+  // ---------------------------------------
 }
 
 /// Builder class to initiate the SDK

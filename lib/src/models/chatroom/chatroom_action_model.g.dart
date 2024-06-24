@@ -9,7 +9,7 @@ part of 'chatroom_action_model.dart';
 ChatroomActionEntity _$ChatroomActionEntityFromJson(
         Map<String, dynamic> json) =>
     ChatroomActionEntity(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       title: json['title'] as String,
     );
 

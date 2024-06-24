@@ -12,8 +12,8 @@ SpaceModel _$SpaceModelFromJson(Map<String, dynamic> json) => SpaceModel(
       imageUrl: json['imageUrl'] as String,
       id: json['id'] as String,
       isPinned: json['isPinned'] as bool,
-      members: json['members'] as int,
-      messages: json['messages'] as int,
+      members: (json['members'] as num).toInt(),
+      messages: (json['messages'] as num).toInt(),
       isJoined: json['isJoined'] as bool? ?? false,
     );
 

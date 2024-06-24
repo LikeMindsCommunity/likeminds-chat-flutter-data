@@ -41,7 +41,7 @@ Map<String, dynamic> _$GetConversationResponseEntityToJson(
       'community_meta':
           instance.communityMeta?.map((k, e) => MapEntry(k.toString(), e)),
       'user_meta': instance.userMeta?.map((k, e) => MapEntry(k.toString(), e)),
-      'conversation_data': instance.conversationData,
+      'conversations_data': instance.conversationData,
       'conversation_meta': instance.conversationMeta,
       'conv_attachments_meta': instance.conversationAttachmentsMeta,
     };
