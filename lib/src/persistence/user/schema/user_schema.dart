@@ -39,7 +39,7 @@ class LMChatUserSchema extends HiveObject {
   bool? isDeleted;
 
   @HiveField(5)
-  String uuid;
+  String? uuid;
 
   @HiveField(6)
   String? organisationName;
@@ -77,7 +77,7 @@ class LMChatUserSchema extends HiveObject {
     this.imageUrl,
     this.isGuest,
     this.isDeleted,
-    required this.uuid,
+     this.uuid,
     this.organisationName,
     this.sdkClientInfo,
     this.updatedAt,

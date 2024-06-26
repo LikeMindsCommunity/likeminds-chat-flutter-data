@@ -99,6 +99,11 @@ class AuthService extends IAuthService {
   Future<LMResponse<ValidateUserResponseEntity>> validateUser(
       ValidateUserRequest validateUserRequest) async {
     try {
+      // update tokens
+      await apiManager.tokenManager.updateTokens(
+        validateUserRequest.accessToken,
+        validateUserRequest.refreshToken,
+      );
       final Response response = await apiManager.client().get(
             apiManager.endPoints.authEndpoint,
             options: Options(
@@ -121,11 +126,6 @@ class AuthService extends IAuthService {
           await localPref.deleteCommunity();
           await localPref.insertOrUpdateCommunity(
               Community.fromEntity(validateUserEntity.community!));
-          // update tokens
-          await apiManager.tokenManager.updateTokens(
-            validateUserRequest.accessToken,
-            validateUserRequest.refreshToken,
-          );
           return LMResponse.success(
             data: validateUserEntity,
           );
@@ -157,15 +157,18 @@ class AuthService extends IAuthService {
     try {
       final BaseOptions options = apiManager.client(isRefresh: true).options;
       final headers = options.headers;
-      final response = await apiManager.client(isRefresh: true).post(
-            apiManager.endPoints.authRefreshEndpoint,
-            options: Options(
-              headers: {
-                ...headers,
-                'Authorization': request.refreshToken,
-              },
-            ),
-          );
+      final response = await apiManager
+          .client(isRefresh: true)
+          .post(apiManager.endPoints.authRefreshEndpoint,
+              options: Options(
+                headers: {
+                  ...headers,
+                  'Authorization': request.refreshToken,
+                },
+              ),
+              data: {
+            "token_expiry_beta": 1,
+          });
       if (response.data['success'] == false || response.data['data'] == null) {
         return LMResponse.error(
           errorMessage: response.data['error_message'],

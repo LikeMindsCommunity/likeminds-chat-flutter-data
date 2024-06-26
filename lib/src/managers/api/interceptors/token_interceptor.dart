@@ -32,13 +32,16 @@ class TokenInterceptor extends Interceptor {
       } else {
         apiManager.tokenManager.clearTokens();
         debugPrint("Authenticated request failed in onError");
-        LMAuthToken? request = await callback?.onRefreshTokenExpired.call();
-        if (request != null) {
+        LMAuthToken? authToken = await callback?.onRefreshTokenExpired.call();
+
+        if (authToken != null) {
+          await apiManager.tokenManager
+              .updateTokens(authToken.accessToken, authToken.refreshToken);
           handler.resolve(Response(requestOptions: err.requestOptions, data: {
             "success": true,
             "data": {
-              "access_token": request.accessToken,
-              "refresh_token": request.refreshToken
+              "access_token": authToken.accessToken,
+              "refresh_token": authToken.refreshToken
             }
           }));
         } else {

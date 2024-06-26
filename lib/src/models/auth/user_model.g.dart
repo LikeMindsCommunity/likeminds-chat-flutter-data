@@ -11,7 +11,7 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
       name: json['name'] as String,
       imageUrl: json['image_url'] as String?,
       isGuest: json['is_guest'] as bool?,
-      userUniqueId: json['user_unique_id'] as String,
+      userUniqueId: json['user_unique_id'] as String?,
       organisationName: json['organisation_name'] as String?,
       sdkClientInfo: json['sdk_client_info'] == null
           ? null
@@ -25,6 +25,8 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
       state: (json['state'] as num?)?.toInt(),
       communityId: (json['community_id'] as num?)?.toInt(),
       createdAt: (json['created_at'] as num?)?.toInt(),
+      memberSinceEpoch: json['member_since_epoch'] as int?,
+      customIntroText: json['custom_intro_text'] as String?,
     );
 
 Map<String, dynamic> _$UserEntityToJson(UserEntity instance) =>
@@ -44,4 +46,6 @@ Map<String, dynamic> _$UserEntityToJson(UserEntity instance) =>
       'state': instance.state,
       'community_id': instance.communityId,
       'created_at': instance.createdAt,
+      'custom_intro_text': instance.customIntroText,
+      'member_since_epoch': instance.memberSinceEpoch,
     };

@@ -20,7 +20,7 @@ GetChatroomResponseEntity _$GetChatroomResponseEntityFromJson(
           ? null
           : CommunityEntity.fromJson(json['community'] as Map<String, dynamic>),
       conversationUsers: (json['conversation_users'] as List<dynamic>?)
-          ?.map((e) => ChatRoomMemberEntity.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => UserEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       lastConversationId: (json['last_conversation_id'] as num?)?.toInt(),
       participantCount: (json['participant_count'] as num?)?.toInt(),

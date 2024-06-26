@@ -8,7 +8,7 @@ class GetChatroomResponse {
   final ChatRoom? chatroom;
   final List<ChatroomAction>? chatroomActions;
   final Community? community;
-  final List<ChatRoomMember>? conversationUsers;
+  final List<User>? conversationUsers;
   final int? lastConversationId;
   final int? participantCount;
   final int? unreadMessages;
@@ -37,7 +37,7 @@ class GetChatroomResponse {
           ? Community.fromEntity(entity.community!)
           : null,
       conversationUsers: entity.conversationUsers
-          ?.map((e) => ChatRoomMember.fromEntity(e))
+          ?.map((e) => User.fromEntity(e))
           .toList(),
       lastConversationId: entity.lastConversationId,
       participantCount: entity.participantCount,
@@ -70,7 +70,7 @@ class GetChatroomResponseEntity {
   @JsonKey(name: 'community')
   final CommunityEntity? community;
   @JsonKey(name: 'conversation_users')
-  final List<ChatRoomMemberEntity>? conversationUsers;
+  final List<UserEntity>? conversationUsers;
   @JsonKey(name: 'last_conversation_id')
   final int? lastConversationId;
   @JsonKey(name: 'participant_count')
