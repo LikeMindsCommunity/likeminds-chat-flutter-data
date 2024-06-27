@@ -47,7 +47,7 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       isTagged: json['is_tagged'] as bool?,
       member: json['member'] == null
           ? null
-          : ChatRoomMemberEntity.fromJson(
+          : UserEntity.fromJson(
               json['member'] as Map<String, dynamic>),
       topic: json['topic'] == null
           ? null
@@ -74,16 +74,16 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       chatRequestState: (json['chat_request_state'] as num?)?.toInt(),
       chatRequestedBy: json['chat_requested_by'] == null
           ? null
-          : ChatRoomMemberEntity.fromJson(
+          : UserEntity.fromJson(
               json['chat_requested_by'] as Map<String, dynamic>),
       chatRequestedById: (json['chat_requested_by_id'] as num?)?.toInt(),
       chatroomWithUser: json['chatroom_with_user'] == null
           ? null
-          : ChatRoomMemberEntity.fromJson(
+          : UserEntity.fromJson(
               json['chatroom_with_user'] as Map<String, dynamic>),
       chatroomWithUserId: (json['chatroom_with_user_id'] as num?)?.toInt(),
       lastResponseMembers: (json['last_response_members'] as List<dynamic>?)
-          ?.map((e) => ChatRoomMemberEntity.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => UserEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       memberCanMessage: json['member_can_message'] as bool?,
       userId: (json['user_id'] as num?)?.toInt(),

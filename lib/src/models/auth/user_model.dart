@@ -8,7 +8,7 @@ class User {
   final String name;
   final String? imageUrl;
   final bool? isGuest;
-  final String userUniqueId;
+  final String? userUniqueId;
   final String? organisationName;
   final SDKClientInfo? sdkClientInfo;
   final int? updatedAt;
@@ -19,13 +19,15 @@ class User {
   final int? state;
   final int? communityId;
   final int? createdAt;
+  final String? customIntroText;
+  final int? memberSinceEpoch;
 
   User({
     required this.id,
     required this.name,
-    required this.imageUrl,
-    required this.isGuest,
-    required this.userUniqueId,
+    this.imageUrl,
+    this.isGuest,
+    this.userUniqueId,
     this.organisationName,
     this.sdkClientInfo,
     this.updatedAt,
@@ -36,6 +38,8 @@ class User {
     this.state,
     this.communityId,
     this.createdAt,
+    this.memberSinceEpoch,
+    this.customIntroText,
   });
 
   factory User.fromEntity(UserEntity entity) {
@@ -55,6 +59,8 @@ class User {
       state: entity.state,
       communityId: entity.communityId,
       createdAt: entity.createdAt,
+      customIntroText: entity.customIntroText,
+      memberSinceEpoch: entity.memberSinceEpoch,
     );
   }
 
@@ -75,6 +81,8 @@ class User {
       state: state,
       communityId: communityId,
       createdAt: createdAt,
+      customIntroText: customIntroText,
+      memberSinceEpoch: memberSinceEpoch,
     );
   }
 }
@@ -91,7 +99,7 @@ class UserEntity {
   final bool? isGuest;
 
   @JsonKey(name: 'user_unique_id')
-  final String userUniqueId;
+  final String? userUniqueId;
 
   @JsonKey(name: 'organisation_name')
   final String? organisationName;
@@ -123,12 +131,18 @@ class UserEntity {
   @JsonKey(name: 'created_at')
   final int? createdAt;
 
+  @JsonKey(name: 'custom_intro_text')
+  final String? customIntroText;
+
+  @JsonKey(name: 'member_since_epoch')
+  final int? memberSinceEpoch;
+
   UserEntity({
     required this.id,
     required this.name,
-    required this.imageUrl,
-    required this.isGuest,
-    required this.userUniqueId,
+    this.imageUrl,
+    this.isGuest,
+    this.userUniqueId,
     this.organisationName,
     this.sdkClientInfo,
     this.updatedAt,
@@ -139,6 +153,8 @@ class UserEntity {
     this.state,
     this.communityId,
     this.createdAt,
+    this.customIntroText,
+    this.memberSinceEpoch,
   });
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>

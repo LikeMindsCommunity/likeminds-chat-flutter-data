@@ -99,6 +99,11 @@ class AuthService extends IAuthService {
   Future<LMResponse<ValidateUserResponseEntity>> validateUser(
       ValidateUserRequest validateUserRequest) async {
     try {
+      // update tokens
+      await apiManager.tokenManager.updateTokens(
+        validateUserRequest.accessToken,
+        validateUserRequest.refreshToken,
+      );
       final Response response = await apiManager.client().get(
             apiManager.endPoints.authEndpoint,
             options: Options(
@@ -121,11 +126,6 @@ class AuthService extends IAuthService {
           await localPref.deleteCommunity();
           await localPref.insertOrUpdateCommunity(
               Community.fromEntity(validateUserEntity.community!));
-          // update tokens
-          await apiManager.tokenManager.updateTokens(
-            validateUserRequest.accessToken,
-            validateUserRequest.refreshToken,
-          );
           return LMResponse.success(
             data: validateUserEntity,
           );
