@@ -44,7 +44,6 @@ class Conversation {
   final int? startTime;
   final int? state;
   final String? temporaryId;
-  final int? userId;
   final int? memberId;
   final bool? toShowResults;
   final String? pollTypeText;
@@ -94,7 +93,6 @@ class Conversation {
     this.startTime,
     this.state,
     this.temporaryId,
-    this.userId,
     this.memberId,
     this.toShowResults,
     this.pollTypeText,
@@ -152,7 +150,6 @@ class Conversation {
         startTime: entity.startTime,
         state: entity.state,
         temporaryId: entity.temporaryId,
-        userId: entity.userId,
         toShowResults: entity.toShowResults,
         pollTypeText: entity.pollTypeText,
         submitTypeText: entity.submitTypeText,
@@ -211,7 +208,6 @@ class Conversation {
         startTime: startTime,
         state: state,
         temporaryId: temporaryId,
-        userId: userId,
         toShowResults: toShowResults,
         pollTypeText: pollTypeText,
         submitTypeText: submitTypeText,
@@ -295,8 +291,6 @@ class ConversationEntity {
   final int? state;
   @JsonKey(name: 'temporary_id')
   final String? temporaryId;
-  @JsonKey(name: 'user_id')
-  final int? userId;
   @JsonKey(name: 'member_id')
   final int? memberId;
   @JsonKey(name: 'to_show_results')
@@ -349,7 +343,6 @@ class ConversationEntity {
     this.startTime,
     this.state,
     this.temporaryId,
-    this.userId,
     this.memberId,
     this.toShowResults,
     this.pollTypeText,

@@ -372,9 +372,13 @@ class ChatRoomEntity {
   @JsonKey(name: 'video_count')
   final int? videoCount;
   final List<dynamic>? videos;
+  @JsonKey(name: 'participants_count')
   final int? participantCount;
+  @JsonKey(name: 'total_response_count')
   final int? totalResponseCount;
+  @JsonKey(name: 'is_pinned')
   final bool? isPinned;
+  @JsonKey(name: 'external_seen')
   bool? externalSeen;
   @JsonKey(name: 'member_can_message')
   final bool? memberCanMessage;
