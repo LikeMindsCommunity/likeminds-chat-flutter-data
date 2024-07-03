@@ -83,7 +83,7 @@ class ExploreService extends IExploreService {
         );
       }
       GetExploreFeedResponseEntity getExploreFeedResponse =
-          GetExploreFeedResponseEntity.fromJson(response.data);
+          GetExploreFeedResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: getExploreFeedResponse);
     } on DioException catch (e) {
       debugPrint(e.message);
