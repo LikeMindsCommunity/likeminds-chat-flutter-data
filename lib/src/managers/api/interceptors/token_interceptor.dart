@@ -93,9 +93,13 @@ class TokenInterceptor extends Interceptor {
 
   Future<Response<dynamic>> _retry(
       Dio dio, RequestOptions requestOptions) async {
-    final options = Options(method: requestOptions.method, headers: {
-      'Authorization': apiManager.tokenManager.accessToken,
-    });
+    Map<String, dynamic> headers = requestOptions.headers;
+    headers['Authorization'] = apiManager.tokenManager.accessToken;
+
+    final options = Options(
+      method: requestOptions.method,
+      headers: headers,
+    );
     return await dio.request<dynamic>(
       requestOptions.path,
       data: requestOptions.data,

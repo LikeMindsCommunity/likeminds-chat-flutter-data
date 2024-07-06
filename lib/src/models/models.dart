@@ -105,3 +105,8 @@ export 'package:likeminds_chat_fl/src/models/dm/get_all_members_request_model.da
 export 'package:likeminds_chat_fl/src/models/dm/get_all_members_response_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/cache/cache.dart';
+
+export 'package:likeminds_chat_fl/src/models/moderation/get_report_tag_request.dart';
+export 'package:likeminds_chat_fl/src/models/moderation/get_report_tag_response.dart';
+export 'package:likeminds_chat_fl/src/models/moderation/report_tag.dart';
+export 'package:likeminds_chat_fl/src/models/moderation/post_report_request.dart';

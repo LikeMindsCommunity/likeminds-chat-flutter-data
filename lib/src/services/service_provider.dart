@@ -10,6 +10,7 @@ import 'package:likeminds_chat_fl/src/repositories/explore_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/moderation_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/persistence_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/poll_repository.dart';
@@ -23,6 +24,7 @@ import 'package:likeminds_chat_fl/src/services/explore_service.dart';
 import 'package:likeminds_chat_fl/src/services/helper_service.dart';
 import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
 import 'package:likeminds_chat_fl/src/services/media_service.dart';
+import 'package:likeminds_chat_fl/src/services/moderation_service.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
 import 'package:likeminds_chat_fl/src/services/participants_service.dart';
 import 'package:likeminds_chat_fl/src/services/persistance_service.dart';
@@ -60,6 +62,7 @@ class LMChatServiceProvider {
   late final PollService pollService;
   late final DMService dmService;
   late final PersistenceService persistenceService;
+  late final ModerationService moderationService;
 
   // Instance for all the repositories
   late final AuthRepository authRepository;
@@ -75,6 +78,7 @@ class LMChatServiceProvider {
   late final PollRepository pollRepository;
   late final DMRepository dmRepository;
   late final PersistenceRepository persistenceRepository;
+  late final ModerationRepository moderationRepository;
   late final NotificationService notificationService;
 
   // Callback instance
@@ -132,5 +136,8 @@ class LMChatServiceProvider {
     persistenceRepository =
         PersistenceRepository(persistenceService: persistenceService);
     notificationService = NotificationService(apiManager: apiManager);
+    moderationService = ModerationService(apiManager: apiManager);
+    moderationRepository =
+        ModerationRepository(moderationService: moderationService);
   }
 }

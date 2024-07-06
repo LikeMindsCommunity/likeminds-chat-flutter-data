@@ -7,6 +7,7 @@ import 'package:likeminds_chat_fl/src/methods/explore.dart';
 import 'package:likeminds_chat_fl/src/methods/helper.dart';
 import 'package:likeminds_chat_fl/src/methods/home.dart';
 import 'package:likeminds_chat_fl/src/methods/media.dart';
+import 'package:likeminds_chat_fl/src/methods/moderation.dart';
 import 'package:likeminds_chat_fl/src/methods/participants.dart';
 import 'package:likeminds_chat_fl/src/methods/persistence.dart';
 import 'package:likeminds_chat_fl/src/methods/poll.dart';
@@ -97,6 +98,12 @@ class SDKApplication {
     return PersistenceApi(
       persistenceRepository:
           LMChatServiceProvider.instance.persistenceRepository,
+    );
+  }
+
+  ModerationApi getModerationApi() {
+    return ModerationApi(
+      moderationRepository: LMChatServiceProvider.instance.moderationRepository,
     );
   }
 }
