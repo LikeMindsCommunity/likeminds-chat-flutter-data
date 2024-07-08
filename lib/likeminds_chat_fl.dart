@@ -493,6 +493,21 @@ class LMChatClient {
     return await _sdkApplication.getPersistenceApi().deleteCommunity();
   }
   // ---------------------------------------
+
+  // ------------------------------------------
+  // Moderation APIs
+  // Use these to report, get report tags.
+
+  /// [getReportTags] is used to get the report tags
+  Future<LMResponse<GetReportTagResponse>> getReportTags(
+      GetReportTagRequest request) async {
+    return await _sdkApplication.getModerationApi().getReportTags(request);
+  }
+
+  /// [postReport] is used to post a report
+  Future<LMResponse<void>> postReport(PostReportRequest request) async {
+    return await _sdkApplication.getModerationApi().postReport(request);
+  }
 }
 
 /// Builder class to initiate the SDK

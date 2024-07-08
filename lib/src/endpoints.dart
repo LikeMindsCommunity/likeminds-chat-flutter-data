@@ -45,6 +45,8 @@ class EndPoints {
   String get mediaUploadEndpoint => "$KETTLE_HOST/helper/media/upload";
 
   String get tagsEndpoint => "$KETTLE_HOST/community/tag";
+  String get reportTagEndpoint => "$KETTLE_HOST/community/report/tag";
+  String get reportEndpoint => "$KETTLE_HOST/community/report";
 
   String get decodeUrlEndpoint => "$KETTLE_HOST/helper/url";
 
