@@ -25,13 +25,11 @@ class TokenInterceptor extends Interceptor {
       DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       if (!err.response!.requestOptions.path.contains("user/refresh")) {
-        debugPrint("Authenticated request failed in onError");
         await refreshToken();
         final newRes = await _retry(apiManager.client(), err.requestOptions);
         handler.resolve(newRes);
       } else {
         apiManager.tokenManager.clearTokens();
-        debugPrint("Authenticated request failed in onError");
         LMAuthToken? authToken = await callback?.onRefreshTokenExpired.call();
 
         if (authToken != null) {
