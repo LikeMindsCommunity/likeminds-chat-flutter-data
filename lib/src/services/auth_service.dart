@@ -47,6 +47,7 @@ class AuthService extends IAuthService {
         final InitiateUserResponseEntity initiateUserEntity =
             InitiateUserResponseEntity.fromJson(response.data['data']);
 
+        final localPref = LMChatPersistence.instance;
         if (initiateUserEntity.appAccess!) {
           // If API returned app access, then set tokens and return response
           await apiManager.tokenManager.updateTokens(
@@ -54,7 +55,6 @@ class AuthService extends IAuthService {
             initiateUserEntity.refreshToken!,
           );
 
-          final localPref = LMChatPersistence.instance;
           await localPref.insertOrUpdateValueInCache((LMChatCacheBuilder()
                 ..key(kApiKey)
                 ..value(initiateUserRequest.apiKey))
@@ -72,10 +72,14 @@ class AuthService extends IAuthService {
           );
           // Else, if API returned no app access
         } else {
-          // If API returned no app access, then logout and return response
-          final response = await logout(null);
+          // If API returned no app access, then clear data and return response
+          await localPref.deleteUser();
+          await localPref.deleteCommunity();
+          await localPref.deleteMemberState();
+          await localPref.clearCache();
           return LMResponse.error(
-              errorMessage: response.errorMessage ?? 'An error occurred');
+              errorMessage:
+                  response.data['error_message'] ?? 'An error occurred');
         }
         // Else, if API returned error message
       } else {
@@ -116,8 +120,8 @@ class AuthService extends IAuthService {
       if (response.data['success'] && response.data['data'] != null) {
         final ValidateUserResponseEntity validateUserEntity =
             ValidateUserResponseEntity.fromJson(response.data['data']);
+        final localPref = LMChatPersistence.instance;
         if (validateUserEntity.appAccess!) {
-          final localPref = LMChatPersistence.instance;
           // save user in local storage
           await localPref.deleteUser();
           await localPref
@@ -130,6 +134,10 @@ class AuthService extends IAuthService {
             data: validateUserEntity,
           );
         } else {
+          await localPref.deleteUser();
+          await localPref.deleteCommunity();
+          await localPref.deleteMemberState();
+          await localPref.clearCache();
           return LMResponse.error(
             errorMessage: 'User does not have access to the app',
           );
@@ -224,32 +232,4 @@ class AuthService extends IAuthService {
       );
     }
   }
-
-  /// Get the state of the member for feedroom access
-  /// Returns the state of the member
-  // Future<LMResponse<MemberStateResponseEntity>> getMemberState() async {
-  //   try {
-  //     final response = await apiManager.get(
-  //       apiManager.endPoints.memberStateEndpoint,
-  //     );
-  //     debugPrint("Response from access check: ${response.data}");
-  //     if (response.data['success'] == true && response.data['data'] != null) {
-  //       final memberStateResponseEntity =
-  //           MemberStateResponseEntity.fromJson(response.data);
-
-  //       return LMResponse.success(
-  //         data: memberStateResponseEntity,
-  //       );
-  //     } else {
-  //       return LMResponse.error(
-  //         errorMessage: response.data['error_message'],
-  //       );
-  //     }
-  //   } on DioException catch (e) {
-  //     debugPrint("Error from get member state access: $e");
-  //     return LMResponse.error(
-  //       errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
-  //     );
-  //   }
-  // }
 }
