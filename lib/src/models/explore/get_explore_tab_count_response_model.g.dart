@@ -9,17 +9,13 @@ part of 'get_explore_tab_count_response_model.dart';
 GetExploreTabCountResponseEntity _$GetExploreTabCountResponseEntityFromJson(
         Map<String, dynamic> json) =>
     GetExploreTabCountResponseEntity(
-      success: json['success'] as bool,
-      errorMessage: json['error_message'] as String?,
-      totalChannelCount: json['data']['total_channel_count'] as int?,
-      unseenChannelCount: json['data']['unseen_channel_count'] as int?,
+      totalChannelCount: (json['total_channel_count'] as num?)?.toInt(),
+      unseenChannelCount: (json['unseen_channel_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$GetExploreTabCountResponseEntityToJson(
         GetExploreTabCountResponseEntity instance) =>
     <String, dynamic>{
-      'success': instance.success,
-      'error_message': instance.errorMessage,
       'total_channel_count': instance.totalChannelCount,
       'unseen_channel_count': instance.unseenChannelCount,
     };

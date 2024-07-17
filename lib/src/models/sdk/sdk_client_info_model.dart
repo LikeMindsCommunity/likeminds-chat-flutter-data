@@ -8,13 +8,10 @@ class SDKClientInfo {
   final int? user;
   final String? uuid;
 
-  @JsonKey(name: 'user_unique_id')
-  final String? userUniqueId;
 
   SDKClientInfo({
     required this.community,
     required this.user,
-    required this.userUniqueId,
     required this.uuid,
   });
 

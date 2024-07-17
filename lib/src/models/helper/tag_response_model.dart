@@ -4,15 +4,11 @@ import 'package:likeminds_chat_fl/src/models/models.dart';
 part 'tag_response_model.g.dart';
 
 class TagResponseModel {
-  final bool success;
-  final String? errorMessage;
   final List<GroupTag>? groupTags;
   final List<UserTag>? members;
   final List<UserTag>? participants;
 
   TagResponseModel({
-    required this.success,
-    this.errorMessage,
     this.groupTags,
     this.members,
     this.participants,
@@ -20,8 +16,6 @@ class TagResponseModel {
 
   factory TagResponseModel.fromEntity(TagResponseModelEntity entity) {
     return TagResponseModel(
-      success: entity.success,
-      errorMessage: entity.errorMessage,
       groupTags: entity.groupTags?.map((e) => GroupTag.fromEntity(e)).toList(),
       members: entity.members?.map((e) => UserTag.fromEntity(e)).toList(),
       participants:
@@ -31,8 +25,6 @@ class TagResponseModel {
 
   TagResponseModelEntity toEntity() {
     return TagResponseModelEntity(
-      success: success,
-      errorMessage: errorMessage,
       groupTags: groupTags?.map((e) => e.toEntity()).toList(),
       members: members?.map((e) => e.toEntity()).toList(),
       participants: participants?.map((e) => e.toEntity()).toList(),
@@ -42,11 +34,6 @@ class TagResponseModel {
 
 @JsonSerializable()
 class TagResponseModelEntity {
-  final bool success;
-
-  @JsonKey(name: 'error_message')
-  final String? errorMessage;
-
   @JsonKey(name: 'group_tags')
   final List<GroupTagEntity>? groupTags;
 
@@ -57,8 +44,6 @@ class TagResponseModelEntity {
   final List<UserTagEntity>? participants;
 
   TagResponseModelEntity({
-    required this.success,
-    this.errorMessage,
     this.groupTags,
     this.members,
     this.participants,

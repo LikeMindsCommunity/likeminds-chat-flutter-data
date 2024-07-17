@@ -3,13 +3,13 @@ import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IConversationService {
-  Future<GetConversationResponseEntity> getConversation(
+  Future<LMResponse<GetConversationResponseEntity>> getConversation(
       GetConversationRequest request);
-  Future<PostConversationResponseEntity> postConversation(
+  Future<LMResponse<PostConversationResponseEntity>> postConversation(
       PostConversationRequest request);
-  Future<EditConversationResponseEntity> editConversation(
+  Future<LMResponse<EditConversationResponseEntity>> editConversation(
       EditConversationRequest request);
-  Future<DeleteConversationResponseEntity> deleteConversation(
+  Future<LMResponse<DeleteConversationResponseEntity>> deleteConversation(
       DeleteConversationRequest request);
 }
 
@@ -20,72 +20,99 @@ class ConversationService extends IConversationService {
       : _apiManager = apiManager;
 
   @override
-  Future<GetConversationResponseEntity> getConversation(
+  Future<LMResponse<GetConversationResponseEntity>> getConversation(
       GetConversationRequest request) async {
     try {
-      final response = await _apiManager.get(
+      final response = await _apiManager.client().get(
         _apiManager.endPoints.conversationSyncEndpoint,
         queryParameters: request.toJson(),
       );
 
-      return GetConversationResponseEntity.fromJson(response.data);
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+      return LMResponse.success(
+        data: GetConversationResponseEntity.fromJson(response.data['data']),
+      );
     } on DioException catch (e) {
-      return GetConversationResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }
 
   @override
-  Future<PostConversationResponseEntity> postConversation(
+  Future<LMResponse<PostConversationResponseEntity>> postConversation(
       PostConversationRequest request) async {
     try {
-      final response = await _apiManager.post(
-        _apiManager.endPoints.conversationEndpoint,
-        data: request.toJson(),
-      );
+      final response = await _apiManager.client().post(
+            _apiManager.endPoints.conversationEndpoint,
+            data: request.toJson(),
+          );
 
-      return PostConversationResponseEntity.fromJson(response.data);
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+
+      return LMResponse.success(
+        data: PostConversationResponseEntity.fromJson(response.data['data']),
+      );
     } on DioException catch (e) {
-      return PostConversationResponseEntity(
-        success: false,
+      return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
 
   @override
-  Future<EditConversationResponseEntity> editConversation(
+  Future<LMResponse<EditConversationResponseEntity>> editConversation(
       EditConversationRequest request) async {
     try {
-      final response = await _apiManager.put(
-        _apiManager.endPoints.conversationEndpoint,
-        data: request.toJson(),
-      );
+      final response = await _apiManager.client().put(
+            _apiManager.endPoints.conversationEndpoint,
+            data: request.toJson(),
+          );
 
-      return EditConversationResponseEntity.fromJson(response.data);
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+
+      return LMResponse.success(
+        data: EditConversationResponseEntity.fromJson(response.data['data']),
+      );
     } on DioException catch (e) {
-      return EditConversationResponseEntity(
-        success: false,
+      return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }
   }
 
   @override
-  Future<DeleteConversationResponseEntity> deleteConversation(
+  Future<LMResponse<DeleteConversationResponseEntity>> deleteConversation(
       DeleteConversationRequest request) async {
     try {
-      final response = await _apiManager.delete(
-        _apiManager.endPoints.conversationEndpoint,
-        data: request.toJson(),
-      );
+      final Response response = await _apiManager.client().delete(
+            _apiManager.endPoints.conversationEndpoint,
+            data: request.toJson(),
+          );
 
-      return DeleteConversationResponseEntity.fromJson(response.data);
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+
+      return LMResponse.success(
+        data: DeleteConversationResponseEntity.fromJson(response.data['data']),
+      );
     } on DioException catch (e) {
-      return DeleteConversationResponseEntity(
-        success: false,
+      return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
     }

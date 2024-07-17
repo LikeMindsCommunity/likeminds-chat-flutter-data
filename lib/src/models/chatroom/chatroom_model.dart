@@ -42,7 +42,7 @@ class ChatRoom {
   final bool? isSecret;
   final bool? isTagged;
   final bool? isPinned;
-  final ChatRoomMember? member;
+  final User? member;
   final Conversation? topic;
   final bool? muteStatus;
   final int? onlineLinkEnableBefore;
@@ -63,12 +63,12 @@ class ChatRoom {
   bool? externalSeen;
   final bool? memberCanMessage;
   final int? chatRequestState;
-  final ChatRoomMember? chatRequestedBy;
+  final User? chatRequestedBy;
   final int? chatRequestedById;
-  final ChatRoomMember? chatroomWithUser;
+  final User? chatroomWithUser;
   final int? chatroomWithUserId;
   final int? userId;
-  final List<ChatRoomMember>? lastResponseMembers;
+  final List<User>? lastResponseMembers;
 
   ChatRoom({
     this.access,
@@ -178,7 +178,7 @@ class ChatRoom {
       isSecret: entity.isSecret,
       isTagged: entity.isTagged,
       member: entity.member != null
-          ? ChatRoomMember.fromEntity(entity.member!)
+          ? User.fromEntity(entity.member!)
           : null,
       topic:
           entity.topic != null ? Conversation.fromEntity(entity.topic!) : null,
@@ -203,11 +203,11 @@ class ChatRoom {
       memberCanMessage: entity.memberCanMessage,
       chatRequestState: entity.chatRequestState,
       chatRequestedBy: entity.chatRequestedBy != null
-          ? ChatRoomMember.fromEntity(entity.chatRequestedBy!)
+          ? User.fromEntity(entity.chatRequestedBy!)
           : null,
       chatRequestedById: entity.chatRequestedById,
       chatroomWithUser: entity.chatroomWithUser != null
-          ? ChatRoomMember.fromEntity(entity.chatroomWithUser!)
+          ? User.fromEntity(entity.chatroomWithUser!)
           : null,
       chatroomWithUserId: entity.chatroomWithUserId,
       userId: entity.userId,
@@ -348,7 +348,7 @@ class ChatRoomEntity {
   final bool? isSecret;
   @JsonKey(name: 'is_tagged')
   final bool? isTagged;
-  final ChatRoomMemberEntity? member;
+  final UserEntity? member;
   final ConversationEntity? topic;
   @JsonKey(name: 'mute_status')
   final bool? muteStatus;
@@ -372,26 +372,30 @@ class ChatRoomEntity {
   @JsonKey(name: 'video_count')
   final int? videoCount;
   final List<dynamic>? videos;
+  @JsonKey(name: 'participants_count')
   final int? participantCount;
+  @JsonKey(name: 'total_response_count')
   final int? totalResponseCount;
+  @JsonKey(name: 'is_pinned')
   final bool? isPinned;
+  @JsonKey(name: 'external_seen')
   bool? externalSeen;
   @JsonKey(name: 'member_can_message')
   final bool? memberCanMessage;
   @JsonKey(name: 'chat_request_state')
   final int? chatRequestState;
   @JsonKey(name: 'chat_requested_by')
-  final ChatRoomMemberEntity? chatRequestedBy;
+  final UserEntity? chatRequestedBy;
   @JsonKey(name: 'chat_requested_by_id')
   final int? chatRequestedById;
   @JsonKey(name: 'chatroom_with_user')
-  final ChatRoomMemberEntity? chatroomWithUser;
+  final UserEntity? chatroomWithUser;
   @JsonKey(name: 'chatroom_with_user_id')
   final int? chatroomWithUserId;
   @JsonKey(name: 'user_id')
   final int? userId;
   @JsonKey(name: 'last_response_members')
-  final List<ChatRoomMemberEntity>? lastResponseMembers;
+  final List<UserEntity>? lastResponseMembers;
 
   ChatRoomEntity({
     this.access,

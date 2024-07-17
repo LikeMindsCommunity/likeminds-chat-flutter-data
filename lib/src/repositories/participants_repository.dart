@@ -6,9 +6,15 @@ class ParticipantsRepository {
 
   ParticipantsRepository({required this.participantsService});
 
-  Future<GetParticipantsResponse> getParticipants(
+  Future<LMResponse<GetParticipantsResponse>> getParticipants(
       GetParticipantsRequest request) async {
     final response = await participantsService.getParticipants(request);
-    return GetParticipantsResponse.fromEntity(response);
+    if (!response.success) {
+      return LMResponse.error(errorMessage: response.errorMessage!);
+    }
+    return LMResponse.fromData(
+      response: response,
+      data: GetParticipantsResponse.fromEntity(response.data!),
+    );
   }
 }

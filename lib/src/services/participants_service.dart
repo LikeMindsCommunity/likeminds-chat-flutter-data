@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
+import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/models/participants/get_participants_request_model.dart';
 import 'package:likeminds_chat_fl/src/models/participants/get_participants_response_model.dart';
 
@@ -8,19 +9,26 @@ class ParticipantsService {
 
   ParticipantsService({required this.apiManager});
 
-  Future<GetParticipantsResponseEntity> getParticipants(
+  Future<LMResponse<GetParticipantsResponseEntity>> getParticipants(
       GetParticipantsRequest request) async {
     try {
-      final response = await apiManager.get(
+      final response = await apiManager.client().get(
         apiManager.endPoints.chatroomParticipantsEndpoint,
         queryParameters: request.toJson(),
       );
 
-      return GetParticipantsResponseEntity.fromJson(response.data);
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+
+      return LMResponse.success(
+        data: GetParticipantsResponseEntity.fromJson(response.data['data']),
+      );
     } on DioException catch (e) {
-      return GetParticipantsResponseEntity(
-        success: false,
-        errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }

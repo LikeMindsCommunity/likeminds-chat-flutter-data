@@ -1,6 +1,8 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
 
+// ignore: lines_longer_than_80_chars
+/// ChatroomApi class is responsible for handling all the chatroom related API calls
 class ChatroomApi {
   final ChatroomRepository chatroomRepository;
 
@@ -9,84 +11,42 @@ class ChatroomApi {
   Future<LMResponse<GetChatroomResponse>> getChatroom(
     GetChatroomRequest request,
   ) async {
-    GetChatroomResponse response =
-        await chatroomRepository.getChatroom(request);
-    return LMResponse<GetChatroomResponse>(
-      success: response.success,
-      data: response,
-      errorMessage: response.errorMessage,
-    );
+    return await chatroomRepository.getChatroom(request);
   }
 
-  Future<LMResponse<FollowChatroomResponse>> followChatroom(
+  Future<LMResponse<void>> followChatroom(
     FollowChatroomRequest request,
   ) async {
-    FollowChatroomResponse response =
-        await chatroomRepository.followChatroom(request);
-    return LMResponse<FollowChatroomResponse>(
-      success: response.success,
-      data: response,
-      errorMessage: response.errorMessage,
-    );
+    return await chatroomRepository.followChatroom(request);
   }
 
-  Future<LMResponse<MuteChatroomResponse>> muteChatroom(
+  Future<LMResponse<void>> muteChatroom(
     MuteChatroomRequest request,
   ) async {
-    MuteChatroomResponse response =
-        await chatroomRepository.muteChatroom(request);
-    return LMResponse<MuteChatroomResponse>(
-      success: response.success,
-      data: response,
-      errorMessage: response.errorMessage,
-    );
+    return await chatroomRepository.muteChatroom(request);
   }
 
-  Future<LMResponse<MarkReadChatroomResponse>> markReadChatroom(
+  Future<LMResponse<void>> markReadChatroom(
     MarkReadChatroomRequest request,
   ) async {
-    MarkReadChatroomResponse response =
-        await chatroomRepository.markReadChatroom(request);
-    return LMResponse<MarkReadChatroomResponse>(
-      success: response.success,
-      data: response,
-      errorMessage: response.errorMessage,
-    );
+    return await chatroomRepository.markReadChatroom(request);
   }
 
-  Future<LMResponse<ShareChatroomResponse>> shareChatroomUrl(
+  Future<LMResponse<void>> shareChatroomUrl(
     ShareChatroomRequest request,
   ) async {
-    ShareChatroomResponse response =
-        await chatroomRepository.shareChatroomUrl(request);
-    return LMResponse<ShareChatroomResponse>(
-      success: response.success,
-      data: response,
-      errorMessage: response.errorMessage,
-    );
+    return await chatroomRepository.shareChatroomUrl(request);
   }
 
-  Future<LMResponse<SetChatroomTopicResponse>> setChatroomTopic(
+  Future<LMResponse<void>> setChatroomTopic(
     SetChatroomTopicRequest request,
   ) async {
-    SetChatroomTopicResponse response =
-        await chatroomRepository.setChatroomTopic(request);
-    return LMResponse<SetChatroomTopicResponse>(
-      success: response.success,
-      data: response,
-      errorMessage: response.errorMessage,
-    );
+    return await chatroomRepository.setChatroomTopic(request);
   }
 
-  Future<LMResponse<DeleteParticipantResponse>> deleteParticipant(
+  Future<LMResponse<void>> deleteParticipant(
     DeleteParticipantRequest request,
   ) async {
-    DeleteParticipantResponse response =
-        await chatroomRepository.deleteParticipant(request);
-    return LMResponse<DeleteParticipantResponse>(
-      success: response.success,
-      data: response,
-      errorMessage: response.errorMessage,
-    );
+    return await chatroomRepository.deleteParticipant(request);
   }
 }

@@ -44,3 +44,9 @@ Stable first release v1.0.0
 ## 1.6.0
 
 - Added DM functions
+
+## 1.7.0
+
+- Added API key security
+- Added local preferences
+- Enhancements and feature additions

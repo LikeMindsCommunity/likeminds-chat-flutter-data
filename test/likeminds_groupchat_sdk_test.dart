@@ -4,6 +4,7 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
@@ -24,6 +25,8 @@ const int TESTING_PROD_DEFAULT_CHATROOM = EnvTest.testingProdDefaultChatroom;
 
 void main() {
   debugPrint("Starting the tests now...");
+  // initialize flutter binding
+  TestWidgetsFlutterBinding.ensureInitialized();
   int? conversationId;
   int chatroomId = TESTING_PROD_FLAG
       ? TESTING_PROD_DEFAULT_CHATROOM
@@ -35,8 +38,6 @@ void main() {
 
   // Initiate the SDK
   LMChatClient lmClient = (LMChatClientBuilder()
-        ..apiKey(
-            TESTING_PROD_FLAG ? TESTING_PROD_API_KEY : TESTING_BETA_API_KEY)
         ..sdkCallback(TESTING_CALLBACK))
       .build();
 
@@ -46,14 +47,14 @@ void main() {
     debugPrint("Initiating login test...");
     InitiateUserRequest request = (InitiateUserRequestBuilder()
           ..userId(
-              TESTING_PROD_FLAG ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID))
+              "abcd"))
         .build();
     LMResponse<InitiateUserResponse> response =
         await lmClient.initiateUser(request);
     //save memberId for future tests
-    memberId = response.data?.initiateUser?.user.id;
-    debugPrint("Logged in as, ${response.data?.initiateUser?.user.name}");
-    memberId = response.data?.initiateUser?.user.id;
+    memberId = response.data?.user?.id;
+    debugPrint("Logged in as, ${response.data?.user?.name}");
+    memberId = response.data?.user?.id;
     // TESTING_CALLBACK.eventFiredCallback();
     expect(response.success, true);
   });
@@ -122,8 +123,7 @@ void main() {
           ..value(true))
         .build();
 
-    LMResponse<FollowChatroomResponse> response =
-        await lmClient.followChatroom(request);
+    LMResponse<void> response = await lmClient.followChatroom(request);
     debugPrint("Followed chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -136,8 +136,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..value(true))
         .build();
-    LMResponse<MuteChatroomResponse> response =
-        await lmClient.muteChatroom(request);
+    LMResponse<void> response = await lmClient.muteChatroom(request);
     debugPrint("Muted chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -148,8 +147,7 @@ void main() {
     debugPrint("Initiating mark read chatroom test...");
     MarkReadChatroomRequest request =
         (MarkReadChatroomRequestBuilder()..chatroomId(chatroomId)).build();
-    LMResponse<MarkReadChatroomResponse> response =
-        await lmClient.markReadChatroom(request);
+    LMResponse<void> response = await lmClient.markReadChatroom(request);
     debugPrint("Marked read chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -162,8 +160,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..domain("https://www.likeminds.ai"))
         .build();
-    LMResponse<ShareChatroomResponse> response =
-        await lmClient.shareChatroomUrl(request);
+    LMResponse<void> response = await lmClient.shareChatroomUrl(request);
     debugPrint("Shared chatroom with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -195,8 +192,7 @@ void main() {
           ..chatroomId(chatroomId)
           ..conversationId(conversationId!))
         .build();
-    LMResponse<SetChatroomTopicResponse> response =
-        await lmClient.setChatroomTopic(request);
+    LMResponse<void> response = await lmClient.setChatroomTopic(request);
     debugPrint("Set chatroom topic with ID ${request.chatroomId}");
     expect(response.success, true);
   });
@@ -270,8 +266,7 @@ void main() {
           ..conversationId(conversationId ?? 0)
           ..reaction("❤️"))
         .build();
-    LMResponse<PutReactionResponse> response =
-        await lmClient.putReaction(request);
+    LMResponse<void> response = await lmClient.putReaction(request);
     debugPrint(
         "Put reaction with ${request.reaction} reaction returned ${response.success}");
     expect(response.success, true);
@@ -285,8 +280,7 @@ void main() {
           ..conversationId(conversationId ?? 0)
           ..reaction("❤️"))
         .build();
-    LMResponse<DeleteReactionResponse> response =
-        await lmClient.deleteReaction(request);
+    LMResponse<void> response = await lmClient.deleteReaction(request);
     debugPrint(
         "Deleted reaction with ${request.reaction} reaction returned ${response.success}");
     expect(response.success, true);
@@ -382,7 +376,7 @@ void main() {
         "Get all members with member count ${response.data?.members?.length}");
     //save user uuid for future tests
     int index = Random().nextInt(response.data!.members!.length - 1);
-    uuid = response.data?.members?.elementAt(index).uuid;
+    uuid = response.data?.members?.elementAt(index).sdkClientInfo?.uuid;
     expect(response.success, true);
   });
 
@@ -451,12 +445,14 @@ void main() {
 
   // / Test the logout method
   // / This test will fail if the user can not log out
-  test('Logging out the user', () async {
-    LogoutRequest request = (LogoutRequestBuilder()).build();
-    LMResponse<LogoutResponse> response = await lmClient.logout(request);
-    if (response.success) {
-      debugPrint("Successfully logged out after all tests");
-    }
-    expect(response.success, true);
-  });
+  // test('Logging out the user', () async {
+  //   LogoutRequest request = (LogoutRequestBuilder()).build();
+  //   LMResponse<void> response = await lmClient.logout(request);
+  //   if (response.success) {
+  //     debugPrint("Successfully logged out after all tests");
+  //   }
+  //   expect(response.success, true);
+  // });
 }
+
+

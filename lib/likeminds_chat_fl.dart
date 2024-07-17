@@ -2,7 +2,7 @@ library likeminds_chat_fl;
 
 export 'package:likeminds_chat_fl/src/models/models.dart';
 export 'package:likeminds_chat_fl/src/methods/callback.dart';
-export 'package:likeminds_chat_fl/src/services/di_service.dart';
+export 'package:likeminds_chat_fl/src/services/service_provider.dart';
 export 'package:likeminds_chat_fl/src/utils/enums.dart';
 
 import 'package:flutter/foundation.dart';
@@ -10,7 +10,8 @@ import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/methods/notification.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
-import 'package:likeminds_chat_fl/src/services/di_service.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
+import 'package:likeminds_chat_fl/src/services/service_provider.dart';
 import 'package:likeminds_chat_fl/src/utils/enums.dart';
 
 /// Flutter flavour/environment manager v0.0.1
@@ -21,19 +22,20 @@ const String chatSDKVersion = '1.6.0';
 /// The starting point class of the SDK
 class LMChatClient {
   late final SDKApplication _sdkApplication;
-
-  final String _apiKey;
-  final LMSDKCallback? _sdkCallback;
-  static List<ConversationState>? _excludedConversationStates;
-
+  final LMChatSDKCallback _sdkCallback;
+  final List<ConversationState>? _excludedConversationStates;
   LMChatClient._({
-    required String apiKey,
-    LMSDKCallback? sdkCallback,
-  })  : _apiKey = apiKey,
+    required LMChatSDKCallback sdkCallback,
+    List<ConversationState>? excludedConversationStates,
+  })  : _excludedConversationStates = excludedConversationStates,
         _sdkCallback = sdkCallback {
     debugPrint("LMChatClient initialized");
-    DIService.instance.init(_apiKey, _prodFlag, _sdkCallback);
-    _sdkApplication = SDKApplication().initialize();
+    LMChatServiceProvider.instance.init(_prodFlag, _sdkCallback);
+    _sdkApplication = SDKApplication.instance;
+  }
+  // Initializes the DB
+  Future<LMResponse<void>> initiateDB() async {
+    return await LMChatPersistence.instance.initiate();
   }
 
   // ------------------------------------------
@@ -48,10 +50,18 @@ class LMChatClient {
     return _sdkApplication.getAuthApi().initiateUser(request);
   }
 
+  /// validateUser is used to validate a user session
+  /// [ValidateUserRequest] is used to pass the required parameters
+  /// [ValidateUserResponse] is returned as a Future
+  Future<LMResponse<ValidateUserResponse>> validateUser(
+      ValidateUserRequest validateUserRequest) async {
+    return await _sdkApplication.getAuthApi().validateUser(validateUserRequest);
+  }
+
   /// logout is used to logout a user session
   /// [LogoutRequest] is used to pass the required parameters
   /// [LogoutResponse] is returned as a Future
-  Future<LMResponse<LogoutResponse>> logout(LogoutRequest request) {
+  Future<LMResponse<void>> logout(LogoutRequest request) {
     return _sdkApplication.getAuthApi().logout(request);
   }
   // ------------------------------------------
@@ -110,7 +120,7 @@ class LMChatClient {
   /// followChatroom is used to follow a chatroom
   /// [FollowChatroomRequest] is used to pass the required parameters
   /// [FollowChatroomResponse] is returned as a Future
-  Future<LMResponse<FollowChatroomResponse>> followChatroom(
+  Future<LMResponse<void>> followChatroom(
     FollowChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().followChatroom(request);
@@ -119,7 +129,7 @@ class LMChatClient {
   /// deleteParticipant is used to delete a participant from a chatroom
   /// [DeleteParticipantRequest] is used to pass the required parameters
   /// [DeleteParticipantResponse] is returned as a Future
-  Future<LMResponse<DeleteParticipantResponse>> deleteParticipant(
+  Future<LMResponse<void>> deleteParticipant(
     DeleteParticipantRequest request,
   ) {
     return _sdkApplication.getChatroomApi().deleteParticipant(request);
@@ -128,7 +138,7 @@ class LMChatClient {
   /// muteChatroom is used to mute a chatroom
   /// [MuteChatroomRequest] is used to pass the required parameters
   /// [MuteChatroomResponse] is returned as a Future
-  Future<LMResponse<MuteChatroomResponse>> muteChatroom(
+  Future<LMResponse<void>> muteChatroom(
     MuteChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().muteChatroom(request);
@@ -137,7 +147,7 @@ class LMChatClient {
   /// markReadChatroom is used to mark a chatroom as read
   /// [MarkReadChatroomRequest] is used to pass the required parameters
   /// [MarkReadChatroomResponse] is returned as a Future
-  Future<LMResponse<MarkReadChatroomResponse>> markReadChatroom(
+  Future<LMResponse<void>> markReadChatroom(
     MarkReadChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().markReadChatroom(request);
@@ -146,7 +156,7 @@ class LMChatClient {
   /// shareChatroomUrl is used to share the chatroom URL
   /// [ShareChatroomRequest] is used to pass the required parameters
   /// [ShareChatroomResponse] is returned as a Future
-  Future<LMResponse<ShareChatroomResponse>> shareChatroomUrl(
+  Future<LMResponse<void>> shareChatroomUrl(
     ShareChatroomRequest request,
   ) {
     return _sdkApplication.getChatroomApi().shareChatroomUrl(request);
@@ -155,7 +165,7 @@ class LMChatClient {
   /// setChatroomTopic is used to set the chatroom topic
   /// [SetChatroomTopicRequest] is used to pass the required parameters
   /// [SetChatroomTopicResponse] is returned as a Future
-  Future<LMResponse<SetChatroomTopicResponse>> setChatroomTopic(
+  Future<LMResponse<void>> setChatroomTopic(
     SetChatroomTopicRequest request,
   ) {
     return _sdkApplication.getChatroomApi().setChatroomTopic(request);
@@ -237,7 +247,7 @@ class LMChatClient {
   /// putReaction is used to put a reaction for a conversation
   /// [PutReactionRequest] is used to pass the required parameters
   /// [PutReactionResponse] is returned as a Future
-  Future<LMResponse<PutReactionResponse>> putReaction(
+  Future<LMResponse<void>> putReaction(
     PutReactionRequest request,
   ) {
     return _sdkApplication.getReactionApi().putReaction(request);
@@ -246,7 +256,7 @@ class LMChatClient {
   /// deleteReaction is used to delete a reaction for a conversation
   /// [DeleteReactionRequest] is used to pass the required parameters
   /// [DeleteReactionResponse] is returned as a Future
-  Future<LMResponse<DeleteReactionResponse>> deleteReaction(
+  Future<LMResponse<void>> deleteReaction(
     DeleteReactionRequest request,
   ) {
     return _sdkApplication.getReactionApi().deleteReaction(request);
@@ -260,8 +270,7 @@ class LMChatClient {
   /// registerDevice is used to register a device for receiving notifications
   /// [RegisterDeviceRequest] is used to pass the required parameters
   /// [RegisterDeviceResponse] is returned as a Future
-  Future<LMResponse<RegisterDeviceResponse>> registerDevice(
-      RegisterDeviceRequest request) {
+  Future<LMResponse<void>> registerDevice(RegisterDeviceRequest request) {
     return LMNotifications.registerDevice(request);
   }
   // ------------------------------------------
@@ -321,7 +330,7 @@ class LMChatClient {
   /// submitPoll is used to submit a poll
   /// [SubmitPollRequest] is used to pass the required parameters
   /// [SubmitPollResponse] is returned as a Future
-  Future<LMResponse<SubmitPollResponse>> submitPoll(SubmitPollRequest request) {
+  Future<LMResponse<void>> submitPoll(SubmitPollRequest request) {
     return _sdkApplication.getPollApi().submitPoll(request);
   }
 
@@ -406,6 +415,99 @@ class LMChatClient {
     return _sdkApplication.getDMApi().blockMember(request);
   }
   // ------------------------------------------
+
+  // ------------------------------------------
+  // Persistence Functions
+  // These are used to talk to our persistence layer
+  // for implementing caching and local DB
+
+  /// [insertOrUpdateLoggedInUser] is used to insert or update the logged in user
+  Future<LMResponse<void>> insertOrUpdateLoggedInUser(User user) async {
+    return _sdkApplication.getPersistenceApi().insertOrUpdateUser(user);
+  }
+
+  /// [getLoggedInUser] is used to get the logged in user
+  LMResponse<User> getLoggedInUser() {
+    return _sdkApplication.getPersistenceApi().getUser();
+  }
+
+  /// [deleteLoggedInUser] is used to delete the logged in user
+  Future<LMResponse<void>> deleteLoggedInUser() async {
+    return _sdkApplication.getPersistenceApi().deleteUser();
+  }
+
+  /// [insertOrUpdateCache] is used to insert or update the cache
+  Future<LMResponse<void>> insertOrUpdateCache(LMChatCache cache) async {
+    return _sdkApplication
+        .getPersistenceApi()
+        .insertOrUpdateValueInCache(cache);
+  }
+
+  /// [deleteCache] is used to delete the cache
+  Future<LMResponse<void>> deleteCache(String key) async {
+    return _sdkApplication.getPersistenceApi().deleteCache(key);
+  }
+
+  /// [getCache] is used to get the cache
+  LMResponse<LMChatCache> getCache(String key) {
+    return _sdkApplication.getPersistenceApi().getCache(key);
+  }
+
+  /// [clearCache] is used to clear the cache
+  Future<LMResponse<void>> clearCache() async {
+    return _sdkApplication.getPersistenceApi().clearCache();
+  }
+
+  /// [insertOrUpdateLoggedInMemberState] is used to insert or update the logged in member state
+  Future<LMResponse<void>> insertOrUpdateLoggedInMemberState(
+      MemberStateResponse memberStateResponse) async {
+    return await _sdkApplication
+        .getPersistenceApi()
+        .insertOrUpdateMemberState(memberStateResponse);
+  }
+
+  /// [getLoggedInMemberState] is used to get the logged in member state
+  LMResponse<MemberStateResponse> getLoggedInMemberState() {
+    return _sdkApplication.getPersistenceApi().getMemberState();
+  }
+
+  /// [deleteLoggedInMemberState] is used to delete the logged in member state
+  Future<LMResponse<void>> deleteLoggedInMemberState() async {
+    return await _sdkApplication.getPersistenceApi().deleteMemberState();
+  }
+
+  /// [insertOrUpdateCommunity] is used to insert or update the community
+  Future<LMResponse<void>> insertOrUpdateCommunity(Community community) async {
+    return await _sdkApplication
+        .getPersistenceApi()
+        .insertOrUpdateCommunity(community);
+  }
+
+  /// [getCommunity] is used to get the community
+  LMResponse<Community> getCommunity() {
+    return _sdkApplication.getPersistenceApi().getCommunity();
+  }
+
+  /// [deleteCommunity] is used to delete the community
+  Future<LMResponse<void>> deleteCommunity() async {
+    return await _sdkApplication.getPersistenceApi().deleteCommunity();
+  }
+  // ---------------------------------------
+
+  // ------------------------------------------
+  // Moderation APIs
+  // Use these to report, get report tags.
+
+  /// [getReportTags] is used to get the report tags
+  Future<LMResponse<GetReportTagResponse>> getReportTags(
+      GetReportTagRequest request) async {
+    return await _sdkApplication.getModerationApi().getReportTags(request);
+  }
+
+  /// [postReport] is used to post a report
+  Future<LMResponse<void>> postReport(PostReportRequest request) async {
+    return await _sdkApplication.getModerationApi().postReport(request);
+  }
 }
 
 /// Builder class to initiate the SDK
@@ -413,15 +515,10 @@ class LMChatClient {
 /// [sdkCallback] is the callback to handle the events
 /// Returns a new instance of the SDK [LMChatClient]
 class LMChatClientBuilder {
-  String? _apiKey;
-  LMSDKCallback? _sdkCallback;
+  LMChatSDKCallback? _sdkCallback;
   List<ConversationState>? _excludedConversationStates;
 
-  void apiKey(String apiKey) {
-    _apiKey = apiKey;
-  }
-
-  void sdkCallback(LMSDKCallback? sdkCallback) {
+  void sdkCallback(LMChatSDKCallback? sdkCallback) {
     _sdkCallback = sdkCallback;
   }
 
@@ -430,13 +527,9 @@ class LMChatClientBuilder {
   }
 
   LMChatClient build() {
-    if (_apiKey == null) {
-      throw Exception("API key is required");
-    }
-    LMChatClient._excludedConversationStates = _excludedConversationStates;
     return LMChatClient._(
-      apiKey: _apiKey!,
-      sdkCallback: _sdkCallback,
+      excludedConversationStates: _excludedConversationStates,
+      sdkCallback: _sdkCallback!,
     );
   }
 }

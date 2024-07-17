@@ -1,10 +1,15 @@
+import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
+import 'package:likeminds_chat_fl/src/constant/string_constant.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
+
 abstract class TokenManagerAbstract {}
 
 class TokenManager {
-  static final TokenManager _singleton = TokenManager._internal();
+  static TokenManager? _instance;
 
-  factory TokenManager() {
-    return _singleton;
+  static TokenManager get instance {
+    _instance ??= TokenManager._internal();
+    return _instance!;
   }
 
   TokenManager._internal();
@@ -12,14 +17,10 @@ class TokenManager {
   String? _apiKey;
   String? _accessToken;
   String? _refreshToken;
-  int? _userId;
-  int? _communityId;
 
   String? get apiKey => _apiKey;
   String? get accessToken => _accessToken;
   String? get refreshToken => _refreshToken;
-  int? get userId => _userId;
-  int? get communityId => _communityId;
 
   void setApiKey(String? apiKey) {
     _apiKey = apiKey;
@@ -33,23 +34,29 @@ class TokenManager {
     _refreshToken = refreshToken;
   }
 
-  void setUserId(int? userId) {
-    _userId = userId;
-  }
-
-  void setCommunityId(int? communityId) {
-    _communityId = communityId;
-  }
-
-  void initTokens(String accessToken, String refreshToken) {
+  Future<void> updateTokens(String accessToken, String refreshToken) async {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
+    await updateTokensInDB(accessToken, refreshToken);
+  }
+
+  Future<void> updateTokensInDB(String accessToken, String refreshToken) async {
+    final localPref = LMChatPersistence.instance;
+    final LMChatCache accessTokenCache = (LMChatCacheBuilder()
+          ..key(kAccessToken)
+          ..value(accessToken))
+        .build();
+    final LMChatCache refreshTokenCache = (LMChatCacheBuilder()
+          ..key(kRefreshToken)
+          ..value(refreshToken))
+        .build();
+
+    await localPref.insertOrUpdateValueInCache(accessTokenCache);
+    await localPref.insertOrUpdateValueInCache(refreshTokenCache);
   }
 
   void clearTokens() {
     _accessToken = null;
     _refreshToken = null;
-    _userId = null;
-    _communityId = null;
   }
 }

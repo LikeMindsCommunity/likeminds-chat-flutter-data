@@ -9,8 +9,8 @@ part of 'community_settings_rights_model.dart';
 CommunitySettingsRightsEntity _$CommunitySettingsRightsEntityFromJson(
         Map<String, dynamic> json) =>
     CommunitySettingsRightsEntity(
-      id: json['id'] as int,
-      state: json['state'] as int,
+      id: (json['id'] as num).toInt(),
+      state: (json['state'] as num).toInt(),
       title: json['title'] as String,
       subtitle: json['sub_title'] as String?,
       isLocked: json['is_locked'] as bool,

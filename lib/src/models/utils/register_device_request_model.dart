@@ -1,7 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'register_device_request_model.g.dart';
-
 class RegisterDeviceRequest {
   final String token;
   final String deviceId;
@@ -13,39 +9,39 @@ class RegisterDeviceRequest {
     required this.memberId,
   });
 
-  factory RegisterDeviceRequest.fromEntity(RegisterDeviceRequestEntity entity) {
-    return RegisterDeviceRequest(
-      token: entity.token,
-      deviceId: entity.deviceId,
-      memberId: entity.memberId,
-    );
-  }
-
-  RegisterDeviceRequestEntity toEntity() {
-    return RegisterDeviceRequestEntity(
-      token: token,
-      deviceId: deviceId,
-      memberId: memberId,
-    );
-  }
+  Map<String, dynamic> toJson() => {
+        'token': token,
+        'device_id': deviceId,
+        'member_id': memberId,
+      };
 }
 
-@JsonSerializable()
-class RegisterDeviceRequestEntity {
-  final String token;
-  @JsonKey(name: 'device_id')
-  final String deviceId;
-  @JsonKey(name: 'x-member_id')
-  final int memberId;
+class RegisterDeviceRequestBuilder {
+  String? _token;
+  String? _deviceId;
+  int? _memberId;
 
-  RegisterDeviceRequestEntity({
-    required this.token,
-    required this.deviceId,
-    required this.memberId,
-  });
+  void token(String token) {
+    _token = token;
+  }
 
-  factory RegisterDeviceRequestEntity.fromJson(Map<String, dynamic> json) =>
-      _$RegisterDeviceRequestEntityFromJson(json);
+  void deviceId(String deviceId) => _deviceId = deviceId;
+  void memberId(int memberId) => _memberId = memberId;
 
-  Map<String, dynamic> toJson() => _$RegisterDeviceRequestEntityToJson(this);
+  RegisterDeviceRequest build() {
+    if (_token == null) {
+      throw Exception("Token is required");
+    }
+    if (_deviceId == null) {
+      throw StateError("DeviceId is required");
+    }
+    if (_memberId == null) {
+      throw StateError("MemberId is required");
+    }
+    return RegisterDeviceRequest(
+      token: _token!,
+      deviceId: _deviceId!,
+      memberId: _memberId!,
+    );
+  }
 }
