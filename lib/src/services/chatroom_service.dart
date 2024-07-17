@@ -24,9 +24,14 @@ class ChatroomService extends IChatroomService {
       GetChatroomRequest request) async {
     try {
       final response = await apiManager.client().get(
-        apiManager.endPoints.chatroomEndpoint,
-        queryParameters: request.toJson(),
-      );
+            apiManager.endPoints.chatroomEndpoint,
+            queryParameters: request.toJson(),
+            options: Options(
+              headers: {
+                'x-api-version': 1,
+              },
+            ),
+          );
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',
@@ -107,9 +112,9 @@ class ChatroomService extends IChatroomService {
       ShareChatroomRequest request) async {
     try {
       final response = await apiManager.client().get(
-        apiManager.endPoints.chatroomShareEndpoint,
-        queryParameters: request.toJson(),
-      );
+            apiManager.endPoints.chatroomShareEndpoint,
+            queryParameters: request.toJson(),
+          );
       if (!response.data['success']) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',
