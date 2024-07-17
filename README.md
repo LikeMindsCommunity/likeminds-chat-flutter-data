@@ -7,7 +7,7 @@ The starting point is the LikeMinds website. Create your account and get an API 
 Then add the package as dependency in pubspec.yaml
 
 ```yaml
-likeminds_chat_fl: 1.6.0
+likeminds_chat_fl: 1.7.0
 ```
 
 or you can run this command in the terminal
