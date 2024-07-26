@@ -41,8 +41,6 @@ class DMService extends IDMService {
               },
             ),
           );
-      debugPrint(response.requestOptions.headers.toString());
-      debugPrint('---------------DMResponse: ${response.data}-------------');
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
             errorMessage:
