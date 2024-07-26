@@ -24,9 +24,9 @@ class ConversationService extends IConversationService {
       GetConversationRequest request) async {
     try {
       final response = await _apiManager.client().get(
-        _apiManager.endPoints.conversationSyncEndpoint,
-        queryParameters: request.toJson(),
-      );
+            _apiManager.endPoints.conversationSyncEndpoint,
+            queryParameters: request.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
@@ -50,6 +50,11 @@ class ConversationService extends IConversationService {
       final response = await _apiManager.client().post(
             _apiManager.endPoints.conversationEndpoint,
             data: request.toJson(),
+            options: Options(
+              headers: {
+                'x-api-version': 1,
+              },
+            ),
           );
 
       if (!response.data['success'] || response.data['data'] == null) {

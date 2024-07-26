@@ -34,15 +34,13 @@ class DMService extends IDMService {
   Future<LMResponse<CheckDMTabResponseEntity>> checkDMTab() async {
     try {
       final response = await apiManager.client().get(
-        apiManager.endPoints.checkDMEndpoint,
-        options: Options(
-          headers: {
-           'x-api-version': 1,
-          },
-        ),
-      );
-      debugPrint(response.requestOptions.headers.toString());
-      debugPrint('---------------DMResponse: ${response.data}-------------');
+            apiManager.endPoints.checkDMEndpoint,
+            options: Options(
+              headers: {
+                'x-api-version': 1,
+              },
+            ),
+          );
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
             errorMessage:
@@ -63,9 +61,9 @@ class DMService extends IDMService {
       FetchDMFeedRequest fetchDMFeedRequest) async {
     try {
       final response = await apiManager.client().get(
-        apiManager.endPoints.dmEndpoint,
-        queryParameters: fetchDMFeedRequest.toJson(),
-      );
+            apiManager.endPoints.dmEndpoint,
+            queryParameters: fetchDMFeedRequest.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
@@ -89,15 +87,15 @@ class DMService extends IDMService {
       CheckDMStatusRequest checkDMStatusRequest) async {
     try {
       final response = await apiManager.client().get(
-        // community/dm/status
-        options: Options(
-          headers: {
-           'x-api-version': 1,
-          },
-        ),
-        apiManager.endPoints.checkDMStatusEndpoint,
-        queryParameters: checkDMStatusRequest.toJson(),
-      );
+            // community/dm/status
+            options: Options(
+              headers: {
+                'x-api-version': 1,
+              },
+            ),
+            apiManager.endPoints.checkDMStatusEndpoint,
+            queryParameters: checkDMStatusRequest.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
@@ -120,10 +118,10 @@ class DMService extends IDMService {
       GetAllMembersRequest getAllMembersRequest) async {
     try {
       final response = await apiManager.client().get(
-        //community/member
-        apiManager.endPoints.getAllMembersEndpoint,
-        queryParameters: getAllMembersRequest.toJson(),
-      );
+            //community/member
+            apiManager.endPoints.getAllMembersEndpoint,
+            queryParameters: getAllMembersRequest.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
@@ -146,10 +144,10 @@ class DMService extends IDMService {
       SearchMembersRequest searchMembersRequest) async {
     try {
       final response = await apiManager.client().get(
-        //community/member/search
-        apiManager.endPoints.searchMembersEndpoint,
-        queryParameters: searchMembersRequest.toJson(),
-      );
+            //community/member/search
+            apiManager.endPoints.searchMembersEndpoint,
+            queryParameters: searchMembersRequest.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
@@ -172,10 +170,10 @@ class DMService extends IDMService {
       CheckDMLimitRequest checkDMLimitRequest) async {
     try {
       final response = await apiManager.client().get(
-        // chatroom/dm/limit
-        apiManager.endPoints.checkDMLimitEndpoint,
-        queryParameters: checkDMLimitRequest.toJson(),
-      );
+            // chatroom/dm/limit
+            apiManager.endPoints.checkDMLimitEndpoint,
+            queryParameters: checkDMLimitRequest.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
@@ -261,7 +259,7 @@ class DMService extends IDMService {
         );
       }
       BlockMemberResponseEntity blockMemberResponseEntity =
-          BlockMemberResponseEntity.fromJson(response.data);
+          BlockMemberResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: blockMemberResponseEntity);
     } on DioException catch (e) {
       debugPrint(e.message);
