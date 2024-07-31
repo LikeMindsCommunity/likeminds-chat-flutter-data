@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'chatroom_action_model.g.dart';
 
 class ChatroomAction {
-  final int id;
+  int id;
   String title;
 
   ChatroomAction({

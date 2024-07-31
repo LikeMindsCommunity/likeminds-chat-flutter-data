@@ -50,3 +50,8 @@ Stable first release v1.0.0
 - Added API key security
 - Added local preferences
 - Enhancements and feature additions
+
+## 1.7.1
+
+- Updated DM APIs
+- Upgraded packages to now support Flutter v3.22.0 by default
