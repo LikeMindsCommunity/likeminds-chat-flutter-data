@@ -25,11 +25,20 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
           ?.map((e) => ConversationEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       conversationAttachmentsMeta:
-          json['conv_attachments_meta'] as Map<String, dynamic>?,
+          (json['conv_attachments_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+          k,
+          (e as List<dynamic>)
+              .map((v) => AttachmentEntity.fromJson(v as Map<String, dynamic>))
+              .toList(),
+        ),
+      ),
       conversationMeta:
           (json['conversation_meta'] as Map<String, dynamic>?)?.map(
-        (k, e) =>
-            MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
+        (k, e) => MapEntry(
+          k,
+          ConversationEntity.fromJson(e as Map<String, dynamic>),
+        ),
       ),
     );
 
