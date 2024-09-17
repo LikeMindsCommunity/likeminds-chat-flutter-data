@@ -1,7 +1,7 @@
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
 class AddPollOptionResponse {
-  PollViewData? pollViewData;
+  PollOption? pollViewData;
   int temporaryId;
 
   AddPollOptionResponse({
@@ -13,7 +13,7 @@ class AddPollOptionResponse {
     return AddPollOptionResponse(
       temporaryId: entity.temporaryId,
       pollViewData: entity.pollViewData != null
-          ? PollViewData.fromEntity(entity.pollViewData!)
+          ? PollOption.fromEntity(entity.pollViewData!)
           : null,
     );
   }
@@ -27,7 +27,7 @@ class AddPollOptionResponse {
 }
 
 class AddPollOptionResponseEntity {
-  PollViewDataEntity? pollViewData;
+  PollOptionEntity? pollViewData;
   int temporaryId;
 
   AddPollOptionResponseEntity({
@@ -39,7 +39,7 @@ class AddPollOptionResponseEntity {
     return AddPollOptionResponseEntity(
       temporaryId: json['temporary_id'],
       pollViewData: json['poll'] != null
-          ? PollViewDataEntity.fromJson(json['poll'] as Map<String, dynamic>)
+          ? PollOptionEntity.fromJson(json['poll'] as Map<String, dynamic>)
           : null,
     );
   }

@@ -1,7 +1,7 @@
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
 class PostPollConversationResponse {
-  final PollInfoData? data;
+  final Poll? data;
 
   PostPollConversationResponse({
     this.data,
@@ -10,7 +10,7 @@ class PostPollConversationResponse {
   factory PostPollConversationResponse.fromEntity(
       PostPollConversationResponseEntity entity) {
     return PostPollConversationResponse(
-      data: entity.data != null ? PollInfoData.fromEntity(entity.data!) : null,
+      data: entity.data != null ? Poll.fromEntity(entity.data!) : null,
     );
   }
 
@@ -22,7 +22,7 @@ class PostPollConversationResponse {
 }
 
 class PostPollConversationResponseEntity {
-  final PollInfoDataEntity? data;
+  final PollEntity? data;
 
   PostPollConversationResponseEntity({
     this.data,
@@ -32,7 +32,7 @@ class PostPollConversationResponseEntity {
       Map<String, dynamic> json) {
     return PostPollConversationResponseEntity(
       data: json['poll'] != null
-          ? PollInfoDataEntity.fromJson(json['poll'] as Map<String, dynamic>)
+          ? PollEntity.fromJson(json['poll'] as Map<String, dynamic>)
           : null,
     );
   }

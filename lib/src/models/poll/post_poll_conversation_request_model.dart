@@ -59,75 +59,59 @@ class PostPollConversationRequestBuilder {
   int? _expiryTime;
   String? _temporaryId;
 
-  PostPollConversationRequestBuilder();
-
-  PostPollConversationRequestBuilder chatroomId(int chatroomId) {
+  void chatroomId(int chatroomId) {
     _chatroomId = chatroomId;
-    return this;
   }
 
-  PostPollConversationRequestBuilder text(String text) {
+  void text(String text) {
     _text = text;
-    return this;
   }
 
-  PostPollConversationRequestBuilder state(int state) {
+  void state(int state) {
     _state = state;
-    return this;
   }
 
-  PostPollConversationRequestBuilder repliedConversationId(
-      String repliedConversationId) {
+  void repliedConversationId(String repliedConversationId) {
     _repliedConversationId = repliedConversationId;
-    return this;
   }
 
-  PostPollConversationRequestBuilder polls(List<PollOption> polls) {
+  void polls(List<PollOption> polls) {
     _polls = polls;
-    return this;
   }
 
-  PostPollConversationRequestBuilder pollType(int pollType) {
+  void pollType(int pollType) {
     _pollType = pollType;
-    return this;
   }
 
-  PostPollConversationRequestBuilder multipleSelectState(
-      int? multipleSelectState) {
+  void multipleSelectState(int? multipleSelectState) {
     _multipleSelectState = multipleSelectState;
-    return this;
   }
 
-  PostPollConversationRequestBuilder multipleSelectNo(int? multipleSelectNo) {
+  void multipleSelectNo(int? multipleSelectNo) {
     _multipleSelectNo = multipleSelectNo;
-    return this;
   }
 
-  PostPollConversationRequestBuilder isAnonymous(bool isAnonymous) {
+  void isAnonymous(bool isAnonymous) {
     _isAnonymous = isAnonymous;
-    return this;
   }
 
-  PostPollConversationRequestBuilder allowAddOption(bool allowAddOption) {
+  void allowAddOption(bool allowAddOption) {
     _allowAddOption = allowAddOption;
-    return this;
   }
 
-  PostPollConversationRequestBuilder expiryTime(int expiryTime) {
+  void expiryTime(int expiryTime) {
     _expiryTime = expiryTime;
-    return this;
   }
 
-  PostPollConversationRequestBuilder temporaryId(String temporaryId) {
+  void temporaryId(String temporaryId) {
     _temporaryId = temporaryId;
-    return this;
   }
 
   PostPollConversationRequest build() {
     return PostPollConversationRequest._(
       chatroomId: _chatroomId!,
       text: _text!,
-      state: _state!,
+      state: _state ?? 10,
       polls: _polls!,
       pollType: _pollType!,
       isAnonymous: _isAnonymous!,

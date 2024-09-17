@@ -1,6 +1,6 @@
-import 'package:likeminds_chat_fl/src/models/poll/poll_view_data.dart';
+import 'package:likeminds_chat_fl/src/models/poll/poll_option.dart';
 
-class PollInfoData {
+class Poll {
   final bool? isAnonymous;
   final bool? allowAddOption;
   final int? pollType;
@@ -9,13 +9,13 @@ class PollInfoData {
   final int? expiryTime;
   final int? multipleSelectNum;
   final int? multipleSelectState;
-  final List<PollViewData>? pollViewDataList;
+  final List<PollOption>? pollOptions;
   final String? pollAnswerText;
   final bool? isPollSubmitted;
   bool? toShowResult;
   final int? conversationId;
 
-  PollInfoData({
+  Poll({
     this.isAnonymous,
     this.allowAddOption,
     this.pollType,
@@ -24,15 +24,15 @@ class PollInfoData {
     this.expiryTime,
     this.multipleSelectNum,
     this.multipleSelectState,
-    this.pollViewDataList,
+    this.pollOptions,
     this.pollAnswerText,
     this.isPollSubmitted,
     this.toShowResult,
     this.conversationId,
   });
 
-  factory PollInfoData.fromEntity(PollInfoDataEntity entity) {
-    return PollInfoData(
+  factory Poll.fromEntity(PollEntity entity) {
+    return Poll(
         isAnonymous: entity.isAnonymous,
         allowAddOption: entity.allowAddOption,
         pollType: entity.pollType,
@@ -41,17 +41,16 @@ class PollInfoData {
         expiryTime: entity.expiryTime,
         multipleSelectNum: entity.multipleSelectNum,
         multipleSelectState: entity.multipleSelectState,
-        pollViewDataList: entity.pollViewDataList
-            ?.map((e) => PollViewData.fromEntity(e))
-            .toList(),
+        pollOptions:
+            entity.pollOptions?.map((e) => PollOption.fromEntity(e)).toList(),
         pollAnswerText: entity.pollAnswerText,
         isPollSubmitted: entity.isPollSubmitted,
         toShowResult: entity.toShowResult,
         conversationId: entity.conversationId);
   }
 
-  PollInfoDataEntity toEntity() {
-    return PollInfoDataEntity(
+  PollEntity toEntity() {
+    return PollEntity(
       isAnonymous: isAnonymous,
       allowAddOption: allowAddOption,
       pollType: pollType,
@@ -60,7 +59,7 @@ class PollInfoData {
       expiryTime: expiryTime,
       multipleSelectNum: multipleSelectNum,
       multipleSelectState: multipleSelectState,
-      pollViewDataList: pollViewDataList?.map((e) => e.toEntity()).toList(),
+      pollOptions: pollOptions?.map((e) => e.toEntity()).toList(),
       pollAnswerText: pollAnswerText,
       isPollSubmitted: isPollSubmitted,
       toShowResult: toShowResult,
@@ -68,7 +67,7 @@ class PollInfoData {
   }
 }
 
-class PollInfoDataEntity {
+class PollEntity {
   final bool? isAnonymous;
   final bool? allowAddOption;
   final int? pollType;
@@ -77,13 +76,13 @@ class PollInfoDataEntity {
   final int? expiryTime;
   final int? multipleSelectNum;
   final int? multipleSelectState;
-  final List<PollViewDataEntity>? pollViewDataList;
+  final List<PollOptionEntity>? pollOptions;
   final String? pollAnswerText;
   final bool? isPollSubmitted;
   final bool? toShowResult;
   final int? conversationId;
 
-  PollInfoDataEntity({
+  PollEntity({
     this.isAnonymous,
     this.allowAddOption,
     this.pollType,
@@ -92,15 +91,15 @@ class PollInfoDataEntity {
     this.expiryTime,
     this.multipleSelectNum,
     this.multipleSelectState,
-    this.pollViewDataList,
+    this.pollOptions,
     this.pollAnswerText,
     this.isPollSubmitted,
     this.toShowResult,
     this.conversationId,
   });
 
-  factory PollInfoDataEntity.fromJson(Map<String, dynamic> json) {
-    return PollInfoDataEntity(
+  factory PollEntity.fromJson(Map<String, dynamic> json) {
+    return PollEntity(
       isAnonymous: json['is_anonymous'],
       allowAddOption: json['allow_add_option'],
       pollType: json['poll_type'],
@@ -109,9 +108,9 @@ class PollInfoDataEntity {
       expiryTime: json['expiry_time'],
       multipleSelectNum: json['multiple_select_no'],
       multipleSelectState: json['multiple_select_state'],
-      pollViewDataList: json['poll_view_data_list'] != null
-          ? List<PollViewDataEntity>.from(json['poll_view_data_list']
-              .map((data) => PollViewDataEntity.fromJson(data)))
+      pollOptions: json['poll_view_data_list'] != null
+          ? List<PollOptionEntity>.from(json['poll_view_data_list']
+              .map((data) => PollOptionEntity.fromJson(data)))
           : null,
       pollAnswerText: json['poll_answer_text'],
       isPollSubmitted: false,
@@ -135,9 +134,9 @@ class PollInfoDataEntity {
       'to_show_results': toShowResult,
       'id': conversationId,
     };
-    if (pollViewDataList != null) {
+    if (pollOptions != null) {
       data['poll_view_data_list'] =
-          pollViewDataList!.map((data) => data.toJson()).toList();
+          pollOptions!.map((data) => data.toJson()).toList();
     }
     return data;
   }

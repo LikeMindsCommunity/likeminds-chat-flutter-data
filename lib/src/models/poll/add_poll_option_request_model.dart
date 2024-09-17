@@ -1,7 +1,7 @@
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
 class AddPollOptionRequest {
-  PollViewData pollViewData;
+  PollOption pollViewData;
   int conversationId;
   int temporaryId;
 
@@ -22,11 +22,11 @@ class AddPollOptionRequest {
 }
 
 class AddPollOptionRequestBuilder {
-  PollViewData? _pollViewData;
+  PollOption? _pollViewData;
   int? _conversationId;
   int? _temporaryId;
 
-  void pollViewData(PollViewData pollViewData) {
+  void pollViewData(PollOption pollViewData) {
     _pollViewData = pollViewData;
   }
 
