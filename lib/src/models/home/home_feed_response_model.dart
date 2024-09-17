@@ -9,7 +9,7 @@ class GetHomeFeedResponse {
   final Map<String, Conversation>? conversationMeta;
   final Map<int, User>? userMeta;
   final Map<dynamic, dynamic>? cardAttachmentsMeta;
-  final Map<dynamic, dynamic>? conversationAttachmentsMeta;
+  final Map<String, List<Attachment>>? conversationAttachmentsMeta;
   final Map<dynamic, dynamic>? conversationPollsMeta;
 
   GetHomeFeedResponse({
@@ -37,7 +37,10 @@ class GetHomeFeedResponse {
         ),
       ),
       cardAttachmentsMeta: entity.cardAttachmentsMeta,
-      conversationAttachmentsMeta: entity.conversationAttachmentsMeta,
+      conversationAttachmentsMeta: entity.conversationAttachmentsMeta?.map(
+        (key, value) =>
+            MapEntry(key, value.map((e) => Attachment.fromEntity(e)).toList()),
+      ),
       conversationPollsMeta: entity.conversationPollsMeta,
     );
   }
@@ -51,7 +54,9 @@ class GetHomeFeedResponse {
           ?.map((key, value) => MapEntry(key, value.toEntity())),
       userMeta: userMeta?.map((key, value) => MapEntry(key, value.toEntity())),
       cardAttachmentsMeta: cardAttachmentsMeta,
-      conversationAttachmentsMeta: conversationAttachmentsMeta,
+      conversationAttachmentsMeta: conversationAttachmentsMeta?.map(
+        (key, value) => MapEntry(key, value.map((e) => e.toEntity()).toList()),
+      ),
       conversationPollsMeta: conversationPollsMeta,
     );
   }
@@ -70,7 +75,7 @@ class GetHomeFeedResponseEntity {
   @JsonKey(name: 'card_attachments_meta')
   final Map<dynamic, dynamic>? cardAttachmentsMeta;
   @JsonKey(name: 'conv_attachments_meta')
-  final Map<dynamic, dynamic>? conversationAttachmentsMeta;
+  final Map<String, List<AttachmentEntity>>? conversationAttachmentsMeta;
   @JsonKey(name: 'conv_polls_meta')
   final Map<dynamic, dynamic>? conversationPollsMeta;
 

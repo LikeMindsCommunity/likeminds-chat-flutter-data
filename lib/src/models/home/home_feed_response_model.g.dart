@@ -28,7 +28,14 @@ GetHomeFeedResponseEntity _$GetHomeFeedResponseEntityFromJson(
       cardAttachmentsMeta:
           json['card_attachments_meta'] as Map<String, dynamic>?,
       conversationAttachmentsMeta:
-          json['conv_attachments_meta'] as Map<String, dynamic>?,
+          (json['conv_attachments_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+          k,
+          (e as List<dynamic>)
+              .map((v) => AttachmentEntity.fromJson(v as Map<String, dynamic>))
+              .toList(),
+        ),
+      ),
       conversationPollsMeta: json['conv_polls_meta'] as Map<String, dynamic>?,
     );
 
@@ -40,6 +47,7 @@ Map<String, dynamic> _$GetHomeFeedResponseEntityToJson(
       'conversation_meta': instance.conversationMeta,
       'user_meta': instance.userMeta?.map((k, e) => MapEntry(k.toString(), e)),
       'card_attachments_meta': instance.cardAttachmentsMeta,
-      'conv_attachments_meta': instance.conversationAttachmentsMeta,
+      'conv_attachments_meta': instance.conversationAttachmentsMeta
+          ?.map((k, e) => MapEntry(k.toString(), e)),
       'conv_polls_meta': instance.conversationPollsMeta,
     };
