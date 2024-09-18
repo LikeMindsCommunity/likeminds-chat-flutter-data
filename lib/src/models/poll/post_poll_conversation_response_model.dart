@@ -16,7 +16,7 @@ class PostPollConversationResponse {
 
   PostPollConversationResponseEntity toEntity() {
     return PostPollConversationResponseEntity(
-      data: data != null ? data!.toEntity() : null,
+      data: data?.toEntity(),
     );
   }
 }

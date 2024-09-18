@@ -12,6 +12,7 @@ class GetConversationResponse {
   final List<Conversation>? conversationData;
   final Map<String, Conversation>? conversationMeta;
   final Map<String, List<Attachment>>? conversationAttachmentsMeta;
+  final Map<String, List<PollOption>>? conversationPollsMeta;
 
   GetConversationResponse({
     this.chatroomMeta,
@@ -20,6 +21,7 @@ class GetConversationResponse {
     this.conversationData,
     this.conversationMeta,
     this.conversationAttachmentsMeta,
+    this.conversationPollsMeta,
   });
 
   factory GetConversationResponse.fromEntity(
@@ -46,6 +48,12 @@ class GetConversationResponse {
           value.map((e) => Attachment.fromEntity(e)).toList(),
         ),
       ),
+      conversationPollsMeta: entity.conversationPollsMeta?.map(
+        (key, value) => MapEntry(
+          key,
+          value.map((e) => PollOption.fromEntity(e)).toList(),
+        ),
+      ),
     );
   }
 
@@ -70,6 +78,12 @@ class GetConversationResponse {
           value.map((e) => e.toEntity()).toList(),
         ),
       ),
+      conversationPollsMeta: conversationPollsMeta?.map(
+        (key, value) => MapEntry(
+          key,
+          value.map((e) => e.toEntity()).toList(),
+        ),
+      ),
     );
   }
 }
@@ -88,6 +102,8 @@ class GetConversationResponseEntity {
   final Map<String, ConversationEntity>? conversationMeta;
   @JsonKey(name: 'conv_attachments_meta')
   final Map<String, List<AttachmentEntity>>? conversationAttachmentsMeta;
+  @JsonKey(name: 'conv_polls_meta')
+  final Map<String, List<PollOptionEntity>>? conversationPollsMeta;
 
   GetConversationResponseEntity({
     this.chatroomMeta,
@@ -96,6 +112,7 @@ class GetConversationResponseEntity {
     this.conversationData,
     this.conversationAttachmentsMeta,
     this.conversationMeta,
+    this.conversationPollsMeta,
   });
 
   factory GetConversationResponseEntity.fromJson(Map<String, dynamic> json) =>

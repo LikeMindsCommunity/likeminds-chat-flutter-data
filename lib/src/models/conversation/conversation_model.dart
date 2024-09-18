@@ -162,8 +162,7 @@ class Conversation {
         conversationReactions: entity.conversationReactionsEntity
             ?.map((e) => Reaction.fromEntity(e))
             .toList(),
-        poll:
-            entity.poll != null ? Poll.fromEntity(entity.poll!) : null);
+        poll: entity.poll != null ? Poll.fromEntity(entity.poll!) : null);
   }
 
   ConversationEntity toEntity() {
@@ -356,9 +355,7 @@ class ConversationEntity {
     this.poll,
   });
 
-  factory ConversationEntity.fromJson(Map<String, dynamic> json,
-          {Map<String, dynamic>? conversationReactionsMeta,
-          Map<String, dynamic>? conversationPollMeta}) =>
+  factory ConversationEntity.fromJson(Map<String, dynamic> json) =>
       _$ConversationEntityFromJson(
         json,
       );
