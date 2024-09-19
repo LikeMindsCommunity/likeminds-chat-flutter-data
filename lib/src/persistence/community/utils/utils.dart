@@ -119,8 +119,9 @@ extension CommunityToSchema on Community {
       isDiscoverable: isDiscoverable,
       websiteUrl: websiteUrl,
       referralEnabled: referralEnabled,
-      communitySettingRights:
-          communitySettingRights?.map((e) => e.toCommunitySettingsRightsSchema()).toList(),
+      communitySettingRights: communitySettingRights
+          ?.map((e) => e.toCommunitySettingsRightsSchema())
+          .toList(),
       likeMindsPlan: likeMindsPlan,
       isFreemiumCommunity: isFreemiumCommunity,
     );

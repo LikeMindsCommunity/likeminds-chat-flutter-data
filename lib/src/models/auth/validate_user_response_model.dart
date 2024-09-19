@@ -3,7 +3,7 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 part 'validate_user_response_model.g.dart';
 
 class ValidateUserResponse {
-   final User? user;
+  final User? user;
   final Community? community;
   final bool? appAccess;
 

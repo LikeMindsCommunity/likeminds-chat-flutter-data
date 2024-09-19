@@ -177,9 +177,7 @@ class ChatRoom {
       isPrivateMember: entity.isPrivateMember,
       isSecret: entity.isSecret,
       isTagged: entity.isTagged,
-      member: entity.member != null
-          ? User.fromEntity(entity.member!)
-          : null,
+      member: entity.member != null ? User.fromEntity(entity.member!) : null,
       topic:
           entity.topic != null ? Conversation.fromEntity(entity.topic!) : null,
       muteStatus: entity.muteStatus,

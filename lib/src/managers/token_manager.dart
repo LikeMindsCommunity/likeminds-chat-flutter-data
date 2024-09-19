@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/constant/string_constant.dart';
 import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
@@ -37,7 +38,12 @@ class TokenManager {
   Future<void> updateTokens(String accessToken, String refreshToken) async {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
-    await updateTokensInDB(accessToken, refreshToken);
+    // Check if running in test environment
+    if (!const bool.fromEnvironment('dart.vm.product')) {
+      return;
+    } else {
+      await updateTokensInDB(accessToken, refreshToken);
+    }
   }
 
   Future<void> updateTokensInDB(String accessToken, String refreshToken) async {

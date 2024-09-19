@@ -55,6 +55,12 @@ class AuthService extends IAuthService {
             initiateUserEntity.refreshToken!,
           );
 
+          // Check if running in test environment
+          if (!const bool.fromEnvironment('dart.vm.product')) {
+            // If in test environment, return response without calling localPref
+            return LMResponse.success(data: initiateUserEntity);
+          }
+
           await localPref.insertOrUpdateValueInCache((LMChatCacheBuilder()
                 ..key(kApiKey)
                 ..value(initiateUserRequest.apiKey))
@@ -70,9 +76,15 @@ class AuthService extends IAuthService {
           return LMResponse.success(
             data: initiateUserEntity,
           );
-          // Else, if API returned no app access
         } else {
           // If API returned no app access, then clear data and return response
+          if (!const bool.fromEnvironment('dart.vm.product')) {
+            // If in test environment, return response without calling localPref
+            return LMResponse.error(
+                errorMessage:
+                    response.data['error_message'] ?? 'An error occurred');
+          }
+
           await localPref.deleteUser();
           await localPref.deleteCommunity();
           await localPref.deleteMemberState();

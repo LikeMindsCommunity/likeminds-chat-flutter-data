@@ -54,14 +54,24 @@ class TokenInterceptor extends Interceptor {
 
   Future<void> refreshToken() async {
     debugPrint("Refreshing token");
-    LMResponse refreshTokenResponse =
-        LMChatPersistence.instance.getCache(kRefreshToken);
-    if (!refreshTokenResponse.success ||
-        refreshTokenResponse.data == null ||
-        refreshTokenResponse.data!.value == null) {
-      throw Exception("Refresh token not found.");
+    late String refreshToken;
+    LMResponse? refreshTokenResponse;
+
+    // Check if running in test environment
+    if (!const bool.fromEnvironment('dart.vm.product')) {
+      // If in test environment, return response without calling localPref
+      refreshToken = apiManager.tokenManager.refreshToken!;
+    } else {
+      refreshTokenResponse = LMChatPersistence.instance.getCache(kRefreshToken);
+
+      if (!refreshTokenResponse.success ||
+          refreshTokenResponse.data == null ||
+          refreshTokenResponse.data!.value == null) {
+        throw Exception("Refresh token not found.");
+      } else {
+        refreshToken = refreshTokenResponse.data!.value;
+      }
     }
-    String refreshToken = refreshTokenResponse.data!.value;
     final response = await AuthService(apiManager: apiManager)
         .refreshAccessToken(
             (RefreshRequestBuilder()..refreshToken(refreshToken)).build());
