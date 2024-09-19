@@ -25,8 +25,8 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
       state: (json['state'] as num?)?.toInt(),
       communityId: (json['community_id'] as num?)?.toInt(),
       createdAt: (json['created_at'] as num?)?.toInt(),
-      memberSinceEpoch: json['member_since_epoch'] as int?,
       customIntroText: json['custom_intro_text'] as String?,
+      memberSinceEpoch: (json['member_since_epoch'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$UserEntityToJson(UserEntity instance) =>
