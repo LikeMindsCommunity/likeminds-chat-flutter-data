@@ -27,7 +27,7 @@ abstract class LMChatSDKCallback {
   /// [refreshToken] is the new refresh token
   void onAccessTokenExpiredAndRefreshed(
       String accessToken, String refreshToken);
-  
+
   /// Callback for onRefreshTokenExpired.
   /// This is called when the refresh token is expired
   Future<LMAuthToken> onRefreshTokenExpired();

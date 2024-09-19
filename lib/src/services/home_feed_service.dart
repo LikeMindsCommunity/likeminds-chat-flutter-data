@@ -25,9 +25,9 @@ class HomeFeedService extends IHomeFeedService {
   ) async {
     try {
       final response = await apiManager.client().get(
-        apiManager.endPoints.homeFeedEndpoint,
-        queryParameters: request.toJson(),
-      );
+            apiManager.endPoints.homeFeedEndpoint,
+            queryParameters: request.toJson(),
+          );
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',

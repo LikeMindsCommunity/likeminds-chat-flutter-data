@@ -19,7 +19,8 @@ class TestCallback extends LMChatSDKCallback {
   }
 
   @override
-  void onAccessTokenExpiredAndRefreshed(String accessToken, String refreshToken) {
+  void onAccessTokenExpiredAndRefreshed(
+      String accessToken, String refreshToken) {
     // TODO: implement onAccessTokenExpiredAndRefreshed
   }
 
