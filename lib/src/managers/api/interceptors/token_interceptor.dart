@@ -58,7 +58,7 @@ class TokenInterceptor extends Interceptor {
     LMResponse? refreshTokenResponse;
 
     // Check if running in test environment
-    if (kIsWeb || !const bool.fromEnvironment('dart.vm.product')) {
+    if (!const bool.fromEnvironment('dart.vm.product')) {
       // If in test environment, return response without calling localPref
       refreshToken = apiManager.tokenManager.refreshToken!;
     } else {

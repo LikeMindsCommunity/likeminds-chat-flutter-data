@@ -56,7 +56,7 @@ class AuthService extends IAuthService {
           );
 
           // Check if running in test environment
-          if (kIsWeb || !const bool.fromEnvironment('dart.vm.product')) {
+          if (!const bool.fromEnvironment('dart.vm.product')) {
             // If in test environment, return response without calling localPref
             return LMResponse.success(data: initiateUserEntity);
           }
@@ -78,7 +78,7 @@ class AuthService extends IAuthService {
           );
         } else {
           // If API returned no app access, then clear data and return response
-          if (kIsWeb || !const bool.fromEnvironment('dart.vm.product')) {
+          if (!const bool.fromEnvironment('dart.vm.product')) {
             // If in test environment, return response without calling localPref
             return LMResponse.error(
                 errorMessage:

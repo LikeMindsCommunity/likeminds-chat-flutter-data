@@ -39,7 +39,7 @@ class TokenManager {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
     // Check if running in test environment
-    if (kIsWeb || !const bool.fromEnvironment('dart.vm.product')) {
+    if (!const bool.fromEnvironment('dart.vm.product')) {
       return;
     } else {
       await updateTokensInDB(accessToken, refreshToken);
