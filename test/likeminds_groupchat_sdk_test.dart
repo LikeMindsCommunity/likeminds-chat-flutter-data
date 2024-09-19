@@ -1,6 +1,4 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
-@Timeout(Duration(seconds: 600))
-
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -25,194 +23,250 @@ const int TESTING_PROD_DEFAULT_CHATROOM = EnvTest.testingProdDefaultChatroom;
 
 void main() {
   debugPrint("Starting the tests now...");
-  // initialize flutter binding
-  TestWidgetsFlutterBinding.ensureInitialized();
   int? conversationId;
   int chatroomId = TESTING_PROD_FLAG
       ? TESTING_PROD_DEFAULT_CHATROOM
       : TESTING_BETA_DEFAULT_CHATROOM;
-  int? memberId;
 
+  int? memberId;
   String? uuid;
   int? dmChatroomId;
 
   // Initiate the SDK
-  LMChatClient lmClient = (LMChatClientBuilder()
-        ..sdkCallback(TESTING_CALLBACK))
-      .build();
+  LMChatClient lmClient =
+      (LMChatClientBuilder()..sdkCallback(TESTING_CALLBACK)).build();
 
   /// Test the login method
   /// This test will fail if the user can not log in
   test('Initiating the chat SDK, and login the user', () async {
-    debugPrint("Initiating login test...");
-    InitiateUserRequest request = (InitiateUserRequestBuilder()
-          ..userId(
-              "abcd"))
-        .build();
-    LMResponse<InitiateUserResponse> response =
-        await lmClient.initiateUser(request);
-    //save memberId for future tests
-    memberId = response.data?.user?.id;
-    debugPrint("Logged in as, ${response.data?.user?.name}");
-    memberId = response.data?.user?.id;
-    // TESTING_CALLBACK.eventFiredCallback();
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating login test...");
+      InitiateUserRequest request = (InitiateUserRequestBuilder()
+            ..userId(TESTING_PROD_BOT_ID)
+            ..apiKey(TESTING_PROD_API_KEY)
+            ..userName(TESTING_PROD_BOT_ID))
+          .build();
+      LMResponse<InitiateUserResponse> response =
+          await lmClient.initiateUser(request);
+      memberId = response.data?.user?.id;
+      uuid = response.data?.user?.sdkClientInfo?.uuid;
+      debugPrint("Logged in as, ${response.data?.user?.name}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Login test failed: $e");
+      fail("Login test failed: $e");
+    }
   });
 
   /// Test the get home feed method
   /// This test will fail if the user can not get the home feed
   test('Getting the home feed test', () async {
-    debugPrint("Initiating home feed test...");
-    GetHomeFeedRequest request = (GetHomeFeedRequestBuilder()
-          ..page(1)
-          ..pageSize(10))
-        .build();
+    try {
+      debugPrint("Initiating home feed test...");
+      GetHomeFeedRequest request = (GetHomeFeedRequestBuilder()
+            ..page(1)
+            ..pageSize(10))
+          .build();
 
-    LMResponse<GetHomeFeedResponse> response =
-        await lmClient.getHomeFeed(request);
-    debugPrint("Got ${response.data?.chatroomsData?.length} chatrooms");
-    expect(response.success, true);
+      LMResponse<GetHomeFeedResponse> response =
+          await lmClient.getHomeFeed(request);
+      debugPrint("Got ${response.data?.chatroomsData?.length} chatrooms");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Home feed test failed: $e");
+      fail("Home feed test failed: $e");
+    }
   });
 
   /// Test the get explore tab count method
   /// This test will fail if the user can not get the explore tab count
   test('Getting the explore tab count test', () async {
-    debugPrint("Initiating explore tab count test...");
-    LMResponse<GetExploreTabCountResponse> response =
-        await lmClient.getExploreTabCount();
-    debugPrint(
-        "Got ${response.data?.totalChannelCount} chatrooms, out of which ${response.data?.unseenChannelCount} are unseen");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating explore tab count test...");
+      LMResponse<GetExploreTabCountResponse> response =
+          await lmClient.getExploreTabCount();
+      debugPrint(
+          "Got ${response.data?.totalChannelCount} chatrooms, out of which ${response.data?.unseenChannelCount} are unseen");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Explore tab count test failed: $e");
+      fail("Explore tab count test failed: $e");
+    }
   });
 
   /// Test the get explore feed method
   /// This test will fail if the user can not get the explore feed
   test('Getting the explore feed test', () async {
-    debugPrint("Initiating explore feed test...");
-    GetExploreFeedRequest request = (GetExploreFeedRequestBuilder()
-          ..page(1)
-          ..orderType(0)
-          ..pinned(false))
-        .build();
+    try {
+      debugPrint("Initiating explore feed test...");
+      GetExploreFeedRequest request = (GetExploreFeedRequestBuilder()
+            ..page(1)
+            ..orderType(0)
+            ..pinned(false))
+          .build();
 
-    LMResponse<GetExploreFeedResponse> response =
-        await lmClient.getExploreFeed(request);
-    debugPrint("Got ${response.data?.chatrooms?.length} chatrooms");
-    expect(response.success, true);
+      LMResponse<GetExploreFeedResponse> response =
+          await lmClient.getExploreFeed(request);
+      debugPrint("Got ${response.data?.chatrooms?.length} chatrooms");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Explore feed test failed: $e");
+      fail("Explore feed test failed: $e");
+    }
   });
 
   /// Test the get chatroom method
   /// This test will fail if the user can not get the chatroom
   test('Getting the chatroom test', () async {
-    debugPrint("Initiating chatroom test...");
-    GetChatroomRequest request =
-        (GetChatroomRequestBuilder()..chatroomId(chatroomId)).build();
-    LMResponse<GetChatroomResponse> response =
-        await lmClient.getChatroom(request);
-    debugPrint("Got ${response.data?.chatroom?.header} chatroom");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating chatroom test...");
+      GetChatroomRequest request =
+          (GetChatroomRequestBuilder()..chatroomId(chatroomId)).build();
+      LMResponse<GetChatroomResponse> response =
+          await lmClient.getChatroom(request);
+      debugPrint("Got ${response.data?.chatroom?.header} chatroom");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Chatroom test failed: $e");
+      fail("Chatroom test failed: $e");
+    }
   });
 
   /// Test the follow chatroom method
   /// This test will fail if the user can not follow the chatroom
   test('Following the chatroom test', () async {
-    debugPrint("Initiating follow chatroom test...");
-    FollowChatroomRequest request = (FollowChatroomRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..memberId(memberId ?? 0)
-          ..value(true))
-        .build();
+    try {
+      debugPrint("Initiating follow chatroom test...");
+      FollowChatroomRequest request = (FollowChatroomRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..memberId(memberId!)
+            ..value(true))
+          .build();
 
-    LMResponse<void> response = await lmClient.followChatroom(request);
-    debugPrint("Followed chatroom with ID ${request.chatroomId}");
-    expect(response.success, true);
+      LMResponse<void> response = await lmClient.followChatroom(request);
+      debugPrint("Followed chatroom with ID ${request.chatroomId}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Follow chatroom test failed: $e");
+      fail("Follow chatroom test failed: $e");
+    }
   });
 
   /// Test the mute chatroom method
   /// This test will fail if the user can not mute the chatroom
   test('Muting the chatroom test', () async {
-    debugPrint("Initiating mute chatroom test...");
-    MuteChatroomRequest request = (MuteChatroomRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..value(true))
-        .build();
-    LMResponse<void> response = await lmClient.muteChatroom(request);
-    debugPrint("Muted chatroom with ID ${request.chatroomId}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating mute chatroom test...");
+      MuteChatroomRequest request = (MuteChatroomRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..value(true))
+          .build();
+      LMResponse<void> response = await lmClient.muteChatroom(request);
+      debugPrint("Muted chatroom with ID ${request.chatroomId}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Mute chatroom test failed: $e");
+      fail("Mute chatroom test failed: $e");
+    }
   });
 
   /// Test the mark read chatroom method
   /// This test will fail if the user can not mark read the chatroom
   test('Marking read the chatroom test', () async {
-    debugPrint("Initiating mark read chatroom test...");
-    MarkReadChatroomRequest request =
-        (MarkReadChatroomRequestBuilder()..chatroomId(chatroomId)).build();
-    LMResponse<void> response = await lmClient.markReadChatroom(request);
-    debugPrint("Marked read chatroom with ID ${request.chatroomId}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating mark read chatroom test...");
+      MarkReadChatroomRequest request =
+          (MarkReadChatroomRequestBuilder()..chatroomId(chatroomId)).build();
+      LMResponse<void> response = await lmClient.markReadChatroom(request);
+      debugPrint("Marked read chatroom with ID ${request.chatroomId}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Mark read chatroom test failed: $e");
+      fail("Mark read chatroom test failed: $e");
+    }
   });
 
   /// Test the share chatroom method
   /// This test will fail if the user can not share the chatroom
   test('Sharing the chatroom test', () async {
-    debugPrint("Initiating share chatroom test...");
-    ShareChatroomRequest request = (ShareChatroomRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..domain("https://www.likeminds.ai"))
-        .build();
-    LMResponse<void> response = await lmClient.shareChatroomUrl(request);
-    debugPrint("Shared chatroom with ID ${request.chatroomId}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating share chatroom test...");
+      ShareChatroomRequest request = (ShareChatroomRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..domain("https://www.likeminds.ai"))
+          .build();
+      LMResponse<void> response = await lmClient.shareChatroomUrl(request);
+      debugPrint("Shared chatroom with ID ${request.chatroomId}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Share chatroom test failed: $e");
+      fail("Share chatroom test failed: $e");
+    }
   });
 
   test('Posting the conversation test', () async {
-    debugPrint("Initiating post conversation test...");
-    int tempId = DateTime.now().millisecondsSinceEpoch;
-    PostConversationRequest request = (PostConversationRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..text("This is a test message from the SDK")
-          ..temporaryId(tempId.toString())
-          ..expiryTime(0))
-        .build();
-    LMResponse<PostConversationResponse> response =
-        await lmClient.postConversation(request);
-    //Save the conversation ID for the next test
-    conversationId = response.data!.conversation!.id;
-    debugPrint(
-      "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
-    );
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating post conversation test...");
+      int tempId = DateTime.now().millisecondsSinceEpoch;
+      PostConversationRequest request = (PostConversationRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..text("This is a test message from the SDK")
+            ..temporaryId(tempId.toString())
+            ..expiryTime(0))
+          .build();
+      LMResponse<PostConversationResponse> response =
+          await lmClient.postConversation(request);
+      //Save the conversation ID for the next test
+      conversationId = response.data!.conversation!.id;
+      debugPrint(
+        "Posted conversation with ID ${response.data!.id} and text \"${response.data!.conversation?.answer}\"",
+      );
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Post conversation test failed: $e");
+      fail("Post conversation test failed: $e");
+    }
   });
 
   /// Test the set chatroom topic method
   /// This test will fail if the user can not set the chatroom topic
   test('Setting the chatroom topic test', () async {
-    debugPrint("Initiating set chatroom topic test...");
-    SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..conversationId(conversationId!))
-        .build();
-    LMResponse<void> response = await lmClient.setChatroomTopic(request);
-    debugPrint("Set chatroom topic with ID ${request.chatroomId}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating set chatroom topic test...");
+      SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..conversationId(conversationId!))
+          .build();
+      LMResponse<void> response = await lmClient.setChatroomTopic(request);
+      debugPrint("Set chatroom topic with ID ${request.chatroomId}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Set chatroom topic test failed: $e");
+      fail("Set chatroom topic test failed: $e");
+    }
   });
 
   /// Test the get conversation method
   /// This test will fail if the user can not get the conversation
   test('Getting the conversation test', () async {
-    debugPrint("Initiating get conversation test...");
-    GetConversationRequest request = (GetConversationRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..page(1)
-          ..pageSize(100)
-          ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
-          ..minTimestamp(0))
-        .build();
-    LMResponse<GetConversationResponse> response =
-        await lmClient.getConversation(request);
-    debugPrint(
-        "Got conversations in the quantity of ${response.data!.conversationData!.length}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating get conversation test...");
+      GetConversationRequest request = (GetConversationRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..page(1)
+            ..pageSize(100)
+            ..maxTimestamp(DateTime.now().millisecondsSinceEpoch)
+            ..minTimestamp(0))
+          .build();
+      LMResponse<GetConversationResponse> response =
+          await lmClient.getConversation(request);
+      debugPrint(
+          "Got conversations in the quantity of ${response.data!.conversationData!.length}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Get conversation test failed: $e");
+      fail("Get conversation test failed: $e");
+    }
   });
 
   /// Test the post conversation method
@@ -221,122 +275,164 @@ void main() {
   /// Test the get single conversation method
   /// This test will fail if the user can not get the conversation
   test('Getting the conversation test', () async {
-    debugPrint("Initiating get single conversation test...");
-    int maxTimestamp = DateTime.now().millisecondsSinceEpoch;
-    GetConversationRequest request = (GetConversationRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..page(1)
-          ..isLocalDB(false)
-          ..pageSize(200)
-          ..minTimestamp(0)
-          ..maxTimestamp(maxTimestamp)
-          ..conversationId(conversationId!))
-        .build();
-    LMResponse<GetConversationResponse> response =
-        await lmClient.getConversation(request);
-    debugPrint(
-        "Got single conversation ${response.data!.conversationData?.first.toEntity().toJson()}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating get single conversation test...");
+      int maxTimestamp = DateTime.now().millisecondsSinceEpoch;
+      GetConversationRequest request = (GetConversationRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..page(1)
+            ..isLocalDB(false)
+            ..pageSize(200)
+            ..minTimestamp(0)
+            ..maxTimestamp(maxTimestamp)
+            ..conversationId(conversationId!))
+          .build();
+      LMResponse<GetConversationResponse> response =
+          await lmClient.getConversation(request);
+      debugPrint(
+          "Got single conversation ${response.data!.conversationData?.first.toEntity().toJson()}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Get single conversation test failed: $e");
+      fail("Get single conversation test failed: $e");
+    }
   });
 
   /// Test the edit conversation method
   /// This test will fail if the user can not edit the conversation
   test('Editing the conversation test', () async {
-    debugPrint("Initiating edit conversation test...");
-    EditConversationRequest request = (EditConversationRequestBuilder()
-          ..conversationId(conversationId ?? 0)
-          ..text("This is an edited test message from the SDK"))
-        .build();
-    LMResponse<EditConversationResponse> response =
-        await lmClient.editConversation(request);
-    debugPrint(
-      "Edited conversation with ID ${response.data!.conversation?.id} and text is now \"${response.data!.conversation?.answer}\"",
-    );
-    debugPrint(
-      "Edited conversation ${response.data!.conversation!.toEntity().toJson()}",
-    );
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating edit conversation test...");
+      EditConversationRequest request = (EditConversationRequestBuilder()
+            ..conversationId(conversationId ?? 0)
+            ..text("This is an edited test message from the SDK"))
+          .build();
+      LMResponse<EditConversationResponse> response =
+          await lmClient.editConversation(request);
+      debugPrint(
+        "Edited conversation with ID ${response.data!.conversation?.id} and text is now \"${response.data!.conversation?.answer}\"",
+      );
+      debugPrint(
+        "Edited conversation ${response.data!.conversation!.toEntity().toJson()}",
+      );
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Edit conversation test failed: $e");
+      fail("Edit conversation test failed: $e");
+    }
   });
 
   /// Test the put reaction method
   /// This test will fail if the user can not put a reaction
   test('Putting a reaction test', () async {
-    debugPrint("Initiating put reaction test...");
-    PutReactionRequest request = (PutReactionRequestBuilder()
-          ..conversationId(conversationId ?? 0)
-          ..reaction("❤️"))
-        .build();
-    LMResponse<void> response = await lmClient.putReaction(request);
-    debugPrint(
-        "Put reaction with ${request.reaction} reaction returned ${response.success}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating put reaction test...");
+      PutReactionRequest request = (PutReactionRequestBuilder()
+            ..conversationId(conversationId ?? 0)
+            ..reaction("❤️"))
+          .build();
+      LMResponse<void> response = await lmClient.putReaction(request);
+      debugPrint(
+          "Put reaction with ${request.reaction} reaction returned ${response.success}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Put reaction test failed: $e");
+      fail("Put reaction test failed: $e");
+    }
   });
 
   /// Test the delete reaction method
   /// This test will fail if the user can not delete a reaction
   test('Deleting a reaction test', () async {
-    debugPrint("Initiating delete reaction test...");
-    DeleteReactionRequest request = (DeleteReactionRequestBuilder()
-          ..conversationId(conversationId ?? 0)
-          ..reaction("❤️"))
-        .build();
-    LMResponse<void> response = await lmClient.deleteReaction(request);
-    debugPrint(
-        "Deleted reaction with ${request.reaction} reaction returned ${response.success}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating delete reaction test...");
+      DeleteReactionRequest request = (DeleteReactionRequestBuilder()
+            ..conversationId(conversationId ?? 0)
+            ..reaction("❤️"))
+          .build();
+      LMResponse<void> response = await lmClient.deleteReaction(request);
+      debugPrint(
+          "Deleted reaction with ${request.reaction} reaction returned ${response.success}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Delete reaction test failed: $e");
+      fail("Delete reaction test failed: $e");
+    }
   });
 
   // Test the get participants methods
   // This test will fail if the user can't the list of participants
   test('Fetch participants test', () async {
-    debugPrint("Initiating Fetch participants test...");
-    GetParticipantsRequest request = (GetParticipantsRequestBuilder()
-          ..chatroomId(chatroomId)
-          ..page(1)
-          ..pageSize(10)
-          ..search(null)
-          ..isSecret(false))
-        .build();
-    LMResponse<GetParticipantsResponse> response =
-        await lmClient.getParticipants(request);
-    debugPrint(
-        "List of participants ${response.data!.participants.toString()}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating Fetch participants test...");
+      GetParticipantsRequest request = (GetParticipantsRequestBuilder()
+            ..chatroomId(chatroomId)
+            ..page(1)
+            ..pageSize(10)
+            ..search(null)
+            ..isSecret(false))
+          .build();
+      LMResponse<GetParticipantsResponse> response =
+          await lmClient.getParticipants(request);
+      debugPrint(
+          "List of participants ${response.data!.participants.toString()}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Fetch participants test failed: $e");
+      fail("Fetch participants test failed: $e");
+    }
   });
 
   // Test the decode URL methods
   // This test will fail if the user can't decode a URL
   test('Decode URL test', () async {
-    debugPrint("Initiating decode URL test...");
-    DecodeUrlRequest request =
-        (DecodeUrlRequestBuilder()..url("https://yahoo.com/")).build();
-    LMResponse<DecodeUrlResponse> response = await lmClient.decodeUrl(request);
-    debugPrint("Decoded URL ${response.data!.ogTags.toString()}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating decode URL test...");
+      DecodeUrlRequest request =
+          (DecodeUrlRequestBuilder()..url("https://yahoo.com/")).build();
+      LMResponse<DecodeUrlResponse> response =
+          await lmClient.decodeUrl(request);
+      debugPrint("Decoded URL ${response.data!.ogTags.toString()}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Decode URL test failed: $e");
+      fail("Decode URL test failed: $e");
+    }
   });
 
   // Test the member rights methods
   // This test will fail if the user can't fetch member rights
   test('Fetch Member Rights test', () async {
-    debugPrint("Initiating Fetch Member Rights test...");
-    LMResponse<MemberStateResponse> response = await lmClient.getMemberState();
-    debugPrint("Member State for User with ID ${response.data!.member!.id}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating Fetch Member Rights test...");
+      LMResponse<MemberStateResponse> response =
+          await lmClient.getMemberState();
+      debugPrint("Member State for User with ID ${response.data!.member!.id}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Fetch Member Rights test failed: $e");
+      fail("Fetch Member Rights test failed: $e");
+    }
   });
 
   /// Test the delete conversation method
   /// This test will fail if the user can not delete the conversation
   test('Deleting the conversation test', () async {
-    debugPrint("Initiating delete conversation test...");
-    DeleteConversationRequest request = (DeleteConversationRequestBuilder()
-          ..conversationIds([conversationId ?? 0])
-          ..reason("Because testing demands you to"))
-        .build();
-    LMResponse<DeleteConversationResponse> response =
-        await lmClient.deleteConversation(request);
-    debugPrint(
-        "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating delete conversation test...");
+      DeleteConversationRequest request = (DeleteConversationRequestBuilder()
+            ..conversationIds([conversationId ?? 0])
+            ..reason("Because testing demands you to"))
+          .build();
+      LMResponse<DeleteConversationResponse> response =
+          await lmClient.deleteConversation(request);
+      debugPrint(
+          "Deleted conversation with IDs ${response.data!.conversations?.map((e) => e.id).toList()}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Delete conversation test failed: $e");
+      fail("Delete conversation test failed: $e");
+    }
   });
 
   /// DM Tests
@@ -344,103 +440,144 @@ void main() {
   /// Test the check DM status method
   /// This test will fail if the user can not check the DM status or doesn't have permission
   test('Checking DM Tab status test', () async {
-    debugPrint("Initiating check DM status test...");
-    LMResponse<CheckDMTabResponse> response = await lmClient.checkDMTab();
-    debugPrint(
-        "Checked DM status for user with status ${response.data!.hideDMTab}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating check DM status test...");
+      LMResponse<CheckDMTabResponse> response = await lmClient.checkDMTab();
+      debugPrint(
+          "Checked DM status for user with status ${response.data!.hideDMTab}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Check DM Tab status test failed: $e");
+      fail("Check DM Tab status test failed: $e");
+    }
   });
 
   /// Test the check DM status method
   /// This test will fail if the user can not check the DM status or doesn't have permission
   test('Checking DM status test', () async {
-    debugPrint("Initiating check DM status test...");
-    CheckDMStatusRequest request =
-        (CheckDMStatusRequestBuilder()..reqFrom('dm_feed')).build();
-    LMResponse<CheckDMStatusResponse> response =
-        await lmClient.checkDMStatus(request);
-    debugPrint(
-        "Checked DM status for user with status ${response.data!.showDm}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating check DM status test...");
+      CheckDMStatusRequest request =
+          (CheckDMStatusRequestBuilder()..reqFrom('dm_feed')).build();
+      LMResponse<CheckDMStatusResponse> response =
+          await lmClient.checkDMStatus(request);
+      debugPrint(
+          "Checked DM status for user with status ${response.data!.showDm}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Check DM status test failed: $e");
+      fail("Check DM status test failed: $e");
+    }
   });
 
   /// Test for the get all members
   /// This test will fail if the use does not able to fetch all the members list
   test('Getting all members', () async {
-    debugPrint("Initiating get all members test...");
-    GetAllMembersRequest request =
-        (GetAllMembersRequestBuilder()..memberState(1)).build();
-    LMResponse<GetAllMembersResponse> response =
-        await lmClient.getAllMembers(request);
-    debugPrint(
-        "Get all members with member count ${response.data?.members?.length}");
-    //save user uuid for future tests
-    int index = Random().nextInt(response.data!.members!.length - 1);
-    uuid = response.data?.members?.elementAt(index).sdkClientInfo?.uuid;
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating get all members test...");
+      GetAllMembersRequest request =
+          (GetAllMembersRequestBuilder()..memberState(1)).build();
+      LMResponse<GetAllMembersResponse> response =
+          await lmClient.getAllMembers(request);
+      debugPrint(
+          "Get all members with member count ${response.data?.members?.length}");
+      //save user uuid for future tests
+      int index = Random().nextInt(response.data!.members!.length - 1);
+      uuid = response.data?.members?.elementAt(index).sdkClientInfo?.uuid;
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Get all members test failed: $e");
+      fail("Get all members test failed: $e");
+    }
   });
 
   /// Test for search members
   /// This test will fail if user does not able to find member
   test('Searching members', () async {
-    debugPrint("Initiating search members test...");
-    SearchMembersRequest request = (SearchMemberRequestBuilder()
-          ..search("user")
-          ..searchType("name"))
-        .build();
-    LMResponse<SearchMembersResponse> response =
-        await lmClient.searchMembers(request);
-    debugPrint("Search members  ${response.data?.members?.length} results");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating search members test...");
+      SearchMembersRequest request = (SearchMemberRequestBuilder()
+            ..search("user")
+            ..searchType("name"))
+          .build();
+      LMResponse<SearchMembersResponse> response =
+          await lmClient.searchMembers(request);
+      debugPrint("Search members  ${response.data?.members?.length} results");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Search members test failed: $e");
+      fail("Search members test failed: $e");
+    }
   });
 
   /// Test for check dm limit
   test('Check dm limit', () async {
-    debugPrint("Initiating check dm limit test...");
-    CheckDMLimitRequest request =
-        (CheckDmLimitRequestBuilder()..uuid(uuid!)).build();
-    LMResponse<CheckDMLimitResponse> response =
-        await lmClient.checkDMLimit(request);
-    debugPrint("DM limit exceed: ${response.data?.isRequestDmLimitExceeded}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating check dm limit test...");
+      CheckDMLimitRequest request =
+          (CheckDmLimitRequestBuilder()..uuid(uuid!)).build();
+      LMResponse<CheckDMLimitResponse> response =
+          await lmClient.checkDMLimit(request);
+      debugPrint("DM limit exceed: ${response.data?.isRequestDmLimitExceeded}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Check DM limit test failed: $e");
+      fail("Check DM limit test failed: $e");
+    }
   });
 
   /// Test for create DM chatroom
   test('Create DM Chatroom', () async {
-    debugPrint("Initiating create dm chatroom test...");
-    CreateDMChatroomRequest request =
-        (CreateDMChatroomRequestBuilder()..uuid(uuid!)).build();
-    LMResponse<CreateDMChatroomResponse> response =
-        await lmClient.createDMChatroom(request);
-    dmChatroomId = response.data?.chatRoom?.id;
-    debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating create dm chatroom test...");
+      CreateDMChatroomRequest request =
+          (CreateDMChatroomRequestBuilder()..uuid(uuid!)).build();
+      LMResponse<CreateDMChatroomResponse> response =
+          await lmClient.createDMChatroom(request);
+      dmChatroomId = response.data?.chatRoom?.id;
+      debugPrint("DM chatroom created with ${response.data?.chatRoom?.id} ID");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Create DM chatroom test failed: $e");
+      fail("Create DM chatroom test failed: $e");
+    }
   });
 
   /// Test for send DM request
   test('Send DM request', () async {
-    debugPrint("Initiating send DM request test...");
-    SendDMRequest request = (SendDMRequestBuilder()
-          ..chatRequestState(1)
-          ..chatroomId(dmChatroomId!)
-          ..text("test message"))
-        .build();
-    LMResponse<SendDMResponse> response = await lmClient.sendDMRequest(request);
-    debugPrint("message request sent ${response.data?.conversation?.answer}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating send DM request test...");
+      SendDMRequest request = (SendDMRequestBuilder()
+            ..chatRequestState(1)
+            ..chatroomId(dmChatroomId!)
+            ..text("test message"))
+          .build();
+      LMResponse<SendDMResponse> response =
+          await lmClient.sendDMRequest(request);
+      debugPrint("message request sent ${response.data?.conversation?.answer}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Send DM request test failed: $e");
+      fail("Send DM request test failed: $e");
+    }
   });
 
   /// Test for block member
   test('Block member', () async {
-    debugPrint("Initiating block member test...");
-    BlockMemberRequest request = (BlockMemberRequestBuilder()
-          ..chatroomId(dmChatroomId!)
-          ..status(0))
-        .build();
-    LMResponse<BlockMemberResponse> response =
-        await lmClient.blockMember(request);
-    debugPrint("Member blocked  ${response.data?.conversation?.answer}");
-    expect(response.success, true);
+    try {
+      debugPrint("Initiating block member test...");
+      BlockMemberRequest request = (BlockMemberRequestBuilder()
+            ..chatroomId(dmChatroomId!)
+            ..status(0))
+          .build();
+      LMResponse<BlockMemberResponse> response =
+          await lmClient.blockMember(request);
+      debugPrint("Member blocked  ${response.data?.conversation?.answer}");
+      expect(response.success, true);
+    } catch (e) {
+      debugPrint("Block member test failed: $e");
+      fail("Block member test failed: $e");
+    }
   });
 
   // / Test the logout method
@@ -455,4 +592,10 @@ void main() {
   // });
 }
 
+  //   LMResponse<void> response = await lmClient.logout(request);
+  //   if (response.success) {
+  //     debugPrint("Successfully logged out after all tests");
+  //   }
+  //   expect(response.success, true);
+  // });
 
