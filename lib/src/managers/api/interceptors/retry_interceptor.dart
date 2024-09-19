@@ -1,77 +1,81 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
-
-// Define the maximum retries allowed
-const int MAX_RETRIES_ALLOWED = 3;
 
 class RetryInterceptor extends Interceptor {
   final ApiManager apiManager;
-  LMChatSDKCallback? callback;
+  final int maxRetries;
 
-  RetryInterceptor({
-    required this.apiManager,
-    this.callback,
-  });
+  RetryInterceptor({required this.apiManager, this.maxRetries = 3});
 
   @override
   Future<void> onError(
-    DioException err,
-    ErrorInterceptorHandler handler,
-  ) async {
-    // Check if the error type is response-related
+      DioException err, ErrorInterceptorHandler handler) async {
+    // Check if the error is retryable and we should retry
     if (_shouldRetry(err) && _isRetryable(err)) {
-      // Get the number of retry attempts from the request extra field
-      var retryCount = err.requestOptions.extra["retryCount"] ?? 0;
+      var retryCount = err.requestOptions.extra['retryCount'] ?? 0;
 
-      if (retryCount < MAX_RETRIES_ALLOWED) {
-        retryCount++;
-        // Calculate retry delay with exponential backoff strategy
+      // Increment the retry count
+      retryCount++;
+
+      if (retryCount <= maxRetries) {
+        // Calculate exponential backoff delay: 1s, 2s, 4s...
         final retryDelay = Duration(seconds: 1 << (retryCount - 1));
-
-        // Log the retry attempt and delay
         debugPrint(
-            'Retrying request: Attempt $retryCount \n with delay: ${retryDelay.inSeconds} seconds.');
+            'Retrying request: Attempt $retryCount with delay: ${retryDelay.inSeconds} seconds.');
 
-        // Wait for the retry delay before retrying the request
         await Future.delayed(retryDelay);
 
-        // Update retry count in the request options
-        err.requestOptions.extra["retryCount"] = retryCount;
+        // Update retry count in request options
+        err.requestOptions.extra['retryCount'] = retryCount;
 
         try {
-          // Retry the request with the updated options
-          final response = await apiManager.client().fetch(err.requestOptions);
-          return handler.resolve(response);
+          // Retry the API call using _retry method from TokenInterceptor
+          final newResponse =
+              await _retry(apiManager.client(), err.requestOptions);
+          return handler.resolve(newResponse);
         } catch (e) {
           return handler.reject(e as DioException);
         }
       }
     }
 
-    // If retries exhausted or not retryable, reject with error
+    // If retries are exhausted or the error is not retryable, return the error
     return handler.next(err);
   }
 
-  // Determine if we should retry based on HTTP status codes
+  // Retry logic for retryable requests
+  Future<Response<dynamic>> _retry(
+      Dio dio, RequestOptions requestOptions) async {
+    Map<String, dynamic> headers = requestOptions.headers;
+    headers['Authorization'] =
+        apiManager.tokenManager.accessToken; // Ensure valid token
+
+    final options = Options(
+      method: requestOptions.method,
+      headers: headers,
+      extra: requestOptions.extra,
+    );
+
+    return await dio.request<dynamic>(
+      requestOptions.path,
+      data: requestOptions.data,
+      queryParameters: requestOptions.queryParameters,
+      options: options,
+    );
+  }
+
+  // Determine if the error is retryable based on the status codes
   bool _isRetryable(DioException err) {
     if (err.type == DioExceptionType.badResponse && err.response != null) {
       final statusCode = err.response!.statusCode;
-      return [
-        500, // Internal Server Error
-        502, // Bad Gateway
-        503, // Service Unavailable
-        504, // Gateway Timeout
-        408, // Request Timeout
-        429 // Too Many Requests
-      ].contains(statusCode);
+      return [500, 502, 503, 504, 408, 429].contains(statusCode);
     }
     return false;
   }
 
-  // Optional: Extend logic to check other failure conditions, like network errors
+  // Optional: You can add other checks for whether to retry (e.g., network issues)
   bool _shouldRetry(DioException err) {
     return err.type != DioExceptionType.cancel &&
         err.type != DioExceptionType.connectionTimeout &&
