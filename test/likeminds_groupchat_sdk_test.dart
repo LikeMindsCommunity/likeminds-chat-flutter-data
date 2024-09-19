@@ -23,6 +23,7 @@ const int TESTING_PROD_DEFAULT_CHATROOM = EnvTest.testingProdDefaultChatroom;
 
 void main() {
   debugPrint("Starting the tests now...");
+  debugPrint(TESTING_BETA_API_KEY);
   int? conversationId;
   int chatroomId = TESTING_PROD_FLAG
       ? TESTING_PROD_DEFAULT_CHATROOM
@@ -42,9 +43,12 @@ void main() {
     try {
       debugPrint("Initiating login test...");
       InitiateUserRequest request = (InitiateUserRequestBuilder()
-            ..userId(TESTING_PROD_BOT_ID)
-            ..apiKey(TESTING_PROD_API_KEY)
-            ..userName(TESTING_PROD_BOT_ID))
+            ..userId(
+                TESTING_PROD_FLAG ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID)
+            ..apiKey(
+                TESTING_PROD_FLAG ? TESTING_PROD_API_KEY : TESTING_BETA_API_KEY)
+            ..userName(
+                TESTING_PROD_FLAG ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID))
           .build();
       LMResponse<InitiateUserResponse> response =
           await lmClient.initiateUser(request);
@@ -579,23 +583,4 @@ void main() {
       fail("Block member test failed: $e");
     }
   });
-
-  // / Test the logout method
-  // / This test will fail if the user can not log out
-  // test('Logging out the user', () async {
-  //   LogoutRequest request = (LogoutRequestBuilder()).build();
-  //   LMResponse<void> response = await lmClient.logout(request);
-  //   if (response.success) {
-  //     debugPrint("Successfully logged out after all tests");
-  //   }
-  //   expect(response.success, true);
-  // });
 }
-
-  //   LMResponse<void> response = await lmClient.logout(request);
-  //   if (response.success) {
-  //     debugPrint("Successfully logged out after all tests");
-  //   }
-  //   expect(response.success, true);
-  // });
-
