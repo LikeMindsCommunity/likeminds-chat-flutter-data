@@ -7,6 +7,7 @@ class PollOption {
   int? percentage;
   int? noVotes;
   final User? member;
+  int? userId;
   int? count;
 
   PollOption({
@@ -16,6 +17,7 @@ class PollOption {
     this.percentage,
     this.noVotes,
     this.member,
+    this.userId,
     this.count,
   });
 
@@ -52,6 +54,7 @@ class PollOptionEntity {
   final int? noVotes;
   final int? count;
   final UserEntity? member;
+  final int? userId;
 
   PollOptionEntity({
     this.id,
@@ -61,6 +64,7 @@ class PollOptionEntity {
     this.count,
     this.noVotes,
     this.member,
+    this.userId,
   });
 
   factory PollOptionEntity.fromJson(Map<String, dynamic> json) {
@@ -71,8 +75,8 @@ class PollOptionEntity {
       percentage: json['percentage'],
       noVotes: json['no_votes'],
       count: json['count'],
-      member:
-          json['user_id'] != null ? UserEntity.fromJson(json['user_id']) : null,
+      userId: json['user_id'],
+      member: json['user'] != null ? UserEntity.fromJson(json['user']) : null,
     );
   }
 
@@ -84,6 +88,8 @@ class PollOptionEntity {
       'percentage': percentage,
       'no_votes': noVotes,
       'count': count,
+      'user_id': userId,
+      'member': member?.toJson(),
     };
 
     return data;

@@ -2,7 +2,7 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
 class SubmitPollRequest {
   int conversationId;
-  List<PollOption> polls;
+  List<String> polls;
 
   SubmitPollRequest._({
     required this.conversationId,
@@ -12,20 +12,20 @@ class SubmitPollRequest {
   Map<String, dynamic> toJson() {
     return {
       'conversation_id': conversationId,
-      'polls': List<dynamic>.from(polls.map((poll) => {"id": poll.id})),
+      'polls': polls,
     };
   }
 }
 
 class SubmitPollRequestBuilder {
   int? _conversationId;
-  List<PollOption>? _polls;
+  List<String>? _polls;
 
   void conversationId(int conversationId) {
     _conversationId = conversationId;
   }
 
-  void polls(List<PollOption> polls) {
+  void polls(List<String> polls) {
     _polls = polls;
   }
 
