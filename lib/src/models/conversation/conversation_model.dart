@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
 import 'package:likeminds_chat_fl/src/models/conversation/attachment_model.dart';
 import 'package:likeminds_chat_fl/src/models/conversation/reaction_model.dart';
+import 'package:likeminds_chat_fl/src/models/helper/og_tags_model.dart';
 import 'package:likeminds_chat_fl/src/models/poll/poll_info_data.dart';
 
 part 'conversation_model.g.dart';
@@ -35,7 +36,7 @@ class Conversation {
   final String? locationLong;
   final int? multipleSelectNo;
   final int? multipleSelectState;
-  final dynamic ogTags;
+  final OgTags? ogTags;
   final int? onlineLinkEnableBefore;
   final String? pollAnswerText;
   final int? pollType;
@@ -137,7 +138,8 @@ class Conversation {
         locationLong: entity.locationLong,
         multipleSelectNo: entity.multipleSelectNo,
         multipleSelectState: entity.multipleSelectState,
-        ogTags: entity.ogTags,
+        ogTags:
+            entity.ogTags != null ? OgTags.fromEntity(entity.ogTags!) : null,
         onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
         pollAnswerText: entity.pollAnswerText,
         pollType: entity.pollType,
@@ -195,7 +197,7 @@ class Conversation {
         locationLong: locationLong,
         multipleSelectNo: multipleSelectNo,
         multipleSelectState: multipleSelectState,
-        ogTags: ogTags,
+        ogTags: ogTags?.toEntity(),
         onlineLinkEnableBefore: onlineLinkEnableBefore,
         pollAnswerText: pollAnswerText,
         pollType: pollType,
@@ -271,7 +273,7 @@ class ConversationEntity {
   @JsonKey(name: 'multiple_select_state')
   final int? multipleSelectState;
   @JsonKey(name: 'og_tags')
-  final dynamic ogTags;
+  final OgTagsEntity? ogTags;
   @JsonKey(name: 'online_link_enable_before')
   final int? onlineLinkEnableBefore;
   @JsonKey(name: 'poll_answer_text')
