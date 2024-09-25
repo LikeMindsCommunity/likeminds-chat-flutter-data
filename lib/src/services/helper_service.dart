@@ -44,7 +44,7 @@ class HelperService {
           );
       if (response.data['success'] == true && response.data['data'] != null) {
         return LMResponse.success(
-          data: DecodeUrlResponseEntity.fromJson(response.data),
+          data: DecodeUrlResponseEntity.fromJson(response.data['data']),
         );
       } else {
         return LMResponse.error(errorMessage: response.data['message']);
