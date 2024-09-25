@@ -38,9 +38,9 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
       locationLong: json['location_long'] as String?,
       multipleSelectNo: (json['multiple_select_no'] as num?)?.toInt(),
       multipleSelectState: (json['multiple_select_state'] as num?)?.toInt(),
-      ogTags: json['og_tags'] == null
-          ? null
-          : OgTagsEntity.fromJson(json['og_tags']),
+      ogTags: json['og_tags'] != null
+          ? OgTagsEntity.fromJson(json['og_tags'] as Map<String, dynamic>)
+          : null,
       onlineLinkEnableBefore:
           (json['online_link_enable_before'] as num?)?.toInt(),
       pollAnswerText: json['poll_answer_text'] as String?,

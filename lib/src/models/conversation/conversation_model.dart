@@ -1,9 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
-import 'package:likeminds_chat_fl/src/models/conversation/attachment_model.dart';
-import 'package:likeminds_chat_fl/src/models/conversation/reaction_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
-import 'package:likeminds_chat_fl/src/models/poll/poll.dart';
 
 part 'conversation_model.g.dart';
 

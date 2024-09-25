@@ -1,3 +1,7 @@
+## 1.7.3
+
+- Fixed OgTags parsing in Conversation model
+
 ## 1.7.2
 
 - Added media support

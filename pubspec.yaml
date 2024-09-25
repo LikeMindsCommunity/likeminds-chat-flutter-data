@@ -1,6 +1,6 @@
 name: likeminds_chat_fl
 description: Likeminds flutter chat SDK
-version: 1.7.2
+version: 1.7.3
 homepage: "https://likeminds.community/"
 
 environment:
