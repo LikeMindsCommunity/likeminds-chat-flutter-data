@@ -9,8 +9,6 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'environment/test_env.dart';
 import 'test_callback.dart';
 
-const bool TESTING_PROD_FLAG = !bool.fromEnvironment('DEBUG');
-
 final TestCallback TESTING_CALLBACK = TestCallback();
 
 final String TESTING_BETA_API_KEY = EnvTest.testingBetaAPIKey;
@@ -25,9 +23,8 @@ void main() {
   debugPrint("Starting the tests now...");
   debugPrint(TESTING_BETA_API_KEY);
   int? conversationId;
-  int chatroomId = TESTING_PROD_FLAG
-      ? TESTING_PROD_DEFAULT_CHATROOM
-      : TESTING_BETA_DEFAULT_CHATROOM;
+  int chatroomId =
+      prodFlag ? TESTING_PROD_DEFAULT_CHATROOM : TESTING_BETA_DEFAULT_CHATROOM;
 
   int? memberId;
   String? uuid;
@@ -43,12 +40,9 @@ void main() {
     try {
       debugPrint("Initiating login test...");
       InitiateUserRequest request = (InitiateUserRequestBuilder()
-            ..userId(
-                TESTING_PROD_FLAG ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID)
-            ..apiKey(
-                TESTING_PROD_FLAG ? TESTING_PROD_API_KEY : TESTING_BETA_API_KEY)
-            ..userName(
-                TESTING_PROD_FLAG ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID))
+            ..userId(prodFlag ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID)
+            ..apiKey(prodFlag ? TESTING_PROD_API_KEY : TESTING_BETA_API_KEY)
+            ..userName(prodFlag ? TESTING_PROD_BOT_ID : TESTING_BETA_BOT_ID))
           .build();
       LMResponse<InitiateUserResponse> response =
           await lmClient.initiateUser(request);
