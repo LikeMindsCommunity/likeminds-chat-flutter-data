@@ -66,9 +66,9 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
           (json['conversationReactionsEntity'] as List<dynamic>?)
               ?.map((e) => ReactionEntity.fromJson(e as Map<String, dynamic>))
               .toList(),
-      poll: json['polls'] == null
-          ? null
-          : PollEntity.fromJson(json['polls'] as Map<String, dynamic>),
+      polls: json['polls']
+          ?.map((e) => PollOptionEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
@@ -118,5 +118,5 @@ Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
       'submit_type_text': instance.submitTypeText,
       'member': instance.member,
       'conversationReactionsEntity': instance.conversationReactionsEntity,
-      'poll': instance.poll,
+      'polls': instance.polls,
     };

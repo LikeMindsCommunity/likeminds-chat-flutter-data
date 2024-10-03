@@ -50,7 +50,6 @@ class Conversation {
   final int? replyConversation;
   Conversation? replyConversationObject;
   List<Reaction>? conversationReactions;
-  Poll? poll;
   List<PollOption>? polls;
 
   Conversation({
@@ -100,65 +99,63 @@ class Conversation {
     this.replyConversation,
     this.replyConversationObject,
     this.conversationReactions,
-    this.poll,
     this.polls,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
     return Conversation(
-        allowAddOption: entity.allowAddOption,
-        answer: entity.answer,
-        apiVersion: entity.apiVersion,
-        attachmentCount: entity.attachmentCount,
-        attachmentsUploaded: entity.attachmentsUploaded,
-        chatroomId: entity.chatroomId,
-        communityId: entity.communityId,
-        createdAt: entity.createdAt,
-        createdEpoch: entity.createdEpoch,
-        date: entity.date,
-        attachments: entity.attachments != null
-            ? entity.attachments!.map((e) => Attachment.fromEntity(e)).toList()
-            : null,
-        deletedByUserId: entity.deletedByUserId,
-        deviceId: entity.deviceId,
-        endTime: entity.endTime,
-        expiryTime: entity.expiryTime,
-        hasFiles: entity.hasFiles,
-        hasReactions: entity.hasReactions,
-        header: entity.header,
-        id: entity.id,
-        internalLink: entity.internalLink,
-        isAnonymous: entity.isAnonymous,
-        isEdited: entity.isEdited,
-        lastUpdated: entity.lastUpdated,
-        location: entity.location,
-        locationLat: entity.locationLat,
-        locationLong: entity.locationLong,
-        multipleSelectNo: entity.multipleSelectNo,
-        multipleSelectState: entity.multipleSelectState,
-        ogTags:
-            entity.ogTags != null ? OgTags.fromEntity(entity.ogTags!) : null,
-        onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
-        pollAnswerText: entity.pollAnswerText,
-        pollType: entity.pollType,
-        replyChatroomId: entity.replyChatroomId,
-        replyId: entity.replyId,
-        replyConversation: entity.replyConversation,
-        replyConversationObject: entity.replyConversationObject != null
-            ? Conversation.fromEntity(entity.replyConversationObject!)
-            : null,
-        startTime: entity.startTime,
-        state: entity.state,
-        temporaryId: entity.temporaryId,
-        toShowResults: entity.toShowResults,
-        pollTypeText: entity.pollTypeText,
-        submitTypeText: entity.submitTypeText,
-        memberId: entity.memberId,
-        member: entity.member != null ? User.fromEntity(entity.member!) : null,
-        conversationReactions: entity.conversationReactionsEntity
-            ?.map((e) => Reaction.fromEntity(e))
-            .toList(),
-        poll: entity.poll != null ? Poll.fromEntity(entity.poll!) : null);
+      allowAddOption: entity.allowAddOption,
+      answer: entity.answer,
+      apiVersion: entity.apiVersion,
+      attachmentCount: entity.attachmentCount,
+      attachmentsUploaded: entity.attachmentsUploaded,
+      chatroomId: entity.chatroomId,
+      communityId: entity.communityId,
+      createdAt: entity.createdAt,
+      createdEpoch: entity.createdEpoch,
+      date: entity.date,
+      attachments:
+          entity.attachments?.map((e) => Attachment.fromEntity(e)).toList(),
+      deletedByUserId: entity.deletedByUserId,
+      deviceId: entity.deviceId,
+      endTime: entity.endTime,
+      expiryTime: entity.expiryTime,
+      hasFiles: entity.hasFiles,
+      hasReactions: entity.hasReactions,
+      header: entity.header,
+      id: entity.id,
+      internalLink: entity.internalLink,
+      isAnonymous: entity.isAnonymous,
+      isEdited: entity.isEdited,
+      lastUpdated: entity.lastUpdated,
+      location: entity.location,
+      locationLat: entity.locationLat,
+      locationLong: entity.locationLong,
+      multipleSelectNo: entity.multipleSelectNo,
+      multipleSelectState: entity.multipleSelectState,
+      ogTags: entity.ogTags != null ? OgTags.fromEntity(entity.ogTags!) : null,
+      onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
+      pollAnswerText: entity.pollAnswerText,
+      pollType: entity.pollType,
+      replyChatroomId: entity.replyChatroomId,
+      replyId: entity.replyId,
+      replyConversation: entity.replyConversation,
+      replyConversationObject: entity.replyConversationObject != null
+          ? Conversation.fromEntity(entity.replyConversationObject!)
+          : null,
+      startTime: entity.startTime,
+      state: entity.state,
+      temporaryId: entity.temporaryId,
+      toShowResults: entity.toShowResults,
+      pollTypeText: entity.pollTypeText,
+      submitTypeText: entity.submitTypeText,
+      memberId: entity.memberId,
+      member: entity.member != null ? User.fromEntity(entity.member!) : null,
+      conversationReactions: entity.conversationReactionsEntity
+          ?.map((e) => Reaction.fromEntity(e))
+          .toList(),
+      polls: entity.polls?.map((e) => PollOption.fromEntity(e)).toList(),
+    );
   }
 
   ConversationEntity toEntity() {
@@ -167,9 +164,7 @@ class Conversation {
         answer: answer,
         apiVersion: apiVersion,
         attachmentCount: attachmentCount,
-        attachments: attachments != null
-            ? attachments!.map((e) => e.toEntity()).toList()
-            : null,
+        attachments: attachments?.map((e) => e.toEntity()).toList(),
         attachmentsUploaded: attachmentsUploaded,
         chatroomId: chatroomId,
         communityId: communityId,
@@ -201,9 +196,7 @@ class Conversation {
         replyChatroomId: replyChatroomId,
         replyId: replyId,
         replyConversation: replyConversation,
-        replyConversationObject: replyConversationObject != null
-            ? replyConversationObject!.toEntity()
-            : null,
+        replyConversationObject: replyConversationObject?.toEntity(),
         startTime: startTime,
         state: state,
         temporaryId: temporaryId,
@@ -211,9 +204,9 @@ class Conversation {
         pollTypeText: pollTypeText,
         submitTypeText: submitTypeText,
         memberId: memberId,
-        poll: poll?.toEntity(),
         conversationReactionsEntity:
-            conversationReactions?.map((e) => e.toEntity()).toList());
+            conversationReactions?.map((e) => e.toEntity()).toList(),
+        polls: polls?.map((e) => e.toEntity()).toList());
   }
 }
 
@@ -300,7 +293,7 @@ class ConversationEntity {
   final String? submitTypeText;
   final UserEntity? member;
   final List<ReactionEntity>? conversationReactionsEntity;
-  final PollEntity? poll;
+  final List<PollOptionEntity>? polls;
 
   ConversationEntity({
     this.allowAddOption,
@@ -348,7 +341,7 @@ class ConversationEntity {
     this.submitTypeText,
     this.member,
     this.conversationReactionsEntity,
-    this.poll,
+    this.polls,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json) =>

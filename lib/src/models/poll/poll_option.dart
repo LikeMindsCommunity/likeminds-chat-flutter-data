@@ -30,6 +30,7 @@ class PollOption {
       noVotes: entity.noVotes,
       member: entity.member != null ? User.fromEntity(entity.member!) : null,
       count: entity.count,
+      userId: entity.userId,
     );
   }
 
@@ -42,6 +43,7 @@ class PollOption {
       noVotes: noVotes,
       member: member?.toEntity(),
       count: count,
+      userId: userId,
     );
   }
 }
@@ -76,7 +78,8 @@ class PollOptionEntity {
       noVotes: json['no_votes'],
       count: json['count'],
       userId: json['user_id'],
-      member: json['user'] != null ? UserEntity.fromJson(json['user']) : null,
+      member:
+          json['member'] != null ? UserEntity.fromJson(json['member']) : null,
     );
   }
 

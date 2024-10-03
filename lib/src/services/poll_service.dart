@@ -77,7 +77,6 @@ class PollService extends IPollService {
             apiManager.endPoints.pollAddOptionEndpoint,
             data: request.toJson(),
           );
-      response.data["temporary_id"] = request.temporaryId;
       if (!response.data['success']) {
         return LMResponse.error(
           errorMessage: response.data['error_message'] ?? 'An error occurred',
