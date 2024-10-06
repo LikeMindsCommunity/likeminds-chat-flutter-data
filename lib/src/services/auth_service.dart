@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/constant/string_constant.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
@@ -56,7 +57,7 @@ class AuthService extends IAuthService {
           );
 
           // Check if running in test environment
-          if (!const bool.fromEnvironment('dart.vm.product')) {
+          if (testFlag) {
             // If in test environment, return response without calling localPref
             return LMResponse.success(data: initiateUserEntity);
           }
@@ -78,7 +79,7 @@ class AuthService extends IAuthService {
           );
         } else {
           // If API returned no app access, then clear data and return response
-          if (!const bool.fromEnvironment('dart.vm.product')) {
+          if (testFlag) {
             // If in test environment, return response without calling localPref
             return LMResponse.error(
                 errorMessage:
