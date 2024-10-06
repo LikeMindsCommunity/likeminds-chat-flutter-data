@@ -18,6 +18,8 @@ export 'package:likeminds_chat_fl/src/models/community/community_settings_rights
 
 export 'package:likeminds_chat_fl/src/models/chatroom/chatroom_model.dart';
 
+export 'package:likeminds_chat_fl/src/models/sdk/sdk_client_info_model.dart';
+
 export 'package:likeminds_chat_fl/src/models/chatroom/chatroom_action_model.dart';
 export 'package:likeminds_chat_fl/src/models/chatroom/follow_chatroom_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/chatroom/follow_chatroom_response_model.dart';
