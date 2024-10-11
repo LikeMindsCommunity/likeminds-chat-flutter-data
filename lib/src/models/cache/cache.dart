@@ -7,9 +7,7 @@ class LMChatCache {
   final dynamic value;
 
   LMChatCache._({required this.key, required this.value});
-
 }
-
 
 /// `LMCacheBuilder` is a builder class that helps in building the `LMChatCache` object.
 /// The `key` and `value` of the cache can be set using the `key` and `value` methods respectively.

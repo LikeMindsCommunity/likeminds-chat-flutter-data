@@ -14,10 +14,9 @@ import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 import 'package:likeminds_chat_fl/src/services/service_provider.dart';
 import 'package:likeminds_chat_fl/src/utils/enums.dart';
 
-/// Flutter flavour/environment manager v0.0.1
-const bool _prodFlag = !bool.fromEnvironment('DEBUG');
-
-const String chatSDKVersion = '1.6.0';
+/// Flutter flavour/environment manager v0.0.2
+const bool prodFlag = !bool.fromEnvironment('LM_DEBUG_ENV');
+const bool testFlag = bool.fromEnvironment('LM_TEST_ENV');
 
 /// The starting point class of the SDK
 class LMChatClient {
@@ -30,7 +29,7 @@ class LMChatClient {
   })  : _excludedConversationStates = excludedConversationStates,
         _sdkCallback = sdkCallback {
     debugPrint("LMChatClient initialized");
-    LMChatServiceProvider.instance.init(_prodFlag, _sdkCallback);
+    LMChatServiceProvider.instance.init(prodFlag, _sdkCallback);
     _sdkApplication = SDKApplication.instance;
   }
   // Initializes the DB

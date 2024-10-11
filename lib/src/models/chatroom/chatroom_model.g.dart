@@ -47,8 +47,7 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
       isTagged: json['is_tagged'] as bool?,
       member: json['member'] == null
           ? null
-          : UserEntity.fromJson(
-              json['member'] as Map<String, dynamic>),
+          : UserEntity.fromJson(json['member'] as Map<String, dynamic>),
       topic: json['topic'] == null
           ? null
           : ConversationEntity.fromJson(json['topic'] as Map<String, dynamic>),

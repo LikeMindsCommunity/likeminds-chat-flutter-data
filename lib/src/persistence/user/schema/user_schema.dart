@@ -77,7 +77,7 @@ class LMChatUserSchema extends HiveObject {
     this.imageUrl,
     this.isGuest,
     this.isDeleted,
-     this.uuid,
+    this.uuid,
     this.organisationName,
     this.sdkClientInfo,
     this.updatedAt,

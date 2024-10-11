@@ -8,7 +8,6 @@ class SDKClientInfo {
   final int? user;
   final String? uuid;
 
-
   SDKClientInfo({
     required this.community,
     required this.user,

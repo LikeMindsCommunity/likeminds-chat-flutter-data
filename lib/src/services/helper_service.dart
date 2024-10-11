@@ -22,7 +22,7 @@ class HelperService {
           );
       if (response.data['success'] == true && response.data['data'] != null) {
         return LMResponse.success(
-          data: TagResponseModelEntity.fromJson(response.data),
+          data: TagResponseModelEntity.fromJson(response.data['data']),
         );
       } else {
         return LMResponse.error(errorMessage: response.data['message']);
