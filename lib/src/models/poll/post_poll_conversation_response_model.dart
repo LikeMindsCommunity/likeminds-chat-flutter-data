@@ -1,45 +1,45 @@
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
 class PostPollConversationResponse {
-  final PollInfoData? data;
+  final Conversation? poll;
 
   PostPollConversationResponse({
-    this.data,
+    this.poll,
   });
 
   factory PostPollConversationResponse.fromEntity(
       PostPollConversationResponseEntity entity) {
     return PostPollConversationResponse(
-      data: entity.data != null ? PollInfoData.fromEntity(entity.data!) : null,
+      poll: entity.poll != null ? Conversation.fromEntity(entity.poll!) : null,
     );
   }
 
   PostPollConversationResponseEntity toEntity() {
     return PostPollConversationResponseEntity(
-      data: data != null ? data!.toEntity() : null,
+      poll: poll?.toEntity(),
     );
   }
 }
 
 class PostPollConversationResponseEntity {
-  final PollInfoDataEntity? data;
+  final ConversationEntity? poll;
 
   PostPollConversationResponseEntity({
-    this.data,
+    this.poll,
   });
 
   factory PostPollConversationResponseEntity.fromJson(
       Map<String, dynamic> json) {
     return PostPollConversationResponseEntity(
-      data: json['poll'] != null
-          ? PollInfoDataEntity.fromJson(json['poll'] as Map<String, dynamic>)
+      poll: json['poll'] != null
+          ? ConversationEntity.fromJson(json['poll'] as Map<String, dynamic>)
           : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'poll': data?.toJson(),
+      'poll': poll?.toJson(),
     };
   }
 }
