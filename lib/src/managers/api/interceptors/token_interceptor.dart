@@ -47,7 +47,6 @@ class TokenInterceptor extends Interceptor {
         }
       }
     } else {
-      debugPrint("Authenticated request failed except LTM");
       return super.onError(err, handler);
     }
   }

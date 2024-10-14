@@ -1,3 +1,8 @@
+## 1.9.0
+
+- Fixed Poll and PollOption Modals
+- Fixed parsing of poll meta data in conversation response
+
 ## 1.8.0
 
 - Fixed TagResponseModel parsing

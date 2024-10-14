@@ -1,23 +1,23 @@
+import 'package:likeminds_chat_fl/src/models/models.dart';
+
 class PollOption {
-  final String? id;
+  int? id;
   final String text;
-  final bool? isSelected;
-  final int? percentage;
-  final String? subText;
-  final int? noVotes;
-  final String? userId;
-  final int? conversationId;
-  final int? count;
+  bool? isSelected;
+  int? percentage;
+  int? noVotes;
+  final User? member;
+  int? userId;
+  int? count;
 
   PollOption({
     this.id,
     required this.text,
     this.isSelected,
     this.percentage,
-    this.subText,
     this.noVotes,
+    this.member,
     this.userId,
-    this.conversationId,
     this.count,
   });
 
@@ -27,11 +27,10 @@ class PollOption {
       text: entity.text,
       isSelected: entity.isSelected,
       percentage: entity.percentage,
-      subText: entity.subText,
       noVotes: entity.noVotes,
-      userId: entity.userId,
-      conversationId: entity.conversationId,
+      member: entity.member != null ? User.fromEntity(entity.member!) : null,
       count: entity.count,
+      userId: entity.userId,
     );
   }
 
@@ -41,63 +40,61 @@ class PollOption {
       text: text,
       isSelected: isSelected,
       percentage: percentage,
-      subText: subText,
       noVotes: noVotes,
-      userId: userId,
-      conversationId: conversationId,
+      member: member?.toEntity(),
       count: count,
+      userId: userId,
     );
   }
 }
 
 class PollOptionEntity {
-  final String? id;
+  final int? id;
   final String text;
   final bool? isSelected;
   final int? percentage;
-  final String? subText;
   final int? noVotes;
-  final String? userId;
   final int? count;
-  final int? conversationId;
+  final UserEntity? member;
+  final int? userId;
 
   PollOptionEntity({
     this.id,
     required this.text,
     this.isSelected,
     this.percentage,
-    this.subText,
-    this.noVotes,
-    this.userId,
-    this.conversationId,
     this.count,
+    this.noVotes,
+    this.member,
+    this.userId,
   });
 
   factory PollOptionEntity.fromJson(Map<String, dynamic> json) {
     return PollOptionEntity(
-      id: json['id'] as String?,
-      text: json['text'] as String,
-      isSelected: json['is_selected'] as bool?,
-      percentage: json['percentage'] as int?,
-      subText: json['sub_text'] as String?,
-      noVotes: json['no_votes'] as int?,
-      userId: json['user_id'] as String?,
-      conversationId: json['conversation_id'] as int?,
-      count: json['count'] as int?,
+      id: json['id'],
+      text: json['text'],
+      isSelected: json['is_selected'],
+      percentage: json['percentage'],
+      noVotes: json['no_votes'],
+      count: json['count'],
+      userId: json['user_id'],
+      member:
+          json['member'] != null ? UserEntity.fromJson(json['member']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
+    final Map<String, dynamic> data = {
       'id': id,
       'text': text,
       'is_selected': isSelected,
       'percentage': percentage,
-      'sub_text': subText,
       'no_votes': noVotes,
-      'user_id': userId,
-      'conversation_id': conversationId,
       'count': count,
+      'user_id': userId,
+      'member': member?.toJson(),
     };
+
+    return data;
   }
 }

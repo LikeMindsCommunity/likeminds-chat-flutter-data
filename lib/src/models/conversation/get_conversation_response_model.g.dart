@@ -46,6 +46,15 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
         (k, e) =>
             MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
       ),
+      conversationPollsMeta: (json['conv_polls_meta'] as Map<String, dynamic>?)
+          ?.map(
+        (k, e) => MapEntry(
+          k,
+          (e as List<dynamic>)
+              .map((v) => PollOptionEntity.fromJson(v as Map<String, dynamic>))
+              .toList(),
+        ),
+      ),
     );
 
 Map<String, dynamic> _$GetConversationResponseEntityToJson(
