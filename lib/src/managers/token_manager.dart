@@ -37,7 +37,12 @@ class TokenManager {
   Future<void> updateTokens(String accessToken, String refreshToken) async {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
-    await updateTokensInDB(accessToken, refreshToken);
+    // Check if running in test environment
+    if (testFlag) {
+      return;
+    } else {
+      await updateTokensInDB(accessToken, refreshToken);
+    }
   }
 
   Future<void> updateTokensInDB(String accessToken, String refreshToken) async {

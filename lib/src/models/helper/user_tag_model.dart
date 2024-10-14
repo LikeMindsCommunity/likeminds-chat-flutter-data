@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:likeminds_chat_fl/src/models/sdk/sdk_client_info_model.dart';
 
 part 'user_tag_model.g.dart';
 
@@ -9,6 +10,8 @@ class UserTag {
   final int? id;
   final bool? isGuest;
   final String? userUniqueId;
+  final String? uuid;
+  final SDKClientInfo? sdkClientInfo;
 
   UserTag({
     this.name,
@@ -17,6 +20,8 @@ class UserTag {
     this.id,
     this.isGuest,
     this.userUniqueId,
+    this.uuid,
+    this.sdkClientInfo,
   });
 
   factory UserTag.fromEntity(UserTagEntity entity) {
@@ -27,6 +32,8 @@ class UserTag {
       id: entity.id,
       isGuest: entity.isGuest,
       userUniqueId: entity.userUniqueId,
+      uuid: entity.uuid,
+      sdkClientInfo: entity.sdkClientInfo,
     );
   }
 
@@ -38,6 +45,8 @@ class UserTag {
       id: id,
       isGuest: isGuest,
       userUniqueId: userUniqueId,
+      uuid: uuid,
+      sdkClientInfo: sdkClientInfo,
     );
   }
 
@@ -62,6 +71,12 @@ class UserTagEntity {
   @JsonKey(name: 'user_unique_id')
   final String? userUniqueId;
 
+  @JsonKey(name: 'uuid')
+  final String? uuid;
+
+  @JsonKey(name: 'sdk_client_info')
+  final SDKClientInfo? sdkClientInfo;
+
   UserTagEntity({
     this.name,
     this.imageUrl,
@@ -69,6 +84,8 @@ class UserTagEntity {
     this.id,
     this.isGuest,
     this.userUniqueId,
+    this.uuid,
+    this.sdkClientInfo,
   });
 
   factory UserTagEntity.fromJson(Map<String, dynamic> json) =>

@@ -36,9 +36,8 @@ class GetChatroomResponse {
       community: entity.community != null
           ? Community.fromEntity(entity.community!)
           : null,
-      conversationUsers: entity.conversationUsers
-          ?.map((e) => User.fromEntity(e))
-          .toList(),
+      conversationUsers:
+          entity.conversationUsers?.map((e) => User.fromEntity(e)).toList(),
       lastConversationId: entity.lastConversationId,
       participantCount: entity.participantCount,
       unreadMessages: entity.unreadMessages,

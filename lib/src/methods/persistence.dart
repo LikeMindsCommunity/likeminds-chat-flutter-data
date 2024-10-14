@@ -1,5 +1,3 @@
-
-
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/repositories/persistence_repository.dart';
 
@@ -36,7 +34,6 @@ class PersistenceApi {
     return persistenceRepository.clearCache();
   }
 
-
   Future<LMResponse<void>> insertOrUpdateMemberState(
       MemberStateResponse memberStateResponse) async {
     return await persistenceRepository
@@ -62,5 +59,4 @@ class PersistenceApi {
   Future<LMResponse<void>> deleteCommunity() async {
     return await persistenceRepository.deleteCommunity();
   }
-  
 }

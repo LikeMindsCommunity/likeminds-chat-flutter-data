@@ -49,9 +49,9 @@ class PollService extends IPollService {
       GetPollUsersRequest request) async {
     try {
       final response = await apiManager.client().get(
-        apiManager.endPoints.pollUsersEndpoint,
-        queryParameters: request.toJson(),
-      );
+            apiManager.endPoints.pollUsersEndpoint,
+            queryParameters: request.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
