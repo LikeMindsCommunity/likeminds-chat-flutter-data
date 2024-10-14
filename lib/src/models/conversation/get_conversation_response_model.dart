@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
-import 'package:likeminds_chat_fl/src/models/conversation/attachment_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 part 'get_conversation_response_model.g.dart';
@@ -11,6 +10,7 @@ class GetConversationResponse {
   final Map<int, User>? userMeta;
   final List<Conversation>? conversationData;
   final Map<String, Conversation>? conversationMeta;
+  final Map<String, List<Reaction>>? conversationReactionMeta;
   final Map<String, List<Attachment>>? conversationAttachmentsMeta;
   final Map<String, List<PollOption>>? conversationPollsMeta;
 
@@ -20,6 +20,7 @@ class GetConversationResponse {
     this.userMeta,
     this.conversationData,
     this.conversationMeta,
+    this.conversationReactionMeta,
     this.conversationAttachmentsMeta,
     this.conversationPollsMeta,
   });
@@ -41,6 +42,12 @@ class GetConversationResponse {
           .toList(),
       conversationMeta: entity.conversationMeta?.map(
         (key, value) => MapEntry(key, Conversation.fromEntity(value)),
+      ),
+      conversationReactionMeta: entity.conversationReactionsMeta?.map(
+        (key, value) => MapEntry(
+          key,
+          value.map((e) => Reaction.fromEntity(e)).toList(),
+        ),
       ),
       conversationAttachmentsMeta: entity.conversationAttachmentsMeta?.map(
         (key, value) => MapEntry(
@@ -72,6 +79,12 @@ class GetConversationResponse {
       conversationMeta: conversationMeta?.map(
         (key, value) => MapEntry(key, value.toEntity()),
       ),
+      conversationReactionsMeta: conversationReactionMeta?.map(
+        (key, value) => MapEntry(
+          key,
+          value.map((e) => e.toEntity()).toList(),
+        ),
+      ),
       conversationAttachmentsMeta: conversationAttachmentsMeta?.map(
         (key, value) => MapEntry(
           key,
@@ -100,6 +113,8 @@ class GetConversationResponseEntity {
   final List<ConversationEntity>? conversationData;
   @JsonKey(name: 'conversation_meta')
   final Map<String, ConversationEntity>? conversationMeta;
+  @JsonKey(name: 'conv_reactions_meta')
+  final Map<String, List<ReactionEntity>>? conversationReactionsMeta;
   @JsonKey(name: 'conv_attachments_meta')
   final Map<String, List<AttachmentEntity>>? conversationAttachmentsMeta;
   @JsonKey(name: 'conv_polls_meta')
@@ -110,6 +125,7 @@ class GetConversationResponseEntity {
     this.communityMeta,
     this.userMeta,
     this.conversationData,
+    this.conversationReactionsMeta,
     this.conversationAttachmentsMeta,
     this.conversationMeta,
     this.conversationPollsMeta,

@@ -63,7 +63,7 @@ class LMChatUserSchemaAdapter extends TypeAdapter<LMChatUserSchema> {
       imageUrl: fields[2] as String?,
       isGuest: fields[3] as bool?,
       isDeleted: fields[4] as bool?,
-      uuid: fields[5] as String,
+      uuid: fields[5] as String?,
       organisationName: fields[6] as String?,
       sdkClientInfo: fields[7] as LMChatSDKClientInfoSchema?,
       updatedAt: fields[8] as int?,

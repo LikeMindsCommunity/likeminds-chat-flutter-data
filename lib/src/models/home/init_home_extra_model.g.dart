@@ -12,7 +12,7 @@ InitiateHomeFeedExtra _$InitiateHomeFeedExtraFromJson(
       isGuest: json['isGuest'] as bool,
       userUniqueId: json['userUniqueId'] as String?,
       userName: json['userName'] as String?,
-      page: json['page'] as int,
+      page: (json['page'] as num).toInt(),
     );
 
 Map<String, dynamic> _$InitiateHomeFeedExtraToJson(

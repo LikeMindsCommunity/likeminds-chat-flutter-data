@@ -2,7 +2,6 @@ import 'package:hive/hive.dart';
 import 'package:likeminds_chat_fl/src/persistence/user/schema/user_schema.dart';
 part 'community_schema.g.dart';
 
-
 /// Hive Schema for [CommunitySettingsRights] model
 /// This class is used to store [CommunitySettingsRights] data in local DB
 /// This class is used by [LMChatCommunitySettingsRightsSchemaAdapter] to generate TypeAdapter

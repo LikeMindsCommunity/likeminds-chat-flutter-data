@@ -1,3 +1,9 @@
+## 1.8.0
+
+- Fixed TagResponseModel parsing
+- Added support for retry mechanism
+- Updated debug environment, and tests
+
 ## 1.7.3
 
 - Fixed OgTags parsing in Conversation model

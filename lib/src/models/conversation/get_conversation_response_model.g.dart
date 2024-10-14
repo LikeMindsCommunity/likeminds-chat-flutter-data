@@ -27,18 +27,24 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
       conversationAttachmentsMeta:
           (json['conv_attachments_meta'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
-          k,
-          (e as List<dynamic>)
-              .map((v) => AttachmentEntity.fromJson(v as Map<String, dynamic>))
-              .toList(),
-        ),
+            k,
+            (e as List<dynamic>)
+                .map(
+                    (e) => AttachmentEntity.fromJson(e as Map<String, dynamic>))
+                .toList()),
+      ),
+      conversationReactionsMeta:
+          (json['conv_reactions_meta'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k,
+            (e as List<dynamic>)
+                .map((e) => ReactionEntity.fromJson(e as Map<String, dynamic>))
+                .toList()),
       ),
       conversationMeta:
           (json['conversation_meta'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(
-          k,
-          ConversationEntity.fromJson(e as Map<String, dynamic>),
-        ),
+        (k, e) =>
+            MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
       ),
       conversationPollsMeta: (json['conv_polls_meta'] as Map<String, dynamic>?)
           ?.map(
@@ -61,5 +67,6 @@ Map<String, dynamic> _$GetConversationResponseEntityToJson(
       'user_meta': instance.userMeta?.map((k, e) => MapEntry(k.toString(), e)),
       'conversations_data': instance.conversationData,
       'conversation_meta': instance.conversationMeta,
+      'conv_reaction_meta': instance.conversationReactionsMeta,
       'conv_attachments_meta': instance.conversationAttachmentsMeta,
     };

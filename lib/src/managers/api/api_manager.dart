@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/endpoints.dart';
 import 'package:likeminds_chat_fl/src/environment/env.dart';
 import 'package:likeminds_chat_fl/src/managers/api/interceptors/log_interceptor.dart';
+import 'package:likeminds_chat_fl/src/managers/api/interceptors/retry_interceptor.dart';
 import 'package:likeminds_chat_fl/src/managers/token_manager.dart';
 
 import 'interceptors/token_interceptor.dart';
@@ -40,7 +41,7 @@ class ApiManager {
     _dio.interceptors.add(Logging());
     _dio.interceptors.add(TokenInterceptor(apiManager: this));
     _dio.interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
-
+    _dio.interceptors.add(RetryInterceptor(apiManager: this));
     // await testRun();
   }
 

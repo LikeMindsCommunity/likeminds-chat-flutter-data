@@ -13,9 +13,9 @@ class ParticipantsService {
       GetParticipantsRequest request) async {
     try {
       final response = await apiManager.client().get(
-        apiManager.endPoints.chatroomParticipantsEndpoint,
-        queryParameters: request.toJson(),
-      );
+            apiManager.endPoints.chatroomParticipantsEndpoint,
+            queryParameters: request.toJson(),
+          );
 
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(

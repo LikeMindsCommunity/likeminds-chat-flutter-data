@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/constant/string_constant.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
@@ -55,6 +56,12 @@ class AuthService extends IAuthService {
             initiateUserEntity.refreshToken!,
           );
 
+          // Check if running in test environment
+          if (testFlag) {
+            // If in test environment, return response without calling localPref
+            return LMResponse.success(data: initiateUserEntity);
+          }
+
           await localPref.insertOrUpdateValueInCache((LMChatCacheBuilder()
                 ..key(kApiKey)
                 ..value(initiateUserRequest.apiKey))
@@ -70,9 +77,15 @@ class AuthService extends IAuthService {
           return LMResponse.success(
             data: initiateUserEntity,
           );
-          // Else, if API returned no app access
         } else {
           // If API returned no app access, then clear data and return response
+          if (testFlag) {
+            // If in test environment, return response without calling localPref
+            return LMResponse.error(
+                errorMessage:
+                    response.data['error_message'] ?? 'An error occurred');
+          }
+
           await localPref.deleteUser();
           await localPref.deleteCommunity();
           await localPref.deleteMemberState();
