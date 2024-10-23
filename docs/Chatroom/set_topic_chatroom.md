@@ -7,46 +7,37 @@ title: Set Topic Chatroom
 
 With LikeMinds Flutter Chat SDK, you have the ability to set a topic for a chatroom. This feature allows you to categorize and organize discussions, making it easier for participants to understand the purpose or theme of the chatroom.
 
-## Steps to share a chatroom
+## Steps to Set a Chatroom Topic
 
-1. Create an object of the `SetTopicChatroomRequest` class using the `SetTopicChatroomRequestBuilder` class and specify the chatroom ID and the topic.
-2. For setting a topic for a chatroom call `setTopicChatroom()` present in `LMChatClient` class using your request object.
-3. Process the response (`LMResponse<SetTopicChatroomResponse>`) as per your requirement.
+1. Create an object of the `SetChatroomTopicRequest` class.
+2. Call the `setChatroomTopic()` function using the instance of the `LMChatClient` class.
+3. Process the response (`LMResponse<SetChatroomTopicResponse>`) as per your requirement.
+
+### Example Usage
 
 ```dart
 SetChatroomTopicRequest request = (SetChatroomTopicRequestBuilder()
-          ..chatroomId(70989)
-          ..conversationId(273099))
-        .build();
+                    ..chatroomId(70989)
+                    ..conversationId(273099)).build();
 
-LMResponse<SetChatroomTopicResponse> response =
-    await lmChatClient.setTopicChatroom(request);
+LMResponse<SetChatroomTopicResponse> response = await lmChatClient.setChatroomTopic(request);
 
 if (response.success) {
-     // your function to process the response data
-   processResponse(response);
+  // your function to handle successful topic setting
+  handleSetTopicSuccess();
 } else {
-   // your function to process error message
-   processError(response);
+  // your function to handle error in setting topic
+  handleSetTopicError(response.errorMessage);
 }
 ```
 
 ## Models
 
-### SetTopicChatroomRequest
+### SetChatroomTopicRequest
 
-List of parameters for the `SetTopicChatroomRequest` class
+List of parameters for the `SetChatroomTopicRequest` class
 
-| Variable       | Type | Description     | Optional |
-| -------------- | ---- | --------------- | -------- |
-| chatroomId     | int  | Chatroom Id     |          |
-| conversationId | int  | Conversation Id |          |
-
-### SetTopicChatroomResponse
-
-List of parameters for the `SetTopicChatroomResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |
+| Variable         | Type   | Description                      | Optional           |
+| ---------------- | ------ | -------------------------------- | ------------------ |
+| chatroomId       | int    | Unique ID of the chatroom       |                    |
+| conversationId    | int    | Unique ID of the conversation    |                    |

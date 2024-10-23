@@ -21,23 +21,25 @@ This is a wrapper class for all the responses returned by the SDK. It contains t
 
 List of parameters used in `User`
 
-| Variable         | Type                            | Description                   | Optional           |
-| ---------------- | ------------------------------- | ----------------------------- | ------------------ |
-| id               | int                             | unique id of the user         |                    |
-| name             | String                          | name of the user              |                    |
-| imageUrl         | String                          | profile image url of the user | :heavy_check_mark: |
-| isGuest          | bool                            | is user a guest               | :heavy_check_mark: |
-| userUniqueId     | String                          | unique id of the user         |                    |
-| organisationName | String                          | name of the organisation      | :heavy_check_mark: |
-| sdkClientInfo    | [SDKClientInfo](#sdkclientinfo) | sdk client info               | :heavy_check_mark: |
-| updatedAt        | int                             | timestamp of last update      | :heavy_check_mark: |
-| isOwner          | bool                            | is user an owner              | :heavy_check_mark: |
-| customTitle      | String                          | custom title of the user      | :heavy_check_mark: |
-| memberSince      | String                          | date of joining the community | :heavy_check_mark: |
-| route            | String                          | route of the user             | :heavy_check_mark: |
-| state            | int                             | state of the user             | :heavy_check_mark: |
-| communityId      | int                             | unique id of the community    | :heavy_check_mark: |
-| createdAt        | int                             | timestamp of user creation    | :heavy_check_mark: |
+| Variable             | Type                            | Description                   | Optional           |
+| -------------------- | ------------------------------- | ----------------------------- | ------------------ |
+| id                   | int                             | unique id of the user         |                    |
+| name                 | String                          | name of the user              |                    |
+| imageUrl             | String                          | profile image url of the user | :heavy_check_mark: |
+| isGuest              | bool                            | is user a guest               | :heavy_check_mark: |
+| userUniqueId         | String                          | unique id of the user         |                    |
+| organisationName     | String                          | name of the organisation      | :heavy_check_mark: |
+| sdkClientInfo        | [SDKClientInfo](#sdkclientinfo) | sdk client info               | :heavy_check_mark: |
+| updatedAt            | int                             | timestamp of last update      | :heavy_check_mark: |
+| isOwner              | bool                            | is user an owner              | :heavy_check_mark: |
+| customTitle          | String                          | custom title of the user      | :heavy_check_mark: |
+| memberSince          | String                          | date of joining the community | :heavy_check_mark: |
+| route                | String                          | route of the user             | :heavy_check_mark: |
+| state                | int                             | state of the user             | :heavy_check_mark: |
+| communityId          | int                             | unique id of the community    | :heavy_check_mark: |
+| createdAt            | int                             | timestamp of user creation    | :heavy_check_mark: |
+| customIntroText      | String                          | custom introduction text       | :heavy_check_mark: |
+| memberSinceEpoch     | int                             | epoch of member since date    | :heavy_check_mark: |
 
 ### SDKClientInfo
 
@@ -48,6 +50,7 @@ List of parameters used in `SDKClientInfo`
 | community    | int    | unique id of the community |          |
 | user         | int    | unique id of the user      |          |
 | userUniqueId | String | unique id of the user      |          |
+| uuid         | String | unique identifier for the SDK client | :heavy_check_mark: |
 
 ### Community
 
@@ -111,7 +114,7 @@ List of parameters used in `Conversation`
 | answer              | String            | answer of the conversation              | :heavy_check_mark: |
 | attachmentCount     | int               | count of attachments                    | :heavy_check_mark: |
 | attachments         | List<dynamic\>    | list of attachments                     | :heavy_check_mark: |
-| attachmentsUploaded | bool              | is attachments uploaded                 | :heavy_check_mark: |
+| attachmentsUploaded  | bool              | is attachments uploaded                 | :heavy_check_mark: |
 | chatroomId          | int               | unique id of the chatroom               | :heavy_check_mark: |
 | communityId         | int               | unique id of the community              | :heavy_check_mark: |
 | createdAt           | String            | timestamp of creation                   | :heavy_check_mark: |
@@ -143,6 +146,11 @@ List of parameters used in `Conversation`
 | pollTypeText        | String            | type of the poll text                   | :heavy_check_mark: |
 | submitTypeText      | String            | type of the submit text                 | :heavy_check_mark: |
 | isTimeStamp         | bool              | is time stamp                           | :heavy_check_mark: |
+| location            | String            | location of the conversation            | :heavy_check_mark: |
+| locationLat         | String            | latitude of the location                | :heavy_check_mark: |
+| locationLong        | String            | longitude of the location               | :heavy_check_mark: |
+| replyConversation    | int               | unique id of the reply conversation     | :heavy_check_mark: |
+| replyConversationObject | Conversation?   | object of the reply conversation        | :heavy_check_mark: |
 
 ### Attachment
 
@@ -176,6 +184,8 @@ List of parameters used in `UserTag`
 | id           | int    | unique id of the user    | :heavy_check_mark: |
 | isGuest      | bool   | is user guest            | :heavy_check_mark: |
 | userUniqueId | String | unique id of the user    | :heavy_check_mark: |
+| uuid         | String | unique identifier for the user | :heavy_check_mark: |
+| sdkClientInfo        | [SDKClientInfo](#sdkclientinfo) | sdk client info               | :heavy_check_mark: |
 
 ### OgTags
 
@@ -187,3 +197,15 @@ List of parameters used in `OgTags`
 | image       | String | image of the og tags       | :heavy_check_mark: |
 | title       | String | title of the og tags       | :heavy_check_mark: |
 | url         | String | url of the og tags         | :heavy_check_mark: |
+
+### GroupTag
+
+List of parameters used in `GroupTag`
+
+| Variable     | Type   | Description              | Optional           |
+| ------------ | ------ | ------------------------ | ------------------ |
+| description  | String | description of the group | :heavy_check_mark: |
+| imageUrl     | String | url of the image         | :heavy_check_mark: |
+| name         | String | name of the group        | :heavy_check_mark: |
+| route        | String | route of the group       | :heavy_check_mark: |
+| tag          | String | tag associated with the group | :heavy_check_mark: |

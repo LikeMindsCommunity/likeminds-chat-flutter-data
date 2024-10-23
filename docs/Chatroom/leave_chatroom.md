@@ -9,26 +9,25 @@ Leaving a chatroom with LikeMinds Flutter Chat SDK allows you to exit a chatroom
 
 ## Steps to Leave a Chatroom for open ChatRoom
 
-1. Create an object of the `FollowChatroomRequest` class, pass `false` to value.
-2. For following a chatroom call `followChatroom()` present in `LMChatClient` class using your request object.
+1. Create an object of the `FollowChatroomRequest` class.
+2. Call the `followChatroom()` function using the instance of the `LMChatClient` class.
 3. Process the response (`LMResponse<FollowChatroomResponse>`) as per your requirement.
 
 ```dart
 // To leave a chatroom, set the value to false
-FollowChatroomRequest request =  (FollowChatroomRequestBuilder()
+FollowChatroomRequest request = (FollowChatroomRequestBuilder()
                       ..chatroomId(70989)
                       ..memberId(87103)
-                      ..value(false)).build();
+                      ..value(true)).build();
 
-LMResponse<FollowChatroomResponse> response =
-    await lmChatClient.followChatroom(request);
+LMResponse<FollowChatroomResponse> response = await lmChatClient.followChatroom(request);
 
 if (response.success) {
-     // your function to process the response data
-   processResponse(response);
+  // your function to handle successful follow action
+  handleFollowSuccess();
 } else {
-  // your function to process error message
-   processError(response);
+  // your function to handle follow error
+  handleFollowError(response.errorMessage);
 }
 ```
 
@@ -38,43 +37,40 @@ if (response.success) {
 
 List of parameters for the `FollowChatroomRequest` class
 
-| Variable   | Type | Description  | Optional           |
-| ---------- | ---- | ------------ | ------------------ |
-| chatroomId | int  | Chatroom Id  |                    |
-| memberId   | int  | Member Id    | :heavy_check_mark: |
-| value      | bool | Follow value |                    |
+| Variable    | Type   | Description                      | Optional           |
+| ----------- | ------ | -------------------------------- | ------------------ |
+| chatroomId  | int    | Unique ID of the chatroom       |                    |
+| memberId    | int?   | Unique ID of the member | :heavy_check_mark: |
+| value       | bool   | Set to `true` to follow, `false` to unfollow |                    |
 
-### FollowChatroomResponse
 
-List of parameters for the `FollowChatroomResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |
 
 ## Steps to Leave a Chatroom for secret ChatRoom
 
-1. Create an object of the `DeleteParticipantRequest` class using the `DeleteParticipantRequestBuilder` class.
-2. Using the request, call the `deleteParticipant()` method present in the `LMChatClient` class.
+1. Create an object of the `DeleteParticipantRequest` class.
+2. Call the `deleteParticipant()` function using the instance of the `LMChatClient` class.
 3. Process the response (`LMResponse<DeleteParticipantResponse>`) as per your requirement.
 
+### Example for Secret Chatroom
+
+When deleting a participant from a secret chatroom, ensure that the `isSecret` parameter is set to `true`.
+
 ```dart
-final DeleteParticipantRequest request = (DeleteParticipantRequestBuilder()
-                ..chatroomId(widget.chatroom.id)
-                ..isSecret(true))
-              .build();
+DeleteParticipantRequest request = (DeleteParticipantRequestBuilder()
+                    ..chatroomId(70989)
+                    ..isSecret(true)
+                    ..memberId('member123')).build();
 
 LMResponse<DeleteParticipantResponse> response = await lmChatClient.deleteParticipant(request);
 
 if (response.success) {
-     // your function to process the response data
-   processResponse(response);
+  // your function to handle successful deletion
+  handleDeleteSuccess();
 } else {
-  // your function to process error message
-   processError(response);
+  // your function to handle deletion error
+  handleDeleteError(response.errorMessage);
 }
-```
+````
 
 ## Models
 
@@ -82,16 +78,8 @@ if (response.success) {
 
 List of parameters for the `DeleteParticipantRequest` class
 
-| Variable   | Type | Description                            | Optional           |
-| ---------- | ---- | -------------------------------------- | ------------------ |
-| chatroomId | int  | Chatroom Id                            |                    |
-| isSecret   | bool | Set to true in case of secret chatroom | :heavy_check_mark: |
-
-### DeleteParticipantResponse
-
-List of parameters for the `DeleteParticipantResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |
+| Variable    | Type                  | Description                      | Optional           |
+| ----------- | --------------------- | -------------------------------- | ------------------ |
+| chatroomId  | int                   | Unique ID of the chatroom       |                    |
+| isSecret    | bool?                 | Indicates if the chatroom is secret | :heavy_check_mark: |
+| memberId    | String?              | Unique ID of the member to be deleted |                    |

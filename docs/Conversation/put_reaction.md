@@ -7,11 +7,13 @@ title: Put Reaction
 
 Reactions are used to add context to a message, such as by indicating that the user agree or disagree with something that was said. You can integrate reactions to react to chat messages and enable your users to react to these messages by following the given steps
 
-## Steps to Put Reaction from a Conversation
+## Steps to Put Reaction in a Conversation
 
-1. Create an object of the `PutReactionRequest` class, using the `PutReactionRequestBuilder` class.
-2. For putting reaction in a conversation call `putReaction()` present in `LMChatClient` class using your request object.
+1. Create an object of the `PutReactionRequest` class using the `PutReactionRequestBuilder` class.
+2. Call `putReaction()` present in the `LMChatClient` class using your request object.
 3. Process the response (`LMResponse<PutReactionResponse>`) as per your requirement.
+
+### Example Usage
 
 ```dart
 PutReactionRequest request = (PutReactionRequestBuilder()
@@ -38,14 +40,5 @@ List of parameters for the `PutReactionRequest` class
 
 | Variable       | Type   | Description     | Optional |
 | -------------- | ------ | --------------- | -------- |
-| conversationId | int    | Conversation Id |          |
+| conversationId | int    | Conversation ID |          |
 | reaction       | String | Reaction        |          |
-
-### PutReactionResponse
-
-List of parameters for the `PutReactionResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |

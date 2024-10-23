@@ -9,23 +9,26 @@ To retrieve the list of participants in a chatroom, LikeMinds Flutter Chat SDK p
 
 ## Steps to Get the List of Participants in a Chatroom
 
-1. Create an object of the `GetParticipantsRequest` class, using the `GetParticipantsRequestBuilder` class.
-2. For getting the list of participants in a chatroom call `getParticipants()` present in `LMChatClient` class using your request object.
+1. Create an object of the `GetParticipantsRequest` class.
+2. Call the `getParticipants()` function using the instance of the `LMChatClient` class.
 3. Process the response (`LMResponse<GetParticipantsResponse>`) as per your requirement.
 
 ```dart
-GetParticipantsRequest request = (GetParticipantsRequestBuilder()..chatroomId(70989))
-.build();
+GetParticipantsRequest request = (GetParticipantsRequestBuilder()
+                    ..chatroomId(70989)
+                    ..page(1)
+                    ..pageSize(10)
+                    ..isSecret(false)
+                    ..search('John')).build();
 
-LMResponse<GetParticipantsResponse> response =
-    await lmChatClient.getParticipants(request);
+LMResponse<GetParticipantsResponse> response = await lmChatClient.getParticipants(request);
 
 if (response.success) {
-     // your function to process the response data
-   processResponse(response);
+  // your function to process the response data
+  processResponse(response);
 } else {
-   // your function to process error message
-   processError(response);
+  // your function to process error message
+  processError(response.errorMessage);
 }
 ```
 
@@ -35,21 +38,19 @@ if (response.success) {
 
 List of parameters for the `GetParticipantsRequest` class
 
-| Variable   | Type    | Description        | Optional           |
-| ---------- | ------- | ------------------ | ------------------ |
-| chatroomId | int     | Chatroom Id        |                    |
-| page       | int     | Page number        |                    |
-| pageSize   | int     | Page size          |                    |
-| isSecret   | bool    | Is secret chatroom |                    |
-| search     | String? | Search string      | :heavy_check_mark: |
+| Variable     | Type   | Description                      | Optional           |
+| ------------ | ------ | -------------------------------- | ------------------ |
+| chatroomId   | int    | Unique ID of the chatroom       |                    |
+| page         | int    | Page number for paginated response |                    |
+| pageSize     | int    | Page size for paginated response |                    |
+| isSecret     | bool   | Indicates if the chatroom is secret |                    |
+| search       | String?| Search string for filtering participants | :heavy_check_mark: |
 
 ### GetParticipantsResponse
 
 List of parameters for the `GetParticipantsResponse` class
 
-| Variable           | Type         | Description                      | Optional           |
-| ------------------ | ------------ | -------------------------------- | ------------------ |
-| success            | bool         | API success status               |                    |
-| errorMessage       | String?      | Error message in case of failure | :heavy_check_mark: |
-| participants       | List<User\>? | List of participants             | :heavy_check_mark: |
-| canEditParticipant | bool?        | Bool to check edit status        | :heavy_check_mark: |
+| Variable              | Type                   | Description                                              | Optional           |
+| --------------------- | ---------------------- | -------------------------------------------------------- | ------------------ |
+| canEditParticipant    | bool?                  | Indicates if the user can edit participant details       | :heavy_check_mark: |
+| participants          | List<[User](common_models.md/#user)\>? | List of participants in the chatroom                   | :heavy_check_mark: |

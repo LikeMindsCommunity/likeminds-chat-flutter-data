@@ -9,47 +9,36 @@ Sharing a chatroom with other users is made simple with LikeMinds Flutter Chat S
 
 ## Steps to Share a Chatroom
 
-1. Create an object of the `ShareChatroomUrlRequest` class using the `ShareChatroomRequestBuilder` class.
-2. For sharing a chatroom call `shareChatroomUrl()` present in `LMChatClient` class using your request object.
-3. Process the response (`LMResponse<ShareChatroomUrlResponse>`) as per your requirement.
+1. Create an object of the `ShareChatroomRequest` class.
+2. Call the `shareChatroom()` function using the instance of the `LMChatClient` class.
+3. Process the response (`LMResponse<ShareChatroomResponse>`) as per your requirement.
+
+### Example Usage
 
 ```dart
-final LMChatClient lmClient = ...;
+ShareChatroomRequest request = (ShareChatroomRequestBuilder()
+                    ..chatroomId(70989)
+                    ..domain("https://www.example.com")).build();
 
-ShareChatroomRequest request = (
-    ShareChatroomRequestBuilder()
-          ..chatroomId(70989)
-          ..domain("https://www.likeminds.ai")
-).build();
-
-LMResponse<ShareChatroomResponse> response =
-    await lmChatClient.shareChatroomUrl(request);
+LMResponse<ShareChatroomResponse> response = await lmChatClient.shareChatroom(request);
 
 if (response.success) {
-    // your function to process the response data
-   processResponse(response);
+  // your function to handle successful sharing
+  handleShareSuccess();
 } else {
-   // your function to process error message
-   processError(response);
+  // your function to handle share error
+  handleShareError(response.errorMessage);
 }
 ```
 
 ## Models
 
-### ShareChatroomUrlRequest
+### ShareChatroomRequest
 
-List of parameters for the `ShareChatroomUrlRequest` class
+List of parameters for the `ShareChatroomRequest` class
 
-| Variable   | Type   | Description | Optional |
-| ---------- | ------ | ----------- | -------- |
-| chatroomId | int    | Chatroom Id |          |
-| domain     | String | Domain name |          |
+| Variable    | Type   | Description                      | Optional           |
+| ----------- | ------ | -------------------------------- | ------------------ |
+| chatroomId  | int    | Unique ID of the chatroom       |                    |
+| domain      | String | Domain name for the shareable link |                    |
 
-### ShareChatroomUrlResponse
-
-List of parameters for the `ShareChatroomUrlResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |

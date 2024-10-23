@@ -10,7 +10,7 @@ Marking a chatroom as read with LikeMinds Flutter Chat SDK allows you to control
 ## Steps to Mark a Chatroom as Read
 
 1. Create an object of the `MarkReadChatroomRequest` class.
-2. For marking a chatroom as read call `markReadChatroom()` present in `LMChatClient` class using your request object.
+2. Call the `markReadChatroom()` function using the instance of the `LMChatClient` class.
 3. Process the response (`LMResponse<MarkReadChatroomResponse>`) as per your requirement.
 
 ```dart
@@ -38,12 +38,3 @@ List of parameters for the `MarkReadChatroomRequest` class
 | Variable   | Type | Description | Optional |
 | ---------- | ---- | ----------- | -------- |
 | chatroomId | int  | Chatroom Id |          |
-
-### MarkReadChatroomResponse
-
-List of parameters for the `MarkReadChatroomResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |

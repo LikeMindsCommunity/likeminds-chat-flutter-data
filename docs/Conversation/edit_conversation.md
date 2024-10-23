@@ -5,14 +5,15 @@ title: Edit Conversation
 
 # Edit Conversation
 
+Editing a conversation means that you can change the text content of a specified conversation corresponding to a unique conversation ID.
 
-Editing a conversation means that you can change the text content of specified conversation corresponding to a unique conversation ID.
+## Steps to Edit a Conversation
 
-## Steps to edit a conversation
-
-1. Create an object of the `EditConversationRequest` class, using the `EditConversationRequestBuilder` class.
-2. For editing a conversation call `editConversation()` present in `LMChatClient` class using your request object.
+1. Create an object of the `EditConversationRequest` class using the `EditConversationRequestBuilder` class.
+2. For editing a conversation, call `editConversation()` present in the `LMChatClient` class using your request object.
 3. Process the response (`LMResponse<EditConversationResponse>`) as per your requirement.
+
+### Example Usage
 
 ```dart
 EditConversationRequest request = (EditConversationRequestBuilder()
@@ -25,10 +26,10 @@ LMResponse<EditConversationResponse> response =
 
 if (response.success) {
     // your function to process the response data
-   processResponse(response);
+    processResponse(response);
 } else {
     // your function to process error message
-   processError(response);
+    processError(response.errorMessage);
 }
 ```
 
@@ -40,7 +41,7 @@ List of parameters for the `EditConversationRequest` class
 
 | Variable       | Type   | Description     | Optional |
 | -------------- | ------ | --------------- | -------- |
-| conversationId | int    | Conversation Id |          |
+| conversationId | int    | Conversation ID |          |
 | text           | String | Text content    |          |
 
 ### EditConversationResponse
@@ -49,6 +50,4 @@ List of parameters for the `EditConversationResponse` class
 
 | Variable     | Type          | Description                      | Optional           |
 | ------------ | ------------- | -------------------------------- | ------------------ |
-| success      | bool          | API success status               |                    |
-| errorMessage | String?       | Error message in case of failure | :heavy_check_mark: |
-| conversation | Conversation? | Edited conversation              | :heavy_check_mark: |
+| conversation | [Conversation](common_models.md/#conversation)? | Edited conversation              | :heavy_check_mark: |

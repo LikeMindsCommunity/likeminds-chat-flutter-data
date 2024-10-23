@@ -12,22 +12,26 @@ A chatroom is a place where users can interact with each other.The LikeMinds Flu
 
 These diverse chatroom types cater to various communication needs, providing flexibility and control over the conversations within your Flutter chat application. A chatroom can be created by a user or by the community manager.
 
-## Steps to fetch a single chatroom
+## Steps to fetch Chatrooms
 
 1. Create an object of the `GetChatroomRequest` class.
-2. For creating a post call `getChatroom()` present in `LMChatClient` class using your request object.
+2. Call the `getChatroom()` function using the instance of the `LMChatClient` class.
 3. Process the response (`LMResponse<GetChatroomResponse>`) as per your requirement.
 
 ```dart
-GetChatroomRequest request = GetChatroomRequestBuilder(chatroomId: 70989).build;
+GetChatroomRequest request = (GetChatroomRequestBuilder()
+                    ..chatroomId(70989)
+                    ..page(1)
+                    ..pageSize(10)).build();
+
 LMResponse<GetChatroomResponse> response = await lmChatClient.getChatroom(request);
 
 if (response.success) {
-   // your function to process the response data
-   processResponse(response);
+  // your function to process the response data
+  processResponse(response);
 } else {
   // your function to process error message
-   processError(response);
+  processError(response.errorMessage);
 }
 ```
 
@@ -37,46 +41,24 @@ if (response.success) {
 
 List of parameters for the `GetChatroomRequest` class
 
-| Variable   | Type | Description                  | Optional           |
-| ---------- | ---- | ---------------------------- | ------------------ |
-| chatroomId | int  | Chatroom Id                  |                    |
-| page       | int? | Page number for API response | :heavy_check_mark: |
-| pageSize   | int? | Page size for API response   | :heavy_check_mark: |
+| Variable   | Type   | Description                      | Optional           |
+| ---------- | ------ | -------------------------------- | ------------------ |
+| chatroomId | int    | Unique ID of the chatroom       |                    |
+| page       | int?   | Page number for paginated response | :heavy_check_mark: |
+| pageSize   | int?   | Page size for paginated response | :heavy_check_mark: |
 
 ### GetChatroomResponse
 
 List of parameters for the `GetChatroomResponse` class
 
-| Variable                | Type                   | Description                         | Optional           |
-| ----------------------- | ---------------------- | ----------------------------------- | ------------------ |
-| success                 | bool                   | API success status                  |                    |
-| chatroom                | ChatRoom?              | Chatroom data object                | :heavy_check_mark: |
-| errorMessage            | String?                | Error log incase the API fails      | :heavy_check_mark: |
-| participantCount        | int?                   | Total no of users in a chatroom     | :heavy_check_mark: |
-| conversationUsers       | List<User\>?           | List of users in a chatroom         | :heavy_check_mark: |
-| chatroomActions         | List<ChatroomAction\>? | List of actions in a chatroom       | :heavy_check_mark: |
-| community               | Community?             | Community object                    | :heavy_check_mark: |
-| lastConversationId      | int?                   | Last conversation id                | :heavy_check_mark: |
-| unreadMessages          | int?                   | Total unread messages in a chatroom | :heavy_check_mark: |
-| canAccessSecretChatroom | bool?                  | Can access secret chatroom          | :heavy_check_mark: |
+| Variable                    | Type                                                          | Description                                              | Optional           |
+| --------------------------- | ------------------------------------------------------------- | -------------------------------------------------------- | ------------------ |
+| canAccessSecretChatroom     | bool?                                                         | Indicates if the user can access a secret chatroom      | :heavy_check_mark: |
+| chatroom                    | [ChatRoom](common_models.md/#chatroom)?                      | The chatroom object containing chatroom details          | :heavy_check_mark: |
+| chatroomActions             | List<[ChatroomAction](common_models.md/#chatroomaction)\>?   | List of actions available in the chatroom               | :heavy_check_mark: |
+| community                   | [Community](common_models.md/#community)?                    | The community object associated with the chatroom        | :heavy_check_mark: |
+| conversationUsers           | List<[User](common_models.md/#user)\>?                       | List of users participating in the chatroom             | :heavy_check_mark: |
+| lastConversationId          | int?                                                         | ID of the last conversation in the chatroom              | :heavy_check_mark: |
+| participantCount            | int?                                                         | Total number of participants in the chatroom             | :heavy_check_mark: |
+| unreadMessages              | int?                                                         | Total number of unread messages in the chatroom          | :heavy_check_mark: |
 
-### ChatRoomMember
-
-List of parameters for the `ChatRoomMember` class
-
-| Variable         | Type    | Description              | Optional           |
-| ---------------- | ------- | ------------------------ | ------------------ |
-| customIntroText  | String? | Custom intro text        | :heavy_check_mark: |
-| customTitle      | String? | Custom title             | :heavy_check_mark: |
-| id               | int     | User id                  |                    |
-| imageUrl         | String? | User image url           | :heavy_check_mark: |
-| isGuest          | bool?   | Is guest user            | :heavy_check_mark: |
-| isOwner          | bool?   | Is owner of the chatroom | :heavy_check_mark: |
-| memberSince      | String? | Member since             | :heavy_check_mark: |
-| memberSinceEpoch | int?    | Member since epoch       | :heavy_check_mark: |
-| name             | String  | User name                |                    |
-| organisationName | String? | Organisation name        | :heavy_check_mark: |
-| route            | String? | Route                    | :heavy_check_mark: |
-| state            | int     | State                    |                    |
-| updatedAt        | int?    | Updated at               | :heavy_check_mark: |
-| userUniqueId     | String? | User unique id           | :heavy_check_mark: |

@@ -10,23 +10,24 @@ Muting a chatroom in LikeMinds Flutter Chat SDK ensures that you won't receive a
 ## Steps to Mute a Chatroom
 
 1. Create an object of the `MuteChatroomRequest` class.
-2. For muting a chatroom call `muteChatroom()` present in `LMChatClient` class using your request object.
+2. Call the `muteChatroom()` function using the instance of the `LMChatClient` class.
 3. Process the response (`LMResponse<MuteChatroomResponse>`) as per your requirement.
+
+### Example Usage
 
 ```dart
 MuteChatroomRequest request = (MuteChatroomRequestBuilder()
                     ..chatroomId(70989)
                     ..value(true)).build();
 
-LMResponse<MuteChatroomResponse> response =
-    await lmChatClient.muteChatroom(request);
+LMResponse<MuteChatroomResponse> response = await lmChatClient.muteChatroom(request);
 
 if (response.success) {
-     // your function to process the response data
-   processResponse(response);
+  // your function to handle successful muting
+  handleMuteSuccess();
 } else {
-   // your function to process error message
-   processError(response);
+  // your function to handle mute error
+  handleMuteError(response.errorMessage);
 }
 ```
 
@@ -36,16 +37,7 @@ if (response.success) {
 
 List of parameters for the `MuteChatroomRequest` class
 
-| Variable   | Type | Description | Optional |
-| ---------- | ---- | ----------- | -------- |
-| chatroomId | int  | Chatroom Id |          |
-| value      | bool | Mute value  |          |
-
-### MuteChatroomResponse
-
-List of parameters for the `MuteChatroomResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |
+| Variable    | Type   | Description                      | Optional           |
+| ----------- | ------ | -------------------------------- | ------------------ |
+| chatroomId  | int    | Unique ID of the chatroom       |                    |
+| value       | bool   | Set to `true` to mute, `false` to unmute |                    |

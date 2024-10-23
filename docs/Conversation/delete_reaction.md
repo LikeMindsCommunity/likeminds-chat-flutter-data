@@ -9,9 +9,11 @@ You can integrate "remove reaction" which enables your user to remove their reac
 
 ## Steps to Delete Reaction in a Conversation
 
-1. Create an object of the `DeleteReactionRequest` class, using the `DeleteReactionRequestBuilder` class.
-2. For deleting reaction from a conversation call `deleteReaction()` present in `LMChatClient` class using your request object.
+1. Create an object of the `DeleteReactionRequest` class using the `DeleteReactionRequestBuilder` class.
+2. Call `deleteReaction()` present in the `LMChatClient` class using your request object.
 3. Process the response (`LMResponse<DeleteReactionResponse>`) as per your requirement.
+
+### Example Usage
 
 ```dart
 DeleteReactionRequest request = (DeleteReactionRequestBuilder()
@@ -26,7 +28,7 @@ if (response.success) {
     processResponse(response);
 } else {
     // your function to process error message
-    processError(response);
+    processError(response.errorMessage);
 }
 ```
 
@@ -38,14 +40,5 @@ List of parameters for the `DeleteReactionRequest` class
 
 | Variable       | Type   | Description     | Optional |
 | -------------- | ------ | --------------- | -------- |
-| conversationId | int    | Conversation Id |          |
+| conversationId | int    | Conversation ID |          |
 | reaction       | String | Reaction        |          |
-
-### DeleteReactionResponse
-
-List of parameters for the `DeleteReactionResponse` class
-
-| Variable     | Type    | Description                      | Optional           |
-| ------------ | ------- | -------------------------------- | ------------------ |
-| success      | bool    | API success status               |                    |
-| errorMessage | String? | Error message in case of failure | :heavy_check_mark: |
