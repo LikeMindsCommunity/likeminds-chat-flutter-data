@@ -507,6 +507,15 @@ class LMChatClient {
   Future<LMResponse<void>> postReport(PostReportRequest request) async {
     return await _sdkApplication.getModerationApi().postReport(request);
   }
+
+  /// getAIChatbots is used to get the list of AI chatbots in the community
+  /// [GetAIChatbotsRequest] is used to pass the required parameters
+  /// [GetAIChatbotsResponse] is returned as a Future
+  Future<LMResponse<GetAIChatbotsResponse>> getAIChatbots(
+    GetAIChatbotsRequest request,
+  ) {
+    return _sdkApplication.getChatbotApi().getAIChatbots(request);
+  }
 }
 
 /// Builder class to initiate the SDK

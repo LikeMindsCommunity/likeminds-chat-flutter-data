@@ -30,6 +30,8 @@ import 'package:likeminds_chat_fl/src/services/participants_service.dart';
 import 'package:likeminds_chat_fl/src/services/persistance_service.dart';
 import 'package:likeminds_chat_fl/src/services/poll_service.dart';
 import 'package:likeminds_chat_fl/src/services/reaction_service.dart';
+import 'package:likeminds_chat_fl/src/services/chatbot_service.dart';
+import 'package:likeminds_chat_fl/src/repositories/chatbot_repository.dart';
 
 /// [LMChatServiceProvider] is a provider class to register all the dependencies
 /// This class is a singleton class
@@ -63,6 +65,7 @@ class LMChatServiceProvider {
   late final DMService dmService;
   late final PersistenceService persistenceService;
   late final ModerationService moderationService;
+  late final ChatbotService chatbotService;
 
   // Instance for all the repositories
   late final AuthRepository authRepository;
@@ -80,6 +83,7 @@ class LMChatServiceProvider {
   late final PersistenceRepository persistenceRepository;
   late final ModerationRepository moderationRepository;
   late final NotificationService notificationService;
+  late final ChatbotRepository chatbotRepository;
 
   // Callback instance
   late final LMChatSDKCallback sdkCallback;
@@ -139,5 +143,7 @@ class LMChatServiceProvider {
     moderationService = ModerationService(apiManager: apiManager);
     moderationRepository =
         ModerationRepository(moderationService: moderationService);
+    chatbotService = ChatbotService(apiManager: apiManager);
+    chatbotRepository = ChatbotRepository(chatbotService: chatbotService);
   }
 }
