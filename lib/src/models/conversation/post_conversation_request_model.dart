@@ -36,7 +36,7 @@ class PostConversationRequest {
       'attachments': attachments?.map((e) => e.toEntity().toJson()).toList(),
       'og_tags': ogTags?.toEntity().toJson(),
       'share_link': shareLink,
-      'trigger_bot': triggerBot,
+      'trigger_bot': triggerBot ?? false,
     };
   }
 }
