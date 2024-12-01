@@ -491,6 +491,19 @@ class LMChatClient {
   Future<LMResponse<void>> deleteCommunity() async {
     return await _sdkApplication.getPersistenceApi().deleteCommunity();
   }
+
+  /// [setChatroomIdWithAIChatbot] is used to set the chatroom ID with AI chatbot
+  Future<LMResponse<void>> setChatroomIdWithAIChatbot(int chatroomId) async {
+    return await _sdkApplication
+        .getPersistenceApi()
+        .setChatroomIdWithAIChatbot(chatroomId);
+  }
+
+  /// [getChatroomIdWithAIChatbot] is used to get the chatroom ID with AI chatbot
+  LMResponse<int?> getChatroomIdWithAIChatbot() {
+    return _sdkApplication.getPersistenceApi().getChatroomIdWithAIChatbot();
+  }
+
   // ---------------------------------------
 
   // ------------------------------------------
