@@ -3,7 +3,27 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
 
-enum UserRole { chatbot, member, admin }
+enum UserRole {
+  chatbot('chatbot'),
+  member('member'),
+  admin('admin');
+
+  final String value;
+  const UserRole(this.value);
+
+  static UserRole fromJson(String json) {
+    switch (json.toLowerCase()) {
+      case 'chatbot':
+        return UserRole.chatbot;
+      case 'member':
+        return UserRole.member;
+      case 'admin':
+        return UserRole.admin;
+      default:
+        return UserRole.member;
+    }
+  }
+}
 
 class User {
   final int id;
