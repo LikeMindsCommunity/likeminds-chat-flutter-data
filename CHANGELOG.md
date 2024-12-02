@@ -1,3 +1,9 @@
+# Changelog
+
+## 1.10.0
+
+- Added support for AI chatbot
+
 ## 1.9.0
 
 - Fixed Poll and PollOption Modals
