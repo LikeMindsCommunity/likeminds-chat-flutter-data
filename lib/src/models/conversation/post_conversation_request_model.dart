@@ -7,9 +7,10 @@ class PostConversationRequest {
   final int? replyId;
   final String temporaryId;
   final bool hasFiles;
-  final int attachmentCount;
+  final List<Attachment>? attachments;
   final OgTags? ogTags;
   final String? shareLink;
+  final bool? triggerBot;
 
   PostConversationRequest._({
     required this.text,
@@ -18,9 +19,10 @@ class PostConversationRequest {
     this.expiryTime,
     this.replyId,
     required this.hasFiles,
-    this.attachmentCount = 0,
+    this.attachments,
     this.ogTags,
     this.shareLink,
+    this.triggerBot,
   });
 
   toJson() {
@@ -31,9 +33,10 @@ class PostConversationRequest {
       'replied_conversation_id': replyId,
       'temporary_id': temporaryId,
       'has_files': hasFiles,
-      'attachment_count': attachmentCount,
+      'attachments': attachments?.map((e) => e.toEntity().toJson()).toList(),
       'og_tags': ogTags?.toEntity().toJson(),
       'share_link': shareLink,
+      'trigger_bot': triggerBot ?? false,
     };
   }
 }
@@ -47,9 +50,10 @@ class PostConversationRequestBuilder {
   int? _replyId;
   String? _temporaryId;
   bool? _hasFiles;
-  int? _attachmentCount;
+  List<Attachment>? _attachments;
   OgTags? _ogTags;
   String? _shareLink;
+  bool? _triggerBot;
 
   void text(String text) => _text = text;
   void chatroomId(int chatroomId) => _chatroomId = chatroomId;
@@ -57,10 +61,10 @@ class PostConversationRequestBuilder {
   void replyId(int? replyId) => _replyId = replyId;
   void temporaryId(String temporaryId) => _temporaryId = temporaryId;
   void hasFiles(bool hasFiles) => _hasFiles = hasFiles;
-  void attachmentCount(int attachmentCount) =>
-      _attachmentCount = attachmentCount;
+  void attachments(List<Attachment> attachments) => _attachments = attachments;
   void ogTags(OgTags ogTags) => _ogTags = ogTags;
   void shareLink(String shareLink) => _shareLink = shareLink;
+  void triggerBot(bool triggerBot) => _triggerBot = triggerBot;
 
   PostConversationRequest build() {
     final text = _text;
@@ -84,10 +88,11 @@ class PostConversationRequestBuilder {
       expiryTime: expiryTime,
       replyId: replyId,
       temporaryId: temporaryId,
-      attachmentCount: _attachmentCount ?? 0,
+      attachments: _attachments,
       hasFiles: _hasFiles ?? false,
       ogTags: _ogTags,
       shareLink: _shareLink,
+      triggerBot: _triggerBot,
     );
   }
 }
