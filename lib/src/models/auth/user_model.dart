@@ -3,6 +3,28 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
 
+enum UserRole {
+  chatbot('chatbot'),
+  member('member'),
+  admin('admin');
+
+  final String value;
+  const UserRole(this.value);
+
+  static UserRole fromJson(String json) {
+    switch (json.toLowerCase()) {
+      case 'chatbot':
+        return UserRole.chatbot;
+      case 'member':
+        return UserRole.member;
+      case 'admin':
+        return UserRole.admin;
+      default:
+        return UserRole.member;
+    }
+  }
+}
+
 class User {
   final int id;
   final String name;
@@ -21,6 +43,7 @@ class User {
   final int? createdAt;
   final String? customIntroText;
   final int? memberSinceEpoch;
+  final List<UserRole>? roles;
 
   User({
     required this.id,
@@ -40,6 +63,7 @@ class User {
     this.createdAt,
     this.memberSinceEpoch,
     this.customIntroText,
+    this.roles,
   });
 
   factory User.fromEntity(UserEntity entity) {
@@ -61,6 +85,7 @@ class User {
       createdAt: entity.createdAt,
       customIntroText: entity.customIntroText,
       memberSinceEpoch: entity.memberSinceEpoch,
+      roles: entity.roles,
     );
   }
 
@@ -83,6 +108,7 @@ class User {
       createdAt: createdAt,
       customIntroText: customIntroText,
       memberSinceEpoch: memberSinceEpoch,
+      roles: roles,
     );
   }
 }
@@ -137,6 +163,9 @@ class UserEntity {
   @JsonKey(name: 'member_since_epoch')
   final int? memberSinceEpoch;
 
+  @JsonKey(name: 'roles')
+  final List<UserRole>? roles;
+
   UserEntity({
     required this.id,
     required this.name,
@@ -155,6 +184,7 @@ class UserEntity {
     this.createdAt,
     this.customIntroText,
     this.memberSinceEpoch,
+    this.roles,
   });
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>

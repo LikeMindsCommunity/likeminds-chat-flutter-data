@@ -1,4 +1,5 @@
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
+import 'package:likeminds_chat_fl/src/constant/string_constant.dart';
 import 'package:likeminds_chat_fl/src/repositories/persistence_repository.dart';
 
 class PersistenceApi {
@@ -58,5 +59,21 @@ class PersistenceApi {
 
   Future<LMResponse<void>> deleteCommunity() async {
     return await persistenceRepository.deleteCommunity();
+  }
+
+  Future<LMResponse<void>> setChatroomIdWithAIChatbot(int? chatroomId) async {
+    final cache = (LMChatCacheBuilder()
+          ..key(kChatroomIdWithAIChatbot)
+          ..value(chatroomId))
+        .build();
+    return persistenceRepository.insertOrUpdateValueInCache(cache);
+  }
+
+  LMResponse<int?> getChatroomIdWithAIChatbot() {
+    final response = persistenceRepository.getCache(kChatroomIdWithAIChatbot);
+    if (response.success) {
+      return LMResponse.success(data: response.data?.value as int?);
+    }
+    return LMResponse.success(data: null);
   }
 }

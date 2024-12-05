@@ -109,3 +109,7 @@ export 'package:likeminds_chat_fl/src/models/moderation/get_report_tag_request.d
 export 'package:likeminds_chat_fl/src/models/moderation/get_report_tag_response.dart';
 export 'package:likeminds_chat_fl/src/models/moderation/report_tag.dart';
 export 'package:likeminds_chat_fl/src/models/moderation/post_report_request.dart';
+
+// Chatbot models
+export 'chatbot/get_ai_chatbots_request_model.dart';
+export 'chatbot/get_ai_chatbots_response_model.dart';

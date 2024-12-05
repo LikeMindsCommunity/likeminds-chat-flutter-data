@@ -29,6 +29,8 @@ class EndPoints {
 
   String get homeFeedEndpoint => "$KETTLE_HOST/chatroom/sync";
 
+  String get communityEndpoint => "$KETTLE_HOST/community";
+
   String get chatroomEndpoint => "$KETTLE_HOST/chatroom";
   String get chatroomFollowEndpoint => "$KETTLE_HOST/chatroom/follow";
   String get chatroomMuteEndpoint => "$KETTLE_HOST/chatroom/mute";

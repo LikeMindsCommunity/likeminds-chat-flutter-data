@@ -12,6 +12,7 @@ import 'package:likeminds_chat_fl/src/methods/participants.dart';
 import 'package:likeminds_chat_fl/src/methods/persistence.dart';
 import 'package:likeminds_chat_fl/src/methods/poll.dart';
 import 'package:likeminds_chat_fl/src/methods/reaction.dart';
+import 'package:likeminds_chat_fl/src/methods/chatbot.dart';
 import 'package:likeminds_chat_fl/src/services/service_provider.dart';
 
 class SDKApplication {
@@ -104,6 +105,12 @@ class SDKApplication {
   ModerationApi getModerationApi() {
     return ModerationApi(
       moderationRepository: LMChatServiceProvider.instance.moderationRepository,
+    );
+  }
+
+  ChatbotApi getChatbotApi() {
+    return ChatbotApi(
+      chatbotRepository: LMChatServiceProvider.instance.chatbotRepository,
     );
   }
 }
