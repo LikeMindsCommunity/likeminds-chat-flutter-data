@@ -1,5 +1,13 @@
 import 'dart:convert';
 
+enum OrderBy {
+  ascending("ASC"),
+  descending("DESC");
+
+  final String value;
+  const OrderBy(this.value);
+}
+
 class GetConversationRequest {
   final int chatroomId;
   final int page;
@@ -9,6 +17,7 @@ class GetConversationRequest {
   final bool isLocalDB;
   final int? conversationId;
   final List<int>? excludedConversationStates;
+  final OrderBy? orderBy;
 
   GetConversationRequest._({
     required this.chatroomId,
@@ -19,6 +28,7 @@ class GetConversationRequest {
     this.conversationId,
     this.isLocalDB = false,
     this.excludedConversationStates,
+    this.orderBy,
   });
 
   toJson() {
@@ -31,6 +41,7 @@ class GetConversationRequest {
       "is_local_db": isLocalDB,
       "conversation_id": conversationId,
       "excluded_conversation_states": jsonEncode(excludedConversationStates),
+      "order_by": orderBy?.value,
     };
   }
 
@@ -43,6 +54,7 @@ class GetConversationRequest {
     bool? isLocalDB,
     int? conversationId,
     List<int>? excludedConversationStates,
+    OrderBy? orderBy,
   }) {
     return GetConversationRequest._(
       chatroomId: chatroomId ?? this.chatroomId,
@@ -54,6 +66,7 @@ class GetConversationRequest {
       conversationId: conversationId ?? this.conversationId,
       excludedConversationStates:
           excludedConversationStates ?? this.excludedConversationStates,
+      orderBy: orderBy ?? this.orderBy,
     );
   }
 }
@@ -67,6 +80,7 @@ class GetConversationRequestBuilder {
   bool? _isLocalDB;
   int? _conversationId;
   List<int>? _excludedConversationStates;
+  OrderBy? _orderBy;
 
   void chatroomId(int chatroomId) {
     _chatroomId = chatroomId;
@@ -100,6 +114,10 @@ class GetConversationRequestBuilder {
     _excludedConversationStates = states;
   }
 
+  void orderBy(OrderBy orderBy) {
+    _orderBy = orderBy;
+  }
+
   GetConversationRequest build() {
     return GetConversationRequest._(
       chatroomId: _chatroomId ?? 0,
@@ -110,6 +128,7 @@ class GetConversationRequestBuilder {
       isLocalDB: _isLocalDB ?? false,
       conversationId: _conversationId,
       excludedConversationStates: _excludedConversationStates,
+      orderBy: _orderBy,
     );
   }
 }
