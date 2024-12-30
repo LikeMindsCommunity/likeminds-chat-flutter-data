@@ -6,6 +6,7 @@ class GetHomeFeedRequest {
   final int? minTimestamp;
   final int? maxTimestamp;
   final List<int>? chatroomTypes;
+  final String? tag;
   bool isLocalDb;
 
   GetHomeFeedRequest._({
@@ -14,6 +15,7 @@ class GetHomeFeedRequest {
     this.minTimestamp,
     this.maxTimestamp,
     this.chatroomTypes,
+    this.tag,
     this.isLocalDb = false,
   });
 
@@ -23,6 +25,7 @@ class GetHomeFeedRequest {
         'min_timestamp': minTimestamp,
         'max_timestamp': maxTimestamp,
         'chatroom_types': jsonEncode(chatroomTypes),
+        'tag': tag,
         'is_local_db': isLocalDb,
       };
 }
@@ -33,6 +36,7 @@ class GetHomeFeedRequestBuilder {
   int? _minTimestamp;
   int? _maxTimestamp;
   List<int>? _chatroomTypes;
+  String? _tag;
   bool? _isLocalDb;
 
   void page(int page) => _page = page;
@@ -40,6 +44,7 @@ class GetHomeFeedRequestBuilder {
   void minTimestamp(int minTimestamp) => _minTimestamp = minTimestamp;
   void maxTimestamp(int maxTimestamp) => _maxTimestamp = maxTimestamp;
   void chatroomTypes(List<int> chatroomTypes) => _chatroomTypes = chatroomTypes;
+  void tag(String? tag) => _tag = tag;
   void isLocalDb(bool isLocalDb) => _isLocalDb = isLocalDb;
 
   GetHomeFeedRequest build() {
@@ -49,6 +54,7 @@ class GetHomeFeedRequestBuilder {
       minTimestamp: _minTimestamp,
       maxTimestamp: _maxTimestamp,
       chatroomTypes: _chatroomTypes ?? [0, 7],
+      tag: _tag,
       isLocalDb: _isLocalDb ?? false,
     );
   }
