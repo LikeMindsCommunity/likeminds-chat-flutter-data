@@ -27,11 +27,6 @@ class HomeFeedService extends IHomeFeedService {
       final response = await apiManager.client().get(
             apiManager.endPoints.homeFeedEndpoint,
             queryParameters: request.toJson(),
-            options: Options(
-              headers: {
-                'x-api-version': 1,
-              },
-            ),
           );
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(
