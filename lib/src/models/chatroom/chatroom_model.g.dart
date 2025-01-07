@@ -86,6 +86,7 @@ ChatRoomEntity _$ChatRoomEntityFromJson(Map<String, dynamic> json) =>
           .toList(),
       memberCanMessage: json['member_can_message'] as bool?,
       userId: (json['user_id'] as num?)?.toInt(),
+      customTag: json['custom_tag'] as String?,
     );
 
 Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
@@ -155,4 +156,5 @@ Map<String, dynamic> _$ChatRoomEntityToJson(ChatRoomEntity instance) =>
       'chatroom_with_user_id': instance.chatroomWithUserId,
       'user_id': instance.userId,
       'last_response_members': instance.lastResponseMembers,
+      'custom_tag': instance.customTag,
     };
