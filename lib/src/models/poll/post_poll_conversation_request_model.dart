@@ -11,7 +11,7 @@ class PostPollConversationRequest {
   final int? multipleSelectNo;
   final bool isAnonymous;
   final bool allowAddOption;
-  final int expiryTime;
+  final int? expiryTime;
   final String temporaryId;
 
   PostPollConversationRequest._({
@@ -99,7 +99,7 @@ class PostPollConversationRequestBuilder {
     _allowAddOption = allowAddOption;
   }
 
-  void expiryTime(int expiryTime) {
+  void expiryTime(int? expiryTime) {
     _expiryTime = expiryTime;
   }
 
@@ -116,7 +116,7 @@ class PostPollConversationRequestBuilder {
       pollType: _pollType!,
       isAnonymous: _isAnonymous!,
       allowAddOption: _allowAddOption!,
-      expiryTime: _expiryTime!,
+      expiryTime: _expiryTime,
       temporaryId: _temporaryId!,
       multipleSelectNo: _multipleSelectNo,
       multipleSelectState: _multipleSelectState,

@@ -31,6 +31,10 @@ class EndPoints {
 
   String get communityEndpoint => "$KETTLE_HOST/community";
 
+  /// Endpoint for fetching community configurations.
+  String get communityConfigurationsEndpoint =>
+      "$KETTLE_HOST/community/configurations";
+
   String get chatroomEndpoint => "$KETTLE_HOST/chatroom";
   String get chatroomFollowEndpoint => "$KETTLE_HOST/chatroom/follow";
   String get chatroomMuteEndpoint => "$KETTLE_HOST/chatroom/mute";

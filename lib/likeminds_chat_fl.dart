@@ -413,7 +413,17 @@ class LMChatClient {
       BlockMemberRequest request) {
     return _sdkApplication.getDMApi().blockMember(request);
   }
+
   // ------------------------------------------
+  /// Community APIs
+  /// Use these to fetch community configurations
+  /// [LMResponse<List<CommunityConfigurations>>] is returned as a Future
+  Future<LMResponse<List<CommunityConfigurations>>>
+      getCommunityConfigurations() async {
+    return await _sdkApplication.getCommunityApi().getCommunityConfigurations();
+  }
+
+  /// ------------------------------------------
 
   // ------------------------------------------
   // Persistence Functions
@@ -502,6 +512,35 @@ class LMChatClient {
   /// [getChatroomIdWithAIChatbot] is used to get the chatroom ID with AI chatbot
   LMResponse<int?> getChatroomIdWithAIChatbot() {
     return _sdkApplication.getPersistenceApi().getChatroomIdWithAIChatbot();
+  }
+
+  /// [insertOrUpdateCommunityConfigurationsDB] is used to insert or update the community configurations
+  Future<LMResponse<void>> insertOrUpdateCommunityConfigurationsDB(
+      List<CommunityConfigurations> communityConfigurations) async {
+    return await _sdkApplication
+        .getPersistenceApi()
+        .insertOrUpdateCommunityConfigurations(communityConfigurations);
+  }
+
+  /// [getCommunityConfigurationDB] is used to get the community configuration
+  LMResponse<CommunityConfigurations> getCommunityConfigurationDB(String type) {
+    return _sdkApplication.getPersistenceApi().getCommunityConfiguration(type);
+  }
+
+  /// [deleteCommunityConfigurationDB] is used to delete the community configuration
+  /// [type] is the type of the community configuration
+  /// [LMResponse<void>] is returned as a Future
+  Future<LMResponse<void>> deleteCommunityConfigurationDB(String type) async {
+    return await _sdkApplication
+        .getPersistenceApi()
+        .deleteCommunityConfiguration(type);
+  }
+
+  /// [clearCommunityConfigurationDB] is used to clear the community configuration
+  /// [LMResponse<void>] is returned as a Future
+  /// This will clear all the community configurations
+  Future<LMResponse<void>> clearCommunityConfigurationDB() async {
+    return _sdkApplication.getPersistenceApi().clearCommunityConfigurationDB();
   }
 
   // ---------------------------------------
