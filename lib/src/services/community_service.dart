@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
-import 'package:likeminds_chat_fl/src/models/community/community_configurations_model.dart';
+import 'package:likeminds_chat_fl/src/models/community/get_community_configurations_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/lm_response_model.dart';
 
 abstract class ICommunityService {
-  Future<LMResponse<List<CommunityConfigurationsEntity>>>
+  Future<LMResponse<GetCommunityConfigurationsResponseEntity>>
       getCommunityConfigurations();
 }
 
@@ -16,7 +16,7 @@ class CommunityService implements ICommunityService {
   CommunityService({required this.apiManager});
 
   @override
-  Future<LMResponse<List<CommunityConfigurationsEntity>>>
+  Future<LMResponse<GetCommunityConfigurationsResponseEntity>>
       getCommunityConfigurations() async {
     try {
       // Call API to get community configurations
@@ -34,11 +34,10 @@ class CommunityService implements ICommunityService {
 
       // Parse response data to list of community configurations
       // and return success response
-      final List<CommunityConfigurationsEntity> communityConfigurations =
-          (response.data['data'] as List)
-              .map((json) => CommunityConfigurationsEntity.fromJson(json))
-              .toList();
-      return LMResponse.success(data: communityConfigurations);
+
+      return LMResponse.success(
+          data: GetCommunityConfigurationsResponseEntity.fromJson(
+              response.data['data']));
     } on DioException catch (error) {
       // Handle error
       debugPrint("Error from get member state access: $error");

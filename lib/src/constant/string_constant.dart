@@ -3,4 +3,3 @@ String kAccessToken = "accessToken";
 String kRefreshToken = 'refreshToken';
 String kApiKey = "apiKey";
 String kChatroomIdWithAIChatbot = "chatroomIdWithAIChatbot";
-String kCommunityConfigurations = "communityConfigurations";

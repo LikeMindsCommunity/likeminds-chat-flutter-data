@@ -31,6 +31,9 @@ class LMChatPersistence {
     communityDBHandler = LMChatCommunityDBHandler(
       communityBoxName: 'communityBox',
     );
+    communityConfigurationDBHandler = LMChatCommunityConfigurationDBHandler(
+      communityConfigBoxName: 'communityConfigurationBox',
+    );
   }
 
   /// [initiate] is a method that initializes the persistence layer.
@@ -41,6 +44,8 @@ class LMChatPersistence {
     LMResponse<void> userDBInit = await userDBHandler.initiate();
     LMResponse<void> cacheDBInit = await cacheDBHandler.initiate();
     LMResponse<void> communityDBInit = await communityDBHandler.initiate();
+    LMResponse<void> communityConfigurationDBInit =
+        await communityConfigurationDBHandler.initiate();
 
     if (!userDBInit.success) {
       return LMResponse.error(
@@ -54,6 +59,11 @@ class LMChatPersistence {
       return LMResponse.error(
           errorMessage: communityDBInit.errorMessage ??
               "Error in initiating communityDB");
+    }
+    if (!communityConfigurationDBInit.success) {
+      return LMResponse.error(
+          errorMessage: communityConfigurationDBInit.errorMessage ??
+              "Error in initiating communityConfigurationDB");
     } else {
       return LMResponse(success: true);
     }

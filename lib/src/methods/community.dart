@@ -8,7 +8,7 @@ class CommunityApi {
     required this.communityRepository,
   });
 
-  Future<LMResponse<List<CommunityConfigurations>>>
+  Future<LMResponse<GetCommunityConfigurationsResponse>>
       getCommunityConfigurations() async {
     return communityRepository.getCommunityConfigurations();
   }

@@ -10,7 +10,7 @@ class LMChatCommunityConfigurationDBHandler {
 
   LMChatCommunityConfigurationDBHandler({required this.communityConfigBoxName});
 
-  Future<LMResponse<void>> init() async {
+  Future<LMResponse<void>> initiate() async {
     try {
       Hive.registerAdapter(LMChatCommunityConfigurationDBAdapter());
 

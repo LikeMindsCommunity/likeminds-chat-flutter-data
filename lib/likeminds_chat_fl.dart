@@ -417,8 +417,8 @@ class LMChatClient {
   // ------------------------------------------
   /// Community APIs
   /// Use these to fetch community configurations
-  /// [LMResponse<List<CommunityConfigurations>>] is returned as a Future
-  Future<LMResponse<List<CommunityConfigurations>>>
+  /// [LMResponse<GetCommunityConfigurationsResponse>] is returned as a Future
+  Future<LMResponse<GetCommunityConfigurationsResponse>>
       getCommunityConfigurations() async {
     return await _sdkApplication.getCommunityApi().getCommunityConfigurations();
   }
