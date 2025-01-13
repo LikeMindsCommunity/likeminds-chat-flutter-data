@@ -1,6 +1,7 @@
 import 'package:likeminds_chat_fl/src/methods/access.dart';
 import 'package:likeminds_chat_fl/src/methods/auth.dart';
 import 'package:likeminds_chat_fl/src/methods/chatroom.dart';
+import 'package:likeminds_chat_fl/src/methods/community.dart';
 import 'package:likeminds_chat_fl/src/methods/conversation.dart';
 import 'package:likeminds_chat_fl/src/methods/dm.dart';
 import 'package:likeminds_chat_fl/src/methods/explore.dart';
@@ -111,6 +112,12 @@ class SDKApplication {
   ChatbotApi getChatbotApi() {
     return ChatbotApi(
       chatbotRepository: LMChatServiceProvider.instance.chatbotRepository,
+    );
+  }
+
+  CommunityApi getCommunityApi() {
+    return CommunityApi(
+      communityRepository: LMChatServiceProvider.instance.communityRepository,
     );
   }
 }

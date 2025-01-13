@@ -76,4 +76,22 @@ class PersistenceApi {
     }
     return LMResponse.success(data: null);
   }
+
+  Future<LMResponse<void>> insertOrUpdateCommunityConfigurations(
+      List<CommunityConfigurations> communityConfigurations) async {
+    return await persistenceRepository
+        .insertOrUpdateCommunityConfigurations(communityConfigurations);
+  }
+
+  LMResponse<CommunityConfigurations> getCommunityConfiguration(String type) {
+    return persistenceRepository.getCommunityConfiguration(type);
+  }
+
+  Future<LMResponse<void>> deleteCommunityConfiguration(String type) async {
+    return await persistenceRepository.deleteCommunityConfiguration(type);
+  }
+
+  Future<LMResponse<void>> clearCommunityConfigurationDB() async {
+    return persistenceRepository.clearCommunityConfigurations();
+  }
 }

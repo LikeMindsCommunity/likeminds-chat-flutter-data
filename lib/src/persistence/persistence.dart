@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/persistence/cache/handler/handler.dart';
 import 'package:likeminds_chat_fl/src/persistence/community/handler/handler.dart';
+import 'package:likeminds_chat_fl/src/persistence/community_configurations/handler/handler.dart';
 import 'package:likeminds_chat_fl/src/persistence/user/handler/handler.dart';
 
 /// [LMChatPersistence] is a class that provides methods to interact with the
@@ -11,6 +12,7 @@ class LMChatPersistence {
   late LMChatUserDBHandler userDBHandler;
   late LMChatCacheDBHandler cacheDBHandler;
   late LMChatCommunityDBHandler communityDBHandler;
+  late LMChatCommunityConfigurationDBHandler communityConfigurationDBHandler;
 
   static LMChatPersistence? _instance;
 
@@ -29,6 +31,9 @@ class LMChatPersistence {
     communityDBHandler = LMChatCommunityDBHandler(
       communityBoxName: 'communityBox',
     );
+    communityConfigurationDBHandler = LMChatCommunityConfigurationDBHandler(
+      communityConfigBoxName: 'communityConfigurationBox',
+    );
   }
 
   /// [initiate] is a method that initializes the persistence layer.
@@ -39,6 +44,8 @@ class LMChatPersistence {
     LMResponse<void> userDBInit = await userDBHandler.initiate();
     LMResponse<void> cacheDBInit = await cacheDBHandler.initiate();
     LMResponse<void> communityDBInit = await communityDBHandler.initiate();
+    LMResponse<void> communityConfigurationDBInit =
+        await communityConfigurationDBHandler.initiate();
 
     if (!userDBInit.success) {
       return LMResponse.error(
@@ -52,6 +59,11 @@ class LMChatPersistence {
       return LMResponse.error(
           errorMessage: communityDBInit.errorMessage ??
               "Error in initiating communityDB");
+    }
+    if (!communityConfigurationDBInit.success) {
+      return LMResponse.error(
+          errorMessage: communityConfigurationDBInit.errorMessage ??
+              "Error in initiating communityConfigurationDB");
     } else {
       return LMResponse(success: true);
     }
@@ -121,5 +133,27 @@ class LMChatPersistence {
   /// [deleteCommunity] is a method that deletes the community from the box.
   Future<LMResponse<void>> deleteCommunity() {
     return communityDBHandler.deleteCommunity();
+  }
+
+  /// [insertOrUpdateCommunityConfigurations] is a method that inserts or updates a community configuration in the box.
+  Future<LMResponse<void>> insertOrUpdateCommunityConfigurations(
+      List<CommunityConfigurations> communityConfigurations) {
+    return communityConfigurationDBHandler
+        .insertOrUpdateCommunityConfigurations(communityConfigurations);
+  }
+
+  /// [getCommunityConfiguration] is a method that returns the community configuration from the box.
+  LMResponse<CommunityConfigurations> getCommunityConfiguration(String type) {
+    return communityConfigurationDBHandler.getCommunityConfiguration(type);
+  }
+
+  /// [deleteCommunityConfiguration] is a method that deletes the community configuration from the box.
+  Future<LMResponse<void>> deleteCommunityConfiguration(String type) {
+    return communityConfigurationDBHandler.deleteCommunityConfiguration(type);
+  }
+
+  /// [clearCommunityConfigurations] is a method that clears the community configurations from the box.
+  Future<LMResponse<void>> clearCommunityConfigurations() {
+    return communityConfigurationDBHandler.clearCommunityConfigurations();
   }
 }

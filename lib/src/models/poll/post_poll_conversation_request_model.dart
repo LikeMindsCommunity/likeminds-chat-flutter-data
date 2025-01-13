@@ -11,8 +11,10 @@ class PostPollConversationRequest {
   final int? multipleSelectNo;
   final bool isAnonymous;
   final bool allowAddOption;
-  final int expiryTime;
+  final int? expiryTime;
   final String temporaryId;
+  final bool? noPollExpiry;
+  final bool? allowVoteChange;
 
   PostPollConversationRequest._({
     required this.chatroomId,
@@ -27,6 +29,8 @@ class PostPollConversationRequest {
     required this.allowAddOption,
     required this.expiryTime,
     required this.temporaryId,
+    this.noPollExpiry,
+    this.allowVoteChange,
   });
 
   Map<String, dynamic> toJson() => {
@@ -42,6 +46,8 @@ class PostPollConversationRequest {
         'allow_add_option': allowAddOption,
         'expiry_time': expiryTime,
         'temporary_id': temporaryId,
+        'no_poll_expiry': noPollExpiry,
+        'allow_vote_change': allowVoteChange,
       };
 }
 
@@ -58,6 +64,8 @@ class PostPollConversationRequestBuilder {
   bool? _allowAddOption;
   int? _expiryTime;
   String? _temporaryId;
+  bool? _noPollExpiry;
+  bool? _allowVoteChange;
 
   void chatroomId(int chatroomId) {
     _chatroomId = chatroomId;
@@ -99,12 +107,20 @@ class PostPollConversationRequestBuilder {
     _allowAddOption = allowAddOption;
   }
 
-  void expiryTime(int expiryTime) {
+  void expiryTime(int? expiryTime) {
     _expiryTime = expiryTime;
   }
 
   void temporaryId(String temporaryId) {
     _temporaryId = temporaryId;
+  }
+
+  void noPollExpiry(bool? noPollExpiry) {
+    _noPollExpiry = noPollExpiry;
+  }
+
+  void allowVoteChange(bool? allowVoteChange) {
+    _allowVoteChange = allowVoteChange;
   }
 
   PostPollConversationRequest build() {
@@ -116,11 +132,13 @@ class PostPollConversationRequestBuilder {
       pollType: _pollType!,
       isAnonymous: _isAnonymous!,
       allowAddOption: _allowAddOption!,
-      expiryTime: _expiryTime!,
+      expiryTime: _expiryTime,
       temporaryId: _temporaryId!,
       multipleSelectNo: _multipleSelectNo,
       multipleSelectState: _multipleSelectState,
       repliedConversationId: _repliedConversationId,
+      noPollExpiry: _noPollExpiry,
+      allowVoteChange: _allowVoteChange,
     );
   }
 }

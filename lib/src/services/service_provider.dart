@@ -4,6 +4,7 @@ import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/repositories/access_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/auth_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/chatroom_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/community_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/conversation_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/dm_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/explore_repository.dart';
@@ -18,6 +19,7 @@ import 'package:likeminds_chat_fl/src/repositories/reaction_repository.dart';
 import 'package:likeminds_chat_fl/src/services/access_service.dart';
 import 'package:likeminds_chat_fl/src/services/auth_service.dart';
 import 'package:likeminds_chat_fl/src/services/chatroom_service.dart';
+import 'package:likeminds_chat_fl/src/services/community_service.dart';
 import 'package:likeminds_chat_fl/src/services/conversation_service.dart';
 import 'package:likeminds_chat_fl/src/services/dm_service.dart';
 import 'package:likeminds_chat_fl/src/services/explore_service.dart';
@@ -27,7 +29,7 @@ import 'package:likeminds_chat_fl/src/services/media_service.dart';
 import 'package:likeminds_chat_fl/src/services/moderation_service.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
 import 'package:likeminds_chat_fl/src/services/participants_service.dart';
-import 'package:likeminds_chat_fl/src/services/persistance_service.dart';
+import 'package:likeminds_chat_fl/src/services/persistence_service.dart';
 import 'package:likeminds_chat_fl/src/services/poll_service.dart';
 import 'package:likeminds_chat_fl/src/services/reaction_service.dart';
 import 'package:likeminds_chat_fl/src/services/chatbot_service.dart';
@@ -66,6 +68,7 @@ class LMChatServiceProvider {
   late final PersistenceService persistenceService;
   late final ModerationService moderationService;
   late final ChatbotService chatbotService;
+  late final CommunityService communityService;
 
   // Instance for all the repositories
   late final AuthRepository authRepository;
@@ -84,6 +87,7 @@ class LMChatServiceProvider {
   late final ModerationRepository moderationRepository;
   late final NotificationService notificationService;
   late final ChatbotRepository chatbotRepository;
+  late final CommunityRepository communityRepository;
 
   // Callback instance
   late final LMChatSDKCallback sdkCallback;
@@ -145,5 +149,9 @@ class LMChatServiceProvider {
         ModerationRepository(moderationService: moderationService);
     chatbotService = ChatbotService(apiManager: apiManager);
     chatbotRepository = ChatbotRepository(chatbotService: chatbotService);
+
+    communityService = CommunityService(apiManager: apiManager);
+    communityRepository =
+        CommunityRepository(communityService: communityService);
   }
 }
