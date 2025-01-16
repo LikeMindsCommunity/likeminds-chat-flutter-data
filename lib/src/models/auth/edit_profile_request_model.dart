@@ -1,5 +1,3 @@
-import 'package:likeminds_chat_fl/src/models/models.dart';
-
 /// Request model for editing user profile
 class EditProfileRequest {
   final String uuid;
