@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.11.0
+
+- Added support for Edit Profile
+- Added support for Chatroom Tags
+- Added support for Community Configurations
+
 ## 1.10.0
 
 - Added support for AI chatbot
