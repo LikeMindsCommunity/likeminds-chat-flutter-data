@@ -12,6 +12,7 @@ export 'package:likeminds_chat_fl/src/models/auth/refresh_response_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/auth_token_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/validate_user_request_model.dart';
 export 'package:likeminds_chat_fl/src/models/auth/validate_user_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/auth/edit_profile_request_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/community/community_model.dart';
 export 'package:likeminds_chat_fl/src/models/community/community_settings_rights_model.dart';

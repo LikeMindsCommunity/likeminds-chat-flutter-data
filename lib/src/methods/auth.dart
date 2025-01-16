@@ -22,4 +22,8 @@ class AuthApi {
   Future<LMResponse<void>> logout(LogoutRequest logoutRequest) async {
     return authRepository.logout(logoutRequest);
   }
+
+  Future<LMResponse<void>> editProfile(EditProfileRequest request) async {
+    return authRepository.editProfile(request);
+  }
 }

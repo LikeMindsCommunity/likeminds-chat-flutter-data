@@ -15,6 +15,7 @@ abstract class IAuthService {
   Future<LMResponse<void>> logout(LogoutRequest logoutRequest);
   Future<LMResponse<RefreshResponseEntity>> refreshAccessToken(
       RefreshRequest refreshRequest);
+  Future<LMResponse<void>> editProfile(EditProfileRequest request);
 }
 
 class AuthService extends IAuthService {
@@ -235,6 +236,35 @@ class AuthService extends IAuthService {
       await localPref.deleteCommunity();
       await localPref.deleteMemberState();
       await localPref.clearCache();
+
+      return LMResponse<void>.success(
+        data: null,
+      );
+    } on DioException catch (e) {
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
+      );
+    }
+  }
+
+  /// Edit Profile API
+  /// Edits a user's profile
+  /// Returns void if successful
+  /// Takes [EditProfileRequest] as input
+  /// Throws [DioException] if error
+  @override
+  Future<LMResponse<void>> editProfile(EditProfileRequest request) async {
+    try {
+      final response = await apiManager.client().put(
+            apiManager.endPoints.editProfileEndpoint,
+            data: request.toJson(),
+          );
+
+      if (response.data['success'] == false) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'],
+        );
+      }
 
       return LMResponse<void>.success(
         data: null,
