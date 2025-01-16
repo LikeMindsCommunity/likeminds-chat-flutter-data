@@ -23,7 +23,7 @@ class GetCommunityConfigurationsResponse {
   GetCommunityConfigurationsResponseEntity toEntity() {
     return GetCommunityConfigurationsResponseEntity(
       communityConfigurations:
-          communityConfigurations?.map((e) => e.toEntity()).toList(),
+          communityConfigurations.map((e) => e.toEntity()).toList(),
     );
   }
 }
