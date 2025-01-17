@@ -63,6 +63,13 @@ class LMChatClient {
   Future<LMResponse<void>> logout(LogoutRequest request) {
     return _sdkApplication.getAuthApi().logout(request);
   }
+
+  /// editProfile is used to edit a user's profile
+  /// [EditProfileRequest] is used to pass the required parameters
+  /// Returns void if successful
+  Future<LMResponse<void>> editProfile(EditProfileRequest request) {
+    return _sdkApplication.getAuthApi().editProfile(request);
+  }
   // ------------------------------------------
 
   // ------------------------------------------

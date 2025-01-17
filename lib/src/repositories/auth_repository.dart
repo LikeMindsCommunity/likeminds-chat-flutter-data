@@ -45,4 +45,14 @@ class AuthRepository {
       data: null,
     );
   }
+
+  Future<LMResponse<void>> editProfile(EditProfileRequest request) async {
+    LMResponse<void> responseEntity = await authService.editProfile(request);
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+    return LMResponse.success(
+      data: null,
+    );
+  }
 }

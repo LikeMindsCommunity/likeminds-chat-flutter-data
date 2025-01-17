@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:likeminds_chat_fl/src/models/models.dart';
 
 part 'user_schema.g.dart';
 
