@@ -22,6 +22,7 @@ class EndPoints {
   String get authEndpoint => "$KETTLE_HOST/sdk/initiate";
   String get authRefreshEndpoint => "$KETTLE_HOST/user/refresh";
   String get authLogoutEndpoint => "$KETTLE_HOST/user/logout";
+  String get editProfileEndpoint => "$KETTLE_HOST/community/member/profile";
 
   String get memberStateEndpoint => "$KETTLE_HOST/community/member/state";
 
@@ -30,6 +31,10 @@ class EndPoints {
   String get homeFeedEndpoint => "$KETTLE_HOST/chatroom/sync";
 
   String get communityEndpoint => "$KETTLE_HOST/community";
+
+  /// Endpoint for fetching community configurations.
+  String get communityConfigurationsEndpoint =>
+      "$KETTLE_HOST/community/configurations";
 
   String get chatroomEndpoint => "$KETTLE_HOST/chatroom";
   String get chatroomFollowEndpoint => "$KETTLE_HOST/chatroom/follow";

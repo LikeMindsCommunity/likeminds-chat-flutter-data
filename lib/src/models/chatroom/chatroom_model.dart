@@ -69,6 +69,7 @@ class ChatRoom {
   final int? chatroomWithUserId;
   final int? userId;
   final List<User>? lastResponseMembers;
+  final String? customTag;
 
   ChatRoom({
     this.access,
@@ -136,6 +137,7 @@ class ChatRoom {
     this.userId,
     this.lastResponseMembers,
     this.memberCanMessage,
+    this.customTag,
   });
 
   factory ChatRoom.fromEntity(ChatRoomEntity entity) {
@@ -209,6 +211,7 @@ class ChatRoom {
           : null,
       chatroomWithUserId: entity.chatroomWithUserId,
       userId: entity.userId,
+      customTag: entity.customTag,
     );
   }
 
@@ -274,6 +277,7 @@ class ChatRoom {
       chatRequestedById: chatRequestedById,
       chatroomWithUserId: chatroomWithUserId,
       userId: userId,
+      customTag: customTag,
     );
   }
 }
@@ -394,6 +398,8 @@ class ChatRoomEntity {
   final int? userId;
   @JsonKey(name: 'last_response_members')
   final List<UserEntity>? lastResponseMembers;
+  @JsonKey(name: 'custom_tag')
+  final String? customTag;
 
   ChatRoomEntity({
     this.access,
@@ -461,6 +467,7 @@ class ChatRoomEntity {
     this.lastResponseMembers,
     this.memberCanMessage,
     this.userId,
+    this.customTag,
   });
 
   factory ChatRoomEntity.fromJson(Map<String, dynamic> json) =>

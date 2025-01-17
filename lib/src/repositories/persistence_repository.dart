@@ -1,5 +1,5 @@
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
-import 'package:likeminds_chat_fl/src/services/persistance_service.dart';
+import 'package:likeminds_chat_fl/src/services/persistence_service.dart';
 
 class PersistenceRepository {
   final PersistenceService persistenceService;
@@ -58,5 +58,23 @@ class PersistenceRepository {
 
   Future<LMResponse<void>> deleteCommunity() async {
     return await persistenceService.deleteCommunity();
+  }
+
+  Future<LMResponse<void>> insertOrUpdateCommunityConfigurations(
+      List<CommunityConfigurations> communityConfigurations) async {
+    return persistenceService
+        .insertOrUpdateCommunityConfigurations(communityConfigurations);
+  }
+
+  LMResponse<CommunityConfigurations> getCommunityConfiguration(String type) {
+    return persistenceService.getCommunityConfiguration(type);
+  }
+
+  Future<LMResponse<void>> deleteCommunityConfiguration(String type) async {
+    return await persistenceService.deleteCommunityConfiguration(type);
+  }
+
+  Future<LMResponse<void>> clearCommunityConfigurations() async {
+    return persistenceService.clearCommunityConfigurations();
   }
 }

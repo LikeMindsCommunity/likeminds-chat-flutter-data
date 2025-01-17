@@ -51,6 +51,8 @@ class Conversation {
   Conversation? replyConversationObject;
   List<Reaction>? conversationReactions;
   List<PollOption>? polls;
+  final bool? noPollExpiry;
+  final bool? allowVoteChange;
 
   Conversation({
     this.allowAddOption,
@@ -100,6 +102,8 @@ class Conversation {
     this.replyConversationObject,
     this.conversationReactions,
     this.polls,
+    this.noPollExpiry,
+    this.allowVoteChange,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
@@ -155,58 +159,63 @@ class Conversation {
           ?.map((e) => Reaction.fromEntity(e))
           .toList(),
       polls: entity.polls?.map((e) => PollOption.fromEntity(e)).toList(),
+      noPollExpiry: entity.noPollExpiry,
+      allowVoteChange: entity.allowVoteChange,
     );
   }
 
   ConversationEntity toEntity() {
     return ConversationEntity(
-        allowAddOption: allowAddOption,
-        answer: answer,
-        apiVersion: apiVersion,
-        attachmentCount: attachmentCount,
-        attachments: attachments?.map((e) => e.toEntity()).toList(),
-        attachmentsUploaded: attachmentsUploaded,
-        chatroomId: chatroomId,
-        communityId: communityId,
-        createdAt: createdAt,
-        createdEpoch: createdEpoch,
-        date: date,
-        deletedByUserId: deletedByUserId,
-        deviceId: deviceId,
-        endTime: endTime,
-        expiryTime: expiryTime,
-        hasFiles: hasFiles,
-        hasReactions: hasReactions,
-        header: header,
-        id: id,
-        internalLink: internalLink,
-        member: member?.toEntity(),
-        isAnonymous: isAnonymous,
-        isEdited: isEdited,
-        lastUpdated: lastUpdated,
-        location: location,
-        locationLat: locationLat,
-        locationLong: locationLong,
-        multipleSelectNo: multipleSelectNo,
-        multipleSelectState: multipleSelectState,
-        ogTags: ogTags?.toEntity(),
-        onlineLinkEnableBefore: onlineLinkEnableBefore,
-        pollAnswerText: pollAnswerText,
-        pollType: pollType,
-        replyChatroomId: replyChatroomId,
-        replyId: replyId,
-        replyConversation: replyConversation,
-        replyConversationObject: replyConversationObject?.toEntity(),
-        startTime: startTime,
-        state: state,
-        temporaryId: temporaryId,
-        toShowResults: toShowResults,
-        pollTypeText: pollTypeText,
-        submitTypeText: submitTypeText,
-        memberId: memberId,
-        conversationReactionsEntity:
-            conversationReactions?.map((e) => e.toEntity()).toList(),
-        polls: polls?.map((e) => e.toEntity()).toList());
+      allowAddOption: allowAddOption,
+      answer: answer,
+      apiVersion: apiVersion,
+      attachmentCount: attachmentCount,
+      attachments: attachments?.map((e) => e.toEntity()).toList(),
+      attachmentsUploaded: attachmentsUploaded,
+      chatroomId: chatroomId,
+      communityId: communityId,
+      createdAt: createdAt,
+      createdEpoch: createdEpoch,
+      date: date,
+      deletedByUserId: deletedByUserId,
+      deviceId: deviceId,
+      endTime: endTime,
+      expiryTime: expiryTime,
+      hasFiles: hasFiles,
+      hasReactions: hasReactions,
+      header: header,
+      id: id,
+      internalLink: internalLink,
+      member: member?.toEntity(),
+      isAnonymous: isAnonymous,
+      isEdited: isEdited,
+      lastUpdated: lastUpdated,
+      location: location,
+      locationLat: locationLat,
+      locationLong: locationLong,
+      multipleSelectNo: multipleSelectNo,
+      multipleSelectState: multipleSelectState,
+      ogTags: ogTags?.toEntity(),
+      onlineLinkEnableBefore: onlineLinkEnableBefore,
+      pollAnswerText: pollAnswerText,
+      pollType: pollType,
+      replyChatroomId: replyChatroomId,
+      replyId: replyId,
+      replyConversation: replyConversation,
+      replyConversationObject: replyConversationObject?.toEntity(),
+      startTime: startTime,
+      state: state,
+      temporaryId: temporaryId,
+      toShowResults: toShowResults,
+      pollTypeText: pollTypeText,
+      submitTypeText: submitTypeText,
+      memberId: memberId,
+      conversationReactionsEntity:
+          conversationReactions?.map((e) => e.toEntity()).toList(),
+      polls: polls?.map((e) => e.toEntity()).toList(),
+      noPollExpiry: noPollExpiry,
+      allowVoteChange: allowVoteChange,
+    );
   }
 }
 
@@ -294,6 +303,10 @@ class ConversationEntity {
   final UserEntity? member;
   final List<ReactionEntity>? conversationReactionsEntity;
   final List<PollOptionEntity>? polls;
+  @JsonKey(name: 'no_poll_expiry')
+  final bool? noPollExpiry;
+  @JsonKey(name: 'allow_vote_change')
+  final bool? allowVoteChange;
 
   ConversationEntity({
     this.allowAddOption,
@@ -342,6 +355,8 @@ class ConversationEntity {
     this.member,
     this.conversationReactionsEntity,
     this.polls,
+    this.noPollExpiry,
+    this.allowVoteChange,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json) =>

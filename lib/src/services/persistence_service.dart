@@ -61,4 +61,22 @@ class PersistenceService {
   Future<LMResponse<void>> deleteCommunity() async {
     return await chatPersistence!.deleteCommunity();
   }
+
+  Future<LMResponse<void>> insertOrUpdateCommunityConfigurations(
+      List<CommunityConfigurations> communityConfigurations) async {
+    return await chatPersistence!
+        .insertOrUpdateCommunityConfigurations(communityConfigurations);
+  }
+
+  LMResponse<CommunityConfigurations> getCommunityConfiguration(String type) {
+    return chatPersistence!.getCommunityConfiguration(type);
+  }
+
+  Future<LMResponse<void>> deleteCommunityConfiguration(String type) async {
+    return await chatPersistence!.deleteCommunityConfiguration(type);
+  }
+
+  Future<LMResponse<void>> clearCommunityConfigurations() async {
+    return await chatPersistence!.clearCommunityConfigurations();
+  }
 }
