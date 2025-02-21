@@ -10,3 +10,6 @@ build/
 .env.prod
 pubspec.lock
 test/.env.test
+
+# FVM Version Cache
+.fvm/
