@@ -80,11 +80,11 @@ class LMWidgetDataEntity {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'id': id,
+      '_id': id,
       'parentEntityId': parentEntityId,
       'parentEntityType': parentEntityType,
       'metadata': metadata,
-      'lmMeta': lmMeta,
+      '_lm_meta': lmMeta,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -92,7 +92,7 @@ class LMWidgetDataEntity {
 
   factory LMWidgetDataEntity.fromJson(Map<String, dynamic> map) {
     return LMWidgetDataEntity(
-      id: map['id'] != null ? map['id'] as String : null,
+      id: map['_id'] != null ? map['_id'] as String : null,
       parentEntityId: map['parent_entity_id'] != null
           ? map['parent_entity_id'] as String
           : null,
@@ -100,7 +100,7 @@ class LMWidgetDataEntity {
           ? map['parent_entity_type'] as String
           : null,
       metadata: map['metadata'] as dynamic,
-      lmMeta: map['lmMeta'] as dynamic,
+      lmMeta: map['_lm_meta'] as dynamic,
       createdAt: map['created_at'] != null ? map['created_at'] as int : null,
       updatedAt: map['updated_at'] != null ? map['updated_at'] as int : null,
     );
