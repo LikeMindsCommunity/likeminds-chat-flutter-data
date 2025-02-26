@@ -1,15 +1,18 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:likeminds_chat_fl/src/models/widget/widget_model.dart';
 
 part 'post_conversation_response_model.g.dart';
 
 class PostConversationResponse {
   final Conversation? conversation;
   final int? id;
+  final Map<String, LMWidgetData>? widgets;
 
   PostConversationResponse({
     this.conversation,
     this.id,
+    this.widgets,
   });
 
   factory PostConversationResponse.fromEntity(
@@ -19,13 +22,23 @@ class PostConversationResponse {
           ? Conversation.fromEntity(entity.conversation!)
           : null,
       id: entity.id,
+      widgets: entity.widgets?.map(
+        (key, value) {
+          return MapEntry(key, LMWidgetData.fromEntity(value));
+        },
+      ),
     );
   }
 
   PostConversationResponseEntity toEntity() {
     return PostConversationResponseEntity(
-      conversation: conversation != null ? conversation!.toEntity() : null,
+      conversation: conversation?.toEntity(),
       id: id,
+      widgets: widgets?.map(
+        (key, value) {
+          return MapEntry(key, value.toEntity());
+        },
+      ),
     );
   }
 }
@@ -34,10 +47,12 @@ class PostConversationResponse {
 class PostConversationResponseEntity {
   final ConversationEntity? conversation;
   final int? id;
+  final Map<String, LMWidgetDataEntity>? widgets;
 
   PostConversationResponseEntity({
     this.conversation,
     this.id,
+    this.widgets,
   });
 
   factory PostConversationResponseEntity.fromJson(Map<String, dynamic> json) =>

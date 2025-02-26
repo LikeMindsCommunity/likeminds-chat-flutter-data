@@ -14,6 +14,10 @@ PostConversationResponseEntity _$PostConversationResponseEntityFromJson(
           : ConversationEntity.fromJson(
               json['conversation'] as Map<String, dynamic>),
       id: (json['id'] as num?)?.toInt(),
+      widgets: (json['widgets'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, LMWidgetDataEntity.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$PostConversationResponseEntityToJson(
@@ -21,4 +25,5 @@ Map<String, dynamic> _$PostConversationResponseEntityToJson(
     <String, dynamic>{
       'conversation': instance.conversation,
       'id': instance.id,
+      'widgets': instance.widgets,
     };

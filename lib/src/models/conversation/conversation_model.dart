@@ -53,6 +53,7 @@ class Conversation {
   List<PollOption>? polls;
   final bool? noPollExpiry;
   final bool? allowVoteChange;
+  final String? widgetId;
 
   Conversation({
     this.allowAddOption,
@@ -104,6 +105,7 @@ class Conversation {
     this.polls,
     this.noPollExpiry,
     this.allowVoteChange,
+    this.widgetId,
   });
 
   factory Conversation.fromEntity(ConversationEntity entity) {
@@ -161,6 +163,7 @@ class Conversation {
       polls: entity.polls?.map((e) => PollOption.fromEntity(e)).toList(),
       noPollExpiry: entity.noPollExpiry,
       allowVoteChange: entity.allowVoteChange,
+      widgetId: entity.widgetId,
     );
   }
 
@@ -215,6 +218,7 @@ class Conversation {
       polls: polls?.map((e) => e.toEntity()).toList(),
       noPollExpiry: noPollExpiry,
       allowVoteChange: allowVoteChange,
+      widgetId: widgetId,
     );
   }
 }
@@ -307,6 +311,8 @@ class ConversationEntity {
   final bool? noPollExpiry;
   @JsonKey(name: 'allow_vote_change')
   final bool? allowVoteChange;
+  @JsonKey(name: 'widget_id')
+  final String? widgetId;
 
   ConversationEntity({
     this.allowAddOption,
@@ -357,6 +363,7 @@ class ConversationEntity {
     this.polls,
     this.noPollExpiry,
     this.allowVoteChange,
+    this.widgetId,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json) =>
