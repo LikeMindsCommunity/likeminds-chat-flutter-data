@@ -11,6 +11,7 @@ class PostConversationRequest {
   final OgTags? ogTags;
   final String? shareLink;
   final bool? triggerBot;
+  final Map<String, dynamic>? metadata;
 
   PostConversationRequest._({
     required this.text,
@@ -23,6 +24,7 @@ class PostConversationRequest {
     this.ogTags,
     this.shareLink,
     this.triggerBot,
+    this.metadata,
   });
 
   toJson() {
@@ -37,6 +39,7 @@ class PostConversationRequest {
       'og_tags': ogTags?.toEntity().toJson(),
       'share_link': shareLink,
       'trigger_bot': triggerBot ?? false,
+      'metadata': metadata,
     };
   }
 }
@@ -54,6 +57,7 @@ class PostConversationRequestBuilder {
   OgTags? _ogTags;
   String? _shareLink;
   bool? _triggerBot;
+  Map<String, dynamic>? _metadata;
 
   void text(String text) => _text = text;
   void chatroomId(int chatroomId) => _chatroomId = chatroomId;
@@ -65,6 +69,7 @@ class PostConversationRequestBuilder {
   void ogTags(OgTags ogTags) => _ogTags = ogTags;
   void shareLink(String shareLink) => _shareLink = shareLink;
   void triggerBot(bool triggerBot) => _triggerBot = triggerBot;
+  void metadata(Map<String, dynamic> metadata) => _metadata = metadata;
 
   PostConversationRequest build() {
     final text = _text;
@@ -93,6 +98,7 @@ class PostConversationRequestBuilder {
       ogTags: _ogTags,
       shareLink: _shareLink,
       triggerBot: _triggerBot,
+      metadata: _metadata,
     );
   }
 }

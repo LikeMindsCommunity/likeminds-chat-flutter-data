@@ -46,14 +46,18 @@ GetConversationResponseEntity _$GetConversationResponseEntityFromJson(
         (k, e) =>
             MapEntry(k, ConversationEntity.fromJson(e as Map<String, dynamic>)),
       ),
-      conversationPollsMeta: (json['conv_polls_meta'] as Map<String, dynamic>?)
-          ?.map(
+      conversationPollsMeta:
+          (json['conv_polls_meta'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(
           k,
           (e as List<dynamic>)
               .map((v) => PollOptionEntity.fromJson(v as Map<String, dynamic>))
               .toList(),
         ),
+      ),
+      widgets: (json['widgets'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, LMWidgetDataEntity.fromJson(e as Map<String, dynamic>)),
       ),
     );
 
@@ -69,4 +73,6 @@ Map<String, dynamic> _$GetConversationResponseEntityToJson(
       'conversation_meta': instance.conversationMeta,
       'conv_reaction_meta': instance.conversationReactionsMeta,
       'conv_attachments_meta': instance.conversationAttachmentsMeta,
+      'conv_polls_meta': instance.conversationPollsMeta,
+      'widgets': instance.widgets,
     };

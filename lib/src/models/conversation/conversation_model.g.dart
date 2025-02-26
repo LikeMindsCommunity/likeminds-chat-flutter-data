@@ -71,6 +71,7 @@ ConversationEntity _$ConversationEntityFromJson(Map<String, dynamic> json) =>
           .toList(),
       noPollExpiry: json['no_poll_expiry'] as bool?,
       allowVoteChange: json['allow_vote_change'] as bool?,
+      widgetId: json['widget_id'] as String?,
     );
 
 Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
@@ -123,4 +124,5 @@ Map<String, dynamic> _$ConversationEntityToJson(ConversationEntity instance) =>
       'polls': instance.polls,
       'no_poll_expiry': instance.noPollExpiry,
       'allow_vote_change': instance.allowVoteChange,
+      'widget_id': instance.widgetId,
     };

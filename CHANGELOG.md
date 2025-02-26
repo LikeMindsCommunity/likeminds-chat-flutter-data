@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.0
+
+- Added support for Custom Widget
+
 ## 1.11.0
 
 - Added support for Edit Profile
