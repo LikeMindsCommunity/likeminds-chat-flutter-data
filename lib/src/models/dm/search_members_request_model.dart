@@ -6,6 +6,7 @@ class SearchMembersRequest {
   final int? page;
   final int? pageSize;
   final String? questionAnswersVersion;
+  final bool? excludeSelfUser;
 
   SearchMembersRequest._({
     required this.search,
@@ -15,6 +16,7 @@ class SearchMembersRequest {
     required this.page,
     required this.pageSize,
     required this.questionAnswersVersion,
+    required this.excludeSelfUser,
   });
 
   Map<String, dynamic> toJson() {
@@ -25,7 +27,8 @@ class SearchMembersRequest {
       "member_states": memberStates,
       "page": page,
       "page_size": pageSize,
-      "question_answers_version": questionAnswersVersion
+      "question_answers_version": questionAnswersVersion,
+      "exclude_self_user": excludeSelfUser,
     };
   }
 }
@@ -40,6 +43,7 @@ class SearchMemberRequestBuilder {
   int? _page;
   int? _pageSize;
   String? _questionAnswersVersion;
+  bool? _excludeSelfUser;
 
   void search(String search) => _search = search;
   void searchType(String searchType) => _searchType = searchType;
@@ -49,6 +53,8 @@ class SearchMemberRequestBuilder {
   void pageSize(int pageSize) => _pageSize = pageSize;
   void questionAnswersVersion(String questionAnswersVersion) =>
       _questionAnswersVersion = questionAnswersVersion;
+  void excludeSelfUser(bool excludeSelfUser) =>
+      _excludeSelfUser = excludeSelfUser;
 
   SearchMembersRequest build() {
     final search = _search;
@@ -67,6 +73,7 @@ class SearchMemberRequestBuilder {
         memberStates: _memberStates,
         page: _page,
         pageSize: _pageSize,
-        questionAnswersVersion: _questionAnswersVersion);
+        questionAnswersVersion: _questionAnswersVersion,
+        excludeSelfUser: _excludeSelfUser);
   }
 }
