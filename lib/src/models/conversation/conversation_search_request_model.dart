@@ -1,11 +1,11 @@
-class ConversationSearchRequestModel {
+class ConversationSearchRequest {
   final String searchTerm;
   final bool followStatus;
   final int page;
   final int pageSize;
   final int chatroomId;
 
-  ConversationSearchRequestModel._({
+  ConversationSearchRequest._({
     required this.searchTerm,
     required this.followStatus,
     required this.page,
@@ -24,8 +24,8 @@ class ConversationSearchRequestModel {
   }
 }
 
-class ConversationSearchRequestModelBuilder {
-  ConversationSearchRequestModelBuilder();
+class ConversationSearchRequestBuilder {
+  ConversationSearchRequestBuilder();
 
   String? _searchTerm;
   bool? _followStatus;
@@ -39,7 +39,7 @@ class ConversationSearchRequestModelBuilder {
   void pageSize(int pageSize) => _pageSize = pageSize;
   void chatroomId(int chatroomId) => _chatroomId = chatroomId;
 
-  ConversationSearchRequestModel build() {
+  ConversationSearchRequest build() {
     if (_searchTerm == null) {
       throw StateError('searchTerm is required');
     }
@@ -56,7 +56,7 @@ class ConversationSearchRequestModelBuilder {
       throw StateError('chatroomId is required');
     }
 
-    return ConversationSearchRequestModel._(
+    return ConversationSearchRequest._(
       searchTerm: _searchTerm!,
       followStatus: _followStatus!,
       page: _page!,

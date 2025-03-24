@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/conversation_search_request_model.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/conversation_search_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
 abstract class IConversationService {
@@ -11,6 +14,8 @@ abstract class IConversationService {
       EditConversationRequest request);
   Future<LMResponse<DeleteConversationResponseEntity>> deleteConversation(
       DeleteConversationRequest request);
+  Future<LMResponse<ConversationSearchResponseEntity>> searchConversation(
+      ConversationSearchRequest request);
 }
 
 class ConversationService extends IConversationService {
@@ -119,6 +124,46 @@ class ConversationService extends IConversationService {
     } on DioException catch (e) {
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      );
+    }
+  }
+
+  @override
+  Future<LMResponse<ConversationSearchResponseEntity>> searchConversation(
+      ConversationSearchRequest request) async {
+    try {
+      final response = await _apiManager.client().get(
+            _apiManager.endPoints.searchConversationEndpoint,
+            queryParameters: request.toJson(),
+          );
+
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+
+      // Parse conversations and widgets
+      final conversationsJson =
+          response.data['data']['conversations'] as List<dynamic>?;
+      final widgetsJson =
+          response.data['data']['widgets'] as Map<String, dynamic>?;
+
+      final List<ConversationEntity>? conversations = conversationsJson
+          ?.map((json) => ConversationEntity.fromJson(json))
+          .toList();
+      final Map<String, LMWidgetDataEntity>? widgets = widgetsJson?.map(
+          (key, value) => MapEntry(key, LMWidgetDataEntity.fromJson(value)));
+
+      return LMResponse.success(
+        data: ConversationSearchResponseEntity(
+          conversations: conversations,
+          widgets: widgets,
+        ),
+      );
+    } on DioException catch (e) {
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }

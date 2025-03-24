@@ -9,6 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/methods/notification.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/conversation_search_request_model.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/conversation_search_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 import 'package:likeminds_chat_fl/src/services/service_provider.dart';
@@ -231,6 +233,16 @@ class LMChatClient {
     DeleteConversationRequest request,
   ) {
     return _sdkApplication.getConversationApi().deleteConversation(request);
+  }
+
+  /// searchConversation is used to search a conversation in a chatroom
+  /// [ConversationSearchRequest] is used to pass the required parameters
+  /// [ConversationSearchResponse] is returned as a Future
+
+  Future<LMResponse<ConversationSearchResponse>> searchConversation(
+    ConversationSearchRequest request,
+  ) {
+    return _sdkApplication.getConversationApi().searchConversation(request);
   }
   // ------------------------------------------
 

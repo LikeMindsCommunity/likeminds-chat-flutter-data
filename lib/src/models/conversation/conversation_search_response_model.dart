@@ -1,17 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
-class ConversationSearchResponseModel {
+class ConversationSearchResponse {
   final List<Conversation>? conversations;
   final Map<String, LMWidgetData>? widgets;
 
-  ConversationSearchResponseModel({
+  ConversationSearchResponse({
     required this.conversations,
     required this.widgets,
   });
-  factory ConversationSearchResponseModel.fromEntity(
+  factory ConversationSearchResponse.fromEntity(
       ConversationSearchResponseEntity entity) {
-    return ConversationSearchResponseModel(
+    return ConversationSearchResponse(
       conversations:
           entity.conversations?.map((e) => Conversation.fromEntity(e)).toList(),
       widgets: entity.widgets?.map(

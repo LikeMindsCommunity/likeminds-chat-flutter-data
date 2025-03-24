@@ -1,3 +1,5 @@
+import 'package:likeminds_chat_fl/src/models/conversation/conversation_search_request_model.dart';
+import 'package:likeminds_chat_fl/src/models/conversation/conversation_search_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/conversation_service.dart';
 
@@ -61,6 +63,26 @@ class ConversationRepository {
     return LMResponse.fromData(
       response: responseEntity,
       data: DeleteConversationResponse.fromEntity(
+        responseEntity.data!,
+      ),
+    );
+  }
+
+  Future<LMResponse<ConversationSearchResponse>> searchConversation(
+      ConversationSearchRequest request) async {
+    // Call the service method to get the raw entity
+    LMResponse<ConversationSearchResponseEntity> responseEntity =
+        await conversationService.searchConversation(request);
+
+    // Handle failure
+    if (!responseEntity.success) {
+      return LMResponse.error(errorMessage: responseEntity.errorMessage!);
+    }
+
+    // Convert entity to response model and return
+    return LMResponse.fromData(
+      response: responseEntity,
+      data: ConversationSearchResponse.fromEntity(
         responseEntity.data!,
       ),
     );
