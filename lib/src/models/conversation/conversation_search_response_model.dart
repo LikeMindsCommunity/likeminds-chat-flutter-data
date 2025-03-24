@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 
+part 'conversation_search_response_model.g.dart';
+
 class ConversationSearchResponse {
   final List<Conversation>? conversations;
   final Map<String, LMWidgetData>? widgets;
@@ -37,8 +39,13 @@ class ConversationSearchResponseEntity {
   @JsonKey(name: "widgets")
   final Map<String, LMWidgetDataEntity>? widgets;
 
-  ConversationSearchResponseEntity({
-    this.conversations,
-    this.widgets,
-  });
+  
+  ConversationSearchResponseEntity({required this.conversations,required this.widgets});
+
+    factory ConversationSearchResponseEntity.fromJson(Map<String, dynamic> json) =>
+      _$ConversationSearchResponseEntityFromJson(json);
+
+
+  Map<String, dynamic> toJson() => _$ConversationSearchResponseEntityToJson(this);
+
 }

@@ -169,8 +169,8 @@ class Conversation {
         noPollExpiry: entity.noPollExpiry,
         allowVoteChange: entity.allowVoteChange,
         widgetId: entity.widgetId,
-        chatRoom: ChatRoom.fromEntity(entity.chatroom!),
-        community: Community.fromEntity(entity.community!));
+        chatRoom: entity.chatroom != null? ChatRoom.fromEntity(entity.chatroom!):null,
+        community: entity.community != null? Community.fromEntity(entity.community!):null);
   }
 
   ConversationEntity toEntity() {

@@ -4,14 +4,14 @@ import 'package:json_annotation/json_annotation.dart';
 part 'profile_model.g.dart';
 
 class Profile {
-  final String name;
+  final String? name;
 
   Profile({
     required this.name,
   });
   factory Profile.fromEntity(ProfileEntity entity) {
     return Profile(
-      name: entity.name!,
+      name: entity.name,
     );
   }
   ProfileEntity toEntity() {
