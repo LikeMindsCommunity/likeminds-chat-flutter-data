@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/models/profile/profile_model.dart';
 import 'package:likeminds_chat_fl/src/models/sdk/sdk_client_info_model.dart';
@@ -90,7 +92,9 @@ class User {
         customIntroText: entity.customIntroText,
         memberSinceEpoch: entity.memberSinceEpoch,
         roles: entity.roles,
-        profile: Profile.fromEntity(entity.profile!));
+        profile: entity.profile != null
+            ? Profile.fromEntity(entity.profile!)
+            : null);
   }
 
   UserEntity toEntity() {
@@ -113,7 +117,7 @@ class User {
         customIntroText: customIntroText,
         memberSinceEpoch: memberSinceEpoch,
         roles: roles,
-        profile: profile!.toEntity());
+        profile: profile?.toEntity());
   }
 }
 
