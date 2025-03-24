@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/user/utils/utils.dart';
 
 part 'conversation_model.g.dart';
 
@@ -54,117 +55,122 @@ class Conversation {
   final bool? noPollExpiry;
   final bool? allowVoteChange;
   final String? widgetId;
+  final ChatRoom? chatRoom;
+  final Community? community;
 
-  Conversation({
-    this.allowAddOption,
-    required this.answer,
-    this.apiVersion,
-    this.attachmentCount,
-    this.attachmentsUploaded,
-    this.attachments,
-    this.chatroomId,
-    this.communityId,
-    required this.createdAt,
-    this.createdEpoch,
-    this.date,
-    this.deletedByUserId,
-    this.deviceId,
-    this.endTime,
-    this.expiryTime,
-    this.hasFiles,
-    this.hasReactions,
-    required this.header,
-    required this.id,
-    this.internalLink,
-    this.isAnonymous,
-    this.isEdited,
-    this.lastUpdated,
-    this.location,
-    this.locationLat,
-    this.locationLong,
-    this.multipleSelectNo,
-    this.multipleSelectState,
-    this.ogTags,
-    this.onlineLinkEnableBefore,
-    this.pollAnswerText,
-    this.pollType,
-    this.replyChatroomId,
-    this.replyId,
-    this.startTime,
-    this.state,
-    this.temporaryId,
-    this.memberId,
-    this.toShowResults,
-    this.pollTypeText,
-    this.submitTypeText,
-    this.isTimeStamp,
-    this.member,
-    this.replyConversation,
-    this.replyConversationObject,
-    this.conversationReactions,
-    this.polls,
-    this.noPollExpiry,
-    this.allowVoteChange,
-    this.widgetId,
-  });
+  Conversation(
+      {this.allowAddOption,
+      required this.answer,
+      this.apiVersion,
+      this.attachmentCount,
+      this.attachmentsUploaded,
+      this.attachments,
+      this.chatroomId,
+      this.communityId,
+      required this.createdAt,
+      this.createdEpoch,
+      this.date,
+      this.deletedByUserId,
+      this.deviceId,
+      this.endTime,
+      this.expiryTime,
+      this.hasFiles,
+      this.hasReactions,
+      required this.header,
+      required this.id,
+      this.internalLink,
+      this.isAnonymous,
+      this.isEdited,
+      this.lastUpdated,
+      this.location,
+      this.locationLat,
+      this.locationLong,
+      this.multipleSelectNo,
+      this.multipleSelectState,
+      this.ogTags,
+      this.onlineLinkEnableBefore,
+      this.pollAnswerText,
+      this.pollType,
+      this.replyChatroomId,
+      this.replyId,
+      this.startTime,
+      this.state,
+      this.temporaryId,
+      this.memberId,
+      this.toShowResults,
+      this.pollTypeText,
+      this.submitTypeText,
+      this.isTimeStamp,
+      this.member,
+      this.replyConversation,
+      this.replyConversationObject,
+      this.conversationReactions,
+      this.polls,
+      this.noPollExpiry,
+      this.allowVoteChange,
+      this.widgetId,
+      this.chatRoom,
+      this.community});
 
   factory Conversation.fromEntity(ConversationEntity entity) {
     return Conversation(
-      allowAddOption: entity.allowAddOption,
-      answer: entity.answer,
-      apiVersion: entity.apiVersion,
-      attachmentCount: entity.attachmentCount,
-      attachmentsUploaded: entity.attachmentsUploaded,
-      chatroomId: entity.chatroomId,
-      communityId: entity.communityId,
-      createdAt: entity.createdAt,
-      createdEpoch: entity.createdEpoch,
-      date: entity.date,
-      attachments:
-          entity.attachments?.map((e) => Attachment.fromEntity(e)).toList(),
-      deletedByUserId: entity.deletedByUserId,
-      deviceId: entity.deviceId,
-      endTime: entity.endTime,
-      expiryTime: entity.expiryTime,
-      hasFiles: entity.hasFiles,
-      hasReactions: entity.hasReactions,
-      header: entity.header,
-      id: entity.id,
-      internalLink: entity.internalLink,
-      isAnonymous: entity.isAnonymous,
-      isEdited: entity.isEdited,
-      lastUpdated: entity.lastUpdated,
-      location: entity.location,
-      locationLat: entity.locationLat,
-      locationLong: entity.locationLong,
-      multipleSelectNo: entity.multipleSelectNo,
-      multipleSelectState: entity.multipleSelectState,
-      ogTags: entity.ogTags != null ? OgTags.fromEntity(entity.ogTags!) : null,
-      onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
-      pollAnswerText: entity.pollAnswerText,
-      pollType: entity.pollType,
-      replyChatroomId: entity.replyChatroomId,
-      replyId: entity.replyId,
-      replyConversation: entity.replyConversation,
-      replyConversationObject: entity.replyConversationObject != null
-          ? Conversation.fromEntity(entity.replyConversationObject!)
-          : null,
-      startTime: entity.startTime,
-      state: entity.state,
-      temporaryId: entity.temporaryId,
-      toShowResults: entity.toShowResults,
-      pollTypeText: entity.pollTypeText,
-      submitTypeText: entity.submitTypeText,
-      memberId: entity.memberId,
-      member: entity.member != null ? User.fromEntity(entity.member!) : null,
-      conversationReactions: entity.conversationReactionsEntity
-          ?.map((e) => Reaction.fromEntity(e))
-          .toList(),
-      polls: entity.polls?.map((e) => PollOption.fromEntity(e)).toList(),
-      noPollExpiry: entity.noPollExpiry,
-      allowVoteChange: entity.allowVoteChange,
-      widgetId: entity.widgetId,
-    );
+        allowAddOption: entity.allowAddOption,
+        answer: entity.answer,
+        apiVersion: entity.apiVersion,
+        attachmentCount: entity.attachmentCount,
+        attachmentsUploaded: entity.attachmentsUploaded,
+        chatroomId: entity.chatroomId,
+        communityId: entity.communityId,
+        createdAt: entity.createdAt,
+        createdEpoch: entity.createdEpoch,
+        date: entity.date,
+        attachments:
+            entity.attachments?.map((e) => Attachment.fromEntity(e)).toList(),
+        deletedByUserId: entity.deletedByUserId,
+        deviceId: entity.deviceId,
+        endTime: entity.endTime,
+        expiryTime: entity.expiryTime,
+        hasFiles: entity.hasFiles,
+        hasReactions: entity.hasReactions,
+        header: entity.header,
+        id: entity.id,
+        internalLink: entity.internalLink,
+        isAnonymous: entity.isAnonymous,
+        isEdited: entity.isEdited,
+        lastUpdated: entity.lastUpdated,
+        location: entity.location,
+        locationLat: entity.locationLat,
+        locationLong: entity.locationLong,
+        multipleSelectNo: entity.multipleSelectNo,
+        multipleSelectState: entity.multipleSelectState,
+        ogTags:
+            entity.ogTags != null ? OgTags.fromEntity(entity.ogTags!) : null,
+        onlineLinkEnableBefore: entity.onlineLinkEnableBefore,
+        pollAnswerText: entity.pollAnswerText,
+        pollType: entity.pollType,
+        replyChatroomId: entity.replyChatroomId,
+        replyId: entity.replyId,
+        replyConversation: entity.replyConversation,
+        replyConversationObject: entity.replyConversationObject != null
+            ? Conversation.fromEntity(entity.replyConversationObject!)
+            : null,
+        startTime: entity.startTime,
+        state: entity.state,
+        temporaryId: entity.temporaryId,
+        toShowResults: entity.toShowResults,
+        pollTypeText: entity.pollTypeText,
+        submitTypeText: entity.submitTypeText,
+        memberId: entity.memberId,
+        member: entity.member != null ? User.fromEntity(entity.member!) : null,
+        conversationReactions: entity.conversationReactionsEntity
+            ?.map((e) => Reaction.fromEntity(e))
+            .toList(),
+        polls: entity.polls?.map((e) => PollOption.fromEntity(e)).toList(),
+        noPollExpiry: entity.noPollExpiry,
+        allowVoteChange: entity.allowVoteChange,
+        widgetId: entity.widgetId,
+        chatRoom: ChatRoom.fromEntity(entity.chatroom!),
+        community: Community.fromEntity(entity.community!));
   }
 
   ConversationEntity toEntity() {
@@ -219,6 +225,8 @@ class Conversation {
       noPollExpiry: noPollExpiry,
       allowVoteChange: allowVoteChange,
       widgetId: widgetId,
+      chatroom: chatRoom?.toEntity(),
+      community: community?.toEntity(),
     );
   }
 }
@@ -304,9 +312,16 @@ class ConversationEntity {
   final String? pollTypeText;
   @JsonKey(name: 'submit_type_text')
   final String? submitTypeText;
+  @JsonKey(name: "member")
   final UserEntity? member;
   final List<ReactionEntity>? conversationReactionsEntity;
   final List<PollOptionEntity>? polls;
+
+  @JsonKey(name: "community")
+  final CommunityEntity? community;
+  @JsonKey(name: "chatroom")
+  final ChatRoomEntity? chatroom;
+
   @JsonKey(name: 'no_poll_expiry')
   final bool? noPollExpiry;
   @JsonKey(name: 'allow_vote_change')
@@ -364,6 +379,8 @@ class ConversationEntity {
     this.noPollExpiry,
     this.allowVoteChange,
     this.widgetId,
+    this.chatroom,
+    this.community,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json) =>
