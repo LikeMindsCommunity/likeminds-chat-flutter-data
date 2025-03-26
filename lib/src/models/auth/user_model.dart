@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/models/profile/profile_model.dart';
 import 'package:likeminds_chat_fl/src/models/sdk/sdk_client_info_model.dart';

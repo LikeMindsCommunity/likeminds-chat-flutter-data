@@ -1,6 +1,5 @@
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_chat_fl/src/models/widget/widget_model.dart';
 
 part 'post_conversation_response_model.g.dart';
 
