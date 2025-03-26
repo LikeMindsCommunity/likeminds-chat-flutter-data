@@ -143,25 +143,10 @@ class ConversationService extends IConversationService {
         );
       }
 
-      // Parse conversations and widgets
-      final conversationsJson =
-          response.data['data']['conversations'] as List<dynamic>?;
-      final widgetsJson =
-          response.data['data']['widgets'] as Map<String, dynamic>?;
-
-      final List<ConversationEntity>? conversations = conversationsJson
-          ?.map((json) => ConversationEntity.fromJson(json))
-          .toList();
-      final Map<String, LMWidgetDataEntity>? widgets = widgetsJson?.map(
-          (key, value) => MapEntry(key, LMWidgetDataEntity.fromJson(value)));
-
       return LMResponse.success(
-        data: ConversationSearchResponseEntity(
-          conversations: conversations,
-          widgets: widgets,
-        ),
+        data: ConversationSearchResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stackTrace) {
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
