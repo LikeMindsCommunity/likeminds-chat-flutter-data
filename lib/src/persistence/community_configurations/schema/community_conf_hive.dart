@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'community_conf_hive.g.dart';
 
-@HiveType(typeId: 20)
+@HiveType(typeId: 120)
 class LMChatCommunityConfigurationDB extends HiveObject {
   @HiveField(0)
   String? description;

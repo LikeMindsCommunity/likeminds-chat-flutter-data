@@ -19,14 +19,29 @@ class LMChatUserDBHandler {
 
   Future<LMResponse> initiate() async {
     try {
-      Hive.registerAdapter(LMChatMemberRightSchemaAdapter());
-      Hive.registerAdapter(LMChatMemberStateSchemaAdapter());
-      Hive.registerAdapter(LMChatSDKClientInfoSchemaAdapter());
-      Hive.registerAdapter(LMChatUserSchemaAdapter());
+      final memberRightAdapter = LMChatMemberRightSchemaAdapter();
+      final memberStateAdapter = LMChatMemberStateSchemaAdapter();
+      final sdkClientInfoAdapter = LMChatSDKClientInfoSchemaAdapter();
+      final userSchemaAdapter = LMChatUserSchemaAdapter();
 
-      userBox = await Hive.openBox<LMChatUserSchema>(userBoxName);
-      memberStateBox =
-          await Hive.openBox<LMChatMemberStateSchema>(memberStateBoxName);
+      if (!Hive.isAdapterRegistered(memberRightAdapter.typeId)) {
+        Hive.registerAdapter(memberRightAdapter);
+      }
+      if (!Hive.isAdapterRegistered(memberStateAdapter.typeId)) {
+        Hive.registerAdapter(memberStateAdapter);
+      }
+      if (!Hive.isAdapterRegistered(sdkClientInfoAdapter.typeId)) {
+        Hive.registerAdapter(sdkClientInfoAdapter);
+      }
+      if (!Hive.isAdapterRegistered(userSchemaAdapter.typeId)) {
+        Hive.registerAdapter(userSchemaAdapter);
+      }
+
+      userBox = await Hive.openBox<LMChatUserSchema>(userBoxName,
+          compactionStrategy: (a, b) => false);
+      memberStateBox = await Hive.openBox<LMChatMemberStateSchema>(
+          memberStateBoxName,
+          compactionStrategy: (a, b) => false);
 
       if (userBox.isOpen && memberStateBox.isOpen) {
         return LMResponse(success: true);

@@ -11,8 +11,14 @@ class LMChatCacheDBHandler {
 
   Future<LMResponse<void>> initiate() async {
     try {
-      Hive.registerAdapter(LMChatCacheSchemaAdapter());
-      cacheBox = await Hive.openBox<LMChatCacheSchema>(cacheBoxName);
+      final LMChatCacheSchemaAdapter cacheSchemaAdapter =
+          LMChatCacheSchemaAdapter();
+      if (!Hive.isAdapterRegistered(cacheSchemaAdapter.typeId)) {
+        Hive.registerAdapter(cacheSchemaAdapter);
+      }
+
+      cacheBox = await Hive.openBox<LMChatCacheSchema>(cacheBoxName,
+          compactionStrategy: (a, b) => false);
 
       if (cacheBox.isOpen) {
         return LMResponse.success(data: null);

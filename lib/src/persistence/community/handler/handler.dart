@@ -20,13 +20,29 @@ class LMChatCommunityDBHandler {
   /// [initiate] is a method that initializes the community handler.
   Future<LMResponse<void>> initiate() async {
     try {
-      if (!Hive.isAdapterRegistered(30)) {
-        Hive.registerAdapter(LMChatUserSchemaAdapter());
+      final LMChatUserSchemaAdapter userSchemaAdapter =
+          LMChatUserSchemaAdapter();
+      final LMChatCommunitySchemaAdapter communitySchemaAdapter =
+          LMChatCommunitySchemaAdapter();
+      final LMChatCommunitySettingsRightsSchemaAdapter
+          communitySettingsRightsSchemaAdapter =
+          LMChatCommunitySettingsRightsSchemaAdapter();
+          
+      // Register adapters
+      if (!Hive.isAdapterRegistered(userSchemaAdapter.typeId)) {
+        Hive.registerAdapter(userSchemaAdapter);
       }
-      Hive.registerAdapter(LMChatCommunitySettingsRightsSchemaAdapter());
-      Hive.registerAdapter(LMChatCommunitySchemaAdapter());
-      communityBox =
-          await Hive.openBox<LMChatCommunitySchema>(communityBoxName);
+
+      if (!Hive.isAdapterRegistered(communitySchemaAdapter.typeId)) {
+        Hive.registerAdapter(communitySchemaAdapter);
+      }
+
+      if (!Hive.isAdapterRegistered(
+          communitySettingsRightsSchemaAdapter.typeId)) {
+        Hive.registerAdapter(communitySettingsRightsSchemaAdapter);
+      }
+      communityBox = await Hive.openBox<LMChatCommunitySchema>(communityBoxName,
+          compactionStrategy: (a, b) => false);
       if (communityBox.isOpen) {
         return LMResponse.success(data: null);
       } else {

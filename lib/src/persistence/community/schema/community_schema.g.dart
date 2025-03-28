@@ -9,7 +9,7 @@ part of 'community_schema.dart';
 class LMChatCommunitySettingsRightsSchemaAdapter
     extends TypeAdapter<LMChatCommunitySettingsRightsSchema> {
   @override
-  final int typeId = 21;
+  final int typeId = 121;
 
   @override
   LMChatCommunitySettingsRightsSchema read(BinaryReader reader) {
@@ -58,7 +58,7 @@ class LMChatCommunitySettingsRightsSchemaAdapter
 
 class LMChatCommunitySchemaAdapter extends TypeAdapter<LMChatCommunitySchema> {
   @override
-  final int typeId = 22;
+  final int typeId = 122;
 
   @override
   LMChatCommunitySchema read(BinaryReader reader) {
