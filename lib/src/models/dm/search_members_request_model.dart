@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
+
 class SearchMembersRequest {
   final String search;
   final String searchType;
@@ -24,7 +28,7 @@ class SearchMembersRequest {
       "search": search,
       "search_type": searchType,
       "order_type": orderType,
-      "member_states": memberStates,
+      "member_states": jsonEncode(memberStates),
       "page": page,
       "page_size": pageSize,
       "question_answers_version": questionAnswersVersion,

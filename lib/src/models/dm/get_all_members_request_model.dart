@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
 
 class GetAllMembersRequest {
@@ -6,7 +8,7 @@ class GetAllMembersRequest {
   bool? excludeSelfUser;
   List<UserRole>? filterMemberRoles;
   GetAllMembersRequest._({
-     this.memberState,
+    this.memberState,
     this.page,
     this.excludeSelfUser,
     this.filterMemberRoles,
@@ -16,7 +18,8 @@ class GetAllMembersRequest {
         "member_state": memberState,
         "page": page,
         "exclude_self_user": excludeSelfUser,
-        "filter_member_roles": filterMemberRoles?.map((e) => e.value).toList(),
+        "filter_member_roles":
+            jsonEncode(filterMemberRoles?.map((e) => e.value).toList()),
       };
 }
 

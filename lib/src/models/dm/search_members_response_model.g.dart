@@ -10,7 +10,7 @@ SearchMembersResponseEntity _$SearchMembersResponseEntityFromJson(
         Map<String, dynamic> json) =>
     SearchMembersResponseEntity(
       members: (json['members'] as List<dynamic>?)
-          ?.map((e) => DMSearchMemberEntity.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => UserEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

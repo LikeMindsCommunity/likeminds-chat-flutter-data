@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:likeminds_chat_fl/src/models/dm/dm_search_member_model.dart';
+import 'package:likeminds_chat_fl/src/models/auth/user_model.dart';
 part 'search_members_response_model.g.dart';
 
 class SearchMembersResponse {
-  final List<DMSearchMember>? members;
+  final List<User>? members;
 
   SearchMembersResponse({
     this.members,
@@ -12,7 +12,7 @@ class SearchMembersResponse {
   factory SearchMembersResponse.fromEntity(SearchMembersResponseEntity entity) {
     return SearchMembersResponse(
       members:
-          entity.members?.map((e) => DMSearchMember.fromEntity(e)).toList(),
+          entity.members?.map((e) => User.fromEntity(e)).toList(),
     );
   }
 
@@ -25,7 +25,7 @@ class SearchMembersResponse {
 
 @JsonSerializable()
 class SearchMembersResponseEntity {
-  final List<DMSearchMemberEntity>? members;
+  final List<UserEntity>? members;
 
   SearchMembersResponseEntity({
     this.members,
