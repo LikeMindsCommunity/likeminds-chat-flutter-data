@@ -9,7 +9,7 @@ part of 'user_schema.dart';
 class LMChatSDKClientInfoSchemaAdapter
     extends TypeAdapter<LMChatSDKClientInfoSchema> {
   @override
-  final int typeId = 31;
+  final int typeId = 131;
 
   @override
   LMChatSDKClientInfoSchema read(BinaryReader reader) {
@@ -49,7 +49,7 @@ class LMChatSDKClientInfoSchemaAdapter
 
 class LMChatUserSchemaAdapter extends TypeAdapter<LMChatUserSchema> {
   @override
-  final int typeId = 30;
+  final int typeId = 130;
 
   @override
   LMChatUserSchema read(BinaryReader reader) {
@@ -129,7 +129,7 @@ class LMChatUserSchemaAdapter extends TypeAdapter<LMChatUserSchema> {
 class LMChatMemberRightSchemaAdapter
     extends TypeAdapter<LMChatMemberRightSchema> {
   @override
-  final int typeId = 34;
+  final int typeId = 134;
 
   @override
   LMChatMemberRightSchema read(BinaryReader reader) {
@@ -173,7 +173,7 @@ class LMChatMemberRightSchemaAdapter
 class LMChatMemberStateSchemaAdapter
     extends TypeAdapter<LMChatMemberStateSchema> {
   @override
-  final int typeId = 33;
+  final int typeId = 133;
 
   @override
   LMChatMemberStateSchema read(BinaryReader reader) {

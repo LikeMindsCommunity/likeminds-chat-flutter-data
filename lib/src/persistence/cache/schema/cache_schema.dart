@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'cache_schema.g.dart';
 
-@HiveType(typeId: 10)
+@HiveType(typeId: 110)
 class LMChatCacheSchema extends HiveObject {
   @override
   @HiveField(0)
