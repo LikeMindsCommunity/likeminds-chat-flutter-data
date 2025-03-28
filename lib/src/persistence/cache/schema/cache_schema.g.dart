@@ -8,7 +8,7 @@ part of 'cache_schema.dart';
 
 class LMChatCacheSchemaAdapter extends TypeAdapter<LMChatCacheSchema> {
   @override
-  final int typeId = 10;
+  final int typeId = 110;
 
   @override
   LMChatCacheSchema read(BinaryReader reader) {
