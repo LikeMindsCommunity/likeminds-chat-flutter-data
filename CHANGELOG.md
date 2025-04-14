@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.1
+
+- Fixed box name conflicts with Feed SDK
+
 ## 1.12.0
 
 - Added support for Custom Widget
