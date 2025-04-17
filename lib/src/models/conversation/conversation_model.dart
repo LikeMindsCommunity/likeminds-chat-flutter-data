@@ -54,59 +54,62 @@ class Conversation {
   final bool? noPollExpiry;
   final bool? allowVoteChange;
   final String? widgetId;
+  final ChatRoom? chatRoom;
+  final Community? community;
 
-  Conversation({
-    this.allowAddOption,
-    required this.answer,
-    this.apiVersion,
-    this.attachmentCount,
-    this.attachmentsUploaded,
-    this.attachments,
-    this.chatroomId,
-    this.communityId,
-    required this.createdAt,
-    this.createdEpoch,
-    this.date,
-    this.deletedByUserId,
-    this.deviceId,
-    this.endTime,
-    this.expiryTime,
-    this.hasFiles,
-    this.hasReactions,
-    required this.header,
-    required this.id,
-    this.internalLink,
-    this.isAnonymous,
-    this.isEdited,
-    this.lastUpdated,
-    this.location,
-    this.locationLat,
-    this.locationLong,
-    this.multipleSelectNo,
-    this.multipleSelectState,
-    this.ogTags,
-    this.onlineLinkEnableBefore,
-    this.pollAnswerText,
-    this.pollType,
-    this.replyChatroomId,
-    this.replyId,
-    this.startTime,
-    this.state,
-    this.temporaryId,
-    this.memberId,
-    this.toShowResults,
-    this.pollTypeText,
-    this.submitTypeText,
-    this.isTimeStamp,
-    this.member,
-    this.replyConversation,
-    this.replyConversationObject,
-    this.conversationReactions,
-    this.polls,
-    this.noPollExpiry,
-    this.allowVoteChange,
-    this.widgetId,
-  });
+  Conversation(
+      {this.allowAddOption,
+      required this.answer,
+      this.apiVersion,
+      this.attachmentCount,
+      this.attachmentsUploaded,
+      this.attachments,
+      this.chatroomId,
+      this.communityId,
+      required this.createdAt,
+      this.createdEpoch,
+      this.date,
+      this.deletedByUserId,
+      this.deviceId,
+      this.endTime,
+      this.expiryTime,
+      this.hasFiles,
+      this.hasReactions,
+      required this.header,
+      required this.id,
+      this.internalLink,
+      this.isAnonymous,
+      this.isEdited,
+      this.lastUpdated,
+      this.location,
+      this.locationLat,
+      this.locationLong,
+      this.multipleSelectNo,
+      this.multipleSelectState,
+      this.ogTags,
+      this.onlineLinkEnableBefore,
+      this.pollAnswerText,
+      this.pollType,
+      this.replyChatroomId,
+      this.replyId,
+      this.startTime,
+      this.state,
+      this.temporaryId,
+      this.memberId,
+      this.toShowResults,
+      this.pollTypeText,
+      this.submitTypeText,
+      this.isTimeStamp,
+      this.member,
+      this.replyConversation,
+      this.replyConversationObject,
+      this.conversationReactions,
+      this.polls,
+      this.noPollExpiry,
+      this.allowVoteChange,
+      this.widgetId,
+      this.chatRoom,
+      this.community});
 
   factory Conversation.fromEntity(ConversationEntity entity) {
     return Conversation(
@@ -164,6 +167,12 @@ class Conversation {
       noPollExpiry: entity.noPollExpiry,
       allowVoteChange: entity.allowVoteChange,
       widgetId: entity.widgetId,
+      chatRoom: entity.chatroom != null
+          ? ChatRoom.fromEntity(entity.chatroom!)
+          : null,
+      community: entity.community != null
+          ? Community.fromEntity(entity.community!)
+          : null,
     );
   }
 
@@ -219,6 +228,8 @@ class Conversation {
       noPollExpiry: noPollExpiry,
       allowVoteChange: allowVoteChange,
       widgetId: widgetId,
+      chatroom: chatRoom?.toEntity(),
+      community: community?.toEntity(),
     );
   }
 }
@@ -304,9 +315,16 @@ class ConversationEntity {
   final String? pollTypeText;
   @JsonKey(name: 'submit_type_text')
   final String? submitTypeText;
+  @JsonKey(name: "member")
   final UserEntity? member;
   final List<ReactionEntity>? conversationReactionsEntity;
   final List<PollOptionEntity>? polls;
+
+  @JsonKey(name: "community")
+  final CommunityEntity? community;
+  @JsonKey(name: "chatroom")
+  final ChatRoomEntity? chatroom;
+
   @JsonKey(name: 'no_poll_expiry')
   final bool? noPollExpiry;
   @JsonKey(name: 'allow_vote_change')
@@ -364,6 +382,8 @@ class ConversationEntity {
     this.noPollExpiry,
     this.allowVoteChange,
     this.widgetId,
+    this.chatroom,
+    this.community,
   });
 
   factory ConversationEntity.fromJson(Map<String, dynamic> json) =>

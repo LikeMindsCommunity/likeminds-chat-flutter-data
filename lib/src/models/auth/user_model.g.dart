@@ -30,6 +30,9 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
       roles: (json['roles'] as List<dynamic>?)
           ?.map((e) => UserRole.fromJson(e as String))
           .toList(),
+      profile: json['profile'] == null
+          ? null
+          : ProfileEntity.fromJson(json['profile'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserEntityToJson(UserEntity instance) =>
@@ -52,4 +55,5 @@ Map<String, dynamic> _$UserEntityToJson(UserEntity instance) =>
       'custom_intro_text': instance.customIntroText,
       'member_since_epoch': instance.memberSinceEpoch,
       'roles': instance.roles,
+      'profile': instance.profile,
     };

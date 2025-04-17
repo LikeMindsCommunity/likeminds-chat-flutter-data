@@ -27,6 +27,11 @@ class PollService extends IPollService {
       final response = await apiManager.client().post(
             apiManager.endPoints.conversationEndpoint,
             data: request.toJson(),
+            options: Options(
+              headers: {
+                'x-api-version': 1,
+              },
+            ),
           );
       if (!response.data['success'] || response.data['data'] == null) {
         return LMResponse.error(

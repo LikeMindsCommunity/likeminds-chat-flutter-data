@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 
@@ -11,6 +12,8 @@ abstract class IConversationService {
       EditConversationRequest request);
   Future<LMResponse<DeleteConversationResponseEntity>> deleteConversation(
       DeleteConversationRequest request);
+  Future<LMResponse<ConversationSearchResponseEntity>> searchConversation(
+      ConversationSearchRequest request);
 }
 
 class ConversationService extends IConversationService {
@@ -119,6 +122,31 @@ class ConversationService extends IConversationService {
     } on DioException catch (e) {
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
+      );
+    }
+  }
+
+  @override
+  Future<LMResponse<ConversationSearchResponseEntity>> searchConversation(
+      ConversationSearchRequest request) async {
+    try {
+      final response = await _apiManager.client().get(
+            _apiManager.endPoints.searchConversationEndpoint,
+            queryParameters: request.toJson(),
+          );
+
+      if (!response.data['success'] || response.data['data'] == null) {
+        return LMResponse.error(
+          errorMessage: response.data['error_message'] ?? 'An error occurred',
+        );
+      }
+
+      return LMResponse.success(
+        data: ConversationSearchResponseEntity.fromJson(response.data['data']),
+      );
+    } on DioException catch (e, stackTrace) {
+      return LMResponse.error(
+        errorMessage: e.message ?? 'An error occurred',
       );
     }
   }
