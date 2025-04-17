@@ -1,4 +1,7 @@
 # Changelog
+## 1.13.0
+
+- Added search in chatroom
 
 ## 1.12.1
 
