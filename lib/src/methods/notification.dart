@@ -1,5 +1,4 @@
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
-import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
 
 // ignore: lines_longer_than_80_chars
