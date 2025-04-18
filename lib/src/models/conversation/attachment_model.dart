@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,6 +12,7 @@ class Attachment {
   String? fileUrl;
   String? url;
   File? attachmentFile;
+  Uint8List? attachmentBytes;
   final dynamic height;
   final int? id;
   final int? index;
@@ -29,6 +31,7 @@ class Attachment {
     this.createdAt,
     this.dimensions,
     this.fileUrl,
+    this.attachmentBytes,
     this.height,
     this.id,
     this.index,
