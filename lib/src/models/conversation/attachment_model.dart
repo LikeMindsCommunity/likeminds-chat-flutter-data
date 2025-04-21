@@ -23,6 +23,7 @@ class Attachment {
   final String? name;
   String? thumbnailUrl;
   File? thumbnailFile;
+  Uint8List? thumbnailBytes;
   final String? type;
   final dynamic width;
 
@@ -46,6 +47,7 @@ class Attachment {
     this.url,
     this.attachmentFile,
     this.thumbnailFile,
+    this.thumbnailBytes,
   });
 
   factory Attachment.fromEntity(AttachmentEntity entity) {
