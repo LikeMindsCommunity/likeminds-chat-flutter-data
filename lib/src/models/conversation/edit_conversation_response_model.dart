@@ -21,7 +21,7 @@ class EditConversationResponse {
 
   EditConversationResponseEntity toEntity() {
     return EditConversationResponseEntity(
-      conversation: conversation != null ? conversation!.toEntity() : null,
+      conversation: conversation?.toEntity(),
     );
   }
 }

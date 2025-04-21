@@ -22,17 +22,17 @@ class LMChatPersistence {
   /// [LMChatPersistence] is the private constructor for the [LMChatPersistence] class.
   LMChatPersistence._() {
     userDBHandler = LMChatUserDBHandler(
-      userBoxName: 'userBox',
-      memberStateBoxName: 'memberStateBox',
+      userBoxName: 'lmChatUserBox',
+      memberStateBoxName: 'lmChatMemberStateBox',
     );
     cacheDBHandler = LMChatCacheDBHandler(
-      cacheBoxName: 'cacheBox',
+      cacheBoxName: 'lmChatCacheBox',
     );
     communityDBHandler = LMChatCommunityDBHandler(
-      communityBoxName: 'communityBox',
+      communityBoxName: 'lmChatCommunityBox',
     );
     communityConfigurationDBHandler = LMChatCommunityConfigurationDBHandler(
-      communityConfigBoxName: 'communityConfigurationBox',
+      communityConfigBoxName: 'lmChatCommunityConfigurationBox',
     );
   }
 

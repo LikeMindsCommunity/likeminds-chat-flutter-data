@@ -5,7 +5,7 @@ part 'community_schema.g.dart';
 /// Hive Schema for [CommunitySettingsRights] model
 /// This class is used to store [CommunitySettingsRights] data in local DB
 /// This class is used by [LMChatCommunitySettingsRightsSchemaAdapter] to generate TypeAdapter
-@HiveType(typeId: 21)
+@HiveType(typeId: 121)
 class LMChatCommunitySettingsRightsSchema extends HiveObject {
   @HiveField(0)
   int id;
@@ -33,7 +33,7 @@ class LMChatCommunitySettingsRightsSchema extends HiveObject {
 /// Hive Schema for [Community] model
 /// This class is used to store [Community] data in local DB
 /// This class is used by [LMChatCommunitySchemaAdapter] to generate TypeAdapter
-@HiveType(typeId: 22)
+@HiveType(typeId: 122)
 class LMChatCommunitySchema extends HiveObject {
   @HiveField(0)
   int id;

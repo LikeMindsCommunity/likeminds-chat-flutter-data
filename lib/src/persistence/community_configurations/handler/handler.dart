@@ -12,10 +12,16 @@ class LMChatCommunityConfigurationDBHandler {
 
   Future<LMResponse<void>> initiate() async {
     try {
-      Hive.registerAdapter(LMChatCommunityConfigurationDBAdapter());
+      final LMChatCommunityConfigurationDBAdapter
+          communityConfigurationAdapter =
+          LMChatCommunityConfigurationDBAdapter();
+      if (!Hive.isAdapterRegistered(communityConfigurationAdapter.typeId)) {
+        Hive.registerAdapter(communityConfigurationAdapter);
+      }
 
       communityConfigBox = await Hive.openBox<LMChatCommunityConfigurationDB>(
-          communityConfigBoxName);
+          communityConfigBoxName,
+          compactionStrategy: (a, b) => false);
 
       if (communityConfigBox.isOpen) {
         return LMResponse(success: true);
