@@ -9,7 +9,7 @@ part of 'community_conf_hive.dart';
 class LMChatCommunityConfigurationDBAdapter
     extends TypeAdapter<LMChatCommunityConfigurationDB> {
   @override
-  final int typeId = 20;
+  final int typeId = 120;
 
   @override
   LMChatCommunityConfigurationDB read(BinaryReader reader) {

@@ -27,4 +27,9 @@ class ConversationApi {
       DeleteConversationRequest request) async {
     return await conversationRepository.deleteConversation(request);
   }
+
+  Future<LMResponse<ConversationSearchResponse>> searchConversation(
+      ConversationSearchRequest request) async {
+    return await conversationRepository.searchConversation(request);
+  }
 }

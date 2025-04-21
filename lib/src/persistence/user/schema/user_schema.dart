@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'user_schema.g.dart';
 
-@HiveType(typeId: 31)
+@HiveType(typeId: 131)
 class LMChatSDKClientInfoSchema extends HiveObject {
   @HiveField(0)
   int community;
@@ -20,7 +20,7 @@ class LMChatSDKClientInfoSchema extends HiveObject {
   });
 }
 
-@HiveType(typeId: 30)
+@HiveType(typeId: 130)
 class LMChatUserSchema extends HiveObject {
   @HiveField(0)
   int id;
@@ -90,7 +90,7 @@ class LMChatUserSchema extends HiveObject {
   });
 }
 
-@HiveType(typeId: 34)
+@HiveType(typeId: 134)
 class LMChatMemberRightSchema extends HiveObject {
   @HiveField(0)
   int id;
@@ -112,7 +112,7 @@ class LMChatMemberRightSchema extends HiveObject {
   });
 }
 
-@HiveType(typeId: 33)
+@HiveType(typeId: 133)
 class LMChatMemberStateSchema extends HiveObject {
   @HiveField(0)
   bool editRequired;
