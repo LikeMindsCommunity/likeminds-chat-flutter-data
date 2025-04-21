@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,6 +12,7 @@ class Attachment {
   String? fileUrl;
   String? url;
   File? attachmentFile;
+  Uint8List? attachmentBytes;
   final dynamic height;
   final int? id;
   final int? index;
@@ -21,6 +23,7 @@ class Attachment {
   final String? name;
   String? thumbnailUrl;
   File? thumbnailFile;
+  Uint8List? thumbnailBytes;
   final String? type;
   final dynamic width;
 
@@ -29,6 +32,7 @@ class Attachment {
     this.createdAt,
     this.dimensions,
     this.fileUrl,
+    this.attachmentBytes,
     this.height,
     this.id,
     this.index,
@@ -43,6 +47,7 @@ class Attachment {
     this.url,
     this.attachmentFile,
     this.thumbnailFile,
+    this.thumbnailBytes,
   });
 
   factory Attachment.fromEntity(AttachmentEntity entity) {

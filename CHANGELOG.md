@@ -1,4 +1,9 @@
 # Changelog
+
+## 1.14.0
+
+- Added support for flutter web
+
 ## 1.13.0
 
 - Added search in chatroom
