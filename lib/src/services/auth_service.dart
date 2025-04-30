@@ -215,27 +215,33 @@ class AuthService extends IAuthService {
   @override
   Future<LMResponse<void>> logout(LogoutRequest? request) async {
     try {
-      final response = await apiManager.client().post(
-        apiManager.endPoints.authLogoutEndpoint,
-        data: {
-          "refresh_token":
-              request!.refreshToken ?? apiManager.tokenManager.refreshToken
-        },
-      );
-
-      if (response.data['success'] == false) {
-        return LMResponse.error(
-          errorMessage: response.data['error_message'],
+      // get tokens from token manager
+      final accessToken = apiManager.tokenManager.accessToken;
+      final refreshToken = apiManager.tokenManager.refreshToken;
+      // if tokens are not  null, only then call the logout API
+      // otherwise, return success without calling the API
+      // after clearing the tokens
+      if (accessToken != null &&
+          refreshToken != null &&
+          request?.deviceId != null) {
+        final response = await apiManager.client().post(
+          apiManager.endPoints.authLogoutEndpoint,
+          data: {"refresh_token": refreshToken},
         );
-      }
 
-      request.callback?.logoutCallback();
+        if (response.data['success'] == false) {
+          return LMResponse.error(
+            errorMessage: response.data['error_message'],
+          );
+        }
+      }
       apiManager.tokenManager.clearTokens();
       final localPref = LMChatPersistence.instance;
       await localPref.deleteUser();
       await localPref.deleteCommunity();
       await localPref.deleteMemberState();
       await localPref.clearCache();
+      await localPref.clearCommunityConfigurations();
 
       return LMResponse<void>.success(
         data: null,
