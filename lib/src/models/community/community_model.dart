@@ -42,6 +42,7 @@ class Community {
   final List<CommunitySettingsRights>? communitySettingRights;
   final String? likeMindsPlan;
   final bool? isFreemiumCommunity;
+  final List<CommunitySettings>? communitySettings;
 
   Community({
     required this.id,
@@ -82,6 +83,7 @@ class Community {
     this.communitySettingRights,
     this.likeMindsPlan,
     this.isFreemiumCommunity,
+    this.communitySettings,
   });
 
   factory Community.fromEntity(CommunityEntity entity) {
@@ -128,6 +130,9 @@ class Community {
           .toList(),
       likeMindsPlan: entity.likeMindsPlan,
       isFreemiumCommunity: entity.isFreemiumCommunity,
+      communitySettings: entity.communitySettings
+          ?.map((e) => CommunitySettings.fromEntity(e))
+          .toList(),
     );
   }
 
@@ -180,6 +185,10 @@ class Community {
           .toList(),
       likeMindsPlan: likeMindsPlan,
       isFreemiumCommunity: isFreemiumCommunity,
+      communitySettings: communitySettings
+          ?.map((e) => e.toEntity())
+          .cast<CommunitySettingsEntity>()
+          .toList(),
     );
   }
 }
@@ -283,6 +292,9 @@ class CommunityEntity {
   @JsonKey(name: 'is_freemium_community')
   final bool? isFreemiumCommunity;
 
+  @JsonKey(name: 'community_settings')
+  final List<CommunitySettingsEntity>? communitySettings;
+
   CommunityEntity({
     required this.id,
     required this.name,
@@ -322,6 +334,7 @@ class CommunityEntity {
     this.communitySettingRights,
     this.likeMindsPlan,
     this.isFreemiumCommunity,
+    this.communitySettings,
   });
 
   factory CommunityEntity.fromJson(Map<String, dynamic> json) =>

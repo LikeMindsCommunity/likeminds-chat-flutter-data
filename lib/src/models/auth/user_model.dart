@@ -13,7 +13,7 @@ enum UserRole {
   final String value;
   const UserRole(this.value);
 
-  static UserRole fromJson(String json) {
+  factory UserRole.fromJson(String json) {
     switch (json.toLowerCase()) {
       case 'chatbot':
         return UserRole.chatbot;
@@ -23,6 +23,17 @@ enum UserRole {
         return UserRole.admin;
       default:
         return UserRole.member;
+    }
+  }
+
+  int toIntValue() {
+    switch (this) {
+      case UserRole.admin:
+        return 1;
+      case UserRole.chatbot:
+        return 0;
+      case UserRole.member:
+        return 4;
     }
   }
 }

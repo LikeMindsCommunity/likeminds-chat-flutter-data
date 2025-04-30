@@ -18,6 +18,7 @@ export 'package:likeminds_chat_fl/src/models/community/community_model.dart';
 export 'package:likeminds_chat_fl/src/models/community/community_settings_rights_model.dart';
 export 'package:likeminds_chat_fl/src/models/community/community_configurations_model.dart';
 export 'package:likeminds_chat_fl/src/models/community/get_community_configurations_response_model.dart';
+export 'package:likeminds_chat_fl/src/models/community/community_settings_model.dart';
 
 export 'package:likeminds_chat_fl/src/models/chatroom/chatroom_model.dart';
 
