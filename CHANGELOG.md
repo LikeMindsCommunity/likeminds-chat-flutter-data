@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.15.0
+
+- Changed different screens for DM,Commnity, hybrid
+- Added DM Flow
+- Added notification fix
+
 ## 1.14.0
 
 - Added support for flutter web

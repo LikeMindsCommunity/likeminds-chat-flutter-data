@@ -156,4 +156,7 @@ class LMChatPersistence {
   Future<LMResponse<void>> clearCommunityConfigurations() {
     return communityConfigurationDBHandler.clearCommunityConfigurations();
   }
+
+  /// [clearAll] is a method that clears all the boxes.
+  /// It returns a [LMResponse] with a [void] data type.
 }
