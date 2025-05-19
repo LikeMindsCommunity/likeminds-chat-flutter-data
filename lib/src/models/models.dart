@@ -132,3 +132,4 @@ export 'logger/log.dart';
 export 'logger/push_log_request.dart';
 export 'logger/sdk_meta.dart';
 export 'logger/stack_trace.dart';
+export 'logger/clear_log_request.dart';

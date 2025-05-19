@@ -4,18 +4,20 @@ class LMInitiateLoggerRequest {
   final bool shareLogsWithLM;
   final void Function(Exception, StackTrace) onErrorHandler;
   final LMSeverity logLevel;
+  final String? coreVersion;
 
-  LMInitiateLoggerRequest._({
-    required this.shareLogsWithLM,
-    required this.onErrorHandler,
-    required this.logLevel,
-  });
+  LMInitiateLoggerRequest._(
+      {required this.shareLogsWithLM,
+      required this.onErrorHandler,
+      required this.logLevel,
+      this.coreVersion});
 }
 
 class LMInitiateLoggerRequestBuilder {
   bool? _shareLogsWithLM;
   void Function(Exception, StackTrace)? _onErrorHandler;
   LMSeverity? _logLevel;
+  String? _coreVersion;
 
   void shareLogsWithLM(bool value) {
     _shareLogsWithLM = value;
@@ -27,6 +29,10 @@ class LMInitiateLoggerRequestBuilder {
 
   void logLevel(LMSeverity level) {
     _logLevel = level;
+  }
+
+  void coreVersion(String coreVersion) {
+    _coreVersion = coreVersion;
   }
 
   LMInitiateLoggerRequest build() {
