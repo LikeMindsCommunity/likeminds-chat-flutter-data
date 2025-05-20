@@ -7,6 +7,7 @@ import 'package:likeminds_chat_fl/src/methods/dm.dart';
 import 'package:likeminds_chat_fl/src/methods/explore.dart';
 import 'package:likeminds_chat_fl/src/methods/helper.dart';
 import 'package:likeminds_chat_fl/src/methods/home.dart';
+import 'package:likeminds_chat_fl/src/methods/logger.dart';
 import 'package:likeminds_chat_fl/src/methods/media.dart';
 import 'package:likeminds_chat_fl/src/methods/moderation.dart';
 import 'package:likeminds_chat_fl/src/methods/participants.dart';
@@ -56,6 +57,12 @@ class SDKApplication {
   MediaApi getMediaApi() {
     return MediaApi(
       mediaRepository: LMChatServiceProvider.instance.mediaRepository,
+    );
+  }
+
+  LoggerApi getLoggerApi() {
+    return LoggerApi(
+      loggerRepository: LMChatServiceProvider.instance.loggerRepository,
     );
   }
 

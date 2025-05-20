@@ -25,11 +25,14 @@ class LMChatClient {
   late final SDKApplication _sdkApplication;
   final LMChatSDKCallback _sdkCallback;
   final List<ConversationState>? _excludedConversationStates;
+  final LMInitiateLoggerRequest? _initiateLoggerRequest;
   LMChatClient._({
     required LMChatSDKCallback sdkCallback,
     List<ConversationState>? excludedConversationStates,
+    LMInitiateLoggerRequest? initiateLoggerRequest,
   })  : _excludedConversationStates = excludedConversationStates,
-        _sdkCallback = sdkCallback {
+        _sdkCallback = sdkCallback,
+        _initiateLoggerRequest = initiateLoggerRequest {
     debugPrint("LMChatClient initialized");
     LMChatServiceProvider.instance.init(prodFlag, _sdkCallback);
     _sdkApplication = SDKApplication.instance;
@@ -587,6 +590,23 @@ class LMChatClient {
   ) {
     return _sdkApplication.getChatbotApi().getAIChatbots(request);
   }
+
+  /// Initiates the logger for the LikeMinds Chat SDK.
+  ///
+  /// This method initializes the logger by calling the `initialiseLogger`
+  /// method from the `LMChatPersistence` instance. It uses the
+  /// `_initiateLoggerRequest` to configure the logger.
+  ///
+  /// Returns:
+  /// - A `Future` of type `LMResponse<void>` indicating the success or failure
+  ///   of the logger initialization process.
+  ///
+  /// Developer Notes:
+  /// - Ensure `_initiateLoggerRequest` is properly configured before calling this method.
+  Future<LMResponse<void>> initiateLogger() async {
+    return await LMChatPersistence.instance
+        .initialiseLogger(initiateLoggerRequest: _initiateLoggerRequest);
+  }
 }
 
 /// Builder class to initiate the SDK
@@ -597,6 +617,9 @@ class LMChatClientBuilder {
   LMChatSDKCallback? _sdkCallback;
   List<ConversationState>? _excludedConversationStates;
 
+  /// Request to initiate the logger.
+  LMInitiateLoggerRequest? _initiateLoggerRequest;
+
   void sdkCallback(LMChatSDKCallback? sdkCallback) {
     _sdkCallback = sdkCallback;
   }
@@ -605,10 +628,15 @@ class LMChatClientBuilder {
     _excludedConversationStates = states;
   }
 
+  void initiateLoggerRequest(LMInitiateLoggerRequest initiateLoggerRequest) {
+    _initiateLoggerRequest = initiateLoggerRequest;
+  }
+
   LMChatClient build() {
     return LMChatClient._(
       excludedConversationStates: _excludedConversationStates,
       sdkCallback: _sdkCallback!,
+      initiateLoggerRequest: _initiateLoggerRequest,
     );
   }
 }

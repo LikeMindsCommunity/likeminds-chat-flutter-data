@@ -4,6 +4,7 @@ import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/persistence/cache/handler/handler.dart';
 import 'package:likeminds_chat_fl/src/persistence/community/handler/handler.dart';
 import 'package:likeminds_chat_fl/src/persistence/community_configurations/handler/handler.dart';
+import 'package:likeminds_chat_fl/src/persistence/logger/logger.dart';
 import 'package:likeminds_chat_fl/src/persistence/user/handler/handler.dart';
 
 /// [LMChatPersistence] is a class that provides methods to interact with the
@@ -13,7 +14,7 @@ class LMChatPersistence {
   late LMChatCacheDBHandler cacheDBHandler;
   late LMChatCommunityDBHandler communityDBHandler;
   late LMChatCommunityConfigurationDBHandler communityConfigurationDBHandler;
-
+  late LMChatLogger logger;
   static LMChatPersistence? _instance;
 
   /// [instance] is a getter that returns the singleton instance of the [LMChatPersistence] class.
@@ -34,18 +35,26 @@ class LMChatPersistence {
     communityConfigurationDBHandler = LMChatCommunityConfigurationDBHandler(
       communityConfigBoxName: 'lmChatCommunityConfigurationBox',
     );
+
+    logger = LMChatLogger.instance;
   }
 
   /// [initiate] is a method that initializes the persistence layer.
   /// It returns a [LMResponse] with a [void] data type.
   /// It should be called before any other method of the [LMChatPersistence] class.
-  Future<LMResponse<void>> initiate() async {
+  Future<LMResponse<void>> initiate({LMInitiateLoggerRequest? request}) async {
     await Hive.initFlutter();
     LMResponse<void> userDBInit = await userDBHandler.initiate();
     LMResponse<void> cacheDBInit = await cacheDBHandler.initiate();
     LMResponse<void> communityDBInit = await communityDBHandler.initiate();
     LMResponse<void> communityConfigurationDBInit =
         await communityConfigurationDBHandler.initiate();
+
+    LMResponse? loggerInitResponse;
+    if (request != null) {
+      loggerInitResponse =
+          await initialiseLogger(initiateLoggerRequest: request);
+    }
 
     if (!userDBInit.success) {
       return LMResponse.error(
@@ -157,6 +166,28 @@ class LMChatPersistence {
     return communityConfigurationDBHandler.clearCommunityConfigurations();
   }
 
-  /// [clearAll] is a method that clears all the boxes.
-  /// It returns a [LMResponse] with a [void] data type.
+  /// Checks if the logger has been initialised.
+  bool checkIfLoggerInitialised() {
+    return logger.checkIfLoggerInitialised();
+  }
+
+  /// Initialises the logger with the given request.
+  Future<LMResponse<void>> initialiseLogger(
+      {required LMInitiateLoggerRequest? initiateLoggerRequest}) async {
+    if (initiateLoggerRequest == null) {
+      throw ArgumentError("initiateLoggerRequest cannot be null");
+    }
+    return logger.initialise(initiateLoggerRequest: initiateLoggerRequest);
+  }
+
+  /// Handles exceptions and logs them with the specified severity.
+  void handleException(Exception exception, StackTrace stackTrace,
+      {LMSeverity errorSeverity = LMSeverity.ERROR}) {
+    logger.handleException(exception, stackTrace);
+  }
+
+  /// Flushes all pending logs.
+  Future<void> flushLogs() {
+    return logger.flushLogs();
+  }
 }

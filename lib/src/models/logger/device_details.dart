@@ -29,7 +29,7 @@ class LMDeviceDetailsBuilder {
   int? _screenWidth;
   bool? _wifi;
 
-  void versionOs(String versionOs) {
+  void versionOS(String versionOs) {
     _versionOs = versionOs;
   }
 
