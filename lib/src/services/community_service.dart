@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/community/get_community_configurations_response_model.dart';
 import 'package:likeminds_chat_fl/src/models/lm_response_model.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 abstract class ICommunityService {
   Future<LMResponse<GetCommunityConfigurationsResponseEntity>>
@@ -38,12 +39,11 @@ class CommunityService implements ICommunityService {
       return LMResponse.success(
           data: GetCommunityConfigurationsResponseEntity.fromJson(
               response.data['data']));
-    } on DioException catch (error) {
-      // Handle error
-      debugPrint("Error from get member state access: $error");
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(
-        errorMessage:
-            error.message ?? 'Error in fetching community configurations',
+        errorMessage: e.message ?? 'Error in fetching community configurations',
       );
     }
   }

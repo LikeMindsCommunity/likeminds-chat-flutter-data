@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 abstract class IConversationService {
   Future<LMResponse<GetConversationResponseEntity>> getConversation(
@@ -39,7 +40,8 @@ class ConversationService extends IConversationService {
       return LMResponse.success(
         data: GetConversationResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -69,7 +71,8 @@ class ConversationService extends IConversationService {
       return LMResponse.success(
         data: PostConversationResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
@@ -94,7 +97,8 @@ class ConversationService extends IConversationService {
       return LMResponse.success(
         data: EditConversationResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
@@ -119,7 +123,8 @@ class ConversationService extends IConversationService {
       return LMResponse.success(
         data: DeleteConversationResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );
@@ -144,7 +149,8 @@ class ConversationService extends IConversationService {
       return LMResponse.success(
         data: ConversationSearchResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e, stackTrace) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
