@@ -11,6 +11,20 @@ class LMInitiateLoggerRequest {
       required this.onErrorHandler,
       required this.logLevel,
       this.coreVersion});
+
+  LMInitiateLoggerRequest copyWith({
+    bool? shareLogsWithLM,
+    void Function(Exception, StackTrace)? onErrorHandler,
+    LMSeverity? logLevel,
+    String? coreVersion,
+  }) {
+    return LMInitiateLoggerRequest._(
+      shareLogsWithLM: shareLogsWithLM ?? this.shareLogsWithLM,
+      onErrorHandler: onErrorHandler ?? this.onErrorHandler,
+      logLevel: logLevel ?? this.logLevel,
+      coreVersion: coreVersion ?? this.coreVersion,
+    );
+  }
 }
 
 class LMInitiateLoggerRequestBuilder {
@@ -50,6 +64,7 @@ class LMInitiateLoggerRequestBuilder {
       shareLogsWithLM: _shareLogsWithLM!,
       onErrorHandler: _onErrorHandler!,
       logLevel: _logLevel!,
+      coreVersion: _coreVersion,
     );
   }
 }

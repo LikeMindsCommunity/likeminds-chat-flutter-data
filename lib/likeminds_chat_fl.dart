@@ -36,6 +36,9 @@ class LMChatClient {
     debugPrint("LMChatClient initialized");
     LMChatServiceProvider.instance.init(prodFlag, _sdkCallback);
     _sdkApplication = SDKApplication.instance;
+    if (_initiateLoggerRequest != null) {
+      initiateLogger();
+    }
   }
   // Initializes the DB
   Future<LMResponse<void>> initiateDB() async {
@@ -604,8 +607,20 @@ class LMChatClient {
   /// Developer Notes:
   /// - Ensure `_initiateLoggerRequest` is properly configured before calling this method.
   Future<LMResponse<void>> initiateLogger() async {
-    return await LMChatPersistence.instance
+    return _sdkApplication
+        .getPersistenceApi()
         .initialiseLogger(initiateLoggerRequest: _initiateLoggerRequest);
+  }
+
+  /// Handles exceptions and logs them with the specified severity.
+  void handleException(Exception exception, StackTrace stackTrace,
+      {LMSeverity errorSeverity = LMSeverity.ERROR}) {
+    _sdkApplication.getPersistenceApi().handleException(exception, stackTrace);
+  }
+
+  /// Flushes all pending logs.
+  Future<void> flushLogs() {
+    return _sdkApplication.getPersistenceApi().flushLogs();
   }
 }
 
