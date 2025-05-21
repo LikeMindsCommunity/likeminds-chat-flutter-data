@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/methods/sdk.dart';
 import 'package:likeminds_chat_fl/src/persistence/logger/handler/handler.dart';
@@ -49,6 +50,7 @@ class LMChatLogger {
   // Must be called only once per app lifecycle
   Future<LMResponse<void>> initialise(
       {required LMInitiateLoggerRequest initiateLoggerRequest}) async {
+    await Hive.initFlutter();
     this.initiateLoggerRequest = initiateLoggerRequest;
     // Initialising LogDBHandler with all the neccessary schemas
     logDBHandler = LogDBHandler(loggerBoxName: 'lm_logger');
