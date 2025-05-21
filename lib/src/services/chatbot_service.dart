@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 abstract class IChatbotService {
   Future<LMResponse<GetAIChatbotsResponseEntity>> getAIChatbots(
@@ -30,7 +31,9 @@ class ChatbotService extends IChatbotService {
       return LMResponse.success(
         data: GetAIChatbotsResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );

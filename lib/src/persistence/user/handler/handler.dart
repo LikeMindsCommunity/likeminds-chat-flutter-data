@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 import 'package:likeminds_chat_fl/src/persistence/user/schema/user_schema.dart';
 import 'package:likeminds_chat_fl/src/persistence/user/utils/utils.dart';
 
@@ -48,7 +49,9 @@ class LMChatUserDBHandler {
       } else {
         return LMResponse(success: false, errorMessage: "Failed to open box");
       }
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse(success: false, errorMessage: e.toString());
     }
   }
@@ -60,7 +63,9 @@ class LMChatUserDBHandler {
       final userSchema = user.toUserSchema();
       await userBox.put(userSchema.uuid, userSchema);
       return LMResponse<void>(success: true);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse<void>(
         errorMessage: e.toString(),
         success: false,
@@ -73,7 +78,9 @@ class LMChatUserDBHandler {
     try {
       await userBox.clear();
       return LMResponse<void>(success: true);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse<void>(
         errorMessage: e.toString(),
         success: false,
@@ -91,7 +98,9 @@ class LMChatUserDBHandler {
       }
       final user = userSchemas.first.toUser();
       return LMResponse(success: true, data: user);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse(success: false, errorMessage: e.toString());
     }
   }
@@ -108,7 +117,9 @@ class LMChatUserDBHandler {
       }
       final memberStateResponse = memberStateSchemas.first.toMemberState();
       return LMResponse(success: true, data: memberStateResponse);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse(success: false, errorMessage: e.toString());
     }
   }
@@ -120,7 +131,9 @@ class LMChatUserDBHandler {
       final memberStateSchema = memberStateResponse.toMemberStateSchema();
       await memberStateBox.put(memberStateSchema.uuid, memberStateSchema);
       return LMResponse<void>(success: true);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse<void>(
         errorMessage: e.toString(),
         success: false,
@@ -133,7 +146,9 @@ class LMChatUserDBHandler {
     try {
       await memberStateBox.clear();
       return LMResponse<void>(success: true);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse<void>(
         errorMessage: e.toString(),
         success: false,
@@ -147,7 +162,9 @@ class LMChatUserDBHandler {
       await userBox.close();
       await memberStateBox.close();
       return LMResponse.success(data: null);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(errorMessage: e.toString());
     }
   }
