@@ -19,6 +19,7 @@ dependencies:
   json_serializable: ^6.6.1
   connectivity_plus: ^6.1.4
   device_info_plus: ^10.1.0
+  stack_trace: ^1.11.0
 
 
 dev_dependencies:
