@@ -10,6 +10,7 @@ import 'package:likeminds_chat_fl/src/repositories/dm_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/explore_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/helper_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/home_feed_repository.dart';
+import 'package:likeminds_chat_fl/src/repositories/logger_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/media_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/moderation_repository.dart';
 import 'package:likeminds_chat_fl/src/repositories/participants_repository.dart';
@@ -25,6 +26,7 @@ import 'package:likeminds_chat_fl/src/services/dm_service.dart';
 import 'package:likeminds_chat_fl/src/services/explore_service.dart';
 import 'package:likeminds_chat_fl/src/services/helper_service.dart';
 import 'package:likeminds_chat_fl/src/services/home_feed_service.dart';
+import 'package:likeminds_chat_fl/src/services/logger_service.dart';
 import 'package:likeminds_chat_fl/src/services/media_service.dart';
 import 'package:likeminds_chat_fl/src/services/moderation_service.dart';
 import 'package:likeminds_chat_fl/src/services/notification_service.dart';
@@ -88,6 +90,9 @@ class LMChatServiceProvider {
   late final NotificationService notificationService;
   late final ChatbotRepository chatbotRepository;
   late final CommunityRepository communityRepository;
+
+  late final LoggerRepository loggerRepository;
+  late final LoggerService loggerService;
 
   // Callback instance
   late final LMChatSDKCallback sdkCallback;
@@ -153,5 +158,8 @@ class LMChatServiceProvider {
     communityService = CommunityService(apiManager: apiManager);
     communityRepository =
         CommunityRepository(communityService: communityService);
+
+    loggerService = LoggerService(apiManager: apiManager);
+    loggerRepository = LoggerRepository(loggerService: loggerService);
   }
 }

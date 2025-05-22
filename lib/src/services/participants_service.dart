@@ -3,6 +3,7 @@ import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
 import 'package:likeminds_chat_fl/src/models/participants/get_participants_request_model.dart';
 import 'package:likeminds_chat_fl/src/models/participants/get_participants_response_model.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 class ParticipantsService {
   final ApiManager apiManager;
@@ -26,7 +27,8 @@ class ParticipantsService {
       return LMResponse.success(
         data: GetParticipantsResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );

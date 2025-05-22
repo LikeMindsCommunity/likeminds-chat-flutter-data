@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 abstract class IDMService {
   Future<LMResponse<CheckDMTabResponseEntity>> checkDMTab();
@@ -50,7 +51,8 @@ class DMService extends IDMService {
       CheckDMTabResponseEntity checkDMTabResponse =
           CheckDMTabResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: checkDMTabResponse);
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       debugPrint(e.message);
       return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
@@ -74,8 +76,8 @@ class DMService extends IDMService {
       FetchDMFeedResponseEntity fetchDMFeedResponse =
           FetchDMFeedResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: fetchDMFeedResponse);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -105,8 +107,8 @@ class DMService extends IDMService {
       CheckDMStatusResponseEntity checkDMStatusResponse =
           CheckDMStatusResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: checkDMStatusResponse);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -131,8 +133,8 @@ class DMService extends IDMService {
       GetAllMembersResponseEntity getAllMembersResponseEntity =
           GetAllMembersResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: getAllMembersResponseEntity);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -157,8 +159,8 @@ class DMService extends IDMService {
       SearchMembersResponseEntity searchMembersResponseEntity =
           SearchMembersResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: searchMembersResponseEntity);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -183,8 +185,8 @@ class DMService extends IDMService {
       CheckDMLimitResponseEntity checkDMLimitResponseEntity =
           CheckDMLimitResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: checkDMLimitResponseEntity);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -209,8 +211,8 @@ class DMService extends IDMService {
       CreateDMChatroomResponseEntity createDMChatroomResponseEntity =
           CreateDMChatroomResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: createDMChatroomResponseEntity);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -235,8 +237,8 @@ class DMService extends IDMService {
       SendDMResponseEntity sendDMResponseEntity =
           SendDMResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: sendDMResponseEntity);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -261,8 +263,8 @@ class DMService extends IDMService {
       BlockMemberResponseEntity blockMemberResponseEntity =
           BlockMemberResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: blockMemberResponseEntity);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );

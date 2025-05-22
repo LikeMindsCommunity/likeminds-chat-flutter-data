@@ -77,4 +77,22 @@ class PersistenceRepository {
   Future<LMResponse<void>> clearCommunityConfigurations() async {
     return persistenceService.clearCommunityConfigurations();
   }
+
+  /// Initialises the logger with the given request.
+  Future<LMResponse<void>> initialiseLogger(
+      {required LMInitiateLoggerRequest? initiateLoggerRequest}) async {
+    return persistenceService.initialiseLogger(
+        initiateLoggerRequest: initiateLoggerRequest!);
+  }
+
+  /// Handles exceptions and logs them with the specified severity.
+  void handleException(Exception exception, StackTrace stackTrace,
+      {LMSeverity errorSeverity = LMSeverity.ERROR}) {
+    persistenceService.handleException(exception, stackTrace);
+  }
+
+  /// Flushes all pending logs.
+  Future<void> flushLogs() {
+    return persistenceService.flushLogs();
+  }
 }
