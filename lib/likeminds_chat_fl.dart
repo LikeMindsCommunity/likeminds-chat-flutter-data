@@ -18,7 +18,7 @@ import 'package:likeminds_chat_fl/src/utils/enums.dart';
 /// Flutter flavour/environment manager v0.0.2
 const bool prodFlag = !bool.fromEnvironment('LM_DEBUG_ENV');
 const bool testFlag = bool.fromEnvironment('LM_TEST_ENV');
-const String chatSDKVersion = "1.16.0";
+const String chatSDKVersion = "1.16.1";
 
 /// The starting point class of the SDK
 class LMChatClient {

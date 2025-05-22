@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.16.1
+
+- Fixed missing package
+
 ## 1.16.0
 
 - Added error logging
