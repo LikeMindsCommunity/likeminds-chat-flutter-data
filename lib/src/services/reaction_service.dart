@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 abstract class IReactionService {
   Future<LMResponse<void>> putReaction(PutReactionRequest request);
@@ -29,7 +30,8 @@ class ReactionService extends IReactionService {
                 response.data['error_message'] ?? 'An error occurred');
       }
       return LMResponse.success(data: null);
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       debugPrint(e.message);
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
@@ -51,8 +53,8 @@ class ReactionService extends IReactionService {
                 response.data['error_message'] ?? 'An error occurred');
       }
       return LMResponse.success(data: null);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.response?.data['error_message'] ?? 'An error occurred',
       );

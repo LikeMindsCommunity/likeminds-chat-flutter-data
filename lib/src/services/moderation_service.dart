@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 class ModerationService {
   final ApiManager apiManager;
@@ -26,10 +27,9 @@ class ModerationService {
       GetReportTagResponseEntity getReportTagResponse =
           GetReportTagResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: getReportTagResponse);
-    } on DioException catch (error) {
-      debugPrint(error.message);
-      return LMResponse.error(
-          errorMessage: error.message ?? 'An error occurred');
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 
@@ -52,10 +52,9 @@ class ModerationService {
           data: null,
         );
       });
-    } on DioException catch (error) {
-      debugPrint(error.message);
-      return LMResponse.error(
-          errorMessage: error.message ?? 'An error occurred');
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+      return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
   }
 }

@@ -122,3 +122,14 @@ export 'chatbot/get_ai_chatbots_response_model.dart';
 
 // Widget Models
 export 'widget/widget_model.dart';
+
+//logger models
+export 'logger/device_details.dart';
+export 'logger/get_logs_response.dart';
+export 'logger/initiate_logger_request.dart';
+export 'logger/insert_log_request.dart';
+export 'logger/log.dart';
+export 'logger/push_log_request.dart';
+export 'logger/sdk_meta.dart';
+export 'logger/stack_trace.dart';
+export 'logger/clear_log_request.dart';

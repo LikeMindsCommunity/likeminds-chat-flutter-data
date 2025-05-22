@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 class AccessService {
   final ApiManager apiManager;
@@ -24,7 +25,9 @@ class AccessService {
       return LMResponse<MemberStateResponseEntity>.success(
         data: MemberStateResponseEntity.fromJson(response.data['data']),
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       debugPrint("Error from get member state access: $e");
       return LMResponse<MemberStateResponseEntity>.error(
         errorMessage: e.message ?? 'An error occurred',

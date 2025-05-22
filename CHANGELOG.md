@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.16.0
+
+- Added error logging
+
 ## 1.15.0
 
 - Changed different screens for DM,Commnity, hybrid

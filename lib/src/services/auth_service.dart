@@ -101,7 +101,9 @@ class AuthService extends IAuthService {
             errorMessage:
                 response.data['error_message'] ?? 'An error occurred');
       }
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       debugPrint("Error from initiate user: $e");
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
@@ -161,7 +163,9 @@ class AuthService extends IAuthService {
           errorMessage: response.data['error_message'],
         );
       }
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -200,7 +204,9 @@ class AuthService extends IAuthService {
       return LMResponse.success(
         data: refreshResponse,
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -246,7 +252,9 @@ class AuthService extends IAuthService {
       return LMResponse<void>.success(
         data: null,
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -275,7 +283,9 @@ class AuthService extends IAuthService {
       return LMResponse<void>.success(
         data: null,
       );
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );

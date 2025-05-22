@@ -75,4 +75,7 @@ class EndPoints {
   String get createDMChatroomEndpoint => "$KETTLE_HOST/chatroom/dm/create";
   String get sendDMRequestEndpoint => "$KETTLE_HOST/chatroom/dm/request";
   String get blockMemberEndpoint => "$KETTLE_HOST/chatroom/dm/block";
+
+  /// Endpoint for logging.
+  String get loggerEndpoint => "$KETTLE_HOST/logs";
 }

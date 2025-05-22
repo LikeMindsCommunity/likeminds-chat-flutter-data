@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 abstract class IExploreService {
   Future<LMResponse<GetExploreTabCountResponseEntity>> getExploreTabCount();
@@ -32,7 +33,8 @@ class ExploreService extends IExploreService {
       GetExploreTabCountResponseEntity getExploreTabCountResponse =
           GetExploreTabCountResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: getExploreTabCountResponse);
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       debugPrint(e.message);
       return LMResponse.error(errorMessage: e.message ?? 'An error occurred');
     }
@@ -61,8 +63,8 @@ class ExploreService extends IExploreService {
       GetExploreFeedResponseEntity getExploreFeedResponse =
           GetExploreFeedResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: getExploreFeedResponse);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );

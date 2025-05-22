@@ -94,4 +94,22 @@ class PersistenceApi {
   Future<LMResponse<void>> clearCommunityConfigurationDB() async {
     return persistenceRepository.clearCommunityConfigurations();
   }
+
+  /// Initialises the logger with the given request.
+  Future<LMResponse<void>> initialiseLogger(
+      {required LMInitiateLoggerRequest? initiateLoggerRequest}) async {
+    return persistenceRepository.initialiseLogger(
+        initiateLoggerRequest: initiateLoggerRequest!);
+  }
+
+  /// Handles exceptions and logs them with the specified severity.
+  void handleException(Exception exception, StackTrace stackTrace,
+      {LMSeverity errorSeverity = LMSeverity.ERROR}) {
+    persistenceRepository.handleException(exception, stackTrace);
+  }
+
+  /// Flushes all pending logs.
+  Future<void> flushLogs() {
+    return persistenceRepository.flushLogs();
+  }
 }

@@ -3,6 +3,7 @@ import 'package:likeminds_chat_fl/src/models/community/community_configurations_
 import 'package:likeminds_chat_fl/src/models/lm_response_model.dart';
 import 'package:likeminds_chat_fl/src/persistence/community_configurations/schema/community_conf_hive.dart';
 import 'package:likeminds_chat_fl/src/persistence/community_configurations/utils/utils.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 class LMChatCommunityConfigurationDBHandler {
   final String communityConfigBoxName;
@@ -28,7 +29,9 @@ class LMChatCommunityConfigurationDBHandler {
       } else {
         return LMResponse(success: false, errorMessage: "Failed to open box");
       }
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse(success: false, errorMessage: e.toString());
     }
   }
@@ -47,7 +50,9 @@ class LMChatCommunityConfigurationDBHandler {
       }
 
       return LMResponse<void>(success: true);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse<void>(
         errorMessage: e.toString(),
         success: false,
@@ -67,7 +72,9 @@ class LMChatCommunityConfigurationDBHandler {
       }
       await communityConfigBox.delete(type);
       return LMResponse<void>(success: true);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse<void>(
         errorMessage: e.toString(),
         success: false,
@@ -91,7 +98,9 @@ class LMChatCommunityConfigurationDBHandler {
               queryResult);
 
       return LMResponse(success: true, data: communityConfiguration);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse(
         errorMessage: e.toString(),
         success: false,
@@ -103,7 +112,9 @@ class LMChatCommunityConfigurationDBHandler {
     try {
       await communityConfigBox.clear();
       return LMResponse(success: true);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse(
         errorMessage: e.toString(),
         success: false,

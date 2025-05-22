@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:likeminds_chat_fl/likeminds_chat_fl.dart';
 import 'package:likeminds_chat_fl/src/persistence/community/schema/community_schema.dart';
 import 'package:likeminds_chat_fl/src/persistence/community/utils/utils.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 import 'package:likeminds_chat_fl/src/persistence/user/schema/user_schema.dart';
 
 /// [LMChatCommunityDBHandler] is a class that defines the structure for the community handler.
@@ -27,7 +28,7 @@ class LMChatCommunityDBHandler {
       final LMChatCommunitySettingsRightsSchemaAdapter
           communitySettingsRightsSchemaAdapter =
           LMChatCommunitySettingsRightsSchemaAdapter();
-          
+
       // Register adapters
       if (!Hive.isAdapterRegistered(userSchemaAdapter.typeId)) {
         Hive.registerAdapter(userSchemaAdapter);
@@ -48,7 +49,9 @@ class LMChatCommunityDBHandler {
       } else {
         return LMResponse.error(errorMessage: 'Failed to open box');
       }
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(errorMessage: e.toString());
     }
   }
@@ -59,7 +62,9 @@ class LMChatCommunityDBHandler {
       final communitySchema = community.toCommunitySchema();
       await communityBox.put(communitySchema.id, communitySchema);
       return LMResponse.success(data: null);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(errorMessage: e.toString());
     }
   }
@@ -72,7 +77,9 @@ class LMChatCommunityDBHandler {
         return LMResponse.error(errorMessage: 'Community not found');
       }
       return LMResponse.success(data: communitySchemaList.first.toCommunity());
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(errorMessage: e.toString());
     }
   }
@@ -82,7 +89,9 @@ class LMChatCommunityDBHandler {
     try {
       await communityBox.clear();
       return LMResponse.success(data: null);
-    } on Exception catch (e) {
+    } on Exception catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
+
       return LMResponse.error(errorMessage: e.toString());
     }
   }

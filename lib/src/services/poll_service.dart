@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 
 abstract class IPollService {
   Future<LMResponse<PostConversationResponseEntity>> postPollConversation(
@@ -41,8 +42,8 @@ class PollService extends IPollService {
       PostConversationResponseEntity postConversationResponse =
           PostConversationResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: postConversationResponse);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -66,8 +67,8 @@ class PollService extends IPollService {
       GetPollUsersResponseEntity getPollUsersResponse =
           GetPollUsersResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: getPollUsersResponse);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -90,8 +91,8 @@ class PollService extends IPollService {
       AddPollOptionResponseEntity addPollOptionResponse =
           AddPollOptionResponseEntity.fromJson(response.data['data']);
       return LMResponse.success(data: addPollOptionResponse);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );
@@ -111,8 +112,8 @@ class PollService extends IPollService {
         );
       }
       return LMResponse.success(data: null);
-    } on DioException catch (e) {
-      debugPrint(e.message);
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
       );

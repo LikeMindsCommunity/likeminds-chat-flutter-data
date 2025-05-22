@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:likeminds_chat_fl/src/managers/api/api_manager.dart';
 import 'package:likeminds_chat_fl/src/methods/callback.dart';
 import 'package:likeminds_chat_fl/src/models/models.dart';
+import 'package:likeminds_chat_fl/src/persistence/persistence.dart';
 import 'package:likeminds_chat_fl/src/services/service_provider.dart';
 
 class HelperService {
@@ -27,7 +28,8 @@ class HelperService {
       } else {
         return LMResponse.error(errorMessage: response.data['message']);
       }
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       debugPrint("Error from get tags: $e");
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
@@ -49,7 +51,8 @@ class HelperService {
       } else {
         return LMResponse.error(errorMessage: response.data['message']);
       }
-    } on DioException catch (e) {
+    } on DioException catch (e, stacktrace) {
+      LMChatPersistence.instance.handleException(e, stacktrace);
       debugPrint("Error from get tags: $e");
       return LMResponse.error(
         errorMessage: e.message ?? 'An error occurred',
