@@ -50,6 +50,11 @@ class LMChatClient {
     return _sdkApplication.getAuthApi().initiateUser(request);
   }
 
+  Future<LMResponse<InitiateUserResponse>> initiateUser(
+      InitiateUserRequest request) {
+    return _sdkApplication.getAuthApi().initiateUser(request);
+  }
+
   /// validateUser is used to validate a user session
   /// [ValidateUserRequest] is used to pass the required parameters
   /// [ValidateUserResponse] is returned as a Future
