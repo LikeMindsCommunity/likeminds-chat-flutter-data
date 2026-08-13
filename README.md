@@ -61,3 +61,7 @@ After initializing the `LMChatClient` instance, you can use it to access the dif
 ## Example
 
 You can find a complete example of how to use the package [here](https://github.com/NateshR/LikeMinds-Flutter-GroupChat-MM) within our sample UI package. You can also clone the repo and run the example app on your device.
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
